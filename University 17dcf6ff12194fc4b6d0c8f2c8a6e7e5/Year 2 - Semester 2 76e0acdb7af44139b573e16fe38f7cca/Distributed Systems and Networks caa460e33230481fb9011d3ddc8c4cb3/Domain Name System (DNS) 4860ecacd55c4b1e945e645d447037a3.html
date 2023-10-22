@@ -1,0 +1,676 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Domain Name System (DNS)</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="4860ecac-d55c-4b1e-945e-645d447037a3" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/wifi_brown.svg"/></div><h1 class="page-title">Domain Name System (DNS)</h1><p class="page-description"></p></header><div class="page-body"><nav id="5e92a086-b073-44be-9fed-37ac5b780a39" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c9481bb2-a0da-4a61-ace4-38e072aff70a">Domain Names</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#18a900ab-630a-48a5-ad72-0975df757c5a"><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Looking up data in DNS</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#8ff05519-0fe2-4d04-bace-7b0186fc5392">Examples of DNS record types</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#2486b799-779f-4601-a399-826b0f1235f0">DNS lookup</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a3383994-720d-49e6-b569-affcc40cfa58"><strong>DNS infrastructure</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#99e39842-f71e-41d0-a60a-47c7288dfbe5">Recursive DNS lookup</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#07762835-cb5e-4de1-9ae4-bc5856c76c3b">Caching</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#8b5c426b-7d78-4f84-81d1-d16a89e84a2d">Anycast</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#03838c4a-9fb0-46e0-ac3d-fbb05c3c2748">Public DNS Servers</a></div></nav><p id="d55085d7-f93b-4c8c-80d0-8e0c8899cd50" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Technically found at the application layer!</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><p id="b44c67e0-10bc-45ee-b9ac-e5bdeb335cd8" class=""><span style="border-bottom:0.05em solid">Function: </span>Primarily resolve host names to IP addresses</p><h1 id="c9481bb2-a0da-4a61-ace4-38e072aff70a" class="">Domain Names</h1><p id="848eb6a8-c942-40a0-bb21-9337e7cefe49" class="">Domain names are delegated from the ICANN through the Top Level Domain (TLD) registrars</p><ul id="712e7c54-4850-4166-9b6c-c997efe1afff" class="bulleted-list"><li style="list-style-type:disc">This allows sites and organisations to be delegated the authority to maintain information about the domains they have registered (e.g., the IP address of their public-facing web server)</li></ul><ul id="51aeed9b-bd38-49fe-8c98-c3637c7c39e0" class="bulleted-list"><li style="list-style-type:disc">e.g.,<ul id="7da0c39c-119b-4ba5-bd73-ef16ce74a627" class="bulleted-list"><li style="list-style-type:circle"><a href="http://soton.ac.uk">soton.ac.uk</a> through Nominet (.uk)</li></ul><ul id="7487be17-5ce7-44d5-bd79-2bf1653c3be9" class="bulleted-list"><li style="list-style-type:circle">JISC runs the Janet network (.ac.uk)</li></ul><ul id="ce7a0444-2434-4b44-b167-b12d856139f3" class="bulleted-list"><li style="list-style-type:circle">University runs last bit (soton.ac.uk)</li></ul></li></ul><p id="e375f118-85fe-409e-a978-86062fbab286" class="">Generally operates iteratively</p><ul id="7b7e62a2-4ba2-40e6-8699-69bf5c6fd1cd" class="bulleted-list"><li style="list-style-type:disc">Client doing a query initially talks to root name servers</li></ul><ul id="ef90b2dd-4fa2-486f-9aca-8d2dcd342200" class="bulleted-list"><li style="list-style-type:disc">Then follows the referrals down the hierarchy to the authoritative name server for a domain</li></ul><p id="7365100d-5b05-415d-9121-920d0a28315d" class="">“Zones of authority” are managed by <strong>name servers</strong></p><figure id="e14a74c3-0e6c-45ff-a82d-f63cbdb7bcfb" class="image"><a href="Domain%20Name%20System%20(DNS)%204860ecacd55c4b1e945e645d447037a3/Domain_name_space.svg.png"><img style="width:800px" src="Domain%20Name%20System%20(DNS)%204860ecacd55c4b1e945e645d447037a3/Domain_name_space.svg.png"/></a></figure><h2 id="18a900ab-630a-48a5-ad72-0975df757c5a" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Looking up data in DNS</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></h2><ul id="87252e18-fd0f-478f-868a-6e65629725d1" class="bulleted-list"><li style="list-style-type:disc">Most common DNS lookup is <em><em><em><em><em><em><em><em><em>host name</em></em></em></em></em></em></em></em></em> to<em><em><em><em><em> IP</em></em></em></em></em></li></ul><ul id="661a867c-c0c6-4fe2-81a1-a56b4bdc79f5" class="bulleted-list"><li style="list-style-type:disc">DNS returns an A record(IPv4) or AAAA record (IPv6) when queried for a specific host/domain name</li></ul><p id="731cf348-24c3-4845-a2a9-6b7b803b98d7" class="">This implicitly requires that clients (hosts, and indirectly applications) know the IP addresses of a local DNS server (resolver) they can send queries to:</p><ul id="9604cd60-7f1f-4c52-afff-62b68951637e" class="bulleted-list"><li style="list-style-type:disc">Resolvers are local DNS servers that hosts can send queries to. They “resolve” these queries and send them back - Client hosts are configured to use one or more local DNS resolvers</li></ul><ul id="bdc91475-56af-4cad-8f6c-d40dc73220bc" class="bulleted-list"><li style="list-style-type:disc">May be the ADSL router in a home network</li></ul><ul id="52dfd4d3-9525-47c1-bf60-54b38ac721d5" class="bulleted-list"><li style="list-style-type:disc">Or a DNS server run by iSolutions on the uni campus</li></ul><ul id="6fe0ab73-e539-4a44-8119-ba448ceb9497" class="bulleted-list"><li style="list-style-type:disc">There are also ‘public’ DNS servers</li></ul><h3 id="8ff05519-0fe2-4d04-bace-7b0186fc5392" class="">Examples of DNS record types</h3><figure id="2b2885ab-5f5f-450f-a855-3c7fa1b494d4" class="image"><a href="Domain%20Name%20System%20(DNS)%204860ecacd55c4b1e945e645d447037a3/Untitled_1.png"><img style="width:868px" src="Domain%20Name%20System%20(DNS)%204860ecacd55c4b1e945e645d447037a3/Untitled_1.png"/></a></figure><h3 id="2486b799-779f-4601-a399-826b0f1235f0" class="">DNS lookup</h3><ul id="f628356a-191e-49f0-8158-38f2dc579acd" class="bulleted-list"><li style="list-style-type:disc">Client side is called a DNS resolver</li></ul><ul id="354992be-8dcb-46e5-bca3-f38bff73d3b5" class="bulleted-list"><li style="list-style-type:disc">Queries are usually UDP packets</li></ul><ul id="4b6467db-7395-42f7-b00c-c84c350f309e" class="bulleted-list"><li style="list-style-type:disc">These are sent to name severs until an answer is found</li></ul><ul id="50a7b570-f3d8-4116-91e5-d11378fccc7f" class="bulleted-list"><li style="list-style-type:disc">Resolvers and name servers cache results - and can be started with <em><em><em>hints</em></em></em></li></ul><ul id="9fafb938-4341-46fd-91ec-6c3a11968e73" class="bulleted-list"><li style="list-style-type:disc">Use <code>-dig</code> in terminal: </li></ul><h2 id="a3383994-720d-49e6-b569-affcc40cfa58" class=""><strong>DNS infrastructure</strong></h2><ul id="d92ffea5-281d-410c-a8a0-2a1565bc252b" class="bulleted-list"><li style="list-style-type:disc">A campus will run its own DNS servers<ul id="06b140d3-5e2d-4574-9505-8e2bdd4fbd47" class="bulleted-list"><li style="list-style-type:circle">To act as resolvers for internally sourced queries, either for internal names or external names</li></ul><ul id="48f84029-1561-4436-b3ad-c4601919be2a" class="bulleted-list"><li style="list-style-type:circle">To act as servers for external queries against internal names</li></ul></li></ul><ul id="8f5a5e34-b2a9-4fa1-a64e-ba8a475dd3a4" class="bulleted-list"><li style="list-style-type:disc">How do other systems outside the campus know how to find our DNS servers in order to send queries?<ul id="6ea69fda-5424-4daa-81a1-ed00f7a6ffdc" class="bulleted-list"><li style="list-style-type:circle">Specifically, how can an external DNS resolver find the IP of our campus DNS servers?</li></ul></li></ul><p id="61a2dd2c-90f3-493c-8efe-4c3d5a417386" class="">—&gt; This is where the hierarchy of DNS comes in.</p><ul id="ac061c4c-5f51-4e53-b3a1-fc3b719ec653" class="bulleted-list"><li style="list-style-type:disc">ICANN manages a number of “root” DNS servers.</li></ul><ul id="f4813448-c99d-46ff-b9fa-1aaa3199fbb1" class="bulleted-list"><li style="list-style-type:disc">The root servers know where the DNS servers for each TLD are.<ul id="e3ccc478-017d-4008-8105-392d10a58c1c" class="bulleted-list"><li style="list-style-type:circle">(that is, for .org, .uk, .com, .net etc.)</li></ul></li></ul><ul id="8b35d25d-23fd-4f58-aafa-74bfe0967172" class="bulleted-list"><li style="list-style-type:disc"><em>And so on;</em> each server knows where the name servers for their delegated subdomains are</li></ul><p id="03a7acd1-dc21-4e13-aef9-d2d8b6a9e0aa" class="">A DNS resolver can therefore be configured with IP addresses for the root servers and then choose one from which to iteratively “walk” the hierarchy from the root in order to resolve a lookup.</p><h2 id="99e39842-f71e-41d0-a60a-47c7288dfbe5" class="">Recursive DNS lookup</h2><p id="73c4f26f-4e2f-4c4a-b98f-c29738f720c7" class="">Requests go to a resolver and it it doesn’t know how to resolve a request it will:</p><ul id="9cab932b-256d-4252-a030-5b48052b0139" class="bulleted-list"><li style="list-style-type:disc">First asks a root DNS server (which it already knows the IP of)</li></ul><ul id="7790a636-3218-4e25-b98d-35db6c4dc1d5" class="bulleted-list"><li style="list-style-type:disc">Second, the root will then tell it to try another DNS server lower down in the hierarchy</li></ul><ul id="480d9ec5-01e2-4378-895e-bc6919ea455d" class="bulleted-list"><li style="list-style-type:disc">This continues until the name server it wanted is found</li></ul><figure id="a23c4361-ec63-472f-9bd2-8ae23c94df54" class="image"><a href="Domain%20Name%20System%20(DNS)%204860ecacd55c4b1e945e645d447037a3/Untitled_2.png"><img style="width:925px" src="Domain%20Name%20System%20(DNS)%204860ecacd55c4b1e945e645d447037a3/Untitled_2.png"/></a></figure><h3 id="07762835-cb5e-4de1-9ae4-bc5856c76c3b" class="">Caching</h3><p id="8c0e87c3-fb3a-48ac-aa2e-d0437041bf90" class="">In practice, root servers aren’t contacted much</p><p id="09d15621-a19e-42c9-baf2-c0250bd6bc08" class="">By using a cache, a client can avoid asking external DNS servers too much</p><ul id="2b1b4ac6-5750-42e0-bb4d-0716ae98c4b9" class="bulleted-list"><li style="list-style-type:disc">DNS records typically have a TTL between 1 and 24 hours</li></ul><ul id="ade32771-a3aa-4f20-9822-0973fd34aafd" class="bulleted-list"><li style="list-style-type:disc">There’s a tradeoff between DNS load and info timelines</li></ul><h3 id="8b5c426b-7d78-4f84-81d1-d16a89e84a2d" class="">Anycast</h3><p id="1243d24e-f62b-4046-ade4-4b113600da28" class="">Anycast is an exception to the idea of every device having a unique IP address</p><p id="bdaffeb3-5df7-428c-bdb0-d359b4aa709d" class="">It allows a client to reach the nearest instance of a service </p><ul id="b712bf21-56aa-47ad-ae66-c08fc0fd38d8" class="bulleted-list"><li style="list-style-type:disc">This implies that you can advertise the same IP (or IP block) at multiple points on the internet</li></ul><p id="ef41b797-add0-4a04-82f5-7737eb80b14f" class="">Routers learn of the nearest instance topologically via the routing system</p><ul id="e34f2c93-33af-4f0e-b0d8-523291342d17" class="bulleted-list"><li style="list-style-type:disc">This means you’ll access a different instance depending on where you are</li></ul><h3 id="03838c4a-9fb0-46e0-ac3d-fbb05c3c2748" class="">Public DNS Servers</h3><p id="9250ae22-8e58-425d-b65f-2df7205c2acd" class="">Usually, DNS name servers should only answer external queries for their own internal domains.</p><p id="d750089c-9679-449d-a85d-9d836c20886b" class="">There are some open public servers, though - careful about who’s seeing you make all these requests though...</p><ul id="af9ea520-d9d6-4a8d-ad11-e60c02fcb856" class="bulleted-list"><li style="list-style-type:disc">Google public DNS is 8.8.8.8</li></ul><ul id="3d3b8a04-4624-4bf0-8f70-b267f0f7687b" class="bulleted-list"><li style="list-style-type:disc">Cloudflare is 1.1.1.1 - they make guarantees about privacy.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

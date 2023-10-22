@@ -1,0 +1,705 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Remote Invocation</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="eeb67310-c9e0-4e81-ab01-e96179af6a56" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/eject_gray.svg"/></div><h1 class="page-title">Remote Invocation</h1><p class="page-description"></p></header><div class="page-body"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="d9b466e6-d27a-4a32-970f-d1a88f6034d7"><div style="font-size:1.5em"><span class="icon">📢</span></div><div style="width:100%"><strong>Need to be able to do:</strong><ul id="5e64d33c-939a-48d5-a9c8-324173325a03" class="bulleted-list"><li style="list-style-type:disc">…</li></ul></div></figure><h1 id="8c4c7bd8-6db9-4f30-8fcd-f2ffda3f92cc" class="">Remote Invocation Frameworks:</h1><p id="37eed2f1-1c26-456a-9105-3cb3117e05e0" class="">SunRPC / ONC RPC	(1980s, used in NFS)
+CORBA: object-oriented middleware, popular in the 1990s
+Microsoft’s DCOM and JavaRMI
+SOAP / XML-RPC: RPC using XML over HTTP (1998-)
+Thrift (Facebook, 2007)
+gRPC (Google, 2015)
+REST (often with JSON)
+Ajax in web browsers</p><h1 id="8f1f9832-2db2-46d2-9b8f-30d8e45f1711" class="">Request-Reply protocols</h1><div id="c9c7a999-a923-4324-a2fd-f221453b8283" class="column-list"><div id="0ff2e8d3-ad47-4b1e-b7f4-f04b0383e695" style="width:56.25%" class="column"><figure id="52a8d87a-ace6-48b7-ac34-c45db41cdb24" class="image"><a href="Remote%20Invocation%20eeb67310c9e04e81ab01e96179af6a56/Screenshot_2023-05-16_at_17.34.42.png"><img style="width:576px" src="Remote%20Invocation%20eeb67310c9e04e81ab01e96179af6a56/Screenshot_2023-05-16_at_17.34.42.png"/></a></figure></div><div id="cf100c36-ac10-49d9-be81-c3819097c6a1" style="width:43.75%" class="column"><p id="88e7fef1-2846-4872-a585-c30c324f0ad4" class="">Message exchange between a client and server</p><p id="a731e402-24db-4630-bd42-d24a67f48cb3" class="">Communication is synchronous</p><p id="e3f5af16-d0d8-4ce1-bc10-cc208722a1c5" class="">Communication can be reliable</p><p id="faa698eb-d16b-473d-9381-aebfa71831ff" class="">Can be implemented using UDP</p><ul id="efa4595a-296e-4d84-b169-233db40824f1" class="bulleted-list"><li style="list-style-type:disc">This limits the overhead of establishing a connection and flow control is not required</li></ul></div></div><ul id="62a35985-a021-43c5-af24-470182b78933" class="bulleted-list"><li style="list-style-type:disc">Request reply protocol fails with<ul id="faa77f5f-83ea-4bc5-8ce5-cd944183d3d6" class="bulleted-list"><li style="list-style-type:circle">Process crashes</li></ul><ul id="25f2920e-1d46-40e8-9d3c-ce5dac1c0034" class="bulleted-list"><li style="list-style-type:circle">Channel omission failures</li></ul><ul id="01e85577-8487-4542-9435-c849b48ca813" class="bulleted-list"><li style="list-style-type:circle">Message out of order</li></ul></li></ul><ul id="d58b522b-29bc-414c-85ba-f7869d25c523" class="bulleted-list"><li style="list-style-type:disc">Timeouts are necessary<ul id="1bf80c11-1b90-454f-aa0c-ee86e021f9ba" class="bulleted-list"><li style="list-style-type:circle">Can return an error or exception to the client program</li></ul><ul id="7dbce5e0-0b12-434e-bde1-1553b7991b6e" class="bulleted-list"><li style="list-style-type:circle">or trigger a retransmission of the request message</li></ul></li></ul><p id="6f6ae334-ec7c-405e-9946-8438e81b699e" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>(example of a </em></em></em></em></em></em></em></em></em></em></em></em></em></em></em><strong><strong><strong><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>do </em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></strong></strong></strong><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>operation could be: charge £14.90 to card XXXX…)</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></p><ul id="a2bad3ad-443d-40b1-86a1-1ecda71fcd15" class="bulleted-list"><li style="list-style-type:disc">Identifiers are used to identify both messages and senders</li></ul><ul id="0d10bcc1-6168-4e87-bb52-80d8a7d7c86f" class="bulleted-list"><li style="list-style-type:disc">Duplicate request messages can be discarded to avoid serving the same request more than once</li></ul><ul id="faa334e0-53e5-432a-8254-aa1b2dcaa281" class="bulleted-list"><li style="list-style-type:disc">If a duplicate request message is received after a reply has already been sent then the server should redo the operation<ul id="83c1ac0c-f9df-4771-a1ba-e3726e74fe16" class="bulleted-list"><li style="list-style-type:circle">May only be possible for some operations such as those that are idempotent</li></ul></li></ul><ul id="ebc117cb-e8b0-4b3d-8a5e-a36bc0cea25a" class="bulleted-list"><li style="list-style-type:disc">Server could also maintain a history of <strong>replies</strong> but this has a memory overhead</li></ul><h2 id="8539add3-5113-4b7a-b1b3-e25e6ac5aaaf" class="">Request Styles</h2><p id="b733118f-7961-4840-b41c-b30f867bbd84" class="">Request (R) protocol – used when no reply expected</p><p id="c64e3b1f-e051-4825-b6f5-9f7c8bc6548b" class="">Request-reply (RR) protocol</p><p id="b4643836-d9e2-4a84-9913-9592c810d641" class="">Request-reply-acknowledge (RRA) protocol</p><figure id="df4cefd2-9ed1-4dcc-87e6-5e0f5a9fca1a" class="image"><a href="Remote%20Invocation%20eeb67310c9e04e81ab01e96179af6a56/Screenshot_2023-05-16_at_17.38.32.png"><img style="width:1188px" src="Remote%20Invocation%20eeb67310c9e04e81ab01e96179af6a56/Screenshot_2023-05-16_at_17.38.32.png"/></a></figure><h1 id="c7d517f4-2188-4a7f-b03c-12cb4cfc9410" class="">Remote Procedure Call</h1><blockquote id="3e1433f6-558e-4ecb-bedf-3e405714a73e" class="">“<em>Remote Procedure Call (RPC) is a protocol that provides the high-level communications paradigm used in the operating system. RPC presumes the existence of a low-level transport protocol, such as Transmission Control Protocol/Internet Protocol (TCP/IP) or User Datagram Protocol (UDP), for carrying the message data between communicating programs. RPC implements a logical client-to-server communications system designed specifically for the support of network application.</em>” - IBM</blockquote><h2 id="83faca15-44cd-429a-8cb7-74ce477442d9" class="">Architecture</h2><p id="121160ab-fcd4-445a-ad65-93922a39b9d7" class="">An RPC Client calls a local stub procedure which has the same signature as the desired procedure call</p><p id="4940594c-8646-4f74-99a1-0345b07b2847" class="">The stub assembles the required parameters and passes them to the RPC Client runtime</p><p id="b71a5196-3222-4f76-b656-3ab5fc93cf7a" class="">The client runtime uses the transport layer to communicate with the server process</p><p id="0a8c3e65-6b93-43db-aa3d-9e6e3d705963" class="">Steps happen in reverse until the Server Application</p><figure id="245a83a5-4834-4dea-9962-aeac4dfb401b" class="image"><a href="Remote%20Invocation%20eeb67310c9e04e81ab01e96179af6a56/Screenshot_2023-05-16_at_17.39.23.png"><img style="width:432px" src="Remote%20Invocation%20eeb67310c9e04e81ab01e96179af6a56/Screenshot_2023-05-16_at_17.39.23.png"/></a></figure><h2 id="75825ea8-926d-4eb3-9f44-0a516aec8ccf" class="">Transparency</h2><p id="e3082239-f26a-483e-9650-47e9caddef20" class="">RPC aims to make remote procedure calls as much like local procedure calls as possible</p><p id="a66f36a4-3038-438e-af2b-8379fea87594" class="">There should be no difference in syntax between local and remote <strong><strong><strong><strong>but:</strong></strong></strong></strong></p><ul id="75a069e2-57aa-4d0b-a526-15252181464a" class="bulleted-list"><li style="list-style-type:disc">RPC are more vulnerable to failures than local ones</li></ul><ul id="f9c27253-9fde-4722-85aa-c1222e491db2" class="bulleted-list"><li style="list-style-type:disc">Latency is several orders of magnitudes bigger than local calls</li></ul><ul id="fab974f7-461d-4c8f-a8af-7442b81355ff" class="bulleted-list"><li style="list-style-type:disc">RPC can not support call-by-reference</li></ul><h2 id="0fa603d7-8804-4d8b-93a3-86251c2e7928" class="">Online Store Example</h2><figure id="2ac8bf42-115b-426c-adbc-8d1616b3fa94" class="image"><a href="Remote%20Invocation%20eeb67310c9e04e81ab01e96179af6a56/Screenshot_2023-05-16_at_17.40.44.png"><img style="width:1160px" src="Remote%20Invocation%20eeb67310c9e04e81ab01e96179af6a56/Screenshot_2023-05-16_at_17.40.44.png"/></a></figure><h2 id="e9e9caeb-b1a4-480b-9a18-24da10b71087" class="">RPC: Call Semantics</h2><p id="85e7ff0e-7151-465f-b938-17874127ed80" class=""><strong>Maybe</strong>: no fault-tolerance</p><ul id="cb449d4a-a945-4317-9c44-4a14cc5c5d9e" class="bulleted-list"><li style="list-style-type:disc">Omission failures occur if request or reply messages are lost</li></ul><ul id="e58cb274-9924-4647-802f-8b27891e488c" class="bulleted-list"><li style="list-style-type:disc">Crash failures when the server fails</li></ul><p id="1d170608-5027-4fef-8d2f-0d06a2b0f42f" class=""><strong>At-least-once</strong>: retransmit request messages</p><ul id="adc90dae-601f-4bfc-8feb-7c8f64905bbc" class="bulleted-list"><li style="list-style-type:disc">Crash failures occur when the server fails</li></ul><ul id="8b71801f-9d00-46f6-9af0-65a37d8be615" class="bulleted-list"><li style="list-style-type:disc">Arbitrary failures occur when a request is resent and causes the server to execute the procedure more than once</li></ul><p id="6055274a-61e4-4569-8801-3678667ff1a4" class=""><strong>At-most-once</strong>: retransmit request messages, filter duplicates,  retransmit replies</p><ul id="eee6a995-0b44-47b1-a88a-595768437207" class="bulleted-list"><li style="list-style-type:disc">Crash failures when the server fails</li></ul><ul id="b6432f74-6634-482f-b0c3-275e6ec39c47" class="bulleted-list"><li style="list-style-type:disc">For local procedure calls the call semantics are <strong>exactly-once</strong></li></ul><ul id="2e33471c-8b8c-44b9-acd9-f452f5940716" class="bulleted-list"><li style="list-style-type:disc">Local procedures are executed exactly once per call</li></ul><h2 id="43ed7949-b257-4564-8193-066b37b44dcf" class="">RPC: Interfaces</h2><p id="8b797ae8-2983-436b-8621-d3458613ac9c" class="">An interface is a specification of the procedures offered by a server</p><p id="66a07999-1a22-49bf-8dcf-3daa4d2d6ca9" class="">There is a clear separation between the interface and the implementation</p><p id="efaa9a76-14d7-401f-9f15-af42d0560f47" class="">Clients cannot directly access the variables of the server module</p><p id="ce56135b-e2f2-4858-a43f-265877eab13e" class="">Addresses can not be used as inputs or outputs of remote calls</p><p id="6830813e-353d-4df9-bad4-01503f68b39d" class="">Necessary to consider how parameter-passing mechanism works:</p><ul id="5c6dda32-0242-400a-99a1-cf7ba0986782" class="bulleted-list"><li style="list-style-type:disc">call-by-value</li></ul><ul id="596515a1-cd2f-4273-a34e-db32b4e8892b" class="bulleted-list"><li style="list-style-type:disc">call-by-reference</li></ul><p id="afc7a895-8140-4203-a5e1-c51939f988ff" class="">Interfaces are usually specified in an Interface Definition Language</p><h2 id="7429b12b-ac67-4845-b6ac-d151458e2bfe" class="">Interface Definition Language</h2><p id="de1b68da-c30a-4022-b85e-a463aa810775" class="">Describe an interface in a language-independent way</p><p id="ee9340e6-b28d-4df7-bf50-122247e9f3f8" class="">Enables communication between software components<div class="indented"><p id="7a398a5d-fd63-41dc-a9f6-2d85470b3d48" class="">→ May not be the same programming language</p></div></p><p id="1ff5e3b4-bb27-4ff3-9a04-55f288806c5b" class="">Defines structures and types</p><p id="9fba7678-1aaa-46d3-ad4c-a2c168f8e38e" class="">May also define procedures / functions / methods</p><p id="85403cf3-5df6-4530-8fda-4f62eb7d6a8a" class="">IDLs can be used to generate code for stub code</p><p id="ffbf263b-618c-4d82-a58f-53e3f2a6f0b8" class=""><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong>IDL Example:</strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></p><pre id="f77efa22-b994-4f69-a457-b17622737e07" class="code"><code>message Card {
+	  required string cardNumber = 1;
+	  required Timestamp expiry  = 2;
+	  required int32 CVC         = 3;
+	}
+
+	enum Currency { GBP = 1; USD = 2; }
+
+	message Charge {
+	  required Card card         = 1;
+	  required int64 amount      = 2;
+	  required Currency currency = 3;
+	}
+
+	message Status {
+	  required bool status         = 1;
+	  optional string errorMessage = 2;
+	}
+
+	service PaymentService {
+	  rpc processPayment(Charge) returns Status {}
+	}</code></pre><h2 id="ff78dc1e-bc64-4df4-b972-42c2c62fb11d" class="">Example: Sun RPC</h2><p id="c4234948-3313-4988-8e27-954031b0d958" class="">RPC from Sun Microsystems from 1980s</p><p id="343de5fc-df69-4bf0-9da3-26c142cfb130" class="">Implemented over UDP but could also run over TCP</p><p id="8d5e901b-ad00-49d4-8e74-ed58df35db5e" class="">Designed for Sun’s Network File System</p><ul id="ce1b8cea-43ee-48e0-b3c7-fd3ca5a7967f" class="bulleted-list"><li style="list-style-type:disc">A file system that enabled access to files on a remote file server</li></ul><ul id="19b52f13-edf8-4228-9918-416e0e73b6a6" class="bulleted-list"><li style="list-style-type:disc">Mapped filesystem operations to remote procedure calls</li></ul><p id="9c1f965a-569d-487f-8825-0047d6594294" class="">Used <strong>at-least-once</strong> semantics</p><p id="e21e8a56-bea5-4ee9-979f-92a1a7b57377" class="">Used an interface description language called XDR</p><p id="4a2412fb-4ce1-47a7-8726-f8f66424e36f" class=""><em>rpcgen</em> tool generated C code from XDR definitions</p><ul id="bcad24ac-ce42-4658-b4aa-8a748481509c" class="bulleted-list"><li style="list-style-type:disc">generated client stub procedures</li></ul><ul id="6eace96c-1681-4c05-ac69-41a0d4ce4198" class="bulleted-list"><li style="list-style-type:disc">server main procedure, dispatcher and server stub procedures</li></ul><ul id="6d75feca-9ecb-4058-b802-cdcc0aa6e514" class="bulleted-list"><li style="list-style-type:disc">marshalling and unmarshalling procedures for data structures</li></ul><p id="7443342c-c719-4427-97d8-d4d0df28456a" class=""><em>client and server stubs are used to convert and pass parameters</em></p><p id="85771e25-83fe-4724-ba3a-f87cbf65872a" class="">Each server runs a binding service called <em>portmapper</em></p><ul id="1b0be16d-a90c-40f2-ba8c-62e425bbf734" class="bulleted-list"><li style="list-style-type:disc">maintains list of local RPC services based on program number and version number</li></ul><ul id="0e3abd26-f411-48d7-b9ad-6d695ca3dc6d" class="bulleted-list"><li style="list-style-type:disc">services register program+version with the <em>portmapper</em></li></ul><ul id="ed52d350-b330-473c-be0b-7ff3fd2c25b3" class="bulleted-list"><li style="list-style-type:disc">clients contact <em>portmapper</em> specifying which program+version they wish to locate</li></ul><h1 id="58284937-a094-491c-9a7d-d706def4e2b7" class="">Remote Method Invocation</h1><p id="58d1987d-fd91-4e17-87cd-771c13ea470b" class="">RMI is the Object-oriented equivalent of RPC</p><p id="53993184-7ca5-48e0-8b89-b98fb8764e0a" class="">A client calls a method on a remote object as if it were local</p><p id="40acb4a0-750b-4143-a736-59ea70f62cc4" class="">Both RPC and RMI</p><ul id="07ce7e82-6cbe-4e60-90e9-7bdc8ed6a96e" class="bulleted-list"><li style="list-style-type:disc">use interfaces</li></ul><ul id="183fae92-6ba2-433d-befa-5342bcb1cf67" class="bulleted-list"><li style="list-style-type:disc">are built on request-reply protocols</li></ul><ul id="cb6f8767-36ac-4d74-aadb-0f10a1612ba2" class="bulleted-list"><li style="list-style-type:disc">provide transparent calling</li></ul><p id="950fcd50-f2ab-46f2-b2f6-ac870fd3e5f0" class="">In addition, RMI</p><ul id="874a5aa3-6ef8-458d-83d6-35801cfe6528" class="bulleted-list"><li style="list-style-type:disc">Enables the full use of object-oriented programming</li></ul><ul id="3a7e340f-b049-4d47-820b-69829e848f27" class="bulleted-list"><li style="list-style-type:disc">Objects can be used as parameters to method calls and maybe returned from those calls</li></ul><h2 id="b44389e8-027c-4bae-b8c7-e5412bb2d26f" class="">RMI Distributed Object Model</h2><p id="2b3845e2-5267-415e-bd89-8df834e6ddc6" class=""><strong>Remote object references</strong> are used to identify remote objects</p><ul id="8f6d72c6-1d52-46e5-85d2-796a0550e73c" class="bulleted-list"><li style="list-style-type:disc">They can be passed as arguments</li></ul><ul id="85b05a31-1b6b-463d-ba0a-f9b43daeabe1" class="bulleted-list"><li style="list-style-type:disc">They can be returned as results from remote method invocations</li></ul><h2 id="820534ce-8eff-48ba-afe9-627cc4aad835" class="">RMI Remote and Local Invocation</h2><p id="e791b281-da3a-4429-a8ce-29209948c93f" class="">The state of the invoked object (B) may change</p><p id="cd6c48a9-ea7a-47b7-ae55-664f78279e6b" class="">The invoked object may itself invoke other methods (BC, CE)</p><ul id="641fa172-0493-4a0e-8038-57281d6a0802" class="bulleted-list"><li style="list-style-type:disc">if the invocation crosses the boundary of the process then RMI is used (EF)</li></ul><figure id="9b7f5f9d-0881-4f7b-af49-620fb22431da" class="image"><a href="Remote%20Invocation%20eeb67310c9e04e81ab01e96179af6a56/Screenshot_2023-05-16_at_17.47.14.png"><img style="width:768px" src="Remote%20Invocation%20eeb67310c9e04e81ab01e96179af6a56/Screenshot_2023-05-16_at_17.47.14.png"/></a></figure><h2 id="9255ed04-0f71-4793-adc1-4619a1a41975" class="">RMI Object Instantiation</h2><p id="05ef285f-f24d-4f6a-a53f-1bcb52702b93" class="">A remote method invocation may instantiate a new object (M, N)</p><p id="2c8c28f1-d119-46c2-8218-c655c3925a42" class="">The new object would be instantiated in the process where the invocation occurred</p><p id="90404e3d-e11d-43f6-b0bc-7e89afe00042" class="">If the new object has a remote interface then a remote object reference will also be created</p><figure id="acc93569-f3c7-49d7-a5dd-06948bb3f8ac" class="image"><a href="Remote%20Invocation%20eeb67310c9e04e81ab01e96179af6a56/Screenshot_2023-05-16_at_17.47.19.png"><img style="width:792px" src="Remote%20Invocation%20eeb67310c9e04e81ab01e96179af6a56/Screenshot_2023-05-16_at_17.47.19.png"/></a></figure><h2 id="f8ca755d-e0a7-4ccd-963b-8200ed430f40" class="">Garbage Collection:</h2><ul id="340915aa-9cd5-42a8-a7a5-f47840e65b59" class="bulleted-list"><li style="list-style-type:disc">If the language has <strong>garbage collection</strong>, then a distributed object needs to coordinate with the garbage collector to ensure its lifecycle is handled correctly</li></ul><ul id="3b2544e8-aa75-4deb-af3d-1e5d483883f4" class="bulleted-list"><li style="list-style-type:disc">A module implementing distributed garbage collection is needed</li></ul><ul id="fc0ac7ee-7700-41fd-91e7-476a8384df91" class="bulleted-list"><li style="list-style-type:disc">This is usually based on <strong>reference counting</strong></li></ul><ul id="94a5fd86-fcc8-460b-89ff-94669ed02ad4" class="bulleted-list"><li style="list-style-type:disc">When a remote object reference is created and sent to a different process, the reference count is incremented</li></ul><ul id="f5419367-7750-4a16-89ec-582cef5cb67c" class="bulleted-list"><li style="list-style-type:disc">When the remote object reference is no longer needed by the remote process, the reference count is decremented</li></ul><h2 id="ff16b744-7444-46f3-8803-b1f4a05dead2" class="">Exceptions:</h2><p id="84d381a9-d987-40ba-bd49-34c9fb6264bf" class=""><strong>Exceptions</strong> raised by remote method invocation need to be exposed to the caller</p><p id="e4a4fc02-220b-479f-822b-9c85969f7f0a" class="">Exceptions can also be raised due to the remote nature of the object<div class="indented"><p id="832ce87e-a73f-4da0-9c29-8a28456a2d22" class="">→ the process containing the remote object may have crashed</p><p id="6071a951-97ab-4949-9a33-9ac406e1c6d6" class="">→ the request or reply message may be lost</p></div></p><h2 id="bcb6ce1a-448f-4fc5-856e-c5921f250e52" class="">JAVA RMI:</h2><p id="b44e92f7-7156-449b-a911-6356ab296f59" class="">Extended Java Object Model to support distributed objects</p><p id="2a32f40d-d3d3-4afb-a9d9-d4eee2877f75" class="">It implements <strong>at-most-once</strong> call semantics</p><p id="6c6f436a-f575-475c-85f9-9e9c73076e4c" class="">Objects making remote calls must handle <em>RemoteExceptions</em></p><p id="9a12654b-7b44-438b-b5d7-dc43b5042fee" class="">Remote objects must implement the <em>Remote</em> interface</p><p id="1965dbd9-0a2f-489b-9781-c799f7e68b99" class="">Single language system so no need for IDL<div class="indented"><p id="2ef0b71e-e364-4b1e-8e8c-bb1485341af8" class="">→ Remote interfaces are defined in Java</p><p id="669ba7b2-08e8-4d25-be6e-70249893478b" class="">→ Makes use of Java serialization</p></div></p><p id="5776f9d0-33cc-40a9-9f40-6d860f84aca9" class="">
+</p><p id="47f0b151-60ef-41f1-9590-1734d0a485ac" class=""><span style="border-bottom:0.05em solid"><strong>Parameter and result passing</strong></span></p><p id="19516f1b-17e9-4b87-93cc-81a0580a63c3" class="">Any object that is serializable can be passed as an argument or result</p><p id="44d0e49d-fa69-4067-8fde-777df7d2dbb4" class="">If an object implements the remote interface it is considered a <em>remote object</em></p><p id="de586f92-512e-4e2e-a54a-f48324ab6199" class=""><em>remote objects</em> are passed as remote object references</p><p id="482cfbe3-60a4-4edf-8ac1-beec3253c99d" class=""><em>non-remote objects </em>are copied and passed by value<div class="indented"><p id="967ce3f3-6233-434b-a2bf-2c8c0cc5a799" class="">→ new objects are created on remote server</p><p id="5c713fe4-ef5d-40be-a6a1-070290e7b952" class="">→ any methods on those objects that modify state will cause state to differ from the state of the original object</p></div></p><p id="8872513b-3149-43e6-bdb8-bf8ef4d512ee" class="">Java is designed to allow downloading of classes<div class="indented"><p id="92e3d01b-b751-4f9d-8af3-dc0d540af4db" class="">→ if the recipient of a remote or non-remote object does not have the class, then it is downloaded</p></div></p><h2 id="e3b2acd5-2e2e-44a7-b7ad-6a4d2127ffdf" class="">RMI Registry</h2><p id="b348c248-1382-47ce-9f5a-e11c18eb3dc7" class="">Java RMI has an RMI registry that allows remote objects to <em>bind</em> to a string name</p><p id="0664847a-1cd0-41aa-9cd1-789914d49c60" class="">This name is application specific and known to all components</p><p id="4fba7208-0d1c-4a0e-aa41-45feb97b09cf" class="">Other processes can use the registry to <em>lookup</em> a remote object based on the name<div class="indented"><p id="678ad2fc-fbe5-4881-9408-cd9347457641" class="">→ the lookup returns a remote object reference</p></div></p><p id="e025915b-0a01-4444-8887-7c3828a9a560" class="">An RMI Registry typically run on the same host as the server process<div class="indented"><p id="a05ed0df-518c-4dfd-b0a0-72d94e6e43c0" class="">→ it usually uses the port 1099</p></div></p><p id="0b389ae2-6b0b-4f1b-8d29-29ec5218a37e" class="">Clients must know which RMI registry to connect to</p><h2 id="d3f0a772-5de2-48f6-9a82-7b3a6bf4f8df" class="">Example: Structure of an application</h2><figure id="c3644c48-125e-4e8b-a97f-47e95f89d165" class="image"><a href="Remote%20Invocation%20eeb67310c9e04e81ab01e96179af6a56/ezgif.com-gif-maker-2.gif"><img style="width:1040px" src="Remote%20Invocation%20eeb67310c9e04e81ab01e96179af6a56/ezgif.com-gif-maker-2.gif"/></a></figure><h2 id="d4c62fad-2a47-4d85-b959-2ef1c574f430" class="">Threads</h2><p id="477ecbb1-63ae-4350-9769-ce7f8d9aab1d" class="">Methods invoked by RMI may or may not execute in a separate thread</p><ul id="55f17380-0b50-491b-aa7d-c7c99f714d9d" class="bulleted-list"><li style="list-style-type:disc">RMI makes no guarantee</li></ul><p id="d4940506-4692-4cbe-9be2-384dfe5c5e0a" class="">This means that methods on an object may execute concurrently</p><p id="bf6f47d4-5784-4c0b-8f55-5e94e4d71453" class="">The implementation of the object needs to ensure it is thread-safe</p><ul id="a0b12bdc-c4c0-4400-8dbe-70a84496d644" class="bulleted-list"><li style="list-style-type:disc">otherwise use Java concurrency primitives such as locks and mutexes</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

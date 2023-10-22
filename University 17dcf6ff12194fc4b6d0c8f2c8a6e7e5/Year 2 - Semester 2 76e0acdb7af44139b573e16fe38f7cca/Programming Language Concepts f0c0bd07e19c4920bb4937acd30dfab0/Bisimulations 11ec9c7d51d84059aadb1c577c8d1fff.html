@@ -1,0 +1,676 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Bisimulations</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="11ec9c7d-51d8-4059-aadb-1c577c8d1fff" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/playback-next_pink.svg"/></div><h1 class="page-title">Bisimulations</h1><p class="page-description"></p></header><div class="page-body"><h1 id="b6532ad4-23e4-41d9-a1a1-cdef8cb7e92c" class="">Introducing the example Machines</h1><ul id="a9e7d826-d17c-4b47-bc1f-118d1e89ed32" class="bulleted-list"><li style="list-style-type:disc">Machine x0, after receiving a £ will always offer both “tea” and “coffee”</li></ul><ul id="7f8629ee-dcbd-4a0a-b465-72e029769995" class="bulleted-list"><li style="list-style-type:disc">Machine z0, after receiving a £ will sometimes move to a state in which only one of “tea” or “coffee” is offered</li></ul><figure id="16bb9744-b139-40f9-9a10-6ca9c7a021e7" class="image"><a href="Bisimulations%2011ec9c7d51d84059aadb1c577c8d1fff/Screenshot_2023-05-12_at_11.51.47.png"><img style="width:1552px" src="Bisimulations%2011ec9c7d51d84059aadb1c577c8d1fff/Screenshot_2023-05-12_at_11.51.47.png"/></a></figure><h2 id="e7cf6c47-ebe6-4d75-8425-1dae85dcf1f4" class="">Simulations</h2><ul id="8c251020-5585-4496-a3a2-31df4994b4c6" class="bulleted-list"><li style="list-style-type:disc">Remembering that, if we can construct a simulation that contains (x,y), it means that state y simulates x</li></ul><ul id="910d14b7-258a-4463-9683-f96fd180263d" class="bulleted-list"><li style="list-style-type:disc">In the example above, both x0 is simulated by z0 and z0 is simulated by x0 - they are <strong>simulation equivalent</strong> states</li></ul><ul id="de04bade-f193-407a-9f06-745ddc986869" class="bulleted-list"><li style="list-style-type:disc">The insight here is that the two simulations relations used to prove equivalence are <strong>not the same relation </strong>on states</li></ul><h3 id="e54810e0-777b-49ce-85c8-236e5c5354dc" class="">Example</h3><figure id="ecc0594c-ad0e-469b-8c1c-145ff15bdd3e" class="image"><a href="Bisimulations%2011ec9c7d51d84059aadb1c577c8d1fff/Screenshot_2023-05-12_at_11.54.32.png"><img style="width:1762px" src="Bisimulations%2011ec9c7d51d84059aadb1c577c8d1fff/Screenshot_2023-05-12_at_11.54.32.png"/></a></figure><h1 id="42fd37d6-dcde-4a96-aee4-c804a735237f" class="">Bisimulation</h1><p id="47aed281-2fcd-4650-a76b-5b9b77d516cf" class="">A bisimulation is a simulation that goes both ways — that is the relation and its reverse are <strong>both </strong>simulations</p><ul id="9693dfa4-5d7b-4ced-b38e-19cb23123c45" class="bulleted-list"><li style="list-style-type:disc">Suppose that (X, Σ, L) is a labelled transition system</li></ul><ul id="90ca792f-b7e4-46c8-b9ec-38f3418bef6a" class="bulleted-list"><li style="list-style-type:disc">A binary <strong>relation </strong>R on states of <strong>L </strong>is called a <strong>bisimulation </strong>on <strong>L </strong>if R satisfies the following conditions:</li></ul><figure id="bb77e876-23b9-4d9c-acb7-baab928c7520" class="image"><a href="Bisimulations%2011ec9c7d51d84059aadb1c577c8d1fff/Screenshot_2023-05-12_at_12.11.24.png"><img style="width:1382px" src="Bisimulations%2011ec9c7d51d84059aadb1c577c8d1fff/Screenshot_2023-05-12_at_12.11.24.png"/></a></figure><ul id="acee226a-4e8d-43df-9bd3-17e4e5af1e82" class="bulleted-list"><li style="list-style-type:disc">We write x ~ y if there is a bisimulation that contains (x,y)</li></ul><h2 id="a5bfcf11-28ed-4c4b-8308-0afe82a63c21" class="">Example</h2><p id="0789b8b1-38ef-40dd-9f47-7dc91702d699" class=""><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">{</mo><mo stretchy="false">(</mo><msub><mi>x</mi><mn>0</mn></msub><mo separator="true">,</mo><msub><mi>y</mi><mn>0</mn></msub><mo stretchy="false">)</mo><mo separator="true">,</mo><mo stretchy="false">(</mo><msub><mi>x</mi><mn>0</mn></msub><mo separator="true">,</mo><msub><mi>y</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{ (x_0,y_0),(x_0,y_1)\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{(</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)}</span></span></span></span></span><span>﻿</span></span> is a bisimulation</p><figure id="66b51a0b-2158-4e48-9816-1d54c2fecc2c" class="image"><a href="Bisimulations%2011ec9c7d51d84059aadb1c577c8d1fff/Screenshot_2023-05-12_at_12.13.04.png"><img style="width:432px" src="Bisimulations%2011ec9c7d51d84059aadb1c577c8d1fff/Screenshot_2023-05-12_at_12.13.04.png"/></a></figure><h2 id="bd056500-3e4d-4597-a221-ea80d8f26493" class="">Bisimilarity</h2><p id="04801d18-1f83-4228-8306-6544fb145fec" class=""><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong>Theorem: </strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em>The union of two bisimulation relations R1,R2 on an LTS <strong>L </strong>is a bisimulation relation on <strong>L</strong></p><p id="7f53078d-338b-49ad-bd13-311670cd786c" class=""><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong>Theorem: F</strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em>or any given LTS L there is a largest bisimulation on L</p><ul id="20dc714c-3fb8-4787-8cf2-d4cad7460fd9" class="bulleted-list"><li style="list-style-type:disc">We write ~ to denote the largest bisimulation on an LTS - we call this relation bisimilarity</li></ul><ul id="5ed4f82b-a4e1-4a4c-bb54-b72cd6c5c79a" class="bulleted-list"><li style="list-style-type:disc">Similar to similarity, bisimilarity is a coinductively defined relation that comes along with a coinductive proof technique</li></ul><h3 id="103e0d8d-9489-4fa5-b922-4117eb90b1d2" class="">Coinduction for Bisimilarity</h3><ul id="8903bfad-305d-46c6-9d50-df8ccef59b1e" class="bulleted-list"><li style="list-style-type:disc">To show that x ~ y, it is enough to <span style="border-bottom:0.05em solid">construct a bisimulation that contains (x, y)</span></li></ul><ul id="8deb8471-8c64-4a33-b022-70d1b2b3fd9d" class="bulleted-list"><li style="list-style-type:disc">If (x,y) ∈ R and R is a bisimulation, then because ~ is the largest simulation then R ⊆ ~ and hence x ~ y </li></ul><ul id="f0cf4871-c9ab-48cb-a63e-f7a52b7b5548" class="bulleted-list"><li style="list-style-type:disc">Showing that two states <strong><strong><strong><strong><strong><strong><strong>are not </strong></strong></strong></strong></strong></strong></strong>bisimilar, you can once again play a game</li></ul><h1 id="1e3ec955-8f89-46ab-9aa0-c0d66f7e9382" class="">The Bisimulation Game</h1><p id="51472ee2-dcba-476b-b9ad-3e6f2ae6e538" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Rules of the Game:</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><p id="b7aa1882-23f5-458e-9a30-1a3351117a24" class="">The game starts at position (x,y) and you are, once again playing against a Demon opponent</p><ol type="1" id="1bd3fb5b-fe0a-429c-88f1-530ebcd94ab0" class="numbered-list" start="1"><li>The demon first picks where to play, either from x or from y</li></ol><ol type="1" id="bfff5820-9196-4516-9f1a-36a7cb670408" class="numbered-list" start="2"><li>The demon then picks a move from their chosen start state</li></ol><ol type="1" id="70c7f84a-55e0-4120-85b0-769ab894b6cc" class="numbered-list" start="3"><li>You must start from the other start state and choose a matching move</li></ol><ol type="1" id="1f492139-8f87-4bcf-9f8d-dc0d3cd7efe1" class="numbered-list" start="4"><li>The game goes back to <strong>Step 1</strong>, changing the position to (x’,y’) where (x&#x27;,y&#x27;) are the states reached by both demon and player</li></ol><p id="d05dafd1-2dca-4cf9-abfd-8c0f2819da5d" class="">If at <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>any point </strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>a player cannot make a move, that player loses</p><p id="b4cea668-3f33-4641-bd91-f0400b6be584" class="">If the game goes on <strong>forever</strong>, you win</p><p id="3aab69a6-3fb1-4eba-bc79-b057c65732d7" class=""><em>(The demon always gets to choose whether to play in the &quot;x&quot; states or the &quot;y&quot; states when making its next move)</em></p><h2 id="5bffeb2c-664d-4145-bc08-3731a5d13535" class="">Bisimulation Game example</h2><p id="39bd4014-ad3f-4864-baef-a77a9390325f" class="">Here’s a winning strategy for the demon, starting in position (x0, z0)</p><ul id="b2b6a3f4-2dc2-4369-8594-a008922701f8" class="bulleted-list"><li style="list-style-type:disc">The demon picks z0 to play in and plays the £ move to z2</li></ul><ul id="f7fbb458-74dd-4dad-bd93-31f0ab7f5072" class="bulleted-list"><li style="list-style-type:disc">We have to match with the £ move to x1</li></ul><ul id="0f87e9e0-54ca-412e-b6fe-c2f849673d6a" class="bulleted-list"><li style="list-style-type:disc">The game continues from position (x1,z2) but now the demon <strong>switches positions </strong>and plays from x1 - and picks the c move to x3</li></ul><ul id="ffc4fc46-8c92-4ac3-8dcd-e669f35ed464" class="bulleted-list"><li style="list-style-type:disc">We are stuck, because there is no c move from z2 -so we lose</li></ul><figure id="6ce4bdf0-83ad-40a8-893d-05b35144988e" class="image"><a href="Bisimulations%2011ec9c7d51d84059aadb1c577c8d1fff/Screenshot_2023-05-12_at_11.51.47%201.png"><img style="width:1552px" src="Bisimulations%2011ec9c7d51d84059aadb1c577c8d1fff/Screenshot_2023-05-12_at_11.51.47%201.png"/></a></figure><h2 id="ecef5c10-8a54-404b-b218-e9b7d32c96bf" class="">Winning Strategies</h2><p id="3b273542-5bc5-41e9-8d98-a15fcac8115a" class=""><strong>Theorem</strong>: for any two states, x ~ y <span style="border-bottom:0.05em solid">if and only if</span> the non-demon player has a winning strategy in the bisimulation game</p><ul id="dbdcef65-3e27-4829-acbe-e5eb771703b3" class="bulleted-list"><li style="list-style-type:disc">This gives us a proof technique to show that two states are not in the bisimilarity relation - i.e. demon has a winning strategy from (x,y) means x ≁ y</li></ul><p id="e23d1352-7e4d-48b8-8a9e-62adbad7c0b7" class=""><strong>Corollary </strong> bisimilarity implies simulation equivalence</p><p id="291bec41-763f-490b-87aa-831caf59d7e5" class=""><strong>Proof</strong>: </p><ul id="8e3972af-312a-41a7-a7e6-d59c6d79e3e3" class="bulleted-list"><li style="list-style-type:disc">We can prove the contrapositive of this statement (assume that x is not simulation equivalent to y) which then proves that x is not bisimilar to y</li></ul><ul id="6ac986c7-e2f7-4dca-8b65-47576dac2e65" class="bulleted-list"><li style="list-style-type:disc">We know, by assumption, that demon has a winning strategy in the simulation game starting from (x,y)</li></ul><ul id="dca6279f-b1c7-4380-9a8e-7e9af54e5407" class="bulleted-list"><li style="list-style-type:disc">This can be turned in to a strategy in the bisimulation game for demon by always choosing the &quot;x&quot; state as its starting state</li></ul><ul id="9a43e595-b3eb-40c9-b12e-d5ec4470dd66" class="bulleted-list"><li style="list-style-type:disc">This strategy is a winning strategy in the bisimulation game also so x is not bisimilar to y.</li></ul><h1 id="e4289369-2a2a-4e73-a61b-3fca1955b495" class="">Further strategies?</h1><p id="10fd7681-7ab0-4337-af1f-3f966dc3707c" class="">We now have another relation candidate, <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>bisimilarity, </strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>to distiguish processes, in addition to:</p><ul id="267eb68a-939d-41a8-a848-ed869a90e4d4" class="bulleted-list"><li style="list-style-type:disc">Trace equivalence</li></ul><ul id="c3db3928-e554-4cb0-9bb4-b7df92aeac40" class="bulleted-list"><li style="list-style-type:disc">Simulation Equivalence</li></ul><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="afdc3a99-db1a-44c6-96fb-f2e8becaeaf8"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><strong>Bisimilarity</strong> <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span></span><span>﻿</span></span> <strong>simulation</strong> <strong>equivalence</strong> <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span></span><span>﻿</span></span> <strong>trace equivalence</strong></div></figure><p id="574beb71-781e-4c0c-b8a5-13de572fb470" class="">(<em><em><em><em><em><em><em><em><em><em><em><em><em><em>But not the other way round…)</em></em></em></em></em></em></em></em></em></em></em></em></em></em></p><blockquote id="db3e4745-4bee-4447-b6d2-e6cc526c2da8" class="">So are there other relations that might be used; and can we make even more confusing vending machines that also then cast doubts on bisimilarity?</blockquote><h2 id="a5c8663c-031f-4488-ae08-fab803152ae6" class="">Answer</h2><ul id="c23b10ea-86c1-41ee-a6a1-5c0d06e82572" class="bulleted-list"><li style="list-style-type:disc"><strong>There are loads of variations of </strong><span style="border-bottom:0.05em solid"><strong>bisimilarity </strong></span><strong>and </strong><span style="border-bottom:0.05em solid"><strong>trace equivalence</strong></span><strong> that have been researched, each with subtly different observational properties.</strong><ul id="7d7a7063-abe3-4327-9d32-92feb0db31c2" class="bulleted-list"><li style="list-style-type:circle">So there is not single “correct” notion of equivalence however…</li></ul></li></ul><ul id="a6f7d50a-1910-4a0b-bad2-cdc3e8c438db" class="bulleted-list"><li style="list-style-type:disc">An observer cannot tell the difference between any two bisimilar states if all they can see are the capability of performing actions<ul id="f5ab8176-c148-4363-81bf-d9c0cc07a05f" class="bulleted-list"><li style="list-style-type:circle">i.e., Bisimilarity is the <strong><strong><strong><strong><strong><strong><strong>finest</strong></strong></strong></strong></strong></strong></strong> “reasonable” equivalence</li></ul></li></ul><p id="3bd9306a-670d-469a-8bf7-b5630bae0f9b" class=""><em>(“reasonable” here means roughly that we can only observe behaviour and not look directly at the state space)</em></p><hr id="62291c1a-8ce8-44d8-94e3-d25d0e1795dc"/><figure id="e0586f88-e86e-4acd-a50a-b8712b9e3291" class="link-to-page"><a href="Concurrency%20d76553327d854270a9bbd6f104f53879/Exercise%20Sheet%20-%20Semantics%20of%20Concurrency%20e0586f88e86e4acda50ab8712b9e3291.html"><img class="icon" src="https://www.notion.so/icons/report_pink.svg"/>Exercise Sheet - Semantics of Concurrency</a></figure></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

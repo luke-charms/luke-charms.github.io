@@ -1,0 +1,676 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Data Replication and Consistency</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="4735d0e5-63c9-427b-8ec9-f451027de386" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/chart-pie_gray.svg"/></div><h1 class="page-title">Data Replication and Consistency</h1><p class="page-description"></p></header><div class="page-body"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="96bf739c-595d-443d-88ab-99b950a8d20b"><div style="font-size:1.5em"><span class="icon">📢</span></div><div style="width:100%"><strong>Need to be able to do:</strong><ul id="82b1ef00-a0aa-47f1-81ae-320ef17ce280" class="bulleted-list"><li style="list-style-type:disc">…</li></ul></div></figure><h2 id="fec73522-ab09-4659-b62e-7122e1f604c0" class="">Consistency Models</h2><p id="93aa08f1-4ddb-4482-b2b6-00f43d58a09d" class="">A contract between an application and a data store which says that if the application agrees to obey certain rules, the data store will work correctly</p><figure id="5e87dd1e-0d54-4dc9-a6d4-a97b530f6647" class="image"><a href="Data%20Replication%20and%20Consistency%204735d0e563c9427b8ec9f451027de386/Screenshot_2023-04-16_at_11.44.40.png"><img style="width:1680px" src="Data%20Replication%20and%20Consistency%204735d0e563c9427b8ec9f451027de386/Screenshot_2023-04-16_at_11.44.40.png"/></a></figure><h3 id="2e228173-d80b-4aa2-ade5-9004310974e9" class="">Replication:</h3><p id="a6e4845f-1cba-4ea5-a772-00b17777fd86" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong>Passive:</strong></strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="b3846cd9-f366-43b7-addd-a25ea3eaa418" class="bulleted-list"><li style="list-style-type:disc">One replica is considered the <strong><strong><strong><strong><strong><strong><strong>Primary</strong></strong></strong></strong></strong></strong></strong></li></ul><ul id="c6fbdc58-be9e-4722-8a21-ce5781f60c4b" class="bulleted-list"><li style="list-style-type:disc">Clients only communicate with the Primary</li></ul><ul id="c8a3dd47-9848-406d-9aef-d99b246f7586" class="bulleted-list"><li style="list-style-type:disc">Any other replicas (backups, Secondarys) are used as back up</li></ul><ul id="804bcf30-8c2c-46e5-b263-dd6ac4d1a69e" class="bulleted-list"><li style="list-style-type:disc">If Primary fails, backups are ready to take over</li></ul><ul id="277de0e2-b440-47f0-800e-20dda4e771a0" class="bulleted-list"><li style="list-style-type:disc">Leader election is held to elect a new Primary</li></ul><p id="e6f9446e-3c0b-4a08-bba1-91b2db125a69" class=""><strong><strong><strong><strong><strong><strong><strong><strong>Active:</strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="7ce21962-b1f5-46ad-998a-cdbb36495a8c" class="bulleted-list"><li style="list-style-type:disc">Client communicates with a group of services (called replicas)</li></ul><ul id="0e743581-d183-4ca5-a0a7-f9c6bee1d2c8" class="bulleted-list"><li style="list-style-type:disc">When a client writes to a replica; the update is propagated amongst the replicas using total-order multicast</li></ul><h2 id="cc808716-7958-434a-9da1-6d73eb0594f0" class="">Consistency Diagrams</h2><figure id="1e282b9e-b175-4d5c-9780-1f4832dbb45e" class="image"><a href="Data%20Replication%20and%20Consistency%204735d0e563c9427b8ec9f451027de386/Screenshot_2023-04-16_at_11.49.42.png"><img style="width:1478px" src="Data%20Replication%20and%20Consistency%204735d0e563c9427b8ec9f451027de386/Screenshot_2023-04-16_at_11.49.42.png"/></a></figure><h3 id="248f6b3a-e026-4a79-8d50-69f4f5e1b717" class="">Strict consistency</h3><figure id="3e6c6180-6092-4fd3-978f-1a8419c66fd8" class="image"><a href="Data%20Replication%20and%20Consistency%204735d0e563c9427b8ec9f451027de386/Screenshot_2023-04-16_at_11.52.02.png"><img style="width:1680px" src="Data%20Replication%20and%20Consistency%204735d0e563c9427b8ec9f451027de386/Screenshot_2023-04-16_at_11.52.02.png"/></a></figure><h3 id="5412340b-4bba-4c16-9147-934927a14123" class="">Linearizability</h3><p id="e2472298-517c-4163-a286-e6a4637f1c9a" class="">In linearizability; the <strong><strong><strong><strong><strong><strong>trace </strong></strong></strong></strong></strong></strong>is the most important aspect of the model</p><figure id="67b352a4-a71c-439e-8aff-7530b49ec377" class="image"><a href="Data%20Replication%20and%20Consistency%204735d0e563c9427b8ec9f451027de386/Screenshot_2023-04-16_at_11.53.15.png"><img style="width:1692px" src="Data%20Replication%20and%20Consistency%204735d0e563c9427b8ec9f451027de386/Screenshot_2023-04-16_at_11.53.15.png"/></a></figure><figure id="4ac1226f-6af3-4f96-ac7e-928c8b0213dc" class="image"><a href="Data%20Replication%20and%20Consistency%204735d0e563c9427b8ec9f451027de386/Screenshot_2023-04-16_at_11.54.29.png"><img style="width:1630px" src="Data%20Replication%20and%20Consistency%204735d0e563c9427b8ec9f451027de386/Screenshot_2023-04-16_at_11.54.29.png"/></a></figure><p id="3d3f4e58-ac6a-482d-a17a-1edbe0ee1ffa" class=""><strong>Implementation:</strong></p><p id="a5a87d92-53d0-4303-bb74-82f898a08d11" class="">Every process must have a perfectly synchronised clock</p><p id="6158ec0b-a540-439a-92ac-84036735a0e7" class="">Message propagation delays must be bounded</p><p id="45ae832c-bac9-4e60-8ce9-c0374395b1a3" class="">Use total-order multicast to ensure replicas handle reads and writes in the same (time-based) order</p><h3 id="ae2e7397-3daf-45ba-a972-e06fde156a32" class="">Sequential Consistency</h3><p id="feafedcd-e94d-495e-9c9e-215e75df6a6c" class="">Makes no statement about timing, but just talks about <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>some sequential</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong> <strong>program order</strong></p><p id="278683ea-b67d-4a03-9ebe-ea56a803dccc" class="">(<em><em><em><em><em><em><em>weaker version of Strict Consistency and Linerizability)</em></em></em></em></em></em></em></p><figure id="8320cd30-3236-411e-90b9-55d0f9bf2297" class="image"><a href="Data%20Replication%20and%20Consistency%204735d0e563c9427b8ec9f451027de386/Screenshot_2023-04-16_at_11.57.58.png"><img style="width:1734px" src="Data%20Replication%20and%20Consistency%204735d0e563c9427b8ec9f451027de386/Screenshot_2023-04-16_at_11.57.58.png"/></a></figure><p id="436941f8-046e-475f-8aa2-3b8e393394cd" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Implementation:</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="32a58345-de1a-4406-8e80-2c1b1d407ba7" class="bulleted-list"><li style="list-style-type:disc">A read operation made to a replica will return its the local copy</li></ul><ul id="180dabac-4c45-4cc3-8ad1-72fceac9353f" class="bulleted-list"><li style="list-style-type:disc">A write operation will trigger a Total-Order multicast</li></ul><ul id="070540c0-c51f-4037-bf8b-b79defcee123" class="bulleted-list"><li style="list-style-type:disc">Replicas respond to multicast by updating local copies and return an acknowledgement</li></ul><ul id="d6734be5-8ca3-49cd-8440-d686d2962220" class="bulleted-list"><li style="list-style-type:disc">All replicas see writes in the same order and reads return values consistent with the writes in the total order</li></ul><ul id="c8046c6e-63de-4190-9507-fe2e09159bee" class="bulleted-list"><li style="list-style-type:disc">No need for synchronised clocks</li></ul><h3 id="3668debf-e954-40df-8b89-3672baa22175" class="">Causal Consistency</h3><figure id="15a5b377-8ad0-4557-b0c4-2c6e8dd113c7" class="image"><a href="Data%20Replication%20and%20Consistency%204735d0e563c9427b8ec9f451027de386/Screenshot_2023-04-16_at_12.09.28.png"><img style="width:1650px" src="Data%20Replication%20and%20Consistency%204735d0e563c9427b8ec9f451027de386/Screenshot_2023-04-16_at_12.09.28.png"/></a></figure><p id="ae9ce21b-b253-4b0b-aa64-f3a0b585766f" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Implementation:</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="d68c0930-74a3-467d-a011-50ebcdbfaaef" class="bulleted-list"><li style="list-style-type:disc">Use vector timestamps</li></ul><ul id="49ab8413-699c-4864-a39a-51925f5fca14" class="bulleted-list"><li style="list-style-type:disc">Write operations are multicasted to all replicas<ul id="27a2af6e-defb-4c83-a566-be4e7a0ce347" class="bulleted-list"><li style="list-style-type:circle">writes are sent with the vector clock</li></ul></li></ul><ul id="d6f2eaec-8ea4-4af9-b40d-46e30f77657d" class="bulleted-list"><li style="list-style-type:disc">On receiving multicast updates, each replica updates its local copy</li></ul><ul id="003aa328-cc61-46f4-838c-ebbb4f78823b" class="bulleted-list"><li style="list-style-type:disc">A read uses the local copy</li></ul><ul id="a8221ee8-3e72-47d3-baa5-1cb9d13a45c6" class="bulleted-list"><li style="list-style-type:disc">No need for synchronised physical clocks</li></ul><ul id="9bf97dd0-2ecd-49d1-b261-8d2011826838" class="bulleted-list"><li style="list-style-type:disc">Provides more useful guarantees than eventual consistency</li></ul><h3 id="3a416f07-ecd3-45e3-ab8b-4c2eda1d49d4" class="">Eventual Consistency</h3><figure id="1eb453b6-b8a3-4212-9417-f370db60f3e3" class="image"><a href="Data%20Replication%20and%20Consistency%204735d0e563c9427b8ec9f451027de386/Screenshot_2023-04-16_at_12.11.53.png"><img style="width:1648px" src="Data%20Replication%20and%20Consistency%204735d0e563c9427b8ec9f451027de386/Screenshot_2023-04-16_at_12.11.53.png"/></a></figure><p id="faeb1882-f0f3-4d1f-8ae8-9f374dbc50aa" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Implementation:</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="5da7e4c5-5f18-4459-aa81-56e32ada3fd7" class="bulleted-list"><li style="list-style-type:disc">Update local store and propagate changes in the background</li></ul><ul id="5e13b107-f0f9-4bc0-bbc0-a5bf398776fd" class="bulleted-list"><li style="list-style-type:disc">To deal with conflict:<ul id="91029d23-4a60-4d6f-bde0-fae4da428d4a" class="bulleted-list"><li style="list-style-type:circle">Reconcile the conflict - this needs a global decision to be made i.e. via consensus</li></ul><ul id="4ddaaba1-62f9-4dea-8a50-85c3bc0f5408" class="bulleted-list"><li style="list-style-type:circle"><strong>OR</strong> Roll back</li></ul><ul id="7116b0b1-faba-4b4d-bbb6-af914b5b4168" class="bulleted-list"><li style="list-style-type:circle"><strong>OR</strong> Delegate to the application</li></ul></li></ul><ul id="41006000-5936-47e0-a62c-914b0be2a6ec" class="bulleted-list"><li style="list-style-type:disc">Real world example: Amazon Dynamo<ul id="14c275a4-a613-4b93-b71b-7247780bb1e1" class="bulleted-list"><li style="list-style-type:circle">Shopping cart problem where different versions of the shopping cart can result from concurrent updates and reconciliation needs to occur</li></ul><ul id="0456538f-5077-4a04-826f-ae1ed81b2a8c" class="bulleted-list"><li style="list-style-type:circle">Result is that items sometimes remain in the basket for a short period of time after they&#x27;ve been deleted</li></ul></li></ul><p id="0fe08c8b-cbb8-45c3-a8af-f1fbbe4d2f73" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Advantages:</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="30aeee69-bb37-49f1-a185-4210fbb0affd" class="bulleted-list"><li style="list-style-type:disc">Fast reads and writes</li></ul><ul id="f1392136-ab26-45d8-8491-caa3b6802241" class="bulleted-list"><li style="list-style-type:disc">If there is a split in the network, application can still operate</li></ul><p id="94df514e-b20c-4be8-9df0-937ccabcd05b" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Disadvantages:</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="6d845bbf-744b-46a1-a268-47fb5f365d7a" class="bulleted-list"><li style="list-style-type:disc">Very weak notion of consistency</li></ul><ul id="7efa8ae5-d52d-44f3-b61a-02b2b341afdb" class="bulleted-list"><li style="list-style-type:disc">It needs a mechanism to deal with conflict</li></ul><h3 id="7e67982c-7dce-461a-9d77-dbf2b5fbf80e" class="">STRONG eventual consistency</h3><figure id="f2b7cc1d-1355-4fac-8fbc-a3888c8378b5" class="image"><a href="Data%20Replication%20and%20Consistency%204735d0e563c9427b8ec9f451027de386/Screenshot_2023-04-16_at_12.17.01.png"><img style="width:1578px" src="Data%20Replication%20and%20Consistency%204735d0e563c9427b8ec9f451027de386/Screenshot_2023-04-16_at_12.17.01.png"/></a></figure><h2 id="d3f22a0d-6616-4507-a3a5-344fdd5af7fa" class="">Conflict-Free Replicated Data Type - CRDT</h2><p id="363fdb90-d00b-4479-b986-82f523fab33a" class=""><strong>Two types of CRDT:</strong></p><p id="0a58c074-58f4-4ef5-a30a-192f7f860bb9" class=""><em>Operation-based CRDTs</em></p><ul id="3f807350-4db8-414b-83a1-16fe032c5c84" class="bulleted-list"><li style="list-style-type:disc">On write broadcast operation only</li></ul><ul id="00a7723c-d128-4cf1-ada6-d2bdff3d02a8" class="bulleted-list"><li style="list-style-type:disc">On receive broadcast apply operation</li></ul><ul id="858ace0b-25cd-4174-acf0-bf4ecacd4e6d" class="bulleted-list"><li style="list-style-type:disc">Often used in collaborative editors</li></ul><p id="0c3d34ea-d560-4352-aaa8-064520744644" class=""><em>State-based CRDTs</em></p><ul id="ecde5919-c835-40c5-adb1-a47fb645e7d8" class="bulleted-list"><li style="list-style-type:disc">On write broadcast full state</li></ul><ul id="e41a821a-0457-4509-bc0c-918dbc2fca91" class="bulleted-list"><li style="list-style-type:disc">On receive broadcast merge states</li></ul><ul id="13662fe0-11bb-4e43-92c3-be7b3f0f8fb3" class="bulleted-list"><li style="list-style-type:disc">For example, Grow-only counter</li></ul><ul id="9c1f55fc-def0-443d-b400-c38df5d98d0c" class="bulleted-list"><li style="list-style-type:disc">Used in key-value stores, like the Redis data store</li></ul><p id="19b510a9-1f3a-48eb-ba5b-418d577828b1" class=""><span style="border-bottom:0.05em solid"><strong>Example:</strong></span></p><p id="ea00f3bd-e54b-48f4-adfb-2aea2907c311" class=""><strong>Grow-only Counter</strong> that counts events from a set of N processes</p><p id="b5db48d1-175c-4256-94e4-e45eab320990" class="">The data type is structured in such a way that it automatically resolves any conflicts</p><p id="901898c7-ed97-4ee3-84bb-0733b768eac0" class="">Algorithm:</p><ul id="ffcaca24-9c8a-4f31-8684-653b06479346" class="bulleted-list"><li style="list-style-type:disc">Each process has an integer ID: 0..N-1</li></ul><ul id="c378ad49-f04b-453c-bb1a-cd024aed27ef" class="bulleted-list"><li style="list-style-type:disc">Maintains a vector of counts: count[ 0..N-1 ]</li></ul><ul id="23a2d35e-1817-48b5-a5d6-7af1ea10e8a8" class="bulleted-list"><li style="list-style-type:disc">Value of counter: sum(count)</li></ul><ul id="a194ce37-b45d-47e1-b4f3-9b076a5b13f0" class="bulleted-list"><li style="list-style-type:disc">Increment to counter: count[id] ++</li></ul><ul id="6c957ff9-d02b-4b92-8337-7ac740e3d0b8" class="bulleted-list"><li style="list-style-type:disc">Merge two counters: pairwise max of the two vectors<ul id="a1438543-1c6a-42d7-9fcc-5a156703e31b" class="bulleted-list"><li style="list-style-type:circle">i.e. merge(&lt;8, 3, 10&gt;, &lt;7, 6, 11&gt;) = &lt;8, 6, 11&gt;</li></ul></li></ul><ul id="77b64f39-ffdd-4b23-9666-264e7f7db48a" class="bulleted-list"><li style="list-style-type:disc">Background replication: process multicasts count vector to other processes</li></ul><h2 id="635d4341-2ea1-48a8-8347-d0b4a0d76fec" class="">Quorum-based Protocols</h2><ul id="329d8340-0b0e-426e-a64b-7418cbc60dd7" class="bulleted-list"><li style="list-style-type:disc">Replication is intended to improve the reliability of a system</li></ul><ul id="1ea7d0b9-301b-489a-b103-1ab138654ff6" class="bulleted-list"><li style="list-style-type:disc">How replication is performed can have a big impact on the reliability<ul id="5715c009-da13-40ec-a306-7301a0a59c20" class="bulleted-list"><li style="list-style-type:circle">If there is no fault-tolerance, having multiple replicas makes reliability worse</li></ul><ul id="2595424e-f8ba-433a-bff1-64c02f064e20" class="bulleted-list"><li style="list-style-type:circle">The more replicas you have the greater the probability that any one of them is faulty</li></ul></li></ul><ul id="58a46538-2f3e-42cb-aa9b-e2768f913ef2" class="bulleted-list"><li style="list-style-type:disc">Using a quorum is a common approach of implementing consistency across a number of replicas in a distributed data store</li></ul><h3 id="5398ecff-43fe-4431-a32d-321a583c31b9" class="">How?</h3><ul id="e7cd3897-9843-4ab6-9808-91e4120f6dd8" class="bulleted-list"><li style="list-style-type:disc">A quorum is a subset of replicas, dynamically selected during operations</li></ul><ul id="546a27bd-6b10-401b-9dce-8e1aeead0d7e" class="bulleted-list"><li style="list-style-type:disc">Clients read from a read quorum and write to a write quorum</li></ul><ul id="d3ac58fd-a9ac-4ee1-9659-a99e2f9bf4fd" class="bulleted-list"><li style="list-style-type:disc">These two types of quorums intersect to ensure consistency</li></ul><ul id="83ace92a-6acc-4ce1-ae40-1509139c15be" class="bulleted-list"><li style="list-style-type:disc">In a system with N replicas, have a quorum of R replicas in the read quorum and W replicas in the write quorum<ul id="788437f3-89c1-4af3-b343-7e8ffa7363e7" class="bulleted-list"><li style="list-style-type:circle">R + W &gt; N (ensures that the read and write quorum must overlap)</li></ul><ul id="07676cba-b182-4bcd-afa3-d23dc918c274" class="bulleted-list"><li style="list-style-type:circle">Typically set R = W = (N+1)/2 to ensure majority</li></ul></li></ul><figure id="a8712fc4-27f2-4117-bd06-12d477d1a736" class="image"><a href="Data%20Replication%20and%20Consistency%204735d0e563c9427b8ec9f451027de386/Screenshot_2023-04-16_at_12.34.19.png"><img style="width:1616px" src="Data%20Replication%20and%20Consistency%204735d0e563c9427b8ec9f451027de386/Screenshot_2023-04-16_at_12.34.19.png"/></a></figure><h3 id="57df3a8b-f87a-402c-a7c9-867a938b2cfb" class="">Example:</h3><figure id="08d399ae-86f0-4c6a-bc51-dd59e563cdd4" class="image"><a href="Data%20Replication%20and%20Consistency%204735d0e563c9427b8ec9f451027de386/Screenshot_2023-04-16_at_12.37.39.png"><img style="width:1454px" src="Data%20Replication%20and%20Consistency%204735d0e563c9427b8ec9f451027de386/Screenshot_2023-04-16_at_12.37.39.png"/></a></figure><ul id="fffe00b2-348d-4ad3-83f9-87eb4b60b583" class="bulleted-list"><li style="list-style-type:disc">After a write has been made to the quorum, the replicas with the new write can update other replicas in the <strong>background</strong></li></ul><ul id="4a7004d7-23db-4773-b7bb-ba55dddf3e71" class="bulleted-list"><li style="list-style-type:disc">If replicas fail or when replicas become available, then quorum reads and writes can continue as long as the remaining available replicas still form a majority </li></ul><ul id="db83560a-85b0-42c8-8b7b-873c1f30d96e" class="bulleted-list"><li style="list-style-type:disc">For example, replicas can become unavailable due to a network partition</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

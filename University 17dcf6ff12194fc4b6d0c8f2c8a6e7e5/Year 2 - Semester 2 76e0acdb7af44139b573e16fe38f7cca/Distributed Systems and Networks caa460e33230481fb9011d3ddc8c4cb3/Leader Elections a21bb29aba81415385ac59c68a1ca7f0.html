@@ -1,0 +1,685 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Leader Elections</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="a21bb29a-ba81-4153-85ac-59c68a1ca7f0" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/graduate_gray.svg"/></div><h1 class="page-title">Leader Elections</h1><p class="page-description"></p></header><div class="page-body"><nav id="67d6213e-1325-421f-bc59-7d2fec75e859" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#6c4cab76-d83a-464e-a948-3c49e6420038">What is it?</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c89b39f7-502d-40b7-a59c-76d79b12fe1e">Use Cases for Leader Elections</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#2b03b23b-8b8f-4882-be24-d79488becf75">Advantages of Leader Elections</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#bea09fd8-a85a-4255-afaf-9c153a32c7a6">Stages of a Leader Election</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8f14faec-9d9e-4969-9175-522fb8617d42">Leader Election Conditions</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#348dacfa-e526-4509-aa3d-7d0b897c6190">Correctness and Performance</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0a894b4f-72b2-4d9b-aea7-e8cf710d3b44">Leader Election Setups</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#e5723132-fab7-427e-a9af-ba50caaa2120">Leader Election Algorithm Examples:</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f305ee41-8225-4cad-a6b9-d2c1ae280211">Ring Leader Elections</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1de6030d-5366-479d-aac1-d060c24c05c3">Algorithm</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#2d0371e5-184d-41cc-95e8-20c6ebc2f870">Example</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#e4c0cd49-62bc-4e4a-bdbe-c88af890eafe">Performance</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1db6ea47-195e-4d0f-95b6-14b385b19c1b">Multiple Elections</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#15bb8b55-85a5-4a08-ac0c-4c160d4a7438">Correctness</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#de2252a3-f10e-4215-98ec-00f5e1641f7e">Bully Election</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#ddd1f060-bb24-482d-a610-f9dfb01cc8db">Algorithm</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#0020d48f-c6df-4fc7-b30f-d1c8238eb985">Example</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#a70d9d22-c5cb-41e6-b42f-65cdfdeae8d6">Performance</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#5ae58c76-7970-4505-a0ae-630d62dd9e7b">Failure</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#8f3c223e-9d1a-4151-b874-73ff32d779e8">Multiple Elections</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#5a80edb9-4487-4a5a-85d2-c42870562d10">Correctness</a></div></nav><hr id="0369f78d-7387-426a-be05-40f2e7731962"/><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="83f266d7-bef6-42f5-b35b-b5df4fc58198"><div style="font-size:1.5em"><span class="icon">📢</span></div><div style="width:100%"><strong>Need to be able to do:</strong><ul id="e4490ebb-5154-4d61-abdd-c850c012d95a" class="bulleted-list"><li style="list-style-type:disc">…</li></ul></div></figure><h2 id="6c4cab76-d83a-464e-a948-3c49e6420038" class="">What is it?</h2><figure class="block-color-yellow_background callout" style="white-space:pre-wrap;display:flex" id="29dfee61-e7e3-4fd9-a9ae-6eacf5920495"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><em>&quot;Leader election is the simple idea of giving one thing la process, host, thread, object, or human) in a distributed system some special powers. Those special powers could include the ability to assign work, the ability to modify a piece of data, or even the responsibility of handling all requests in the system.”</em></div></figure><figure id="d4328ae6-e6fa-4403-a8b8-e3cb61b13a99" class="image"><a href="Leader%20Elections%20a21bb29aba81415385ac59c68a1ca7f0/Untitled.png"><img style="width:1098px" src="Leader%20Elections%20a21bb29aba81415385ac59c68a1ca7f0/Untitled.png"/></a></figure><h2 id="c89b39f7-502d-40b7-a59c-76d79b12fe1e" class="">Use Cases for Leader Elections</h2><ol type="1" id="3592a1a0-f0f3-43d4-8a78-76fae367ddb6" class="numbered-list" start="1"><li><strong>When each process is roughly the same and there is no clear choice for a permanent assigned leader.</strong></li></ol><ol type="1" id="ac6eaa2e-441c-4fab-8398-5f59784571d8" class="numbered-list" start="2"><li><strong>When the cluster is performing a complex task that requires close collaboration. </strong>The division of work where assigning work to specific processes and combining the results from all the processes.
+For example, calculating how a protein unfolds, where parts of the calculation are allocated to different processes and then combined.</li></ol><ol type="1" id="480d8c81-39a2-42fc-b6ef-99cda01d2909" class="numbered-list" start="3"><li><strong>When the system executes many distributed writes to data and requires good consistency.</strong> Consistency means that no matter what which process completes a request, the user will always have the most recent version of the data.<p id="54b466ea-7808-4e61-ad39-7f03f266d4f8" class="">For example, maintaining bank balance regardless of which server responds.</p></li></ol><h2 id="2b03b23b-8b8f-4882-be24-d79488becf75" class="">Advantages of Leader Elections</h2><ul id="c8ddc3a3-46f3-46e0-9cc1-6ebec34e09e3" class="bulleted-list"><li style="list-style-type:disc">Make systems easier for humans to design and manage because all concurrency is in a single place, reduces partial failure modes, and single place to look for logs and metrics</li></ul><ul id="bf7494bb-ba6e-4061-9d65-aa82d8e20487" class="bulleted-list"><li style="list-style-type:disc">Can work more efficiently because it informs other systems about changes, compared to consensus</li></ul><ul id="48df56f9-7be0-4ca3-910f-d18f6b2eb241" class="bulleted-list"><li style="list-style-type:disc">Can improve performance and costs by providing a single consistent cache of data which can be used every time</li></ul><ul id="bd7a6713-8728-44aa-990d-02f5266dd65b" class="bulleted-list"><li style="list-style-type:disc">Can be easier to write software compared with other approaches like quorum, where it would need to consider that other systems may be working on the same state at the same time</li></ul><h2 id="bea09fd8-a85a-4255-afaf-9c153a32c7a6" class="">Stages of a Leader Election</h2><ul id="7e843aa9-36a5-4da2-8aac-cead2462606b" class="bulleted-list"><li style="list-style-type:disc"><strong>Before a distributed task has begun</strong>, all network processes unaware which process will serve as the coordinator of the task</li></ul><ul id="a5a9b6c4-8b81-4cce-8ace-db57b76da34e" class="bulleted-list"><li style="list-style-type:disc"><strong>During the election</strong>, the processes communicate among themselves in order to decide which of them will get into the &quot;leader&quot; state<p id="2cfc28f4-c123-4546-912f-f895e9b93a98" class="">Each process may have unique and comparable identities to help select the coordinator</p></li></ul><ul id="a8a0c4c5-942a-49be-8bfe-e6a0f998bb04" class="bulleted-list"><li style="list-style-type:disc"><strong>After a successful leader election:</strong><ul id="6676e4c5-bcb6-42ba-824c-b9287045bbc3" class="bulleted-list"><li style="list-style-type:circle">States of processes are divided into elected and not-elected states.</li></ul><ul id="0f293be9-a2c2-41c0-acb0-5898b7055410" class="bulleted-list"><li style="list-style-type:circle">Once elected, it remains as elected (similarly if not elected) until next <strong>election</strong></li></ul><ul id="e87da47f-b52d-4c7d-b03f-5948d513365f" class="bulleted-list"><li style="list-style-type:circle">Exactly one process becomes elected</li></ul><ul id="b7b4649e-272f-4830-9d52-b308ed93a040" class="bulleted-list"><li style="list-style-type:circle">The rest determine that they are not elected</li></ul></li></ul><h2 id="8f14faec-9d9e-4969-9175-522fb8617d42" class="">Leader Election Conditions</h2><figure id="f792b26b-aefd-4561-9fc2-95363861bd2a" class="image"><a href="Leader%20Elections%20a21bb29aba81415385ac59c68a1ca7f0/Untitled%201.png"><img style="width:1059px" src="Leader%20Elections%20a21bb29aba81415385ac59c68a1ca7f0/Untitled%201.png"/></a></figure><h3 id="348dacfa-e526-4509-aa3d-7d0b897c6190" class="">Correctness and Performance</h3><p id="9b29e074-e352-4028-9ecc-95ea9675ac9b" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Correctness: </strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="318ec506-9056-4c5d-89d3-6a3b2b125bee" class="bulleted-list"><li style="list-style-type:disc"><strong>Safety</strong>: One process is the leader and all others know this leader&#x27;s identifier</li></ul><ul id="085d3411-fa91-41b7-bcc3-32c4e23f000b" class="bulleted-list"><li style="list-style-type:disc"><strong>Liveness</strong>: All processes participate and eventually are elected or receive leader&#x27;s identifier</li></ul><p id="e2c858a8-b4a8-46b1-8c51-4a2018083721" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Performance:</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="4895d362-12e6-494a-9659-71c25a429daa" class="bulleted-list"><li style="list-style-type:disc">Minimise total number of messages sent</li></ul><ul id="4fc7fa3c-3114-415c-860d-80a54ab4c67b" class="bulleted-list"><li style="list-style-type:disc">Minimise the turnaround time, the total time taken between the submission of a task and its completion</li></ul><h2 id="0a894b4f-72b2-4d9b-aea7-e8cf710d3b44" class="">Leader Election Setups</h2><ul id="d5aa38a7-0192-4354-8824-74a3a294c4d2" class="bulleted-list"><li style="list-style-type:disc"><strong>Communication mechanism:</strong> the processes are either<ul id="13c55c7f-2a03-4e7b-8a18-6a1df4ffd6b0" class="bulleted-list"><li style="list-style-type:circle"><em>Synchronous</em> in which processes are synchronised by a clock signal and send messages in order can guarantee safety and liveness</li></ul><ul id="63aa5fca-6c48-46b7-9681-ce024d106846" class="bulleted-list"><li style="list-style-type:circle"><em>Asynchronous</em> where messages are not reliably sent within a timeframe or in any order, cannot guarantee both safety and liveness</li></ul></li></ul><ul id="7c442f8c-7693-42fb-ba75-ed866ae02386" class="bulleted-list"><li style="list-style-type:disc"><strong>Identifiers</strong>: whether processes have a unique identity (eponymous) or are indistinguishable (anonymous).</li></ul><ul id="abbce6e0-6278-4308-9136-1d73ad9d1cf9" class="bulleted-list"><li style="list-style-type:disc"><strong>Network topology</strong>: how the physical and logical arrangement of processes and connections are organised in a network i.e. ring, acyclic graph or complete graph.</li></ul><ul id="61bd989c-9d79-4905-9943-e053855e82d4" class="bulleted-list"><li style="list-style-type:disc"><strong>Size of the network</strong>: the algorithm may use knowledge of the number of processes in the system.</li></ul><h1 id="e5723132-fab7-427e-a9af-ba50caaa2120" class="">Leader Election Algorithm Examples:</h1><h2 id="f305ee41-8225-4cad-a6b9-d2c1ae280211" class="">Ring Leader Elections</h2><div id="df7228cd-4541-4f37-9b83-f792521a12fd" class="column-list"><div id="3dcaac54-ded2-419f-acd9-a8db87c22b29" style="width:50.000000000000014%" class="column"><ul id="5cdbd5f4-549d-4339-8366-df0079719cc8" class="bulleted-list"><li style="list-style-type:disc">Utilises a ring topology and has n processes</li></ul><ul id="1bc79276-e41a-447e-a065-83fc7d947fbe" class="bulleted-list"><li style="list-style-type:disc">Each process has a unique identifier L(n)</li></ul><ul id="1bf78671-1e59-440e-880a-75624fb259bd" class="bulleted-list"><li style="list-style-type:disc">All processes have a notion of:<ul id="ff42a17b-dd26-45fb-a154-0edd08fc0258" class="bulleted-list"><li style="list-style-type:circle">Right, clockwise</li></ul><ul id="bc82e860-a5fc-4791-8fec-812856cebd9a" class="bulleted-list"><li style="list-style-type:circle">Left, counter-clockwise</li></ul></li></ul><ul id="925da873-cfcd-4e28-bb85-194a11cef6b8" class="bulleted-list"><li style="list-style-type:disc">Utilises asynchronous messaging, no guarantee of safety or liveness</li></ul><ul id="7275410f-105c-4db2-85f9-5efb88d95059" class="bulleted-list"><li style="list-style-type:disc"><strong>Eponymous Asynchronous Ring</strong></li></ul></div><div id="54ccc454-a4bb-47e9-bb3b-73d911dd45bd" style="width:50%" class="column"><figure id="f935fe37-3184-4029-a838-49794ff56454" class="image" style="text-align:right"><a href="Leader%20Elections%20a21bb29aba81415385ac59c68a1ca7f0/Screenshot_2023-03-14_at_10.19.08.png"><img style="width:288px" src="Leader%20Elections%20a21bb29aba81415385ac59c68a1ca7f0/Screenshot_2023-03-14_at_10.19.08.png"/></a></figure></div></div><h3 id="1de6030d-5366-479d-aac1-d060c24c05c3" class="">Algorithm</h3><p id="b4f9ba7c-ecbc-4bef-a542-af2e9f844aae" class=""><strong>Initially</strong>: all processes are marked as non-participants</p><ol type="1" id="010cac1f-d1b3-4e99-93b2-c11983720684" class="numbered-list" start="1"><li>When a process determines an election is required it marks itself as a participant and sends an election message with its identifier to its left neighbour</li></ol><ol type="1" id="0b361bfc-562a-4777-8f82-94e933d3f2dd" class="numbered-list" start="2"><li>When a process receives an election message it compares the identifier in the message with its own<ol type="a" id="562ace75-3508-4597-a153-78f16a0d911b" class="numbered-list" start="1"><li>If the identifier is greater than its own, it forwards the message</li></ol><ol type="a" id="575b9bbc-bcde-4d18-a0c6-1047abdd3eea" class="numbered-list" start="2"><li>If the identifier is less than its own:<ul id="9387d342-0ca3-4a41-af59-da7f87756124" class="bulleted-list"><li style="list-style-type:disc">If it is currently a non-participant, it substitutes its own identifier and forwards the election message on and marks itself as a participant</li></ul><ul id="68b97aa1-d48e-4d72-b5f8-f40615e8d7fb" class="bulleted-list"><li style="list-style-type:disc">If it is already a participant it swallows the message</li></ul></li></ol><ol type="a" id="943ec928-2e9a-4b3f-87e5-901af946bf2f" class="numbered-list" start="3"><li>If the identifier is its own, it declares itself a leader by sending an elected message with its identifier to its left neighbour and marking itself as a non-participant</li></ol></li></ol><ol type="1" id="938633f7-baf3-477b-929b-3685b7512775" class="numbered-list" start="3"><li>A process that receives the elected message forwards marks itself as a non-participant, notes the identifier in the message. If the identifier is not its own, it forwards the message on</li></ol><h3 id="2d0371e5-184d-41cc-95e8-20c6ebc2f870" class="">Example</h3><p id="4a0736e7-20e0-4981-9d28-e017b4d8721e" class="">Assume P2 has the greatest id L(2)</p><ol type="1" id="fafb1c65-10df-4679-ba99-4d6409a7ca8a" class="numbered-list" start="1"><li>P1 notices that P3 has failed so P1 initiates an election</li></ol><ol type="1" id="3b38667d-9d06-4b4a-b496-a109d320013e" class="numbered-list" start="2"><li>P1 sends a message with its identifier to its left and sets <strong>state</strong> to <em>participating</em></li></ol><ol type="1" id="31f7db52-d1e1-4d8a-ac21-39b48c0b122f" class="numbered-list" start="3"><li>P2 inspects the election message and replaces the identifier with its greater identifier</li></ol><ol type="1" id="90ae1e91-c85e-498c-a6de-daa9045e8914" class="numbered-list" start="4"><li>The election message traverses around the ring until it is received back at P2</li></ol><ol type="1" id="5ccdba2e-8d2a-4883-a9cb-52d037db620c" class="numbered-list" start="5"><li>P2 receives the election message that contains its own identifier</li></ol><ol type="1" id="de59bb4c-c385-4bbd-8629-9c2df68a3f24" class="numbered-list" start="6"><li>P2 sets itself as the leader and sends an elected message onwards</li></ol><ol type="1" id="aed29fe2-bcf7-47ca-be73-0e3c4536fe0a" class="numbered-list" start="7"><li>The elected message traverses the ring</li></ol><ol type="1" id="a5cc9065-c98e-48ed-8108-3c5ce6764cb9" class="numbered-list" start="8"><li>The elected message returns to P2 and the election has finished</li></ol><figure id="c7a1bd01-a194-4b63-a47e-9e5283fbb1f7" class="image" style="text-align:left"><a href="Leader%20Elections%20a21bb29aba81415385ac59c68a1ca7f0/Screenshot_2023-03-14_at_10.25.46.png"><img style="width:384px" src="Leader%20Elections%20a21bb29aba81415385ac59c68a1ca7f0/Screenshot_2023-03-14_at_10.25.46.png"/></a></figure><h3 id="e4c0cd49-62bc-4e4a-bdbe-c88af890eafe" class="">Performance</h3><figure id="1a4b3daf-08f0-4deb-8bc8-2c87adbb74a7" class="image"><a href="Leader%20Elections%20a21bb29aba81415385ac59c68a1ca7f0/Untitled%202.png"><img style="width:1086px" src="Leader%20Elections%20a21bb29aba81415385ac59c68a1ca7f0/Untitled%202.png"/></a></figure><h3 id="1db6ea47-195e-4d0f-95b6-14b385b19c1b" class="">Multiple Elections</h3><figure id="eeb688fa-9182-4b50-b682-9e8da76253d2" class="image" style="text-align:left"><a href="Leader%20Elections%20a21bb29aba81415385ac59c68a1ca7f0/Untitled%203.png"><img style="width:816px" src="Leader%20Elections%20a21bb29aba81415385ac59c68a1ca7f0/Untitled%203.png"/></a></figure><h3 id="15bb8b55-85a5-4a08-ac0c-4c160d4a7438" class="">Correctness</h3><figure id="4c94e13b-9014-4709-83ee-9fa288e2f92d" class="image"><a href="Leader%20Elections%20a21bb29aba81415385ac59c68a1ca7f0/Untitled%204.png"><img style="width:793px" src="Leader%20Elections%20a21bb29aba81415385ac59c68a1ca7f0/Untitled%204.png"/></a></figure><h2 id="de2252a3-f10e-4215-98ec-00f5e1641f7e" class="">Bully Election</h2><ul id="b0cc0ae9-53ac-43b7-a156-0dc7e309f1b2" class="bulleted-list"><li style="list-style-type:disc">The Bully algorithm dynamically elects a coordinator or leader from a group of distributed computer processes.</li></ul><ul id="fffef8fd-9377-4884-b1a5-e7029df54afd" class="bulleted-list"><li style="list-style-type:disc">It elects the process with the highest process ID number as the coordinator, from amongst the non-failed processes</li></ul><ul id="20c17064-0248-4ef9-b504-9e0f7ba288c7" class="bulleted-list"><li style="list-style-type:disc">The algorithm assumes that:<ul id="60b4e3f1-4b91-4315-9c7a-288957bd4847" class="bulleted-list"><li style="list-style-type:circle">The system is synchronous - guaranteed safety and liveness</li></ul><ul id="181614ea-5975-4c07-b8e2-c363ee71decd" class="bulleted-list"><li style="list-style-type:circle">Message delivery between processes is reliable (liveness)</li></ul><ul id="a82ac1ae-12c7-4b27-8733-9c0603786eed" class="bulleted-list"><li style="list-style-type:circle">Processes may fail at any time, including during execution of the algorithm</li></ul><ul id="aee81b32-f0ce-4aa0-85cb-87693621dbc3" class="bulleted-list"><li style="list-style-type:circle">A process fails by stopping and returns from failure by restarting
+There is a failure detector which detects failed processes (safety)</li></ul><ul id="09449823-6acc-45df-a600-0890922e502d" class="bulleted-list"><li style="list-style-type:circle">Each process knows its own process id and address, and that of every other process</li></ul></li></ul><ul id="fcb356dc-72f7-4d84-a358-a360b1f8a2ac" class="bulleted-list"><li style="list-style-type:disc">The algorithm uses the following message types:<ul id="610044e3-7f43-4747-9202-63455268a24f" class="bulleted-list"><li style="list-style-type:circle">Election Message: Sent to announce election</li></ul><ul id="d91357e5-8dc3-49e2-af24-8dad65696052" class="bulleted-list"><li style="list-style-type:circle">Answer (Alive) Message: Responds to the Election message</li></ul><ul id="92a9b0b1-a5c0-4bbe-90c9-2a3e06c56c18" class="bulleted-list"><li style="list-style-type:circle">Coordinator (Victory) Message: Sent by winner of the election to announce victory</li></ul></li></ul><h3 id="ddd1f060-bb24-482d-a610-f9dfb01cc8db" class="">Algorithm</h3><p id="aa0b0f85-cbad-44b9-a932-51e2b8fe0ed9" class="">When a process P recovers from failure, or the failure detector indicates that the current coordinator has failed, P performs the following actions:</p><ol type="1" id="0fbc645b-55f5-473e-b401-c2c223881d42" class="numbered-list" start="1"><li>If P has the highest process ID, it sends a Coordinator message to all other processes and becomes the new Coordinator
+Otherwise, P broadcasts an Election message to all other processes with higher process IDs than itself</li></ol><ol type="1" id="78ff5b5f-361e-48bb-b974-4ae0e3b1eb1d" class="numbered-list" start="2"><li>If P receives no Answer after sending an Election message, then it broadcasts a Coordinator message to all other processes and becomes the Coordinator</li></ol><ol type="1" id="4cb6a268-f45e-4b33-aa07-66f22ecce9a9" class="numbered-list" start="3"><li>If P receives an Answer from a process with a higher ID, it sends no further messages for this election and waits for a Coordinator message.
+If there is no Coordinator message after a period of time, it restarts the process from the beginning</li></ol><ol type="1" id="82b63763-8ad6-44ef-ac76-24e7a340720c" class="numbered-list" start="4"><li>If P receives an Election message from another process with a lower ID it sends an
+Answer message back
+If it has not already started an election, it starts the election process at the beginning, by sending an Election message to higher-numbered processes</li></ol><ol type="1" id="f4d0ea7e-db67-4816-9626-09f0916e66f2" class="numbered-list" start="5"><li>If P receives a Coordinator message, it treats the sender as the coordinator</li></ol><h3 id="0020d48f-c6df-4fc7-b30f-d1c8238eb985" class="">Example</h3><ol type="1" id="60e94b13-f34e-4813-9c15-347ee4883918" class="numbered-list" start="1"><li>Process 10 detects that the current coordinator has failed</li></ol><ol type="1" id="84bf562f-5cea-4aca-a916-a5ebba5da527" class="numbered-list" start="2"><li>It sends out election message to those with higher IDs: 27, 32, 19</li></ol><ol type="1" id="54198223-0273-4bf4-8257-6a1badae2273" class="numbered-list" start="3"><li>Processes 27, 19 both send answer</li></ol><ol type="1" id="d20d31aa-e157-4d6c-a320-5a6288076043" class="numbered-list" start="4"><li>Processes 19, 27 both send election messages</li></ol><ol type="1" id="9f9c3fdd-1a0e-43c2-9c47-feee7dd65599" class="numbered-list" start="5"><li>Process 27 replies to 19 and 27 receives no other answer messages</li></ol><ol type="1" id="b200f08c-b82c-4b61-a0b4-b545b604913f" class="numbered-list" start="6"><li>Process 27 declares victory and becomes the coordinator. It
+broadcasts that it is coordinator to all processes</li></ol><figure id="c2804f18-a2c6-428c-b22d-eb66706523cb" class="image" style="text-align:left"><a href="Leader%20Elections%20a21bb29aba81415385ac59c68a1ca7f0/ezgif.com-gif-maker.gif"><img style="width:384px" src="Leader%20Elections%20a21bb29aba81415385ac59c68a1ca7f0/ezgif.com-gif-maker.gif"/></a></figure><h3 id="a70d9d22-c5cb-41e6-b42f-65cdfdeae8d6" class="">Performance</h3><p id="767cca85-ca90-4651-8d38-6f936d89dd75" class="">One election, <strong>best case:</strong></p><ul id="a2d02a29-38be-4e0e-bc25-fbf94ab7ff37" class="bulleted-list"><li style="list-style-type:disc">The coordinator failure was detected by the process with the second highest identifier, and it immediately elects itself as it has the highest identifier now</li></ul><ul id="9b425dcc-9485-4bb8-8e6b-3cf639e20a02" class="bulleted-list"><li style="list-style-type:disc">Total messages: N-2 coordinator messages</li></ul><ul id="646d15d1-06e2-4eb1-b40e-54a72dbfdf9b" class="bulleted-list"><li style="list-style-type:disc">Turnaround time: 1 message</li></ul><p id="cf363422-73ed-4a4e-aa3d-d231e8d6b255" class="">One election, <strong>worst case:</strong></p><ul id="f4057101-1d40-405a-9523-193697a48d4d" class="bulleted-list"><li style="list-style-type:disc">The coordinator failure was detected by the process with the lowest identifier
+Triggers all other processes all to begin elections</li></ul><ul id="4544b706-3fc1-49c5-b754-776377597f1b" class="bulleted-list"><li style="list-style-type:disc">Total messages:<ul id="345d05fb-4e01-42fb-b963-5be0bb9324b0" class="bulleted-list"><li style="list-style-type:circle">N-1 + N-2 + ... 1 election message + </li></ul><ul id="3963ee6d-e494-48de-8819-3c032a560f15" class="bulleted-list"><li style="list-style-type:circle">N-2 + N-3 + ...1 answer messages</li></ul><ul id="632e4e11-7a8e-423d-acb0-768a3187c6ac" class="bulleted-list"><li style="list-style-type:circle">N-1 coordinator messages</li></ul><ul id="7bdd04cb-402d-4f1c-8634-e432ffd78ebf" class="bulleted-list"><li style="list-style-type:circle">N(N-1) messages, O(N2)</li></ul></li></ul><ul id="f41530ed-ac46-4a30-aa22-ca88d358df14" class="bulleted-list"><li style="list-style-type:disc">Turnaround time: O(N) (two messages plus a timeout)</li></ul><p id="8eb1dd7e-43e1-47c5-aa0f-9d4174b1c9f8" class="">(<em><em><em><em><em><em><em><em><em><em><em><em><em>In summary, every process sends a message to every other process as the election has to “start” with the process that has the smallest of all process </em></em></em></em></em></em></em></em></em></em></em></em></em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><em><em><em><em><em><em><em><em><em><em><em><em><em>values…</em></em></em></em></em></em></em></em></em></em></em></em></em></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><em><em><em><em><em><em><em><em><em><em><em><em><em>)</em></em></em></em></em></em></em></em></em></em></em></em></em></p><h3 id="5ae58c76-7970-4505-a0ae-630d62dd9e7b" class="">Failure</h3><ul id="80b6bab8-8c90-43f4-a0f6-4c4c9f24ded6" class="bulleted-list"><li style="list-style-type:disc">If a failed process detector is unreliable<ul id="a0e7fe80-9a6c-47ee-9a91-d21db3f5c8e8" class="bulleted-list"><li style="list-style-type:circle">For example, incorrectly configured timeout or process running very slowly</li></ul><ul id="c376643b-b699-4a92-accd-3ef771c31086" class="bulleted-list"><li style="list-style-type:circle">Could end up with two coordinators</li></ul></li></ul><ul id="fe8cced0-2831-4ec3-bcf9-6fd5f4a15bf0" class="bulleted-list"><li style="list-style-type:disc">If the failed process is the one with the highest id and if crashed process are replaced by processes with the same identifiers:<ul id="a8136b84-f711-44d4-8e59-85cc33e2f502" class="bulleted-list"><li style="list-style-type:circle">New process sends coordinator message just at the same time as the next highest processor also sends one (having detected that an election was needed)</li></ul><ul id="8cc57928-5e24-4f3f-be0a-cdcde387b095" class="bulleted-list"><li style="list-style-type:circle">Two coordinator messages exist in system which can lead to inconsistencies</li></ul></li></ul><h3 id="8f3c223e-9d1a-4151-b874-73ff32d779e8" class="">Multiple Elections</h3><p id="6f58f594-bbb3-469d-b333-a964997ceb85" class=""><em>What if multiple processes initiate elections at the same time?</em></p><ul id="087c6a89-79aa-46ba-ae23-ccf0a7783ea0" class="bulleted-list"><li style="list-style-type:disc">Multiple processes would send election messages to processes with higher IDs</li></ul><ul id="a4c417b6-3403-45ed-9a1b-f9a6e5d7e3c8" class="bulleted-list"><li style="list-style-type:disc">Causing more election messages</li></ul><ul id="8c0ab0d5-79c7-4ac7-9a82-44872aeb9e3f" class="bulleted-list"><li style="list-style-type:disc">The outcome would be the same, the process with the highest ID would claim victory</li></ul><h3 id="5a80edb9-4487-4a5a-85d2-c42870562d10" class="">Correctness</h3><p id="a45e6c9c-b311-416d-9f80-6a72c936a069" class=""><strong>Safety:</strong></p><ul id="4cac1c85-f229-41bc-8aee-dfce3ef033fb" class="bulleted-list"><li style="list-style-type:disc">A lower-id process always yields to a higher-id one</li></ul><ul id="8a37dfac-e154-405f-a6e8-98b463d61400" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-red_background">Failure of a process might lead to two coordinators</mark></li></ul><p id="ea9abff2-74c8-4a85-a992-f8ffb0a1fe63" class=""><strong>Liveness:</strong></p><ul id="c905867d-973d-4b7d-9fc9-1e9ca46991b3" class="bulleted-list"><li style="list-style-type:disc">Every process participates in the election and knows the coordinator at the end</li></ul><ul id="efe7c183-f187-4f9a-9282-3f58256e21b0" class="bulleted-list"><li style="list-style-type:disc">Multi-concurrent elections do not change the outcome of the election</li></ul><p id="324d15d8-405f-4ab3-bbac-b9bb071a3c4a" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

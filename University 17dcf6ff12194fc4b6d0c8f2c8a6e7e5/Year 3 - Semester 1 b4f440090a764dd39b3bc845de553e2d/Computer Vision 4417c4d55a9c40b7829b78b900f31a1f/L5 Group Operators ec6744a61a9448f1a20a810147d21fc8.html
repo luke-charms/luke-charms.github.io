@@ -1,0 +1,699 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>L5. Group Operators</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="ec6744a6-1a94-48f1-a20a-810147d21fc8" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/meeting_gray.svg"/></div><h1 class="page-title">L5. Group Operators</h1><p class="page-description"></p></header><div class="page-body"><hr id="345e4204-4236-4df9-be16-6259f0003c9d"/><blockquote id="7a72c4b5-8e6d-448b-b3bf-a26dfe3cebef" class=""><strong>Book pp. 84-114</strong></blockquote><nav id="0a5e8844-1174-40b7-ad59-501c0a83abd3" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#230b9a8e-39f8-49ac-afd0-183335ce1bf3"><strong>Template convolution
+</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0b3a2b0e-05e4-4419-a8a2-dade67ddb777">Shown in an example</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b1304a99-3ad8-42bd-8528-82ada2eebe04"><strong>3×3 template and weighting coefficients
+</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e62db97b-7257-4651-85aa-9bf365bdf52b">Averaging Operator</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#757005c7-14ef-4682-9c8e-2709a5111233"><strong>Illustrating the effect of window size
+</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#340cddf5-befc-425d-ad0f-fe98c705b0e2"><strong>2D Gaussian function
+</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#2e4d65c8-1ebe-4374-95bb-769d20525a40">Template</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#2034a027-a83b-402d-b7cf-de8555b9b540"><strong>Applying Gaussian averaging
+</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#dee22e01-3854-4304-bcbf-65e82062d585"><strong>Comparison
+</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#267a4f96-51ec-4c09-9dd7-822f6514bc0c">Border?</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#4acfb69f-6d89-49fe-9b4c-362ed1070703"><strong>Template convolution via the Fourier transform
+</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#6120e347-d619-48d0-892d-c58bbee259c7"><strong>Finding the median from a 3×3 template
+</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#8e86c977-90ce-4e59-9a0c-a1d6fc510172">Non-local means</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#7e0c797b-ba60-4ecb-a0dc-542711330659"><strong>Applying non-local means</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#c407648e-6b40-496b-8a76-90f26ca4a280"><strong>Bilateral filtering
+</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#501177ee-bc30-403c-88fb-201315a130f1"><mark class="highlight-orange_background">RECAP</mark></a></div></nav><hr id="65b410bf-4791-4a75-b27b-3ca837d6d5a5"/><h1 id="230b9a8e-39f8-49ac-afd0-183335ce1bf3" class=""><strong>Template convolution
+</strong></h1><figure class="block-color-yellow_background callout" style="white-space:pre-wrap;display:flex" id="d61ed859-70bf-4765-bf24-96c22f8bb47e"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">REMEMBER: How to inverse a 3x3 template!</div></figure><figure id="7e223552-2282-409f-8336-391caa03f303" class="image"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.06.37.png"><img style="width:336px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.06.37.png"/></a></figure><p id="cdf37351-7687-407f-a612-01dabaaa9b57" class=""><mark class="highlight-red">Template is actually flipped around both axes</mark></p><p id="ffdba428-83cd-431f-a5d3-2edf7a3c40fd" class="">This does not matter for symmetric templates</p><figure id="b80856cd-7a2b-406d-ae30-28c92d4ddafc" class="image" style="text-align:left"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.08.05.png"><img style="width:240px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.08.05.png"/></a></figure><h3 id="0b3a2b0e-05e4-4419-a8a2-dade67ddb777" class="">Shown in an example</h3><p id="b63c6140-cfa9-4791-8591-0d53ced9f9e3" class="">Calculate a new image from the original</p><p id="7234024b-9a6b-4bfd-a30b-ab64aa0e5152" class="">Template is inverted for convolution</p><p id="922b99c9-39c3-4a82-8a4b-3487825f13cc" class="">Template is convolved in a faster fashion</p><figure id="738c9f6b-4205-40df-ab51-eb4b155ffe11" class="image"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.08.43.png"><img style="width:384px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.08.43.png"/></a><figcaption>This is what we’re doing in CW1</figcaption></figure><figure id="3f5a7639-f0e1-47c1-baa6-d7cf70a8f420" class="image"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.11.54.png"><img style="width:480px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.11.54.png"/></a></figure><h3 id="b1304a99-3ad8-42bd-8528-82ada2eebe04" class=""><strong>3×3 template and weighting coefficients
+</strong></h3><div id="8dc0891e-3b75-41a0-b42f-dafd5c8e7754" class="column-list"><div id="84e4898f-b3c9-4958-8e92-9ab480feb8e5" style="width:31.25%" class="column"><figure id="c5077c80-9024-48c7-8e16-cdfe0288a902" class="image"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.14.12.png"><img style="width:240px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.14.12.png"/></a></figure></div><div id="f58ecad9-9096-43c1-9b3e-bbafc506400c" style="width:68.75%" class="column"><figure id="dc116a5a-2d9f-4a9a-b98a-77305a0383ef" class="image"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.14.18.png"><img style="width:528px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.14.18.png"/></a></figure></div></div><h2 id="e62db97b-7257-4651-85aa-9bf365bdf52b" class="">Averaging Operator</h2><p id="43f887a4-d34f-4e15-9d4b-e62bdc70e8ad" class=""><strong>Window size 3×3, 𝑤𝑖𝑗 = 1/9,</strong></p><p id="839c53ad-2e77-4fa4-a2e3-3e89dcb9d371" class=""><strong>Window size 5×5, 𝑤𝑖𝑗 = 1/25,</strong></p><p id="a136fda6-da79-4a46-997e-93e21d173eb5" class=""><strong>Window size 7×7, 𝑤𝑖𝑗 = 1/49 ...
+</strong></p><div id="0325f2a5-c420-4c4b-9930-dcd19bee2c67" class="column-list"><div id="94ca5ddd-60b3-4ede-9091-0840eff1251b" style="width:50%" class="column"><figure id="bca22c56-4648-4fe0-8212-a21d91e0fe08" class="image" style="text-align:left"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.16.51.png"><img style="width:288px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.16.51.png"/></a></figure></div><div id="a2435d02-8c01-4926-919d-017e8a0f75c2" style="width:50%" class="column"><figure id="80f1046f-0ebe-4cf8-abc2-e3983f6b11f5" class="image" style="text-align:right"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.17.11.png"><img style="width:288px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.17.11.png"/></a></figure></div></div><figure id="f953038c-bd2f-4c73-ab3d-16ba2e060475" class="image"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.17.14.png"><img style="width:432px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.17.14.png"/></a></figure><h3 id="757005c7-14ef-4682-9c8e-2709a5111233" class=""><strong>Illustrating the effect of window size
+</strong></h3><p id="47b0a376-95c8-48cf-8e87-737ab7b960a2" class="">Larger operators remove more noise, but lose more details</p><figure id="73f248c8-ae2c-46db-a7b3-298e3ae593fb" class="image"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.19.18.png"><img style="width:1380px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.19.18.png"/></a></figure><h2 id="340cddf5-befc-425d-ad0f-fe98c705b0e2" class=""><strong>2D Gaussian function
+</strong></h2><figure id="85606e59-3005-4153-add2-a3de8ac87d73" class="image"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.21.50.png"><img style="width:384px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.21.50.png"/></a></figure><p id="51f9a738-ed47-45b7-92bd-211357e4bb26" class="">Used to calculate template values</p><p id="70092a46-fbe3-4969-9551-f4de7b6887f3" class="">Note compromise between variance <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>δ</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">\delta^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> and window size</p><p id="5dc96fd0-ef3a-4957-abcd-5842535792d9" class="">Common choices:</p><ul id="53ba59e0-8b2b-452e-95bc-7f8594e596fb" class="bulleted-list"><li style="list-style-type:disc"><strong>Window size: 5×5; 𝜎 = 1.0;</strong></li></ul><ul id="c0636940-d6a9-41db-901c-b2908de1d520" class="bulleted-list"><li style="list-style-type:disc"><strong>Window size: 7×7; 𝜎 = 1.2;</strong></li></ul><ul id="ef6a169b-605d-4e25-9443-051e9f88c1b0" class="bulleted-list"><li style="list-style-type:disc"><strong>Window size: 9×9; 𝜎 = 1.4.</strong></li></ul><h3 id="2e4d65c8-1ebe-4374-95bb-769d20525a40" class="">Template</h3><figure id="458e0bb0-395b-4d1a-b3ae-a194f09a5439" class="image"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.23.58.png"><img style="width:432px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.23.58.png"/></a></figure><figure id="84e9ea6a-ee24-4aa9-acc6-7c6423095d50" class="image"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.24.02.png"><img style="width:480px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.24.02.png"/></a></figure><h3 id="2034a027-a83b-402d-b7cf-de8555b9b540" class=""><strong>Applying Gaussian averaging
+</strong></h3><figure id="03f67c1f-2210-419e-895d-6b0d176ad1c3" class="image"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.24.50.png"><img style="width:1722px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.24.50.png"/></a></figure><p id="4ebfc10e-f3b4-41bd-b1ad-ab11ca77fc3e" class=""><strong>Window size refers to the size of the template!</strong></p><h3 id="dee22e01-3854-4304-bcbf-65e82062d585" class=""><strong>Comparison
+</strong></h3><div id="490e6fe6-99f6-41bd-b1be-8f60f89829a7" class="column-list"><div id="92e38bd5-e5d5-4d99-8b18-80ae5f5202c8" style="width:18.75%" class="column"><ul id="636690b6-80aa-4a4e-838c-dc33d89448e8" class="bulleted-list"><li style="list-style-type:disc">TOP: <strong>Direct averaging</strong></li></ul><p id="a84858ff-2383-41a6-8500-2a0e8fb463bc" class="">
+</p><ul id="0abc17a3-1c2a-4f10-ba18-727b9b6f4294" class="bulleted-list"><li style="list-style-type:disc">BOTTOM: <strong>Gaussian averaging</strong></li></ul></div><div id="6de4bdcf-18fb-40d2-aab2-5061bdebdad1" style="width:81.25%" class="column"><figure id="58f1f542-4b93-4e75-86af-ac72d02dccbb" class="image"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.25.31.png"><img style="width:528px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.25.31.png"/></a></figure></div></div><h2 id="267a4f96-51ec-4c09-9dd7-822f6514bc0c" class="">Border?</h2><ul id="98e480b9-fc3d-4b6c-adb5-0c81556a3082" class="bulleted-list"><li style="list-style-type:disc">Set border to black</li></ul><ul id="4aaa6290-cc24-477a-868e-ca5696fd5448" class="bulleted-list"><li style="list-style-type:disc">Padding the original image<p id="a1d88b81-35de-4292-9821-65c91b173658" class="">1. constant</p><p id="1f8a99fb-7f2c-497c-91c1-15844e947cc8" class="">2. wrap-around (periodic or cyclic)</p><p id="19174e98-e555-4efe-9725-fe5cf1989b07" class="">3. symmetric</p></li></ul><ul id="18f70080-29f8-4360-873a-65e16d7d1db7" class="bulleted-list"><li style="list-style-type:disc">Make template smaller near edges</li></ul><figure class="block-color-yellow_background callout" style="white-space:pre-wrap;display:flex" id="172390cc-1831-41ac-8675-c9aabcb8424c"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><strong>Normally we assume object of interest is near centre so set border to black</strong></div></figure><h2 id="4acfb69f-6d89-49fe-9b4c-362ed1070703" class=""><strong>Template convolution via the Fourier transform
+</strong></h2><p id="4aa9a1f0-4c6f-4080-8e82-8b3bb721cd1f" class=""><strong>Convolution theorem </strong>allows for<strong> fast computation via FFT </strong>for template size<strong> ≥ 7×7
+</strong></p><figure id="ef6634da-402a-46a4-9355-0c46ed8ced2d" class="image"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.28.50.png"><img style="width:480px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.28.50.png"/></a></figure><p id="6e190f04-e1d3-4e91-8a42-e32c2eb8a425" class=""><strong>The inversion is implicit in Fourier</strong></p><figure id="e977f98a-66c3-4867-9ecb-57eb2fd47679" class="image"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.30.21.png"><img style="width:432px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.30.21.png"/></a></figure><h3 id="6120e347-d619-48d0-892d-c58bbee259c7" class=""><strong>Finding the median from a 3×3 template
+</strong></h3><figure id="eca0cfd1-919e-4439-ba23-d563a0b97264" class="image"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.30.42.png"><img style="width:144px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.30.42.png"/></a></figure><p id="c443c82a-c96d-481c-9e7b-81e7c3880694" class=""><strong>The median is the centre element of a rank-ordered set of template points</strong></p><figure id="89187ca8-64cb-443d-bf7e-e6ed98c01d79" class="image"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.30.45.png"><img style="width:432px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.30.45.png"/></a></figure><figure id="f550b773-d0e4-47f8-b64e-fb5ccca9cedc" class="image"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.30.48.png"><img style="width:384px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.30.48.png"/></a></figure><p id="d3efe3dd-5e18-48ee-bfe3-bf969e936c64" class=""><span style="border-bottom:0.05em solid">Pros of using a median template</span></p><ul id="1467b211-37af-492f-8236-b650ab0dfd50" class="bulleted-list"><li style="list-style-type:disc">Preserves edges;</li></ul><ul id="d42f56d0-982d-4e92-8e6f-4e21947cdbf8" class="bulleted-list"><li style="list-style-type:disc">Removes salt and pepper noise - salt being the pixel with the highest intensity in the range and pepper being the pixel with the lowest intensity in the range</li></ul><figure id="175129cd-2dc0-4e25-ae5f-00a732ad841d" class="image"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.32.14.png"><img style="width:432px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.32.14.png"/></a></figure><h2 id="8e86c977-90ce-4e59-9a0c-a1d6fc510172" class="">Non-local means</h2><p id="7369b770-06e8-4364-8e96-65c4dcbfa47a" class=""><strong>Averaging which preserves regions
+</strong></p><figure id="b56d92a5-9b9a-4298-b626-d87f2bb563b9" class="image"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.33.37.png"><img style="width:384px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.33.37.png"/></a></figure><div id="92dc2ebf-e3d7-434e-89a2-f8e9b2a9db27" class="column-list"><div id="bb9e0da2-edf0-4729-8c6c-3d1a24b49071" style="width:50%" class="column"><figure id="fc295586-4bbf-4048-b2d0-e07405535df2" class="image" style="text-align:left"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.33.56.png"><img style="width:432px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.33.56.png"/></a><figcaption>Equation</figcaption></figure><p id="53f873c0-3126-4781-953b-5f32e013db72" class="">
+</p></div><div id="19dd56ab-5b13-437b-a832-f10d70aa19cf" style="width:50%" class="column"><figure id="c0a66a10-3076-405f-9f9d-1aa774dbc424" class="image" style="text-align:right"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.34.02.png"><img style="width:512px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.34.02.png"/></a><figcaption>Gaussian Weighting Function</figcaption></figure></div></div><p id="91b012e8-399b-4a38-b313-08970af22529" class="">Extremely effective method of removing noise from an image</p><h3 id="7e0c797b-ba60-4ecb-a0dc-542711330659" class=""><strong>Applying non-local means</strong></h3><figure id="31e1a7ca-ba4c-4fb3-a700-8a69cc66415e" class="image"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.36.07.png"><img style="width:432px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.36.07.png"/></a></figure><figure id="68697c40-de87-42c6-bd8e-e33e88e10de9" class="image"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.36.53.png"><img style="width:576px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.36.53.png"/></a></figure><p id="5719dca5-7e88-4848-a694-61ba23efe2f4" class="">Considering all the different ways of removing noise, you can see the different images they produce</p><figure id="729bb830-4689-4f6a-a0ad-376891f5d6a6" class="image"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.38.16.png"><img style="width:1158px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.38.16.png"/></a></figure><h3 id="c407648e-6b40-496b-8a76-90f26ca4a280" class=""><strong>Bilateral filtering
+</strong></h3><figure id="3475ac27-2320-44c4-8a04-7e9c2f53c29e" class="image"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.38.56.png"><img style="width:336px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.38.56.png"/></a></figure><div id="f23e0b12-c447-4011-beb6-5e99c55cc862" class="column-list"><div id="ba0f374d-f2b6-4307-a095-1a4538b6c781" style="width:50%" class="column"><figure id="32983164-1036-45d4-bc02-0f2cea30536c" class="image"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.38.58.png"><img style="width:288px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.38.58.png"/></a><figcaption>Equation</figcaption></figure></div><div id="451076b4-51bb-4b70-8179-9ecc95bf2979" style="width:50%" class="column"><figure id="c8a557a4-7903-4a3e-8b55-3772b1010395" class="image"><a href="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.39.04.png"><img style="width:696px" src="L5%20Group%20Operators%20ec6744a61a9448f1a20a810147d21fc8/Screenshot_2023-10-13_at_16.39.04.png"/></a><figcaption>Weighting Function</figcaption></figure></div></div><p id="792e3711-811a-448f-8b58-8902b415ac99" class="">Can consider intensity and difference from centre to give different weights to pixels to find a better weight</p><h1 id="501177ee-bc30-403c-88fb-201315a130f1" class=""><mark class="highlight-orange_background">RECAP</mark></h1><p id="c5b62656-dfae-4fd9-b753-24f8cc54b662" class="">1 – collection of points is called a template</p><p id="c8a4331b-f48b-4748-a2bc-9430c6459780" class="">2 – application to an image is called template convolution</p><p id="7b607025-393e-445a-8cfd-835901595241" class="">3 – can use Fourier to improve speed</p><p id="c3b8fcb6-c1be-4f30-a0d0-65821d7cec49" class="">4 – averaging reduces noise</p><p id="6436038c-76d2-4cc8-b8ca-0b6aa8a1d912" class="">(proofs for <strong>convolution theorem </strong>can be found on the slides)</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

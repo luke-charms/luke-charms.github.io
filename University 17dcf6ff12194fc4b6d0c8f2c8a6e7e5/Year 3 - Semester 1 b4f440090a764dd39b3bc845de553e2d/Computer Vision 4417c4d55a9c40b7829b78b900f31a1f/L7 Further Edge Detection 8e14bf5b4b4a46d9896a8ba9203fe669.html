@@ -1,0 +1,703 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>L7. Further Edge Detection</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="8e14bf5b-4b4a-46d9-896a-8ba9203fe669" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/met_camille_pissarro_1896.jpg" style="object-position:center 40%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="https://www.notion.so/icons/crop_lightgray.svg"/></div><h1 class="page-title">L7. Further Edge Detection</h1><p class="page-description"></p></header><div class="page-body"><hr id="8b853fc3-57a2-4807-9e7d-fd43a9b4b693"/><blockquote id="228b364f-6660-4787-9052-6a9c1c4aa17a" class=""><strong>Book pp. 131-177
+</strong></blockquote><nav id="260b1aed-01c6-45e7-a07d-2f42488c8b54" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#fb39f5c9-e96b-4cf5-83da-1485f1025519">How can we improve first order edge detection?</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d4298190-096f-4384-9425-5eefa3ddd3e8"><strong>Applying Sobel operator
+</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#98ae0896-9547-4196-8906-8783d4bf9b49"><strong>Canny edge detection operator</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#2c8397e6-f764-4c59-955f-1e1b2096fa8d"><strong>Stages in Canny edge detection operator
+</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a969622b-ebf9-4fbe-9fa2-533b28432e72"><strong>Interpolation in Non-maximum Suppression
+</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#29bf6f5a-8d74-4d83-8539-834615984ec1"><strong>Hysteresis thresholding transfer function
+</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#b0468569-6dd0-436f-a4bf-a7467f6c82f6"><strong>Action of non-maximum suppression and hysteresis thresholding</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#17ce5ac9-ef2b-475f-8c99-d00dd7391ba1"><strong>Comparing hysteresis thresholding with uniform thresholding</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#8e2b739f-f2e4-4de1-9ee7-d1255eee96fc"><strong>Comparing Canny with Sobel
+</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0d42682d-e131-44f4-bd50-8ab5154fcfb3"><strong>First and second order edge detection
+</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#50b23d3c-5bd6-48a0-ba9e-8f43b2535a01"><strong>Edge detection via the Laplacian operator
+</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#df2fbb2e-7197-45d9-a7e6-7cdb192e7c53"><strong>Edge detection is about differentiation
+</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#48c55018-215b-4552-8471-22f6acc51aea"><strong>Shape of Laplacian of Gaussian operator
+</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6d9ff9cf-7633-4142-bc36-78965cb806a1"><strong>Zero crossing detection
+</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#601ba162-0caf-494d-b153-0edbac990c27"><strong>Marr-Hildreth edge detection
+</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5ac40533-fd1a-4249-83f3-613c84054ca8"><strong>Comparison of edge detection operators
+</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#31f86773-394d-48d6-b35a-021274c12ef6">RECAP</a></div></nav><hr id="05a15200-d57e-470d-b548-4416f76d2927"/><h1 id="fb39f5c9-e96b-4cf5-83da-1485f1025519" class="">How can we improve first order edge detection?</h1><h2 id="d4298190-096f-4384-9425-5eefa3ddd3e8" class=""><strong>Applying Sobel operator
+</strong></h2><p id="bb73766f-957a-4253-9a32-72b1bf8ba121" class="">Sobel is a good basic operator</p><figure id="bd1ba60d-6bf9-469c-ab35-6642ba745ef8" class="image"><a href="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.14.36.png"><img style="width:624px" src="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.14.36.png"/></a></figure><h2 id="98ae0896-9547-4196-8906-8783d4bf9b49" class=""><strong>Canny edge detection operator</strong></h2><p id="25abceca-ffec-4c71-a243-bac311f8f6c3" class="">Formulated with three main objectives:</p><ul id="a4a79ed6-f20e-419f-be8f-eda0822354db" class="bulleted-list"><li style="list-style-type:disc">optimal detection with <strong>no spurious responses</strong></li></ul><ul id="d06a0692-5e53-4088-8e27-5ec2697dc677" class="bulleted-list"><li style="list-style-type:disc">good localisation with <strong>minimal distance</strong> between detected and true edge position - i.e., one pixel width is <strong><strong><strong><strong><strong><strong>enough</strong></strong></strong></strong></strong></strong> to detect an edge, don’t need more!</li></ul><ul id="ca562610-dd68-4f92-b02b-5c9bede3b00b" class="bulleted-list"><li style="list-style-type:disc"><strong>single response</strong> to eliminate multiple responses to a single edge</li></ul><p id="fb8f9bfe-c96d-4207-8269-41044a73b46d" class="">Approximation</p><ol type="1" id="81493d56-52bc-4ad7-81bd-2689797856cf" class="numbered-list" start="1"><li>use Gaussian smoothing;</li></ol><ol type="1" id="7a054de2-4c14-407d-9602-70074c91cf3c" class="numbered-list" start="2"><li>use the Sobel operator; <mark class="highlight-red">(can combine both of these)</mark></li></ol><ol type="1" id="2d0e7273-3672-4a1c-a522-112bda8c173a" class="numbered-list" start="3"><li>use <strong>non-maximum suppression</strong>; and</li></ol><ol type="1" id="1f5535b5-31df-4b08-876d-a53098419426" class="numbered-list" start="4"><li><em>threshold</em> with <strong>hysteresis </strong>to connect edge points.</li></ol><h3 id="2c8397e6-f764-4c59-955f-1e1b2096fa8d" class=""><strong>Stages in Canny edge detection operator
+</strong></h3><figure id="f8575e12-b972-4ee9-a4ee-57b4b1c6e500" class="image"><a href="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.18.44.png"><img style="width:1480px" src="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.18.44.png"/></a></figure><p id="40f2d5d7-2f4d-4eca-b22b-d9785c918086" class=""><strong>Canny gives thin edges in the right place, but is more complex</strong></p><h2 id="a969622b-ebf9-4fbe-9fa2-533b28432e72" class=""><strong>Interpolation in Non-maximum Suppression
+</strong></h2><figure id="f992ec3b-aa28-42ee-86fa-555330e3d834" class="image"><a href="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.19.21.png"><img style="width:1762px" src="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.19.21.png"/></a></figure><p id="6ad3f50e-3cf4-4c3c-86c6-39b0257a61c2" class="">Need to get the difference along the x-axis (Mx) and the y-axis (My) to get the <strong><strong><strong><strong><strong><strong><strong><strong><strong>magnitude</strong></strong></strong></strong></strong></strong></strong></strong></strong>. </p><h2 id="29bf6f5a-8d74-4d83-8539-834615984ec1" class=""><strong>Hysteresis thresholding transfer function
+</strong></h2><figure id="de0aba85-300f-4d83-933c-a18a50ce0695" class="image"><a href="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.21.00.png"><img style="width:528px" src="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.21.00.png"/></a></figure><h3 id="b0468569-6dd0-436f-a4bf-a7467f6c82f6" class=""><strong>Action of non-maximum suppression and hysteresis thresholding</strong></h3><figure id="8ec44671-9ca0-4ad9-9445-2c80c688d3d8" class="image"><a href="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.21.33.png"><img style="width:576px" src="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.21.33.png"/></a></figure><p id="d91a5308-5b26-46bd-bc81-5f3101e145d1" class="">Walk along top of ridge gives thin edges in the right place.</p><h2 id="17ce5ac9-ef2b-475f-8c99-d00dd7391ba1" class=""><strong>Comparing hysteresis thresholding with uniform thresholding</strong></h2><figure id="76a3054b-e44c-4c5e-b9b9-c5aff1875454" class="image"><a href="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.22.19.png"><img style="width:624px" src="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.22.19.png"/></a></figure><p id="8cf698e2-433a-4959-9a66-06198dcaa932" class="">Hysteresis thresholding gives <strong>all</strong> <em>points &gt; upper threshold</em> plus <strong>any</strong> <em>connected points &gt; lower threshold</em></p><p id="055a2ce3-6ef6-4b61-b840-dc811825ba71" class="">If you use larger threshold and get more pixels on edge, you might miss</p><p id="19866069-99f2-4ccb-a2bc-a9e7c1699667" class="">If you use smaller threshold and get less pixels …</p><h2 id="8e2b739f-f2e4-4de1-9ee7-d1255eee96fc" class=""><strong>Comparing Canny with Sobel
+</strong></h2><figure id="4c3b9fae-f244-489d-a67c-a62496449654" class="image"><a href="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.40.03.png"><img style="width:2098px" src="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.40.03.png"/></a></figure><h1 id="0d42682d-e131-44f4-bd50-8ab5154fcfb3" class=""><strong>First and second order edge detection
+</strong></h1><figure id="f41dc106-d43f-4e3f-b430-fb09082101a5" class="image"><a href="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.24.06.png"><img style="width:1556px" src="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.24.06.png"/></a></figure><h2 id="50b23d3c-5bd6-48a0-ba9e-8f43b2535a01" class=""><strong>Edge detection via the Laplacian operator
+</strong></h2><figure id="c7bf604e-d76e-42a6-94e7-9a9fd5e68560" class="image"><a href="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.26.19.png"><img style="width:1794px" src="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.26.19.png"/></a></figure><figure id="a84e73d8-dc7e-4358-afbd-63b7f95a89dd" class="image"><a href="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.26.30.png"><img style="width:1486px" src="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.26.30.png"/></a></figure><p id="65c9fe9c-b667-4e22-a8c3-29c390b71e2a" class="">Can compare the negative numbers to the positive, in order to determine if there exists an edge or not… however, as shown by the -6 it is very sensitive to noise, so we need a better function</p><h2 id="df2fbb2e-7197-45d9-a7e6-7cdb192e7c53" class=""><strong>Edge detection is about differentiation
+</strong></h2><figure id="4197a790-1d43-4b67-89c5-036450efed10" class="image"><a href="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.27.20.png"><img style="width:624px" src="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.27.20.png"/></a></figure><p id="da66d412-3322-4b86-ac08-2ee692b28254" class=""><span style="border-bottom:0.05em solid"><strong>Second order in x and y is:
+</strong></span></p><figure id="21d4c1ed-5a02-44af-8781-3a1487364237" class="image"><a href="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.30.09.png"><img style="width:576px" src="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.30.09.png"/></a></figure><figure id="cf048350-c481-4c4b-b072-76f1e00b4dd9" class="image"><a href="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.30.31.png"><img style="width:1550px" src="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.30.31.png"/></a></figure><h3 id="48c55018-215b-4552-8471-22f6acc51aea" class=""><strong>Shape of Laplacian of Gaussian operator
+</strong></h3><figure id="3fc1fbee-e126-49dd-8305-e2aad9dc8a17" class="image"><a href="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.31.32.png"><img style="width:480px" src="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.31.32.png"/></a></figure><h2 id="6d9ff9cf-7633-4142-bc36-78965cb806a1" class=""><strong>Zero crossing detection
+</strong></h2><figure id="251723e6-f6c6-43be-af70-8f7ab815c584" class="image"><a href="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.31.57.png"><img style="width:528px" src="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.31.57.png"/></a></figure><p id="bd450b5c-8993-4cf1-948f-ed436fc4781f" class=""><strong>Using e.g.: straight comparison:</strong></p><p id="2f1f10dc-f91d-44b4-8dae-f0b3e889c456" class=""><em><strong>IF </strong></em><strong>(max(1,2,3,4) &gt; 0 ^</strong><strong> min(1,2,3,4) &lt; 0) </strong><em><strong>THEN f</strong></em><strong>(</strong><em><strong>x</strong></em><strong>,</strong><em><strong>y</strong></em><strong>) = edge</strong></p><h2 id="601ba162-0caf-494d-b153-0edbac990c27" class=""><strong>Marr-Hildreth edge detection
+</strong></h2><figure id="e731803c-d1b6-449b-86c5-8b69dd3c2350" class="image"><a href="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.35.48.png"><img style="width:624px" src="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.35.48.png"/></a></figure><h1 id="5ac40533-fd1a-4249-83f3-613c84054ca8" class=""><strong>Comparison of edge detection operators
+</strong></h1><figure id="4ad40e92-a24e-4965-8d10-11192a95c880" class="image"><a href="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.36.24.png"><img style="width:672px" src="L7%20Further%20Edge%20Detection%208e14bf5b4b4a46d9896a8ba9203fe669/Screenshot_2023-10-19_at_13.36.24.png"/></a></figure><h1 id="31f86773-394d-48d6-b35a-021274c12ef6" class="">RECAP</h1><p id="c8678df8-fb08-4db5-9a9e-ef0cd5f259d6" class="">1 – Canny provides thin edges in the right place</p><p id="e11fc960-9cf6-4316-b488-e2d6a2afa7ac" class="">2 – second order (Marr-Hildreth) requires zero-crossing detection</p><p id="6ecb9a10-eb66-4f93-9416-a9a3c09c04c7" class="">3 – the results by Marr-Hildreth and Canny are well worth the extra computation</p><p id="a22195b0-4450-4b58-946e-4ec40df17828" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

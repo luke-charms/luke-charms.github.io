@@ -1,0 +1,691 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Programming Language Concepts</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="f0c0bd07-e19c-4920-bb49-37acd30dfab0" class="page sans"><header><img class="page-cover-image" src="Programming%20Language%20Concepts%20f0c0bd07e19c4920bb4937acd30dfab0/what-is-functional-programming-1621223174.png" style="object-position:center 50.31%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="https://www.notion.so/icons/code_lightgray.svg"/></div><h1 class="page-title">Programming Language Concepts</h1><p class="page-description"></p></header><div class="page-body"><div id="8f9e017b-2ebf-4a1a-8321-890f2d9e4cf6" class="column-list"><div id="670d8de0-3709-4a12-bda2-d2a0b84284ca" style="width:50%" class="column"><p id="5079caee-56ef-44bd-97a8-006cb9035d12" class=""><strong>Introduction to PLC </strong></p><figure id="202b10f8-e6bc-4244-b50c-a588ee436804" class="link-to-page"><a href="Programming%20Language%20Concepts%20f0c0bd07e19c4920bb4937acd30dfab0/Introduction%20to%20PLC%20202b10f8e6bc4244b50ca588ee436804.html"><img class="icon" src="https://www.notion.so/icons/directional-sign_pink.svg"/>Introduction to PLC</a></figure><p id="f6c2f36b-79ea-4995-9653-03ca9e86e935" class=""><strong>Syntax, Execution - Lexing and Parsing</strong></p><figure id="56acad85-ba08-4fbd-9665-1045a5cce7d5" class="link-to-page"><a href="Programming%20Language%20Concepts%20f0c0bd07e19c4920bb4937acd30dfab0/Variables,%20Names%20and%20Bindings%2056acad85ba084fbd96651045a5cce7d5.html"><img class="icon" src="https://www.notion.so/icons/rename_pink.svg"/>Variables, Names and Bindings</a></figure><figure id="8cb983d8-659d-45bd-b0d3-3ace7695aaff" class="link-to-page"><a href="Programming%20Language%20Concepts%20f0c0bd07e19c4920bb4937acd30dfab0/Syntax%20and%20Grammars%208cb983d8659d45bdb0d33ace7695aaff.html"><img class="icon" src="https://www.notion.so/icons/snippet_pink.svg"/>Syntax and Grammars</a></figure><figure id="4c2769fb-c170-48a3-a218-737ec749aff6" class="link-to-page"><a href="Programming%20Language%20Concepts%20f0c0bd07e19c4920bb4937acd30dfab0/Parsing%204c2769fbc17048a3a218737ec749aff6.html"><img class="icon" src="https://www.notion.so/icons/token_pink.svg"/>Parsing</a></figure><p id="599a7b24-57e8-458b-8855-d86395d2a74f" class=""><strong>Type Systems</strong></p><figure id="0f2d4fd8-df84-4c63-9ed8-87a02b56565f" class="link-to-page"><a href="Programming%20Language%20Concepts%20f0c0bd07e19c4920bb4937acd30dfab0/Types%200f2d4fd8df844c639ed887a02b56565f.html"><img class="icon" src="https://www.notion.so/icons/keyboard_red.svg"/>Types</a></figure><figure id="7322fa38-f1a5-491e-a1f3-104bf702f2e9" class="link-to-page"><a href="Programming%20Language%20Concepts%20f0c0bd07e19c4920bb4937acd30dfab0/Variance%207322fa38f1a5491ea1f3104bf702f2e9.html"><img class="icon" src="https://www.notion.so/icons/sliders-vertical_red.svg"/>Variance</a></figure><p id="1fae514e-d2f1-4a7c-8c2a-953829b0a914" class=""><strong>Semantics of Programming Languages</strong></p><figure id="afe5dbcc-0518-4954-94ec-026164c596e1" class="link-to-page"><a href="Programming%20Language%20Concepts%20f0c0bd07e19c4920bb4937acd30dfab0/Semantics%20afe5dbcc0518495494ec026164c596e1.html"><img class="icon" src="https://www.notion.so/icons/command-line_pink.svg"/>Semantics</a></figure><p id="b2672d7e-35fa-4f6b-8ca1-f616a3472428" class=""><strong>Concurrency in Programming Languages</strong></p><figure id="d7655332-7d85-4270-a9bb-d6f104f53879" class="link-to-page"><a href="Programming%20Language%20Concepts%20f0c0bd07e19c4920bb4937acd30dfab0/Concurrency%20d76553327d854270a9bbd6f104f53879.html"><img class="icon" src="https://www.notion.so/icons/repeat_pink.svg"/>Concurrency</a></figure><p id="277b41ed-ada7-4179-8444-21db11a98c57" class=""><strong>Reasoning about concurrency</strong></p><figure id="6deb4392-b811-4a50-85b6-5459e60a0c61" class="link-to-page"><a href="Programming%20Language%20Concepts%20f0c0bd07e19c4920bb4937acd30dfab0/Simulations%206deb4392b8114a5085b65459e60a0c61.html"><img class="icon" src="https://www.notion.so/icons/playback-play-button_pink.svg"/>Simulations</a></figure><figure id="11ec9c7d-51d8-4059-aadb-1c577c8d1fff" class="link-to-page"><a href="Programming%20Language%20Concepts%20f0c0bd07e19c4920bb4937acd30dfab0/Bisimulations%2011ec9c7d51d84059aadb1c577c8d1fff.html"><img class="icon" src="https://www.notion.so/icons/playback-next_pink.svg"/>Bisimulations</a></figure><p id="f1ae7724-58de-4c20-922e-14a807e2ecf6" class=""><strong>A look at modern programming languages</strong></p><figure id="8aecb754-d3b5-4010-96ec-ea4fc19f8dd2" class="link-to-page"><a href="Programming%20Language%20Concepts%20f0c0bd07e19c4920bb4937acd30dfab0/Shared%20Variable%20Concurrency%208aecb754d3b5401096ecea4fc19f8dd2.html"><img class="icon" src="https://www.notion.so/icons/kind_red.svg"/>Shared Variable Concurrency</a></figure><figure id="c6c31072-70e0-413d-8065-fe6daa4a422e" class="link-to-page"><a href="Programming%20Language%20Concepts%20f0c0bd07e19c4920bb4937acd30dfab0/Message%20Passing%20Concurrency%20c6c3107270e0413d8065fe6daa4a422e.html"><img class="icon" src="https://www.notion.so/icons/chat_red.svg"/>Message Passing Concurrency</a></figure><figure id="3845a86d-b138-4da8-a049-54b82be9f3a2" class="link-to-page"><a href="Programming%20Language%20Concepts%20f0c0bd07e19c4920bb4937acd30dfab0/Thread%20Pools,%20Futures%20and%20Promises%203845a86db1384da8a04954b82be9f3a2.html"><img class="icon" src="https://www.notion.so/icons/triangle-one-third_red.svg"/>Thread Pools, Futures and Promises</a></figure></div><div id="b1eb08f7-cc31-4f6e-95b1-c4c428fa088b" style="width:50%" class="column"><p id="be16248b-ec53-40b0-bbc8-2abb27c2976c" class="">
+</p><p id="dec2c3c3-7ba2-4128-9431-fcb91f3562fe" class="">
+</p><p id="2ddf8840-a427-4755-bd26-05cc25eade94" class="">
+</p><figure id="613eef82-56aa-4890-8896-17c2a1b924d0" class="link-to-page"><a href="Programming%20Language%20Concepts%20f0c0bd07e19c4920bb4937acd30dfab0/Extent%20and%20Scope%20613eef8256aa4890889617c2a1b924d0.html"><img class="icon" src="https://www.notion.so/icons/telescope_pink.svg"/>Extent and Scope</a></figure><figure id="637f8aee-9abf-40c7-8dd5-53be6cc6ce3a" class="link-to-page"><a href="Programming%20Language%20Concepts%20f0c0bd07e19c4920bb4937acd30dfab0/Lexing%20637f8aee9abf40c78dd553be6cc6ce3a.html"><img class="icon" src="https://www.notion.so/icons/crop_pink.svg"/>Lexing</a></figure><p id="bdc71a2d-2b81-42ec-b277-6e1506540d0c" class="">
+</p><p id="ab658396-8ae4-4cb1-b68b-111c8c35bca4" class="">
+</p><figure id="0d80a51a-947c-42a6-982b-5ea1716fd8ba" class="link-to-page"><a href="Programming%20Language%20Concepts%20f0c0bd07e19c4920bb4937acd30dfab0/Further%20Types%200d80a51a947c42a6982b5ea1716fd8ba.html"><img class="icon" src="https://www.notion.so/icons/symbol_pink.svg"/>Further Types</a></figure><figure id="89f13004-e688-4fcf-b230-ba855be06582" class="link-to-page"><a href="Programming%20Language%20Concepts%20f0c0bd07e19c4920bb4937acd30dfab0/Curry-Howard%20Correspondence%2089f13004e6884fcfb230ba855be06582.html"><img class="icon" src="https://www.notion.so/icons/slideshow-play_red.svg"/>Curry-Howard Correspondence</a></figure><p id="75ffb866-b7ce-4d16-8f06-9fda30befe65" class="">
+</p><p id="31fbe9c9-ee9b-44f9-be9c-1bac0ec03bca" class="">
+</p><p id="5233b25d-ba93-4b54-8c06-e665f3c59ae5" class="">
+</p><p id="7be75827-5adb-4404-a049-42c885558e53" class="">
+</p><p id="8abb799f-bc23-44ac-a286-b343d05eb5c2" class="">
+</p><figure id="e8eea9f8-3e09-40d3-97ba-22f8b60e68ef" class="link-to-page"><a href="Programming%20Language%20Concepts%20f0c0bd07e19c4920bb4937acd30dfab0/Labelled%20Transition%20Systems%20e8eea9f83e0940d397ba22f8b60e68ef.html"><img class="icon" src="https://www.notion.so/icons/arrivals_pink.svg"/>Labelled Transition Systems</a></figure><p id="559c7c4d-9415-4a08-91e9-5ca114d932c4" class="">
+</p><p id="0c800582-7754-4ea6-a6e6-53afd4033b62" class="">
+</p><figure id="80b56791-90f0-4f1a-8e90-bdfdb48123e0" class="link-to-page"><a href="Programming%20Language%20Concepts%20f0c0bd07e19c4920bb4937acd30dfab0/Locks%20and%20Synchronisation%2080b5679190f04f1a8e90bdfdb48123e0.html"><img class="icon" src="https://www.notion.so/icons/lock-keyhole_red.svg"/>Locks and Synchronisation</a></figure><figure id="df4910fa-5404-4c4d-bcbb-77b25197da51" class="link-to-page"><a href="Programming%20Language%20Concepts%20f0c0bd07e19c4920bb4937acd30dfab0/Coroutines%20df4910fa54044c4dbcbb77b25197da51.html"><img class="icon" src="https://www.notion.so/icons/history_pink.svg"/>Coroutines</a></figure><figure id="b03cde97-e213-411f-a9bc-c3203967ee08" class="link-to-page"><a href="Programming%20Language%20Concepts%20f0c0bd07e19c4920bb4937acd30dfab0/Fine%20Grained%20Concurrency%20b03cde97e213411fa9bcc3203967ee08.html"><img class="icon" src="https://www.notion.so/icons/wheat_red.svg"/>Fine Grained Concurrency</a></figure></div></div><figure id="899c64ca-276f-40c8-ab52-c4a69cd93104" class="link-to-page"><a href="Programming%20Language%20Concepts%20f0c0bd07e19c4920bb4937acd30dfab0/Exam%20Revision%20899c64ca276f40c8ab52c4a69cd93104.html"><img class="icon" src="https://www.notion.so/icons/book_gray.svg"/>Exam Revision</a></figure><hr id="12eb490c-46bf-4a21-b56a-8625c21fd60f"/><div id="9eb41081-6b28-4dca-af66-6bc505c375f7" class="column-list"><div id="c7235f11-a70e-48e8-bef7-d61d1bf45e07" style="width:33.33333333333333%" class="column"><p id="8d7da417-28c8-42af-b93f-bdd0f0f2b4fe" class="">
+</p></div><div id="5b1be6dc-6e24-4877-80ee-d6bb990a123d" style="width:41.666666666666664%" class="column"><p id="986cdf2d-f815-4d4d-8b15-b272840c50e8" class="">
+</p><figure id="76e0acdb-7af4-4139-b573-e16fe38f7cca" class="link-to-page"><a href="../Year%202%20-%20Semester%202%2076e0acdb7af44139b573e16fe38f7cca.html"><img class="icon" src="https://www.notion.so/icons/backpack_orange.svg"/>Year 2 -  Semester 2</a></figure></div><div id="743f3109-7b25-4988-9dac-a2517e966d20" style="width:25%" class="column"><p id="81c117a6-d13b-4fe7-a645-defa5c8457c0" class="">
+</p></div></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

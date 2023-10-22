@@ -1,0 +1,712 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Timing</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="fcd3a8a4-110c-45da-bf26-33de7ee52555" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/clock_gray.svg"/></div><h1 class="page-title">Timing</h1><p class="page-description"></p></header><div class="page-body"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="61f3add5-00bd-473d-b522-d98c5cf8f9c1"><div style="font-size:1.5em"><span class="icon">📢</span></div><div style="width:100%"><strong>Need to be able to do:</strong><ul id="288559fa-5bc7-483d-9604-286a40edc982" class="bulleted-list"><li style="list-style-type:disc">…</li></ul></div></figure><nav id="17a623de-da0f-4855-9231-84e1586bb28b" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#39cdfbc4-db5e-4c9a-99f0-48046997410c">Timing</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5252ae6f-9763-4e26-bc3d-6df1330304d8">Measuring time</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#b21ac280-36bb-42cf-a36f-70e2482a6fb2">Quartz (and how it does it)</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#c9a87f25-2da2-444e-9ff8-fcd8e9eea646">Atomic Clocks</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#f09380d6-a3e5-40a8-a3ac-caa7ff6df71c">Clocks and Time</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ad0bbab9-6d00-4bcd-bbef-1c68d6638f9a">Local Network Based Algorithms</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#31fd2d97-8a3b-4d27-aa28-8950f1584d7c">Physical Clock Synchronisation - Cristian’s Algorithm</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#0a94ec6b-e632-47e8-a2fd-0518d0d73ebf">Berkeley Algorithm</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#de34c2cd-eeb8-4167-9b46-76a857b39c59"><strong>Internet Based Synchronisation Algorithm (Physical Clocks)</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#e40029f3-446e-4a90-9424-9b5b70cb941d">Network Time Protocol</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#92782dc8-935b-400e-ab74-adc93ccce1cc">Ordering of Messages</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#7e5d9e4a-4c58-4b90-bf51-ecfd511e0040">Logical Clocks</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#821c032d-3b2a-415b-8b32-920de2284c3a">Lamport Clock Algorithm</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#a6bbe3a2-4924-4381-98ed-94c68cef0f7e">Example</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0ea385f5-0f42-4bf8-87db-56b10aec6214">Vector Clocks</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#26b6cdff-2bee-434c-8859-32e47ac17c44">Example</a></div></nav><h1 id="39cdfbc4-db5e-4c9a-99f0-48046997410c" class="">Timing</h1><p id="c9e10e3b-d47b-499d-965a-0378e0466f1d" class="">Why is timing important?</p><ul id="0bdd2c71-6298-455d-b301-241b0ffc2e3b" class="bulleted-list"><li style="list-style-type:disc">Transactional integrity<ul id="8d2d77fa-01b3-45ed-ba8c-80fc145cbacb" class="bulleted-list"><li style="list-style-type:circle">calculation of interest, value of currency at time of purchase/sale</li></ul></li></ul><ul id="f7ea2050-d037-404d-a722-92ac24819191" class="bulleted-list"><li style="list-style-type:disc">Schedulers, timeouts, failure detectors, retry times<ul id="7681305d-7b5e-48d8-b980-ec400c106dfb" class="bulleted-list"><li style="list-style-type:circle">providing <strong>guarantees</strong> of service</li></ul><ul id="f9e683f2-39fd-469b-9ebe-6537bddd99cf" class="bulleted-list"><li style="list-style-type:circle">policies for canceling appointments refund/no refund</li></ul></li></ul><ul id="5b01b45b-2fce-4b44-b455-1fa2347498e1" class="bulleted-list"><li style="list-style-type:disc">Performance measures, statistics, profiling</li></ul><ul id="c653561a-6af1-4ec8-9e67-3260f0362457" class="bulleted-list"><li style="list-style-type:disc">Tracing and debugging problems across platforms and networks</li></ul><ul id="106f8d5f-61d1-46dd-bb09-1a2ec7c4ae56" class="bulleted-list"><li style="list-style-type:disc">Access control, authentication and encryption</li></ul><ul id="d3567c0f-19a6-4b8c-9c11-f260da2a997b" class="bulleted-list"><li style="list-style-type:disc">Log and auditing files<ul id="6057ad30-63b1-451c-b95c-5560efddcff1" class="bulleted-list"><li style="list-style-type:circle">checkpoints</li></ul></li></ul><p id="503adb75-84c7-4eda-b7c0-3961e11c63e2" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Operating systems ignore leap seconds</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><h2 id="5252ae6f-9763-4e26-bc3d-6df1330304d8" class="">Measuring time</h2><h3 id="b21ac280-36bb-42cf-a36f-70e2482a6fb2" class="">Quartz (and how it does it)</h3><ul id="b937699d-922a-4dfd-a66c-6367218ed758" class="bulleted-list"><li style="list-style-type:disc">Piezoelectric material, when it resonates it produces an electrical charge</li></ul><ul id="cbb94050-31bc-4bbe-b50f-81a4035a5b80" class="bulleted-list"><li style="list-style-type:disc">Laser trimmed to resonate at frequency, 32,768 per second</li></ul><ul id="dca9b0a5-7a2a-4ef8-b45e-a4f88e30a11f" class="bulleted-list"><li style="list-style-type:disc">Count oscillations to measure time</li></ul><ul id="ed59410d-1921-4be7-a132-0b82fa098449" class="bulleted-list"><li style="list-style-type:disc">A clock might run slightly fast or slow, with tolerance of 50 ppm</li></ul><ul id="b1ef7423-865d-40f0-a6d1-a452427e77fb" class="bulleted-list"><li style="list-style-type:disc">Parts per millisecond (ppm)</li></ul><ul id="edab8cf1-8461-4fce-97f4-cf959d039f31" class="bulleted-list"><li style="list-style-type:disc">Temperature and pressure changes affects drift</li></ul><h3 id="c9a87f25-2da2-444e-9ff8-fcd8e9eea646" class="">Atomic Clocks</h3><ul id="e058cfa2-a73a-454a-b523-f2a7d2b9dcb2" class="bulleted-list"><li style="list-style-type:disc">Atoms have a precise resonant frequency</li></ul><ul id="f2116981-cdcb-4a12-bc7b-4268c1611bfd" class="bulleted-list"><li style="list-style-type:disc">Caesium 133 atom used to define time (1 second = 9,192,631,770)</li></ul><ul id="028be543-5fcb-441f-904a-4a48e3788034" class="bulleted-list"><li style="list-style-type:disc">Radio waves tuned to the same frequency causes caesuim to resonate, absorbing energy, causing higher energy state</li></ul><ul id="ab01eac1-cd69-476a-b228-bb914338f02c" class="bulleted-list"><li style="list-style-type:disc">Feedback Loop<ul id="4559ccbd-72b1-4538-b6f5-c9077478ca3b" class="bulleted-list"><li style="list-style-type:circle">Uses quartz to control the radio wave transmitter</li></ul><ul id="de5da677-c5f4-406c-a6a2-3989d0f8c66e" class="bulleted-list"><li style="list-style-type:circle">Radio wave resonates with the caesium</li></ul><ul id="5cbcee48-b413-4661-9ea4-342841f2a118" class="bulleted-list"><li style="list-style-type:circle">If quartz slows down a detector sends an electric jolt to the quartz to increase it’s frequency</li></ul></li></ul><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="58427583-d1ff-4cb0-8ee2-698516f90544"><div style="font-size:1.5em"><span class="icon">📌</span></div><div style="width:100%">Accuracy ≈ 1 in <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><msup><mn>0</mn><mrow><mo>−</mo><mn>14</mn></mrow></msup></mrow><annotation encoding="application/x-tex">10^{-14}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">14</span></span></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> in 1 sec in 3 million years<p id="255bf91f-6d26-4220-8652-ebb25dd7cb61" class="">Price ≈ £20,000</p></div></figure><p id="0d37e5a5-08cb-429a-b9b3-9e02584eb335" class=""><strong>Atomic clocks are found mainly in satellites</strong></p><h3 id="f09380d6-a3e5-40a8-a3ac-caa7ff6df71c" class="">Clocks and Time</h3><p id="2c60a2e3-1c5d-486e-bf23-70d4f728b90d" class=""><strong>Clocks</strong></p><ul id="95d0f126-8090-4359-852a-f8ace50f0eba" class="bulleted-list"><li style="list-style-type:disc"><strong>Physical Clocks</strong> - count the number of seconds that have passed</li></ul><ul id="ebd8393e-a655-4904-8ad6-3475c21f4024" class="bulleted-list"><li style="list-style-type:disc"><strong>Logical Clocks</strong> - count events e.g.messages sent</li></ul><p id="e3eb5572-5603-48f3-af09-c40d7ce1e0d2" class=""><strong>Time</strong></p><ul id="874b9bf5-046a-48dc-8334-f12f7c8b942f" class="bulleted-list"><li style="list-style-type:disc">Greenwich Mean Time (GMT) renamed Coordinated Universal Time (UTC)</li></ul><ul id="609a3a0d-84b4-4f67-a550-218c10cfd174" class="bulleted-list"><li style="list-style-type:disc">International Atomic Time (TAI)</li></ul><p id="3c324802-c92c-4a95-ae0d-f6093229e610" class=""><strong>Problem with UTC</strong></p><ul id="7397fe97-a904-4a95-aa39-c3f615f1d26d" class="bulleted-list"><li style="list-style-type:disc">Speed of earths rotation is not constant seconds that have passed</li></ul><ul id="f490850b-10ae-4e8b-b809-264c363cb6d5" class="bulleted-list"><li style="list-style-type:disc">Leap seconds, negative and positive (30 June and 31 December)</li></ul><p id="2102941c-faff-48cd-896b-1f9eb40df1cb" class=""><strong>Time Formats</strong></p><ul id="77dfa402-7e24-43bd-b6a8-3cce02ebbe2f" class="bulleted-list"><li style="list-style-type:disc">Unix time - number of seconds since 1st Jan 1970 (no leap seconds)</li></ul><ul id="d6bc8c3f-ecae-487a-b364-d0dfda9e2382" class="bulleted-list"><li style="list-style-type:disc">ISO 8601: year month day hour minute second and timezone offset relative to UTC</li></ul><h2 id="ad0bbab9-6d00-4bcd-bbef-1c68d6638f9a" class="">Local Network Based Algorithms</h2><h3 id="31fd2d97-8a3b-4d27-aa28-8950f1584d7c" class="">Physical Clock Synchronisation - Cristian’s Algorithm</h3><p id="d1686527-0c38-46d7-8034-52749082d2cf" class="">Simple algorithm used to synchronise <strong><strong><strong><strong><strong>time </strong></strong></strong></strong></strong>with a <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>time server</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="08dece5c-5586-4d18-8b67-2ae9e97550ae" class="bulleted-list"><li style="list-style-type:disc">The Client process requests the time from a Clock Server</li></ul><ul id="b68d50f1-618f-44a7-9080-35f0ce90f7b8" class="bulleted-list"><li style="list-style-type:disc">The Clock Server responses by returning the clock server time</li></ul><ul id="3c8281fc-6b1b-4067-a924-4d9e41085778" class="bulleted-list"><li style="list-style-type:disc">The Client process receives the response from the Clock Server and calculates the synchronised client clock time.</li></ul><div id="1f869275-8073-4e60-bed6-a8ba51f8a70a" class="column-list"><div id="874455ef-4c48-4d25-9b9c-a29ff60d1cd6" style="width:43.75%" class="column"><figure id="a8b20b6d-9922-46b5-9b2c-a6540ff65bd0" class="image"><a href="Timing%20fcd3a8a4110c45dabf2633de7ee52555/Screenshot_2023-05-15_at_22.47.09.png"><img style="width:240px" src="Timing%20fcd3a8a4110c45dabf2633de7ee52555/Screenshot_2023-05-15_at_22.47.09.png"/></a></figure></div><div id="bbbd62ed-fa6f-40fe-abab-fc4298526ec3" style="width:56.25%" class="column"><p id="b6d2d351-527f-4aaf-8f1c-31fed1bb482d" class=""><strong><strong><strong><strong><strong><strong>Formula: </strong></strong></strong></strong></strong></strong><strong><strong><strong><strong><strong><strong><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mrow><mi>c</mi><mi>l</mi><mi>i</mi><mi>e</mi><mi>n</mi><mi>t</mi></mrow></msub><mo>=</mo><msub><mi>T</mi><mrow><mi>s</mi><mi>e</mi><mi>r</mi><mi>v</mi><mi>e</mi><mi>r</mi></mrow></msub><mo>+</mo><mfrac><mrow><mo stretchy="false">(</mo><mi>T</mi><mn>1</mn><mo>−</mo><mi>T</mi><mn>0</mn><mo stretchy="false">)</mo></mrow><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">T_{client} = T_{server} + \frac {(T1- T0)}2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">e</span><span class="mord mathnormal mtight">n</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">ser</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">er</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.355em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.01em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span><span class="mord mtight">1</span><span class="mbin mtight">−</span><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span><span class="mord mtight">0</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><span>﻿</span></span></strong></strong></strong></strong></strong></strong></p><p id="c85c6673-df8e-47bf-9733-fa43cd77eccd" class="">where:</p><ul id="fb1007d7-b974-475a-8306-6a9a833d4c2a" class="bulleted-list"><li style="list-style-type:disc">Tclient: synchronised clock time</li></ul><ul id="13b00680-8cec-4333-9e8d-140f90c72456" class="bulleted-list"><li style="list-style-type:disc">Tserver: clock time returned by server</li></ul><ul id="4528bad6-c64a-46c1-9190-7f4d3851d8a1" class="bulleted-list"><li style="list-style-type:disc">T0 time at which request was sent by client process</li></ul><ul id="904d9dc4-2d3d-489d-ab88-2e38802b31bc" class="bulleted-list"><li style="list-style-type:disc">T1 time at which response was received by the client process</li></ul></div></div><h3 id="0a94ec6b-e632-47e8-a2fd-0518d0d73ebf" class="">Berkeley Algorithm</h3><p id="76d0c1c5-ab79-4b9c-91f7-3cef121a3512" class="">The algorithm assumes that each machine node in the network either doesn’t have an accurate time source or doesn’t possess a UTC server</p><ol type="1" id="c18dc463-f464-487d-ae39-053ce6ef8184" class="numbered-list" start="1"><li>An individual node is chosen as the co-ordinator node using an election process/leader election algorithm</li></ol><ol type="1" id="e6e40164-30bb-4923-8c15-7bc5c5f80129" class="numbered-list" start="2"><li>The co-ordinator requests the time from each node</li></ol><ol type="1" id="1946cd5c-2f66-4eb0-9a0d-4de4dcad463a" class="numbered-list" start="3"><li>The co-ordinator uses Cristian’s algorithm to fetch the time from each node</li></ol><ol type="1" id="d4289f00-0e55-4661-9af3-96eccbd1d024" class="numbered-list" start="4"><li>The co-ordinator calculates the average time difference (Take the difference of all the times received and divide by the number received)</li></ol><ol type="1" id="e6e8e0dc-b306-4491-b50d-0781a3a2dd81" class="numbered-list" start="5"><li>The average time difference is added to the current time of the co-ordinator’s clock</li></ol><ol type="1" id="7477dc2b-926b-4b5f-9b4f-530c7a76c4e3" class="numbered-list" start="6"><li>The co-ordinator’s current time is then broadcasted over the network</li></ol><div id="8191b207-3dfb-4175-9e81-c58721675ab2" class="column-list"><div id="474e4e08-2411-438b-b3ee-daf94d004ad1" style="width:43.75%" class="column"><figure id="28d49302-9dfc-44b0-a820-faa9b6f55718" class="image" style="text-align:left"><a href="Timing%20fcd3a8a4110c45dabf2633de7ee52555/Screenshot_2023-05-15_at_22.50.38.png"><img style="width:288px" src="Timing%20fcd3a8a4110c45dabf2633de7ee52555/Screenshot_2023-05-15_at_22.50.38.png"/></a></figure></div><div id="4cf47ad3-d9fd-41fb-915f-b6dfe4eb9431" style="width:56.25%" class="column"><p id="4e2a4ce3-b047-462e-996a-0cc3753f0585" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Improvements!</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="ddc82634-2065-469d-bd13-1903c08c1519" class="bulleted-list"><li style="list-style-type:disc">Ignore significant outliers when calculating the average time difference</li></ul><ul id="30a4c1ee-4868-4981-8704-c400c22cce1c" class="bulleted-list"><li style="list-style-type:disc">In case the co-ordinator node fails/corrupts, a secondary leader must be ready/pre-chosen to reduce downtime caused due to the co-ordinator’s unavailability</li></ul><ul id="4cc19eb0-584a-4ea1-96ae-152ab9c90343" class="bulleted-list"><li style="list-style-type:disc">Broadcast the relative inverse time difference, instead of sending the synchronised time to reduce latency caused by latency in the network</li></ul></div></div><h2 id="de34c2cd-eeb8-4167-9b46-76a857b39c59" class=""><strong>Internet Based Synchronisation Algorithm (Physical Clocks)</strong></h2><h3 id="e40029f3-446e-4a90-9424-9b5b70cb941d" class="">Network Time Protocol</h3><p id="042ba3ac-3577-47e6-85c8-2f4319cb7781" class="">Time synchronisation protocol designed to be run across the internet</p><ul id="2bda7a71-b61e-4b35-9111-b8f4b95031f2" class="bulleted-list"><li style="list-style-type:disc">As opposed to Cristian’s / Berkeley algorithms which are local network based</li></ul><p id="406b77e9-47b8-49db-ac31-75c38fc462e8" class="">NTP uses a Stratum model which is a hierarchy of time servers</p><p id="725be60c-b391-4f8d-9fc2-bccc84db4024" class="">Where the Stratum level (0-15) indicates the device&#x27;s distance to the reference clock</p><p id="4d441cbb-c22b-4604-ba18-d47dcb47bd7e" class="">Hierarchical system of time sources:</p><ul id="d49c46e4-deab-49cf-8952-dfd4259af41f" class="bulleted-list"><li style="list-style-type:disc">Stratum 0: devices with high precision clocks such as atomic clocks, GPS, radio clocks</li></ul><ul id="3bd41631-c374-4e65-a80e-eba4de87531b" class="bulleted-list"><li style="list-style-type:disc">Stratum 1: synchronise with attached stratum 0 device</li></ul><ul id="b2c72432-103b-4524-a5b3-80c739f6e127" class="bulleted-list"><li style="list-style-type:disc">Stratum 2: synchronise over the network to Stratum 1 servers, peer with other stratum 2</li></ul><ul id="a77f86a5-391a-40ae-9abd-f8c0533b3a7b" class="bulleted-list"><li style="list-style-type:disc">Stratum 3: synchronise over the network to Stratum 2 servers,</li></ul><p id="11f4a379-5993-4f2d-889b-2bc1cc284d50" class=""><span style="border-bottom:0.05em solid"><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Algorithm</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></span><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>:</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><div id="c4df495c-0feb-4b59-bf3a-b191d6998e7e" class="column-list"><div id="f3fbdabf-64dd-4e34-8c04-62ab562951f4" style="width:50%" class="column"><figure id="0cb6d066-40cd-4e12-bc05-baeab594503a" class="image"><a href="Timing%20fcd3a8a4110c45dabf2633de7ee52555/Screenshot_2023-05-15_at_22.57.42.png"><img style="width:608px" src="Timing%20fcd3a8a4110c45dabf2633de7ee52555/Screenshot_2023-05-15_at_22.57.42.png"/></a></figure><ul id="a93c83c5-1b5a-4f99-bcf3-66d69fe66d5a" class="bulleted-list"><li style="list-style-type:disc">Clock skew θ  = Tserver – Tclient</li></ul><ul id="55361b81-293f-4f64-8a23-1e00f7db2dcb" class="bulleted-list"><li style="list-style-type:disc">θ = <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mn>2</mn></msub><mo>+</mo><mi>δ</mi><mi mathvariant="normal">/</mi><mn>2</mn><mo>+</mo><msub><mi>T</mi><mn>3</mn></msub></mrow><annotation encoding="application/x-tex">T_2 + δ/2 + T_3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="mord">/2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span></li></ul><ul id="63a3dae7-8d1f-494c-8920-65813c065c95" class="bulleted-list"><li style="list-style-type:disc">θ =<em> </em><em><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><msub><mi>T</mi><mn>1</mn></msub><mo>−</mo><msub><mi>T</mi><mn>0</mn></msub><mo>+</mo><msub><mi>T</mi><mn>2</mn></msub><mo>−</mo><msub><mi>T</mi><mn>3</mn></msub></mrow><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac {T_1 - T_0 + T_2 - T_3} {2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.233431em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8884309999999999em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.4101em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31731428571428577em;"><span style="top:-2.357em;margin-left:-0.13889em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mbin mtight">−</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31731428571428577em;"><span style="top:-2.357em;margin-left:-0.13889em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mbin mtight">+</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31731428571428577em;"><span style="top:-2.357em;margin-left:-0.13889em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mbin mtight">−</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31731428571428577em;"><span style="top:-2.357em;margin-left:-0.13889em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><span>﻿</span></span></em></li></ul></div><div id="d08565e7-ef22-409a-9f39-543dfba8727f" style="width:50%" class="column"><p id="47bddb38-8f01-4823-8251-5c68483d1bcc" class="">
+</p><ul id="250f6050-f883-46bf-aa5d-a2f97c1ade20" class="bulleted-list"><li style="list-style-type:disc">UDP/IP Packet with slots for 4 timestamps</li></ul><ul id="62d933ee-f647-4df1-a56f-9cec39182771" class="bulleted-list"><li style="list-style-type:disc">Client sends (T0, , , )</li></ul><ul id="e911b86b-1067-4150-a70e-b09e43237591" class="bulleted-list"><li style="list-style-type:disc">Server receives adds T1 (T0, T1, , )</li></ul><ul id="821c5d86-6c33-4dd1-b11c-1179e319d518" class="bulleted-list"><li style="list-style-type:disc">Server sends adds T2 (T0, T1, T2, )</li></ul><ul id="43b8834c-a91d-481e-ab92-7183968504ca" class="bulleted-list"><li style="list-style-type:disc">Client receives adds T3 (T0, T1, T2, T3)</li></ul><ul id="3c3d86c7-48a4-4a71-9fa8-1e8341a070c6" class="bulleted-list"><li style="list-style-type:disc">Given (T0, T1, T2, T3)</li></ul><ul id="78330eb9-75e9-4b09-80c4-7a8cbfb1cb00" class="bulleted-list"><li style="list-style-type:disc">Round-trip network delay δ = (T3 - T0) – (T2 - T1)</li></ul><ul id="e471be52-70a5-4c04-b74b-dd1486e0c946" class="bulleted-list"><li style="list-style-type:disc">Estimated server time when response received = T2 + δ/2</li></ul><ul id="81a1fb47-a24d-4ecb-bc2b-36fbff0d7182" class="bulleted-list"><li style="list-style-type:disc">Assume request latency = response latency</li></ul></div></div><p id="2ff2966d-7de7-48c7-985a-49e8f4e2a3bb" class="">Applying statistical techniques to measure θ and δ a number of times, can determine the best estimate of skew</p><p id="3e1a85c0-83a9-46ca-980f-c9f85fde3bc2" class="">Client can correct its clock:</p><ul id="1c5d08df-422f-4447-8810-3f40e7851ebe" class="bulleted-list"><li style="list-style-type:disc">&lt; 125ms: slowly adjust the clock (slewing)</li></ul><ul id="545abfbf-7fda-418e-94d2-28766d978faa" class="bulleted-list"><li style="list-style-type:disc">125ms - 1000s: reset the clock (stepping)</li></ul><ul id="7c631400-3c5c-4a6e-ade5-03bc82e862d1" class="bulleted-list"><li style="list-style-type:disc">1000s: <strong>panic </strong>🆘</li></ul><h2 id="92782dc8-935b-400e-ab74-adc93ccce1cc" class="">Ordering of Messages</h2><figure id="27dd080f-b353-4aac-b7d0-488d8f9643c4" class="image"><a href="Timing%20fcd3a8a4110c45dabf2633de7ee52555/Screenshot_2023-05-15_at_23.01.08.png"><img style="width:996px" src="Timing%20fcd3a8a4110c45dabf2633de7ee52555/Screenshot_2023-05-15_at_23.01.08.png"/></a></figure><p id="af511bb6-7462-4ead-ac3f-065f41d06eb0" class="">An event is something happening at one node (sending or receiving a message, or a local execute step)</p><p id="7e02d57f-c503-43f3-a698-638fbac4d205" class="">We say event <strong><em>a</em></strong> happens before event <strong><em>b</em></strong> (written <em>a </em><em><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span></span><span>﻿</span></span></em><em> b</em>) iff:</p><ul id="fc3ea3ca-7a9e-4d93-8ea8-b9fe479a3615" class="bulleted-list"><li style="list-style-type:disc"><strong><em>a</em></strong><em> </em>and <strong><em>b</em></strong> occurred at the same node, and <strong><em>a</em></strong><em> </em>occurred before <strong><em>b</em></strong> in that node’s local execution order; or</li></ul><ul id="3a3a1606-9883-4c04-bd8e-c7bfb5132b1f" class="bulleted-list"><li style="list-style-type:disc">Event <strong>a</strong> is the sending of some message <em>m</em>, and event <strong><em>b</em></strong> is the receipt of that same message <em>m</em> (assuming sent messages are unique); or</li></ul><ul id="daa0a50d-d245-4260-8c99-3084352614c1" class="bulleted-list"><li style="list-style-type:disc">There exists an event <strong><em>c</em></strong> such that  <em>a </em><em><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span></span><span>﻿</span></span></em><em> c </em>and  c<em> </em><em><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span></span><span>﻿</span></span></em><em> b</em></li></ul><p id="95b87895-ac61-4b79-a42c-0e7d2dbf07c5" class="">The happens-before relation is a partial order: it is possible that neither  <em>a </em><em><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span></span><span>﻿</span></span></em><em> b </em>nor  b<em> </em><em><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span></span><span>﻿</span></span></em><em> a</em></p><p id="0dcfc4df-a51a-4b74-9e10-99a82c088970" class="">In that case, <em>a</em> and <em>b</em> are concurrent( written <em>a || b</em>)</p><p id="5f941bb8-f3a2-4adb-b7a3-4d71159e8dbf" class=""><strong><strong><strong><strong><strong><strong><strong><strong>Happens-Before Example
+</strong></strong></strong></strong></strong></strong></strong></strong></p><figure id="73078bae-dc4a-4cf2-89dc-9a7720b953c3" class="image"><a href="Timing%20fcd3a8a4110c45dabf2633de7ee52555/Screenshot_2023-05-15_at_23.04.01.png"><img style="width:1000px" src="Timing%20fcd3a8a4110c45dabf2633de7ee52555/Screenshot_2023-05-15_at_23.04.01.png"/></a></figure><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="2153fc8d-1e2c-476a-bf10-7d01b06f7365"><div style="font-size:1.5em"><span class="icon">📌</span></div><div style="width:100%">When <em>a </em><em><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span></span><span>﻿</span></span></em><em> b </em>then<em> a might have cause</em>d<em> b
+When a \\ b, a </em>cannot have caused<em> b
+</em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Happens before relation identifies potential causality</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></div></figure><h2 id="7e5d9e4a-4c58-4b90-bf51-ecfd511e0040" class="">Logical Clocks</h2><p id="70645096-0013-4a92-926c-f5bebebc2add" class="">Logical Clocks count the <strong>number of events that occur</strong></p><p id="14e46455-4e42-40b0-8542-dae6a88d31e5" class="">No relationship to physical time</p><p id="e2159d2d-793a-4871-8006-d03f3a63c85f" class="">Logical Clocks designed to capture causal dependencies</p><p id="ce83f74d-248d-4ec4-8351-62bec27f0324" class="">—&gt; (e1 <em><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span></span><span>﻿</span></span></em> e2) ⇒<em> (T(e1) &lt; T(e2)</em></p><p id="60385f1f-5bed-4fb7-8b22-3f31a195410e" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong>Examples:</strong></strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="c47c5f33-4b9f-4e9e-88a3-25527a1472d5" class="bulleted-list"><li style="list-style-type:disc">Lamport Clock</li></ul><ul id="5c2e1839-6aa6-4706-b225-2465a8097231" class="bulleted-list"><li style="list-style-type:disc">Vector Clocks</li></ul><h3 id="821c032d-3b2a-415b-8b32-920de2284c3a" class="">Lamport Clock Algorithm</h3><pre id="0065a779-5ec5-4a1e-aae0-0a89131264b4" class="code"><code>on initialisation do
+	t:=0			//each node has its own local variable t
+end on
+
+on any event occuring at the local node
+	t:=t+1
+end on
+
+on request to send message m do
+	t:=t+1; send (t,m) //via the underlying network link
+end on
+
+on receiving (t’,m) via the underlying network link do
+	t:=max(t,t’)+1
+	deliver m to the application
+end on</code></pre><p id="a659947d-ff85-48b7-8dcd-8d6929a145d8" class="">Each node maintains a counter <em>t</em>, increments on every local event <em>e</em></p><ul id="0fac68c1-a2bd-4ab5-b049-fae7b00a83b5" class="bulleted-list"><li style="list-style-type:disc">Let L(e) be the value of t after that increment</li></ul><ul id="f31f9620-fa61-405c-ab90-2a60ce858234" class="bulleted-list"><li style="list-style-type:disc">Message contains the message value and time t</li></ul><ul id="84f47585-ef80-46f2-8634-f0d8c36370a2" class="bulleted-list"><li style="list-style-type:disc">Recipient moves its clock forward to timestamp in the message (if greater than the local counter), then increments</li></ul><p id="0f722199-98d5-40f5-82b9-70d185a23eba" class="">Properties of the scheme:</p><ul id="27c1ce26-eb9a-49fc-944c-69e6661c23ca" class="bulleted-list"><li style="list-style-type:disc">If a <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span></span><span>﻿</span></span>  b then L(a) &lt; L(b)</li></ul><ul id="e5b48912-29bc-411c-a9b7-8e0f74c6f02e" class="bulleted-list"><li style="list-style-type:disc">However, L(a) &lt; L(b) does not imply a <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span></span><span>﻿</span></span>  b</li></ul><ul id="29bcbf6f-1f92-4177-b448-add553c26e84" class="bulleted-list"><li style="list-style-type:disc">Possible that L(a) = L(b) for a ≠ b</li></ul><h3 id="a6bbe3a2-4924-4381-98ed-94c68cef0f7e" class="">Example</h3><figure id="f4b30310-a50a-42ce-8e0b-fdab4bddb4cc" class="image"><a href="Timing%20fcd3a8a4110c45dabf2633de7ee52555/Screenshot_2023-05-15_at_23.12.13.png"><img style="width:1026px" src="Timing%20fcd3a8a4110c45dabf2633de7ee52555/Screenshot_2023-05-15_at_23.12.13.png"/></a></figure><p id="bc5789d1-d5c1-4525-853d-8d22b415b76e" class="">Two different events with the timestamp 1</p><p id="0487b30a-0349-44bc-b096-15a779a47cb6" class="">To uniquely identify an event <em>e</em> combine timestamp with the name of the node that it occurred to <em>(L(e), N(e))</em></p><p id="8fab1458-73af-40dd-ae0c-c656ee9eb5bf" class="">Can define a total order</p><p id="ff2a7457-7af8-4e2d-9de5-c563f5f091b2" class="">This order is causal <em>(</em>a <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span></span><span>﻿</span></span>  b<em>) </em>⇒<em> (a </em>≺ <em>b)</em></p><h2 id="0ea385f5-0f42-4bf8-87db-56b10aec6214" class="">Vector Clocks</h2><p id="64df6ed9-5f89-4289-9fca-619631c160a7" class=""><strong>Lamport Clocks have limitations</strong></p><ul id="0c87e748-a99d-4534-8360-8b188f903211" class="bulleted-list"><li style="list-style-type:disc"><em>L(a)</em> and <em>L(b)</em> with <em>L(a) &lt; L(b)</em> - We can’t tell which happened before or whether they are concurrent</li></ul><p id="5894c51d-a666-4c2e-9d88-01ec638d7ccf" class="">If we want to detect which events are concurrent, we need <strong>vector clocks:</strong></p><ul id="661c8924-4f04-44b0-9c71-36e2c67942c6" class="bulleted-list"><li style="list-style-type:disc">Assume <em>n</em> nodes in the system, <em>N = &lt;N1,N2, …, Nn&gt;</em></li></ul><ul id="f37aa5ec-5f5c-4dc7-9a11-f13602e3f961" class="bulleted-list"><li style="list-style-type:disc">Vector timestamp of event <em>a </em>is <em>V(a) = &lt;t1,t2, …, tn&gt;</em></li></ul><ul id="4f8edac9-f44d-4a45-925d-753b37d46868" class="bulleted-list"><li style="list-style-type:disc"><em>ti </em>is number of events observed by node <em>Ni</em></li></ul><ul id="0a71cb84-0c1b-4c40-9f84-467d9556cbfc" class="bulleted-list"><li style="list-style-type:disc">Each node has a current vector timestamp <em>T</em></li></ul><ul id="ad1b437f-8afb-49bf-abc8-d8d8d04419c6" class="bulleted-list"><li style="list-style-type:disc">On event at node <em>Ni</em> increment vector element <em>T[i]</em></li></ul><ul id="af1362d9-fe67-4bd8-8181-f8d576a71248" class="bulleted-list"><li style="list-style-type:disc">Attach current vector timestamp to each message</li></ul><ul id="efcbd2ce-e55e-4982-bfcb-a06a486c696e" class="bulleted-list"><li style="list-style-type:disc">Recipient merges message vector into its local vector</li></ul><pre id="afc63957-840d-4bd1-bf19-1db09d6be066" class="code"><code>on initialization at node Ni do
+	T:= &lt;0,0,…,0&gt;			//local variable at Ni
+end on
+
+on any event occurring at node Ni do
+	T[i]:= T[i]+1
+end on
+
+on request to send message m at node Ni do
+	T[i]:= T[i]+1; send (T,m) //via the underlying network link
+end on
+
+on receiving (T’,m) at node Ni via the underlying network link do
+	T[j]:= max(T[j],T’[j])+1 for every j ∈ {1,….,n}
+	T[i]:= T[i]+1:deliver m to the application
+end on</code></pre><h3 id="26b6cdff-2bee-434c-8859-32e47ac17c44" class="">Example</h3><figure id="5865e2f2-119e-46af-8a9f-138f17796c4b" class="image"><a href="Timing%20fcd3a8a4110c45dabf2633de7ee52555/Screenshot_2023-05-15_at_23.15.51.png"><img style="width:1326px" src="Timing%20fcd3a8a4110c45dabf2633de7ee52555/Screenshot_2023-05-15_at_23.15.51.png"/></a></figure><p id="a3b4fb31-7450-4dd9-909a-d0d3019bf7e8" class="">The vector timestamp of an event <em>e</em> represents a set of events <em>e</em> and its causal dependencies: 
+<em>{e} </em>∪<em> {a | a </em><em><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span></span><span>﻿</span></span></em><em> e}</em></p><p id="b857ba75-aa2c-4134-a8de-a240ae927ac0" class="">For example <em>&lt;2,2,0&gt; </em>represents the first two events from A, the first two events from B and no events from C</p><p id="2ac9b37a-6033-432a-9f96-739e0bf7e9f4" class=""><strong>The following order on vector timestamps holds (in a system with </strong><strong><em>n</em></strong><strong> nodes):</strong></p><ul id="a5cec9fb-e7c4-4883-8a43-f4e123fcaae3" class="bulleted-list"><li style="list-style-type:disc"><em>T = T’ 	iff 	T[i] = T’[i] for all i </em>∈<em> {1,…,n}</em></li></ul><ul id="faa0767c-4172-4fce-8bfb-72fdcee0c50f" class="bulleted-list"><li style="list-style-type:disc"><em>T ≤ T’ 	iff 	T[i] ≤ T’[i] for all i </em>∈<em> {1,…,n}</em></li></ul><ul id="f8de9821-ad31-474d-a832-cac32e59bfcd" class="bulleted-list"><li style="list-style-type:disc"><em>T &lt; T’ 	iff 	T[i] ≤ T’ and T ≠ T’</em></li></ul><ul id="c2e79054-65ce-4dac-b6b5-cd981056161c" class="bulleted-list"><li style="list-style-type:disc"><em>T || T’ 	iff 	T </em>≰<em> T’ and T’ </em>≰<em>  T</em></li></ul><ul id="e52616c3-ccbc-4b8b-b32e-7838aa98d159" class="bulleted-list"><li style="list-style-type:disc"><em>V(a) ≤ V(b) 	iff 	({a} </em>∪<em> {e | e </em><em><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span></span><span>﻿</span></span></em><em> a}) 	</em>⊆<em> 	({b} </em>∪<em> {e | e </em><em><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span></span><span>﻿</span></span></em><em> b})</em></li></ul><p id="0947f811-7eba-4465-a3ce-8bea1f3767af" class=""><strong>Properties of this order</strong></p><ul id="c26fc1dd-6103-43aa-9a28-795f0a3cda08" class="bulleted-list"><li style="list-style-type:disc"><em>V(a) &lt; V(b)	</em>⇔<em>	a </em><em><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span></span><span>﻿</span></span></em><em> b</em></li></ul><ul id="dd57cbb9-a573-488a-8660-4896609ffacc" class="bulleted-list"><li style="list-style-type:disc"><em>V(a)) = V(b) 	</em>⇔<em>	a = b</em></li></ul><ul id="c18c9ac1-7861-4a5c-8112-9d7f8416d2c8" class="bulleted-list"><li style="list-style-type:disc"><em>V(a) || V(b) 	</em>⇔<em> 	a || b</em></li></ul><p id="648db02d-b2e4-4be7-9a5e-522f57e07129" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

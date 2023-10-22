@@ -1,0 +1,687 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Physical and Architectural Models</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="eed9ce38-159c-468c-a8e5-93f04ec18012" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/looped-square_gray.svg"/></div><h1 class="page-title"><strong><strong>Physical and Architectural Models</strong></strong></h1><p class="page-description"></p></header><div class="page-body"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="e1d145fd-8eb4-47ad-8c71-016ad574e0c8"><div style="font-size:1.5em"><span class="icon">📢</span></div><div style="width:100%"><strong>Need to be able to do:</strong><ul id="bbf3adef-6725-4065-b9e8-abd12cc3588b" class="bulleted-list"><li style="list-style-type:disc">LO1 describe physical and architectural models of distributed systems</li></ul><ul id="b58f1308-9aaf-4494-950d-5e1314fffa30" class="bulleted-list"><li style="list-style-type:disc">LO2 understand available architectural choices when designing a distributed system</li></ul></div></figure><h2 id="f4a7dc01-ec74-44ff-8d36-2d4ff16119d8" class="">Distributed Systems Models</h2><ul id="a15a3b65-f55a-433c-babd-5d1abf43089f" class="bulleted-list"><li style="list-style-type:disc">Distributed Systems design<ul id="43261b0a-b875-483c-bfe1-c849a7d35228" class="bulleted-list"><li style="list-style-type:circle">Many complex challenges (e.g., scalability, concurrency)</li></ul><ul id="557fc174-d1e1-4221-9185-3e6e0dcd01dd" class="bulleted-list"><li style="list-style-type:circle">Many different application-specific requirements (e.g., financial trading, smart home)</li></ul></li></ul><ul id="81e5add6-789b-4efc-a525-3c03ae728b60" class="bulleted-list"><li style="list-style-type:disc"><em>Do we need to start from the scratch for every new distributed system?</em></li></ul><ul id="d3fcfd1b-e539-484a-9d77-8cf3bdada666" class="bulleted-list"><li style="list-style-type:disc">General approach<ul id="7c36814c-b096-44a5-bfee-6f318aea69db" class="bulleted-list"><li style="list-style-type:circle">Use models to represent distributed systems and capture their relevant aspects</li></ul><ul id="0902bbe4-9863-4812-b42e-8f80ef33f923" class="bulleted-list"><li style="list-style-type:circle">Develop general solutions for classes of distributed systems</li></ul><ul id="a4a65427-b222-4863-9e88-95b4a6553b55" class="bulleted-list"><li style="list-style-type:circle">Reuse those solutions for new distributed systems</li></ul></li></ul><p id="29feb718-e312-484b-9406-f38df5bed01f" class="">
+</p><ul id="77021590-6089-480f-afc7-a387643edefe" class="bulleted-list"><li style="list-style-type:disc">Physical models<ul id="eb163b10-3575-42b2-adbd-ef4dd72bbaaf" class="bulleted-list"><li style="list-style-type:circle">Computers</li></ul><ul id="dfc2246e-5a34-44ad-9e15-be3a4c8a3594" class="bulleted-list"><li style="list-style-type:circle">Interconnecting networks</li></ul></li></ul><ul id="27df6b00-ebfe-4be2-8a47-4e6c937d8ef2" class="bulleted-list"><li style="list-style-type:disc">Architectural models<ul id="19e12add-f05a-41a5-ad49-6b8fec2c789a" class="bulleted-list"><li style="list-style-type:circle">Architectural elements (computational and communication tasks)</li></ul><ul id="dea0a09e-0fb3-4ec0-8ec8-3c79656a4a97" class="bulleted-list"><li style="list-style-type:circle">Architectural patterns (how to combine elements)</li></ul></li></ul><ul id="6499ca07-7f2a-4644-a840-56034e7ff2ac" class="bulleted-list"><li style="list-style-type:disc">Fundamental models<ul id="e20abeb2-9592-4281-b6f0-71eface04314" class="bulleted-list"><li style="list-style-type:circle">Interactions models</li></ul><ul id="0f350a8a-bd48-4c46-adcf-331ea3bb177b" class="bulleted-list"><li style="list-style-type:circle">Failure models</li></ul><ul id="d9031e20-210a-4fba-90d6-a21500706521" class="bulleted-list"><li style="list-style-type:circle">Security models</li></ul></li></ul><h2 id="87628cd1-61e2-4793-bbb5-45dca20cf546" class="">Physical Models</h2><ul id="b4019b18-8699-4bf7-9a67-56c9409b5bb4" class="bulleted-list"><li style="list-style-type:disc">Baseline physical model<ul id="ca614a2b-9d7c-45fc-8f11-7a52d08f44a3" class="bulleted-list"><li style="list-style-type:circle">Components located at computers</li></ul><ul id="97ea98ca-1b4c-4eed-b1e0-68f65a471ce5" class="bulleted-list"><li style="list-style-type:circle">Computers interconnected by a network</li></ul><ul id="62d19b00-4ac2-4093-947c-84357de85770" class="bulleted-list"><li style="list-style-type:circle">Components communicate by passing messages over the network</li></ul></li></ul><ul id="1494e459-fe11-4dd5-8687-8cddfd53a966" class="bulleted-list"><li style="list-style-type:disc">Evolving models based on how distributed systems developed over time<ul id="b1edb404-7cbe-41d9-924e-b0c554165391" class="bulleted-list"><li style="list-style-type:circle">Early distributed systems</li></ul><ul id="5bd1a60c-7329-471c-93c2-b8c7e581ca1a" class="bulleted-list"><li style="list-style-type:circle">Internet-scaled distributed systems</li></ul><ul id="a74fffa9-3166-4f8e-91c3-37d94f773faf" class="bulleted-list"><li style="list-style-type:circle">Contemporary distributed systems</li></ul><ul id="8058e615-ac2e-40d0-ba6e-c730c06194af" class="bulleted-list"><li style="list-style-type:circle">Distributed systems of systems</li></ul></li></ul><h2 id="c2fb5f58-f088-4793-9f7f-acc602bad418" class=""><strong>Architectural Models</strong></h2><ul id="87b74ff1-46df-4589-9f79-130169bfcc63" class="bulleted-list"><li style="list-style-type:disc">The architecture of a distributed system describes its structure in terms of<ul id="ea60671a-460f-42c7-8d3d-c3395a813940" class="bulleted-list"><li style="list-style-type:circle">Types of components involved</li></ul><ul id="e810df6a-c0b8-4efb-bda0-667c5105d6ce" class="bulleted-list"><li style="list-style-type:circle">Their inter-relationships</li></ul><ul id="d21661bb-5e38-4ec7-a63a-3ac0b43e2a03" class="bulleted-list"><li style="list-style-type:circle">How they interact among each other</li></ul></li></ul><ul id="24d47b36-6af9-4c26-b770-a79f3234a377" class="bulleted-list"><li style="list-style-type:disc">An architecture is validated against requirements on<ul id="3d2b5179-71ba-4378-b29d-b879d0923e76" class="bulleted-list"><li style="list-style-type:circle">Availability</li></ul><ul id="a0962bc0-3f70-41ad-8bff-6fba0d26dab4" class="bulleted-list"><li style="list-style-type:circle">Performance</li></ul><ul id="5914ba2f-83be-477e-bf53-d307af6f53a0" class="bulleted-list"><li style="list-style-type:circle">Adaptability</li></ul><ul id="fe0e3a91-c119-4da7-a992-59e6b091f6d6" class="bulleted-list"><li style="list-style-type:circle">Security</li></ul></li></ul><h3 id="f4cf5fa6-fc2a-4abb-9515-d02864b0888b" class=""><strong>Architectural Elements</strong></h3><p id="a47de2f6-4730-4d00-9163-d0d5e87ec85f" class=""><em><em><em><em><em><em><em><em>How do you identify the building blocks of a distributed system?</em></em></em></em></em></em></em></em></p><p id="5276b183-d519-4fe3-9b3d-7f0bc59bb608" class=""><span style="border-bottom:0.05em solid">Answer these four questions:</span><div class="indented"><p id="482390ee-f581-4bff-95a0-eb7a574cff3f" class=""><strong>1. Communicating Entities. </strong>What are the entities that are communicating?</p><p id="844d2c25-c5a4-44ea-ab4c-65ff4a9288a6" class=""><strong>2. Communication Paradigms. </strong>How do they communicate?</p><p id="cf61fe9b-f373-4364-8dc7-d6ff9b3e4a6d" class=""><strong>3. Roles and Responsibilities. </strong>What roles/responsibilities do they have?</p><p id="bbc4d4e5-9a9b-42e5-931b-f49d941b251d" class=""><strong>4. Placement. </strong>How are they mapped on to the physical distributed infrastructure?</p></div></p><p id="bd31dee7-78b6-412c-b573-256b0990da4f" class="">
+</p><p id="afa6b4b9-35e1-466e-b546-12e95ed028c6" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Communicating Elements:</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="c61a7029-b623-4864-88e1-c87a59f28485" class="bulleted-list"><li style="list-style-type:disc">System-oriented perspective (<em>lower level, i.e., what is running?</em>)<ul id="4bc731ff-8890-466b-9950-9f523c42c5a3" class="bulleted-list"><li style="list-style-type:circle">Processes communicating via inter-process channels</li></ul><ul id="e6ce52a9-d524-4deb-86bc-29cfe8f2b436" class="bulleted-list"><li style="list-style-type:circle">If no process abstraction is available (e.g., sensors), nodes</li></ul><ul id="642261b5-6986-4ce2-a13b-78beca5df99a" class="bulleted-list"><li style="list-style-type:circle">Threads (if available) as lightweight execution means’<ul id="0ee50c29-7f7b-4adb-a1cc-59c2db7243ff" class="bulleted-list"><li style="list-style-type:square"><code>Can design your system to focus on the specific threads your system needs to run with</code></li></ul></li></ul></li></ul><ul id="080c12d2-e9fc-42ce-a3a5-4ad59a5b502a" class="bulleted-list"><li style="list-style-type:disc">Problem-oriented perspective (<em>higher level, i.e., can I abstract what is running?</em>)<ul id="e66fe668-2265-4b0e-8d56-ddddb140279c" class="bulleted-list"><li style="list-style-type:circle">Objects (<em>provided interface</em>)</li></ul><ul id="1c7b2134-97b1-4e84-b6dc-bd8ece5e16b4" class="bulleted-list"><li style="list-style-type:circle">Components (<em>both provided and required interfaces</em>)</li></ul><ul id="0896d837-f870-46db-8d14-998e6daad596" class="bulleted-list"><li style="list-style-type:circle">Web services (<em>web-based, thought to be accessed worldwide over the Internet</em>)</li></ul></li></ul><p id="0006db33-d217-41f9-ab4b-5b9576012159" class="">
+</p><p id="b6251d64-9cf9-4292-9257-c977988e0e96" class=""><strong><strong>Communication Paradigms:</strong></strong></p><p id="fda810c7-061b-4701-8583-acd3cf3ebb72" class="">Inter-process communication (<em>network level</em>)</p><ul id="5c401e55-0138-42b3-bf11-79d0fa49a300" class="bulleted-list"><li style="list-style-type:disc">Message passing</li></ul><ul id="bc54c272-513c-409e-8de1-cbbc0060ec11" class="bulleted-list"><li style="list-style-type:disc">Sockets</li></ul><p id="01fcc668-84c8-4004-be3b-d927fe2de7ac" class="">Remote invocation (<em>communication protocols based on a two-way exchange</em>)</p><ul id="62c4920a-3c8f-4c82-a272-d900b8245bcc" class="bulleted-list"><li style="list-style-type:disc">Request-reply protocols (e.g., send a request and receive a response, HTTP)</li></ul><ul id="af5ac317-9b4d-427a-83e2-613f126361d3" class="bulleted-list"><li style="list-style-type:disc">Remote Procedure Call (RPC)<ul id="f0a4e2e1-2af6-4ff2-ba11-c5afac938620" class="bulleted-list"><li style="list-style-type:circle">Request the execution of a remote function and receive the response</li></ul></li></ul><ul id="0e9e4a64-a25e-488c-aea2-39dd5c147be1" class="bulleted-list"><li style="list-style-type:disc">Remote method invocation (RMI)<ul id="3784c642-94e9-4441-9d58-ee7bbd99d5fd" class="bulleted-list"><li style="list-style-type:circle">Match with problem-oriented communicating entities (e.g., objects)</li></ul><ul id="a35ac0d6-4ae2-49c7-a118-443b5135f524" class="bulleted-list"><li style="list-style-type:circle">Object-oriented RPC, i.e., invocation of a method of a remote object</li></ul></li></ul><p id="d8e179b2-43be-4430-93e0-b70dab198b01" class="">
+</p><p id="2661dfc5-f713-4ac6-a737-7ffd5218a400" class=""><em>What are the limitations of inter-process communication and remote invocation?</em></p><p id="3279ab5b-984c-45e1-b9f9-c7b75ac711cf" class="">→ Interface needs to be known in Java</p><p id="c8e0bb18-6369-4622-8714-4244d9500f7d" class="">→ Worried about deadlocking - concurrency</p><p id="0e7949cd-dc6b-4174-bc28-3fc0454988f3" class="">→ The caller needs to know how to reach the destination</p><p id="b81d3e83-ded4-42f4-b327-0db027c76fbd" class="">→ Both source and destination need to be online and available at the same time</p><p id="4ce7218e-4c9b-4a7d-9e22-07f954a9390d" class="">→ Space coupling: senders need to know to reach the recievers (i.e. destiantions, endpoints)</p><p id="fce129f3-ac48-4cd9-a385-5bb982cf0e86" class="">
+</p><p id="2ca0b0eb-bdec-4616-a99c-bd625ffe0524" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em><em>Indirect communication: </em></em></em></em></em></em></em></em></em></em></em></em></em></em>time and space decoupling between senders and recievers</p><ul id="47f2ebc4-c6bf-44fd-8b97-3b2032e45761" class="bulleted-list"><li style="list-style-type:disc">Group communication</li></ul><ul id="f27e02d5-7837-41f8-9284-c0a73a7edc06" class="bulleted-list"><li style="list-style-type:disc">Publish-subscribe system</li></ul><p id="5c72e1c7-7710-47a3-b550-4f8ef28b56ae" class="">
+</p><p id="d0749230-9599-4f38-be4c-cee8df95c152" class=""><strong>Roles and Responsibilities</strong></p><p id="5a4b025c-47df-4d99-99c7-0fa2eebfe0b4" class="">Client-Server</p><ul id="374fa367-3194-4e5d-977e-02adfa663b58" class="bulleted-list"><li style="list-style-type:disc">Clients send requests to servers and receive responses back</li></ul><ul id="3cae202b-8aff-4684-b92a-57ad60f24047" class="bulleted-list"><li style="list-style-type:disc">Clients enabled to access shared resources managed by servers</li></ul><ul id="2756f3d0-af67-4a61-b68e-7f0a2d09e5d5" class="bulleted-list"><li style="list-style-type:disc">Servers can be clients of other servers</li></ul><p id="31d1a924-b3c3-4500-9433-5251dc6c57a6" class="">Peer-to-peer (p2p)</p><ul id="4857bc70-c69f-4264-9b7e-a787d988a661" class="bulleted-list"><li style="list-style-type:disc">All involved entities play similar roles<ul id="53117c1f-2d9e-4409-9c8d-f2485e11b81d" class="bulleted-list"><li style="list-style-type:circle">Same program, same interfaces</li></ul><ul id="17b3f61d-bd67-4ab1-8aa2-e02fbeda4707" class="bulleted-list"><li style="list-style-type:circle">Running on different machines</li></ul></li></ul><ul id="ae487143-d6a8-4f2d-99b0-58fb31e61c55" class="bulleted-list"><li style="list-style-type:disc">Clients themselves can become part of the p2p network and provide their resources to<ul id="83323569-e29d-413f-9ac2-0a809c421d7e" class="bulleted-list"><li style="list-style-type:circle">Clients are now more resourceful and always-connected</li></ul></li></ul><ul id="a5b9e939-84ad-4bc7-ab02-238f298a3556" class="bulleted-list"><li style="list-style-type:disc">Enables decentralised approaches<ul id="cf14e1a9-f13b-4ebe-80eb-3b51a5b95c21" class="bulleted-list"><li style="list-style-type:circle">Can improve scalability</li></ul><ul id="bd0d4097-a8cb-4bbe-a840-43b0b09954a3" class="bulleted-list"><li style="list-style-type:circle">Workload can be evenly distributed over peers</li></ul><ul id="a7b3922a-b7af-4212-b204-95bbbd14f1ac" class="bulleted-list"><li style="list-style-type:circle">P2p design much more complex than client-server<ul id="a5fd1f75-f0d5-4a40-889f-555228f82876" class="bulleted-list"><li style="list-style-type:square">No control over single peers, how to ensure availability?</li></ul></li></ul></li></ul><div id="2a70b450-0ff8-4c36-a9bd-ddba9db9f5ee" class="column-list"><div id="def6a095-ef48-40ea-b6ad-0802d728b6a6" style="width:50%" class="column"><figure id="4e80fbdc-5c4e-42b2-847b-2582210d9ef9" class="image"><a href="Physical%20and%20Architectural%20Models%20eed9ce38159c468ca8e593f04ec18012/Screenshot_2023-03-01_at_09.34.42.png"><img style="width:384px" src="Physical%20and%20Architectural%20Models%20eed9ce38159c468ca8e593f04ec18012/Screenshot_2023-03-01_at_09.34.42.png"/></a></figure></div><div id="83a8b459-0071-4533-8310-c1ea2d9a713c" style="width:50%" class="column"><figure id="b686ffc8-96ce-4f0b-be99-557c69ea9839" class="image"><a href="Physical%20and%20Architectural%20Models%20eed9ce38159c468ca8e593f04ec18012/Screenshot_2023-03-01_at_09.35.36.png"><img style="width:240px" src="Physical%20and%20Architectural%20Models%20eed9ce38159c468ca8e593f04ec18012/Screenshot_2023-03-01_at_09.35.36.png"/></a></figure></div></div><p id="fc3ae358-135b-4bf0-b89a-b31943a85ee4" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong>Placement</strong></strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="57954434-dbfe-4ba8-966c-fc5c887b9f02" class="bulleted-list"><li style="list-style-type:disc">How to map identified elements on to the underlying physical infrastructure</li></ul><ul id="67ee694c-7bc2-471a-9147-ee25a973b54e" class="bulleted-list"><li style="list-style-type:disc">Placement impacts on<ul id="c235d4ab-3655-482e-a13d-7694b1d35b23" class="bulleted-list"><li style="list-style-type:circle">Performance</li></ul><ul id="360260f1-1f1d-4d7c-aac6-7cb8df64be15" class="bulleted-list"><li style="list-style-type:circle">Reliability</li></ul><ul id="2fdb49d1-64b9-4393-b31a-49e9e8e4974a" class="bulleted-list"><li style="list-style-type:circle">Security</li></ul></li></ul><ul id="c382bf5c-aa7a-48fc-ae62-a4c04dfe706e" class="bulleted-list"><li style="list-style-type:disc">Aspects to take into account for the design<ul id="db266542-fd93-46d4-8fcf-06713a77cd4d" class="bulleted-list"><li style="list-style-type:circle">Communicationpatterns</li></ul><ul id="b4092cc2-288f-40ad-b5bd-d16478ec549b" class="bulleted-list"><li style="list-style-type:circle">Reliability of machines</li></ul><ul id="07e69879-3bd4-4269-a11c-0239c9babffb" class="bulleted-list"><li style="list-style-type:circle">Applicationworkload</li></ul><ul id="712702fd-add0-4ebf-bca1-fe9ce39a7247" class="bulleted-list"><li style="list-style-type:circle">Quality of communication channels</li></ul></li></ul><p id="2e74f94c-b793-48f4-b975-b1b0e0f435ae" class="">
+</p><p id="2575d89a-46f0-43ab-8eaf-596784147abb" class=""><span style="border-bottom:0.05em solid">Mapping of services to multiple servers</span></p><ul id="eb08f0f7-4dbf-43d1-b84d-21d0bc3f6a7f" class="bulleted-list"><li style="list-style-type:disc">Replicate application logic</li></ul><ul id="cc972b02-dfb5-479c-a164-a4412debd46e" class="bulleted-list"><li style="list-style-type:disc">Data objects can be either<ul id="5599e816-92d5-43b7-b5be-869251ff08d1" class="bulleted-list"><li style="list-style-type:circle">– Partitioned over the servers</li></ul><ul id="c6641368-9031-4759-beb8-4296e2740f1d" class="bulleted-list"><li style="list-style-type:circle">– Replicated over the servers</li></ul></li></ul><ul id="9ba6b9fe-8d40-4714-99d9-88d98b431b07" class="bulleted-list"><li style="list-style-type:disc">Pros and cons<p id="236c1bf0-affe-4960-ad92-7c6edd0d313f" class="">Replication</p><ul id="2a185d52-bc05-4481-9ed0-a1f903bbee4e" class="bulleted-list"><li style="list-style-type:circle"><em>pros: </em>safer to store data as if one part goes missing there is a replication somewhere else</li></ul><ul id="ad72acd7-e454-4f5b-a3ad-b0cc0f4b4374" class="bulleted-list"><li style="list-style-type:circle"><em>cons: </em>have to store and manage this data across multiple servers/clouds, so management can be tough unless done properly</li></ul><p id="0992372b-6f43-4810-855b-1b3de8ff1625" class="">Partitioning</p><ul id="421dcf1b-58e2-4923-9203-56ee73bcf87c" class="bulleted-list"><li style="list-style-type:circle"><em>pros:</em> no overhead for data consistency</li></ul><ul id="60c7524e-b745-4516-a55e-b66122fba59f" class="bulleted-list"><li style="list-style-type:circle"><em>cons:</em> no real fault tolerance</li></ul><figure id="21a8cac1-5c08-4369-89be-a03721864d9e" class="image"><a href="Physical%20and%20Architectural%20Models%20eed9ce38159c468ca8e593f04ec18012/Screenshot_2023-03-01_at_09.39.44.png"><img style="width:288px" src="Physical%20and%20Architectural%20Models%20eed9ce38159c468ca8e593f04ec18012/Screenshot_2023-03-01_at_09.39.44.png"/></a></figure></li></ul><p id="f30417bc-9696-43eb-bb96-1c6b74f6559d" class=""><span style="border-bottom:0.05em solid"><strong>Caching</strong></span></p><ul id="61fc0795-b470-4847-9bad-622e9aed5229" class="bulleted-list"><li style="list-style-type:disc">A cache is a store of recently used data objects that is closer to the client(s)</li></ul><ul id="4b642175-cac7-4809-9a99-58a2c376c0be" class="bulleted-list"><li style="list-style-type:disc">Caches can be also co-located with clients (e.g., web browser)</li></ul><ul id="a238fa9e-062a-44df-add7-524a2fa465a9" class="bulleted-list"><li style="list-style-type:disc">Web proxy servers can also be used to access web servers through a firewall</li></ul><figure id="926f60bd-2b6d-4925-8afe-5d63229366c7" class="image"><a href="Physical%20and%20Architectural%20Models%20eed9ce38159c468ca8e593f04ec18012/Screenshot_2023-03-01_at_09.40.26.png"><img style="width:1106px" src="Physical%20and%20Architectural%20Models%20eed9ce38159c468ca8e593f04ec18012/Screenshot_2023-03-01_at_09.40.26.png"/></a></figure><p id="84d31389-3f8c-4c1f-9a4c-8f738da4348b" class="">
+</p><h3 id="910bb527-6972-4e5d-a1f6-ab59fc0417ab" class=""><strong>Architectural Patterns</strong></h3><p id="de11929a-1e90-49d5-9c9f-8438f390f1c8" class="">A number of key patterns exist: </p><ul id="8370a3ef-7144-490b-afe1-1f988d710eae" class="bulleted-list"><li style="list-style-type:disc">Layering</li></ul><ul id="42612bb6-06c1-4fa9-a141-332b1ff2ce81" class="bulleted-list"><li style="list-style-type:disc">Tiering</li></ul><ul id="71d6493d-399e-48e0-ab34-ef6f79b41ff6" class="bulleted-list"><li style="list-style-type:disc">Thin clients</li></ul><ul id="4efcdf3c-173e-42ee-a4d4-829cee6b9f27" class="bulleted-list"><li style="list-style-type:disc">Proxying</li></ul><ul id="602292ee-1b84-40c6-a7bf-3cf51abc23f8" class="bulleted-list"><li style="list-style-type:disc">Brokerage</li></ul><p id="79d2c54d-47a9-42df-bba5-20572d1fba40" class="">
+</p><p id="73732e6f-6942-4bef-b5c6-c37b71caa9b7" class="">1) <span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid">Layering</span></span></span></span></span></span></span></span> - logical organisation</p><p id="0c23c264-19c0-4163-b8f6-724d07a93257" class="">Vertical organisation of services into service layers<div class="indented"><p id="06d1d73f-e4c5-49c3-a4fc-1747e3830b78" class="">– Each layer provides a SW abstraction and hides the details of lower layers</p></div></p><ul id="c3aecaa5-2d0e-4454-a520-26858b2f0e00" class="bulleted-list"><li style="list-style-type:disc">The platform represents the basic HW/SW layer</li></ul><ul id="7a917645-b140-4917-97df-c65f9c9aaee5" class="bulleted-list"><li style="list-style-type:disc">The middleware aims to<ul id="c4235339-3c05-4d1d-bd3f-62da17a9c9d1" class="bulleted-list"><li style="list-style-type:circle">Mask heterogeneity</li></ul><ul id="4d2f8866-5d44-4570-a863-23ff20b6047e" class="bulleted-list"><li style="list-style-type:circle">Provide suitable programming abstraction<ul id="d409a7bc-77ec-499d-a26f-b649ae4b8744" class="bulleted-list"><li style="list-style-type:square">RMI</li></ul><ul id="f4ef336b-e06a-4bd6-be8c-a3a93484a999" class="bulleted-list"><li style="list-style-type:square">Group communication</li></ul><ul id="5e4deb79-b236-4c69-851a-1e925fb5b9d5" class="bulleted-list"><li style="list-style-type:square">Replication of shared objects</li></ul><figure id="049816fc-6390-4262-bd9c-1d36ac29cc6d" class="image"><a href="Physical%20and%20Architectural%20Models%20eed9ce38159c468ca8e593f04ec18012/Screenshot_2023-03-01_at_09.43.04.png"><img style="width:384px" src="Physical%20and%20Architectural%20Models%20eed9ce38159c468ca8e593f04ec18012/Screenshot_2023-03-01_at_09.43.04.png"/></a></figure></li></ul></li></ul><p id="fbcace7e-485f-4402-8037-09a621991a50" class="">2) <span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid">Tiering</span></span></span></span></span></span></span></span> - physical organisation</p><p id="341908fc-83b0-429a-94fd-1705b41ba9bc" class="">Organise functionality of a given layer and place this functionality into servers <div class="indented"><p id="71a67513-8b3f-4cf7-ad80-cbf7d7b912bb" class="">– Tiering is complementary to layering</p></div></p><p id="24b5a3cf-08b2-4fdf-aeaf-046a61e38846" class="">Example: tiering of a client-server distributed application, functionally layered as <div class="indented"><p id="b058641e-f655-42ee-870f-b61c279a99ab" class="">– Presentation logic, Application logic, Data logic</p><figure id="18a63dbd-b43d-4654-bf1d-140a791d1a47" class="image"><a href="Physical%20and%20Architectural%20Models%20eed9ce38159c468ca8e593f04ec18012/Screenshot_2023-03-01_at_09.44.38.png"><img style="width:1918px" src="Physical%20and%20Architectural%20Models%20eed9ce38159c468ca8e593f04ec18012/Screenshot_2023-03-01_at_09.44.38.png"/></a></figure></div></p><p id="9a69cb47-0020-4c05-a3e4-1d8ebf0b16b1" class="">
+</p><h2 id="747b6623-93ac-4bdf-8177-5ab0798d91df" class="">Activity on Tiering</h2><figure id="c22893c0-cda1-49c7-a89f-262a4d7e8dda" class="image" style="text-align:left"><a href="Physical%20and%20Architectural%20Models%20eed9ce38159c468ca8e593f04ec18012/Screenshot_2023-03-01_at_09.45.30.png"><img style="width:432px" src="Physical%20and%20Architectural%20Models%20eed9ce38159c468ca8e593f04ec18012/Screenshot_2023-03-01_at_09.45.30.png"/></a></figure><p id="2fd8fbb1-5111-4e01-b275-6f5553726b06" class=""><strong><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>c</mi><mi>t</mi><mi>i</mi><mi>v</mi><mi>i</mi><mi>t</mi><mi>y</mi></mrow><annotation encoding="application/x-tex">Activity</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">A</span><span class="mord mathnormal">c</span><span class="mord mathnormal">t</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal">i</span><span class="mord mathnormal">t</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span></span><span>﻿</span></span></strong></p><ul id="3731289d-cd3f-4a39-a854-68229c3d9edd" class="bulleted-list"><li style="list-style-type:disc">Sketch a placement strategy of these layers for each of the following tiering (<em>drawing a high- level architecture may help</em>)<p id="af833ef3-8565-49f2-8793-3ef003b6229f" class="">– 1-tier</p><p id="3a100011-c22a-4fdc-92f8-1a276773de20" class="">– 2-tier</p><p id="90951187-b293-4bd7-9196-ab0a76829be8" class="">– 3-tier</p></li></ul><ul id="38d71ce8-04fa-4a82-af9d-053671ef0b3a" class="bulleted-list"><li style="list-style-type:disc">Also indicate how data objects are distributed (replication vs partition)</li></ul><ul id="76ff33b6-52f5-4cdc-a0f8-8cc499dfd9e9" class="bulleted-list"><li style="list-style-type:disc">For each tiering, discuss qualitatively how the placement affects<ul id="75027840-1eea-4704-b4aa-95046ce02089" class="bulleted-list"><li style="list-style-type:circle">Performance (how long an operations takes to complete; e.g., how many communication hops?)</li></ul><ul id="2da5b64c-7ca1-4586-9ea5-8dfaca925916" class="bulleted-list"><li style="list-style-type:circle">Scalability (how the system can sustain heavier workloads; e.g., add more machines)</li></ul><ul id="30ab59b4-bd8a-4cbd-982d-2b1654dc01f3" class="bulleted-list"><li style="list-style-type:circle">Dealing with failure (what if a machine fails?)</li></ul></li></ul><p id="153dfbf4-8f7d-42af-8e1d-18dc34b1683c" class="">
+</p><p id="2585c51e-e57c-4b97-b48b-c6a031d56039" class=""><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>n</mi><mi>s</mi><mi>w</mi><mi>e</mi><mi>r</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">Answers</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">A</span><span class="mord mathnormal">n</span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mord mathnormal">ers</span></span></span></span></span><span>﻿</span></span></p><p id="2b66953e-9652-4cc7-853f-a64a273b9690" class="">…</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1,0 +1,696 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Intro &amp; Characteristics</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="98757065-572e-4df9-bcb0-8230c772eacd" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/download_gray.svg"/></div><h1 class="page-title">Intro &amp; Characteristics</h1><p class="page-description"></p></header><div class="page-body"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="06dad616-2616-4366-a8b5-da7be0110612"><div style="font-size:1.5em"><span class="icon">📢</span></div><div style="width:100%"><strong>Need to be able to do:</strong><ul id="9d3cd3dc-8228-48f3-9229-acb460515910" class="bulleted-list"><li style="list-style-type:disc">LO1 Define a Distributed System and identify its main characteristics</li></ul><ul id="981ce58e-212f-4b0c-8181-3a9bf82c8c45" class="bulleted-list"><li style="list-style-type:disc">LO2 Describe the current trends in Distributed Systems</li></ul><ul id="3eb72b19-4c62-441a-9908-789bf691612b" class="bulleted-list"><li style="list-style-type:disc">LO3 Identify the key challenges of Distributed Systems design</li></ul></div></figure><h2 id="fdc1b7c4-ec1a-4412-823d-db578ee83699" class=""><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>W</mi><mi>h</mi><mi>a</mi><mi>t</mi><mo>−</mo><mi>i</mi><mi>s</mi><mo>−</mo><mi>a</mi><mo>−</mo><mi>D</mi><mi>i</mi><mi>s</mi><mi>t</mi><mi>r</mi><mi>i</mi><mi>b</mi><mi>u</mi><mi>t</mi><mi>e</mi><mi>d</mi><mo>−</mo><mi>S</mi><mi>y</mi><mi>s</mi><mi>t</mi><mi>e</mi><mi>m</mi><mo stretchy="false">?</mo></mrow><annotation encoding="application/x-tex">What-is-a-Distributed-System?</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">Wha</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.74285em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">i</span><span class="mord mathnormal">s</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mord mathnormal">i</span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">ib</span><span class="mord mathnormal">u</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">d</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mord mathnormal">ys</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">m</span><span class="mclose">?</span></span></span></span></span><span>﻿</span></span></h2><p id="f6f676a0-eda7-4c81-a4df-260f80c47a4a" class="">- A system where “hardware/software components located at networked computers communicate and coordinate their actions only by passing messages”<div class="indented"><ul id="3d662ac5-2fb4-4a7f-8a41-7bbbe1acf244" class="bulleted-list"><li style="list-style-type:disc">Data and computation are distributed over networked machines</li></ul></div></p><p id="03698745-bf8a-4c79-acde-2363c086c99a" class="">- Comparison with a system running on a single machine<div class="indented"><ul id="bf1da98f-b415-4c28-982a-dbc97038ecbd" class="bulleted-list"><li style="list-style-type:disc">Reads/writes from/to memory/disk do not require passing messages over the network (internal buses are used)</li></ul></div></p><p id="ca04651a-afb0-444d-bdad-6fc6b9792c81" class="">
+</p><p id="c5da2114-e00f-4f2c-8af1-b4449134b332" class="">- Characteristics of ALL distributed systems:<div class="indented"><p id="76eaf2da-2a02-44ac-9eb7-e76ac5223ca6" class="">1) Concurrency</p><p id="a83a348b-3f21-4d37-aea3-6a9ba04e8eb4" class="">2) No global clock</p><p id="927e872c-4dd8-4748-9dc1-e6d5b494dea3" class="">3) Independent failures</p></div></p><p id="55d65cd1-250c-4a3a-ad02-d7a5dfd7cf8c" class="">
+</p><p id="bd04dcd8-1861-46be-9e43-34991a1be942" class=""><mark class="highlight-orange">- Comparison with a system running on a </mark><strong><mark class="highlight-orange">single</mark></strong><mark class="highlight-orange"> machine: </mark><div class="indented"><ul id="f756125d-af35-46df-be4c-5554b1789649" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Concurrency is a design choice - Threads/processes can communicate through shared memory or message passing (e.g. pipes)</mark></li></ul><ul id="4fbf14e4-e35f-4f4f-bd60-60f6e379c20f" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Global clock</mark></li></ul><ul id="bf61f0d7-0846-4156-b324-4d4c21941bc3" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Simpler failure model</mark></li></ul></div></p><p id="c421920a-2bdc-408f-9a6d-08596558d49a" class="">
+</p><p id="59555ca2-4532-431b-9837-8125924a6eb3" class="">- Why do we need distributed systems?<div class="indented"><ul id="02a20052-47df-4891-93cb-ad0f5386ec25" class="bulleted-list"><li style="list-style-type:disc">To share resources<ul id="79921ae6-10d6-4b03-bb11-fc705903dc47" class="bulleted-list"><li style="list-style-type:circle">e.g., client-server paradigm</li></ul><ul id="217384fb-108c-48ae-b621-25dc8dde1e6f" class="bulleted-list"><li style="list-style-type:circle">Concept of service, to bridge the gap between service provider and service consumer</li></ul></li></ul><ul id="d8bf65b6-0d7e-41e5-b989-56b14d10a2b3" class="bulleted-list"><li style="list-style-type:disc">To have redundancy<ul id="d4a8b6db-713b-4980-b45a-b39030055f8b" class="bulleted-list"><li style="list-style-type:circle">Better fault tolerance</li></ul><ul id="e98514b9-ee0c-4cbc-9ce5-47a9726d5711" class="bulleted-list"><li style="list-style-type:circle">Consistencyproblem</li></ul></li></ul><ul id="a8c5ac0a-07ab-40f5-a13c-72abe89ea235" class="bulleted-list"><li style="list-style-type:disc">Opportunities to parallelise computation</li></ul></div></p><p id="6ff870c6-ed14-418c-9a61-7597d19556da" class="">
+</p><h2 id="470c94dc-7a73-450d-972d-08f630e22f6f" class=""><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>u</mi><mi>r</mi><mi>r</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>−</mo><mi>T</mi><mi>r</mi><mi>e</mi><mi>n</mi><mi>d</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">Current-Trends</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal">u</span><span class="mord mathnormal">rre</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal">re</span><span class="mord mathnormal">n</span><span class="mord mathnormal">d</span><span class="mord mathnormal">s</span></span></span></span></span><span>﻿</span></span></h2><h3 id="a28ef319-a6b9-426f-947d-c89d46dd7751" class="">Cloud Computing !!</h3><figure id="c8b6abc7-716e-48ef-b96e-7e35b1e5d5fa" class="image"><a href="Intro%20&amp;%20Characteristics%2098757065572e4df9bcb08230c772eacd/Screenshot_2023-02-28_at_10.16.45.png"><img style="width:432px" src="Intro%20&amp;%20Characteristics%2098757065572e4df9bcb08230c772eacd/Screenshot_2023-02-28_at_10.16.45.png"/></a></figure><p id="d894986a-2b41-4a4b-bfb7-3b5cffa0878e" class="">Move core services to remote servers</p><p id="5fe1e8c3-12f6-4fdf-9bae-81547afd115f" class="">Less control over your services </p><p id="b207c9d5-555b-42c6-8edc-ba1666c2b0d4" class="">Interact to store/retrieve data and use services through a web browser/app</p><h2 id="7cbc45f6-65ff-4d37-a35a-17c71e1af002" class="">Big Data</h2><ul id="06423c92-4bc8-402d-9dfb-5de7c89535d6" class="bulleted-list"><li style="list-style-type:disc">Volume: quantity of data</li></ul><ul id="28d80f8a-6d6e-4e1d-b960-403e8395bb71" class="bulleted-list"><li style="list-style-type:disc">Variety: diversity of types of data</li></ul><ul id="823d98c0-752a-44ee-836e-275976f41e99" class="bulleted-list"><li style="list-style-type:disc">Velocity: speed data is generated and needs to be processed</li></ul><p id="fb010f9e-0c6c-4efd-a4f0-c208f5eaa70a" class="">New requirements for Distributed Systems</p><h2 id="30ff54eb-490b-4aec-8c2a-4fd0b4384417" class="">Decentralised Networks</h2><p id="575bdb49-60fa-4976-933c-4f078e667b4f" class="">- Centralisation can lead to</p><ul id="b7143d2a-de86-434f-a3a1-9f1732f0a721" class="bulleted-list"><li style="list-style-type:disc">Performance bottleneck</li></ul><ul id="77a8a7c0-edc9-4c3e-ae10-5723e5a0719f" class="bulleted-list"><li style="list-style-type:disc">Single-point-of-failure</li></ul><ul id="2ccce3aa-646f-4772-935d-0e8462f123ee" class="bulleted-list"><li style="list-style-type:disc">Censorship</li></ul><p id="4940a6c2-d90b-4301-9851-a46f5bcd467b" class="">- Decentralised Distributed Systems as a way to remove centre-based architectures</p><ul id="dfb375bb-7198-46db-8673-7958c6fb3dd9" class="bulleted-list"><li style="list-style-type:disc">Peer-to-peer network</li></ul><ul id="92c3fbb6-cbf7-42ef-aca1-1921f7862253" class="bulleted-list"><li style="list-style-type:disc">Blockchain</li></ul><p id="1ff8fa4d-82ca-4471-be9f-62144f072fb4" class="">Trend towards decentralised systems is a move towards removing centralised components of the system. Usually, DS are built up of components that all do one thing and do it well, but decentralised systems rework this.</p><h2 id="ba77d8c3-248d-43d1-8298-9cca8123e835" class="">Internet of Things</h2><ul id="ee06cfaa-ad3a-4bd9-b3ab-5db50e028689" class="bulleted-list"><li style="list-style-type:disc">Pervasive network of sensors and actuators<ul id="7a050985-b822-4c0b-b7eb-5982425a2203" class="bulleted-list"><li style="list-style-type:circle">Smart home</li></ul><ul id="4591a3ee-435a-4294-b918-1c67dd82ba9d" class="bulleted-list"><li style="list-style-type:circle">Smart building</li></ul><ul id="e361c913-ca84-4dfe-8a4e-389c7083f1e3" class="bulleted-list"><li style="list-style-type:circle">Smart vehicles</li></ul><ul id="b819ac6d-1bfe-47c4-be1e-05c08b6b21db" class="bulleted-list"><li style="list-style-type:circle">Industry 4.0</li></ul></li></ul><ul id="89b96d60-9ad7-4b0f-9aaf-b16758c0dbf0" class="bulleted-list"><li style="list-style-type:disc">IoT devices are not general purpose and have limited resources<ul id="12fec64f-0e1e-47ef-ae1f-f8e52acf5887" class="bulleted-list"><li style="list-style-type:circle">Need to (aggregate and) send data to more powerful devices for analysis</li></ul><ul id="a912ba14-e39e-459d-97b3-cd0fc822ecb5" class="bulleted-list"><li style="list-style-type:circle">Usually, data sent to the cloud</li></ul></li></ul><h2 id="e4508d43-10c3-45a1-8082-67b61acea735" class="">Edge Computing and Fog Computing</h2><p id="90b068d0-3fe1-48e5-9e6e-743ed78a4250" class=""><span style="border-bottom:0.05em solid"><em>Edge computing:</em></span><div class="indented"><p id="66ef58dd-08b4-4037-8edb-8d062ccc9148" class="">- More powerful devices to be deployed at the edge of the network</p><p id="ca7930da-8e61-4600-ac67-dab2e6dc93af" class="">- Edge devices can carry out (part of) the computation <strong>where </strong>data is generated</p></div></p><p id="a7d24b34-1e18-4cff-ba71-7870ce02219a" class=""><em><span style="border-bottom:0.05em solid"><em><span style="border-bottom:0.05em solid"><em><span style="border-bottom:0.05em solid">Fog computing:</span></em></span></em></span></em><div class="indented"><p id="53a34041-8ff3-4b35-b9db-a6ec52d7e93f" class="">- Even more resourceful devices can be placed between the edge and the cloud</p><p id="11029fc0-85c2-47ee-a814-276998214ba7" class="">- Fog devices can carry out (part of) the computation <strong>very close to where </strong>data is generated</p></div></p><figure id="b24d41e2-a43e-4f84-b79b-8b7caef87146" class="image"><a href="Intro%20&amp;%20Characteristics%2098757065572e4df9bcb08230c772eacd/Screenshot_2023-02-28_at_10.27.17.png"><img style="width:480px" src="Intro%20&amp;%20Characteristics%2098757065572e4df9bcb08230c772eacd/Screenshot_2023-02-28_at_10.27.17.png"/></a></figure><p id="fed3b586-973c-4d67-a237-960b1a775b48" class="">
+</p><h2 id="308e3a38-2e72-4383-a054-c5a45eac5f5b" class=""><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>h</mi><mi>a</mi><mi>l</mi><mi>l</mi><mi>e</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">Challenges</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal">ha</span><span class="mord mathnormal" style="margin-right:0.01968em;">ll</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">es</span></span></span></span></span><span>﻿</span></span></h2><p id="0daf5d0c-3dee-4d82-a92f-a671ffdeeef9" class=""><em><strong>Heterogeneity</strong></em></p><p id="a135e4e7-1381-4694-b3f7-d229440aa08c" class="">Variety and difference of networks, hardware, operating systems, programming
+languages, implementations</p><ul id="9fd2f289-8c1f-4f87-bcac-60ee2e34897e" class="bulleted-list"><li style="list-style-type:disc">E.g., Internet protocols to mask network heterogeneity</li></ul><ul id="4e943f91-f063-4682-b517-bfd0c4607890" class="bulleted-list"><li style="list-style-type:disc">E.g., integer values can be represented in different ways on different HW</li></ul><ul id="746d186e-ea1c-499d-94ba-fab7f1c42a10" class="bulleted-list"><li style="list-style-type:disc">E.g., different OSs provide different interfaces to access/use network protocols</li></ul><ul id="e0324965-e9e1-4e13-aa40-d148249da35e" class="bulleted-list"><li style="list-style-type:disc">E.g., different programming languages use different data representations</li></ul><ul id="4278ecaf-23ca-42ee-b5a3-3ca527fb75f7" class="bulleted-list"><li style="list-style-type:disc">E.g., software written by different developers cannot communicate among each
+other, unless standards have been agreed and adopted</li></ul><p id="60c52dba-f405-42e8-9d2d-1dba342cf365" class="">Middleware: software layer that provides a programming abstraction as well as masking
+the heterogeneity of the underlying networks, HW, OSs and programming languages</p><p id="c228191d-d29b-41f7-b694-50c0a56fd654" class="">
+</p><p id="3f866f3c-27c6-4c50-940e-808fd6c97113" class=""><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong>Openness</strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></p><p id="93cffb8d-1365-4f65-b149-aba556642cb8" class="">An open system can be extended and reimplemented in various ways</p><ul id="a8a0941b-2b1c-4d63-b385-1a0388d64a9e" class="bulleted-list"><li style="list-style-type:disc">To add more computational/storage resources</li></ul><ul id="f197c40e-8fc7-47c4-aba2-140571421ca8" class="bulleted-list"><li style="list-style-type:disc">To integrate additional services</li></ul><p id="08d5e3ce-d4b4-4008-826d-14737261aec5" class="">The more easily a system can be extended, the more open it is</p><p id="d75096cf-ae3c-45ad-9b58-f8b34f1848c0" class="">It requires key interfaces to be published</p><ul id="d9ae6fcd-77d8-40da-afa4-af91fcb059d2" class="bulleted-list"><li style="list-style-type:disc">Similar to standardisation but less formal and (thus) faster</li></ul><p id="428d5a1c-8004-4d59-bcb1-69d6285d6d70" class="">
+</p><p id="a2f11c5b-6f6a-4668-bfbf-5c5d5928d1b9" class=""><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong>Scalability</strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></p><p id="650896fd-6ae6-4127-b6b0-04c57ee31964" class="">A system is scalable if it remains effective when there is a significant increase in<div class="indented"><ul id="7f2cbb64-3220-4622-baee-3c973f82c5b8" class="bulleted-list"><li style="list-style-type:disc">The number of resources, and/or</li></ul><ul id="8eee6f48-c821-4640-8ae6-0095ed0207e3" class="bulleted-list"><li style="list-style-type:disc">The number of users</li></ul><ul id="67b66feb-052d-4fb2-9742-51f9c0960f0d" class="bulleted-list"><li style="list-style-type:disc"><code>Ability to dynamically scale - scale out when workload increases and scale back in when workload decreases</code></li></ul></div></p><p id="084cdadc-27b2-4623-82b6-b452c1102cec" class="">Controlling the cost of physical resources<div class="indented"><ul id="86182769-c44d-4a07-b609-50739608aae3" class="bulleted-list"><li style="list-style-type:disc">Ease to add resources (e.g. machines) to meet growing demand</li></ul></div></p><p id="b737373f-7fbf-462d-8a70-d30e03aa9bf9" class="">Controlling the performance loss<div class="indented"><ul id="0b9d3129-270c-4e97-8166-80754dad5d2d" class="bulleted-list"><li style="list-style-type:disc">Algorithms performance should remain acceptable as problem size grows</li></ul></div></p><p id="d4c11266-d76d-4681-96ce-045e587fa8e0" class="">Preventing software resources running out<div class="indented"><ul id="d4b60223-6254-4d91-aa91-dbccdc95a2cc" class="bulleted-list"><li style="list-style-type:disc">Set/reserve the proper size for core data structure</li></ul></div></p><p id="846d02f0-9600-4349-9c1b-b7c5188a40fc" class="">Avoiding performance bottlenecks<div class="indented"><ul id="17065045-d564-4f45-9b02-ab42e8978268" class="bulleted-list"><li style="list-style-type:disc">Avoid centralisation</li></ul></div></p><p id="d9d0a4f9-3267-4a46-8141-8478374f0c32" class="">
+</p><p id="55f961c0-549c-484c-8a23-758260141aa9" class=""><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong>Failure handling</strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></p><p id="49033541-f129-48b6-9579-3cc4137a3c67" class="">Detect failures</p><ul id="c032d760-e197-4c3d-a677-fa3d0abb9392" class="bulleted-list"><li style="list-style-type:disc">Accuracy issues, e.g. server failure or network failure?</li></ul><p id="0d9361e6-c977-4621-bffc-b05cf4217837" class="">Mask failures</p><ul id="b6c3e477-a4da-41b6-8c9c-fe02a060533b" class="bulleted-list"><li style="list-style-type:disc">Message retransmission</li></ul><ul id="b4a9dc1c-5a52-4724-bce6-c59eaa356d64" class="bulleted-list"><li style="list-style-type:disc">Re-route to a replica</li></ul><p id="adcd669c-7268-43c9-88c2-8e88b5af2a73" class="">Tolerate failure</p><ul id="ae8a7b6a-ba4e-441a-a2d7-7e9cd57d1843" class="bulleted-list"><li style="list-style-type:disc">Inform the user</li></ul><p id="6b4f23fc-545e-4dc2-9510-2bd6c310b3af" class="">Recovery from failure</p><ul id="1438a459-b347-4cc7-9382-47e6096368ba" class="bulleted-list"><li style="list-style-type:disc">Data can be rolled back to a consistent state after a crash</li></ul><ul id="67d0cd92-57de-417c-affb-8aaf6795aa9b" class="bulleted-list"><li style="list-style-type:disc">Service availability can be restored after a crash</li></ul><p id="66ec0c17-eaac-493f-a072-73fee56e4676" class="">
+</p><p id="82423e72-ee2a-4273-b797-232e45395219" class=""><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong>Concurrency</strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></p><p id="5511f69e-00cd-40e0-a82a-9bf6da7a874d" class="">More clients can try to access the same resource at the same time</p><ul id="25851203-97c4-4b81-bd93-6446c25e3a4b" class="bulleted-list"><li style="list-style-type:disc">How to handle that?</li></ul><p id="1ecf5917-3e7e-4832-95cd-74d5858aa1b5" class="">Solution 1: serialise access<div class="indented"><ul id="27585de8-0fbb-4204-aa0c-71d8ef3207d2" class="bulleted-list"><li style="list-style-type:disc">Safe, but limits throughput</li></ul></div></p><p id="cf97a9fb-8898-43ee-a798-b7c85f3c0984" class="">Solution 2: allow for concurrent accesses<div class="indented"><ul id="311c9315-e54d-4576-873c-e0c75974dbbe" class="bulleted-list"><li style="list-style-type:disc">Maximise throughput, can lead to inconsistencies</li></ul></div></p><p id="553cedff-7483-418e-b8cb-f6e06170c7bc" class="">Need to encapsulate the resource and regulate accesses based on application specific
+requirements</p><p id="46079576-487b-49cc-bd7b-3ad98a0b36ee" class=""><code>May want to serve requests …</code></p><p id="68f5fa4f-d75f-4da1-9ad3-e9f894d3c9da" class="">
+</p><p id="e785ce12-9772-4c96-9cc7-05b920e9798a" class=""><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong>Transparency</strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></p><p id="f896581b-8470-4245-806b-cca39db4fea0" class="">“concealment from the user and the application programmer of the separation of
+components in a distributed system, so that the system is perceived as a whole rather
+than as a collection of independent components”</p><ul id="2fe66c04-91d2-4f8b-aa9b-d667888ae0cf" class="bulleted-list"><li style="list-style-type:disc"><strong>A client should not have to deal with these transparencies!</strong></li></ul><p id="929385d1-5a57-45b3-add6-d3a4fc793e30" class="">– Access transparency</p><p id="1b9fcaab-1499-4ce3-abfa-05083058c891" class="">– Location transparency</p><p id="a13d6df8-389d-4646-889e-6fcb32f5993b" class="">– Concurrency transparency</p><p id="9bd9c7de-c656-4760-b876-5c2c31775fad" class="">– Replication transparency</p><p id="9cc750b4-43c0-421e-90e4-1b724ee23cfc" class="">– Failure transparency</p><p id="150e421f-a2da-4fd6-9ab3-db46265ebd8d" class="">– Mobility transparency</p><p id="d79834d3-f99b-4774-bfab-929e7de1d54c" class="">– Performance transparency</p><p id="08e41866-4f4c-4179-9a86-38479006e1ea" class="">– Scaling transparency</p><p id="acc5608b-3964-4d80-ae65-1a1c8866ba74" class="">
+</p><p id="f34aebb9-6e6b-46f7-a20b-9a0b44f94563" class=""><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong>Quality of Service (QoS)</strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></p><p id="02b8b54e-cbfc-4290-b469-e36d061429d3" class="">E.g., ability to meet deadlines/requirements</p><p id="4c6af945-b796-47cc-8986-ca1e45fe7239" class="">– Depends upon the availability of necessary computing/network resources when needed</p><p id="114d2337-563c-495f-a4e2-213ac10d32cc" class="">– Requires the system to guarantee sufficient resources to complete tasks</p><p id="0f1854e9-9755-4c80-b24f-c6f29f3f57f6" class="">– Might be difficult to achieve if the workload increases<div class="indented"><ul id="8de296a0-eb12-4718-8f93-81aed166cea9" class="bulleted-list"><li style="list-style-type:disc">E.g. network bandwidth saturated</li></ul></div></p><p id="8de25a41-7950-4e54-8592-abcab0709838" class="">– Resource Manager: reserve system resources to ensure QoS requirements are met</p><p id="39df2d6e-022f-4618-9869-585205ee7fca" class=""><strong>Important to include in DS architecture different components in charge of resource management, which try to priortise resources to tasks in order to maximise the processing of systems</strong></p><p id="fac6c3fb-58c2-4761-90f0-33123d31a073" class="">
+</p><h2 id="48536157-1e1e-4eb8-86bf-f6fca64cfb2d" class="">Example of a “real-life” distributed system - Financial Trading DS:</h2><figure id="4ab9b436-d92f-42fe-9e7f-1fb06c954264" class="image"><a href="Intro%20&amp;%20Characteristics%2098757065572e4df9bcb08230c772eacd/Screenshot_2023-02-28_at_10.40.13.png"><img style="width:864px" src="Intro%20&amp;%20Characteristics%2098757065572e4df9bcb08230c772eacd/Screenshot_2023-02-28_at_10.40.13.png"/></a></figure><p id="e0ef84e9-edf6-4592-8f8b-52ca69d953dc" class="">
+</p><h2 id="1bb54ba2-08a7-491a-9c28-9977f5416d0f" class="">Challenges to Financial Trading DS:</h2><figure id="96e7c62d-ea6c-4b24-bcda-dba716d025eb" class="image"><a href="Intro%20&amp;%20Characteristics%2098757065572e4df9bcb08230c772eacd/Screenshot_2023-02-28_at_10.43.22.png"><img style="width:864px" src="Intro%20&amp;%20Characteristics%2098757065572e4df9bcb08230c772eacd/Screenshot_2023-02-28_at_10.43.22.png"/></a></figure><p id="86a31d25-844c-479e-b775-33bb4cf71acf" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

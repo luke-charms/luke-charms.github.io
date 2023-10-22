@@ -1,0 +1,681 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Data Replication and Scalability</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1d5215d3-fe2e-4566-ba28-e23035a7432b" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/activity_gray.svg"/></div><h1 class="page-title">Data Replication and Scalability</h1><p class="page-description"></p></header><div class="page-body"><nav id="d197f13c-dd64-40b6-9591-94942a86b1f1" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a5c64385-8dd6-48cb-b8b0-f7400f5437fb">Data Replication</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b75c6f7b-838e-4c0e-a88f-44083e2336e3">Why replicating data?</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5095381e-273b-4a67-9c06-1fccf4e9cc5f">Design Choices</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6dec4468-37ad-4391-8a5e-9d9cafa75027">Primary Backup</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#3292bac2-a1b7-41a5-84e9-e170d741ae78">CAP Theorem</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#ae74914a-c060-4887-9446-03dfb7db2616">AP Systems</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#361768c4-3625-49ea-a10e-7a6e867a7565">CP Systems</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#d569e5fd-e5cb-4a15-bab7-17f1f5700f5d">CA Systems</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8f419e5c-450f-42cc-b4d2-3a5970064c75">Scalability</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f5c41e1d-f7a0-4c14-a75e-0a831111f709">Definitions</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#74a77f44-88a7-4a4d-8d4a-47d13c54caa9">Assessment</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b62c4821-3d74-454a-9b8d-13255687e162">Strategies</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c92062ff-4a83-4380-a99d-f36c3786a3ee">Activity Questions</a></div></nav><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="0e3ecfed-8c12-4721-bc8d-0718da8ffd9b"><div style="font-size:1.5em"><span class="icon">📢</span></div><div style="width:100%"><strong>Need to be able to do:</strong><ul id="95c2a6da-e575-49c6-b520-130951acaed3" class="bulleted-list"><li style="list-style-type:disc">LO1 examine the challenges of data replication</li></ul><ul id="4cdaef5e-f2df-48c7-a416-df8c393a72b3" class="bulleted-list"><li style="list-style-type:disc">LO2 explain the CAP Theorem</li></ul><ul id="282d9591-bb66-4fa0-b98a-0ff3e3f53ee0" class="bulleted-list"><li style="list-style-type:disc">LO3 analyse the scalability of distributed systems</li></ul></div></figure><h1 id="a5c64385-8dd6-48cb-b8b0-f7400f5437fb" class="">Data Replication</h1><h3 id="b75c6f7b-838e-4c0e-a88f-44083e2336e3" class="">Why replicating data?</h3><ul id="43e2e541-c729-4856-9772-c30124f239fb" class="bulleted-list"><li style="list-style-type:disc">Data objects replicated on more servers</li></ul><ul id="060b4051-21e5-440e-a57b-486cbfdb47c2" class="bulleted-list"><li style="list-style-type:disc">Fault tolerance<ul id="41454cc3-67f5-4d5f-bad0-4e067d90f1a4" class="bulleted-list"><li style="list-style-type:circle">Data still available if some server crashes</li></ul></li></ul><ul id="eabc5e89-c096-4d56-81f4-6c7e10f9f7f2" class="bulleted-list"><li style="list-style-type:disc">Load balancing<ul id="b1864b91-8ace-4e6b-8db1-edc6c321ee82" class="bulleted-list"><li style="list-style-type:circle">More servers can serve data requests</li></ul><ul id="5fead42d-dce4-4d60-ad7d-fe6e6d9cc6c4" class="bulleted-list"><li style="list-style-type:circle">Servers can be placed closer to end-users</li></ul></li></ul><figure class="block-color-yellow_background callout" style="white-space:pre-wrap;display:flex" id="89d9fd9e-3f9b-4b6a-9143-985bc48e9191"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Replicas must be the same! <em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>(ie. CONSISTENCY)</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></div></figure><h3 id="5095381e-273b-4a67-9c06-1fccf4e9cc5f" class="">Design Choices</h3><p id="64daf139-aa1c-477c-91a4-b2543d37bf23" class="">How to keep data <strong>consistent</strong> and <strong>available</strong>?</p><p id="9e3c7571-9483-4647-a183-78e0514ffbe8" class="">Which servers handle a client request?</p><p id="04b7723a-14e8-43e9-a8d2-af65df8a365e" class="">How do servers interact with one another to manage a request?</p><p id="66704429-f260-41a0-ba2f-565b28a97f56" class="">How are concurrent requests served?</p><h2 id="6dec4468-37ad-4391-8a5e-9d9cafa75027" class="">Primary Backup</h2><figure id="bed688e0-11d1-4d16-bfb1-77dfbb5bd181" class="image"><a href="Data%20Replication%20and%20Scalability%201d5215d3fe2e4566ba28e23035a7432b/Screenshot_2023-04-12_at_18.09.26.png"><img style="width:1820px" src="Data%20Replication%20and%20Scalability%201d5215d3fe2e4566ba28e23035a7432b/Screenshot_2023-04-12_at_18.09.26.png"/></a></figure><figure id="ad8e6f0b-cf32-409e-87a4-c0223cc11574" class="image"><a href="Data%20Replication%20and%20Scalability%201d5215d3fe2e4566ba28e23035a7432b/Screenshot_2023-04-12_at_19.47.56.png"><img style="width:336px" src="Data%20Replication%20and%20Scalability%201d5215d3fe2e4566ba28e23035a7432b/Screenshot_2023-04-12_at_19.47.56.png"/></a></figure><figure id="166a2147-4abf-400a-a605-529a047d18f4" class="image"><a href="Data%20Replication%20and%20Scalability%201d5215d3fe2e4566ba28e23035a7432b/Screenshot_2023-04-12_at_19.49.04.png"><img style="width:1732px" src="Data%20Replication%20and%20Scalability%201d5215d3fe2e4566ba28e23035a7432b/Screenshot_2023-04-12_at_19.49.04.png"/></a></figure><h2 id="3292bac2-a1b7-41a5-84e9-e170d741ae78" class="">CAP Theorem</h2><p id="fa6b9f21-6555-4759-a97a-5f369e92a3b9" class="">Commonly desired properties for a replicated data store:</p><ul id="ae22d3cb-d17b-4444-bafc-c9f79cf67a9f" class="bulleted-list"><li style="list-style-type:disc"><strong>Consistency</strong><ul id="e0b0738a-9e79-4808-ae01-5a828f842f11" class="bulleted-list"><li style="list-style-type:circle">All replicas of a same data object has always the same state</li></ul></li></ul><ul id="b1f84a13-f317-4032-9a30-193295d134bc" class="bulleted-list"><li style="list-style-type:disc"><strong>Availability</strong><ul id="9464800b-8159-456b-a98f-f41ae3486604" class="bulleted-list"><li style="list-style-type:circle">Requests are served as long as at least one server is available</li></ul></li></ul><ul id="bdae01ca-16c8-4356-8898-724ba9b5f8be" class="bulleted-list"><li style="list-style-type:disc"><strong>Partition</strong> Tolerance<ul id="e88ec5be-ea8d-4fc9-9136-6f0d08b1e0af" class="bulleted-list"><li style="list-style-type:circle">The data stores keeps working even if servers are partitioned</li></ul></li></ul><blockquote id="a4887b4d-6dad-433d-a664-6caf2d14e18f" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Theorem states that: </strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>Impossible to achieve all <em><em><em><em><em>three</em></em></em></em></em> only <em><em><em><em>two </em></em></em></em>can be achieved at same time</blockquote><figure id="8c37ec15-9db8-4778-ba62-ec6b00a291af" class="image"><a href="Data%20Replication%20and%20Scalability%201d5215d3fe2e4566ba28e23035a7432b/Screenshot_2023-04-12_at_19.52.22.png"><img style="width:1732px" src="Data%20Replication%20and%20Scalability%201d5215d3fe2e4566ba28e23035a7432b/Screenshot_2023-04-12_at_19.52.22.png"/></a></figure><h3 id="ae74914a-c060-4887-9446-03dfb7db2616" class="">AP Systems</h3><ul id="5d48ef03-70cb-4819-9e1d-ba53bb3d9fb4" class="bulleted-list"><li style="list-style-type:disc">In that case, the data store gives up atomic consistency to ensure availability and partition tolerance → <strong>AP </strong>System</li></ul><ul id="d4e5463b-4efd-4a97-b645-936759a18a6d" class="bulleted-list"><li style="list-style-type:disc">What type of consistency can AP Systems guarantee?<p id="e1d6c593-489a-49b3-b446-16daff0b56af" class="">→ Consider <strong>partially synchronous networks</strong></p><ul id="2a50f42f-0dc3-422e-ae32-5de422c59233" class="bulleted-list"><li style="list-style-type:circle">An asynchronous network that may delay messages among correct nodes arbitrarily,
+but eventually behaves synchronously and delivers all messages within a fixed (but
+unknown) time bound</li></ul><ul id="528c1bc5-ab05-47b0-bcc8-73c410dea0c6" class="bulleted-list"><li style="list-style-type:circle">During “synchronous periods”, servers can reconcile data objects replicas to make
+them consistent</li></ul><ul id="a04bfdf3-7b4d-41e8-8868-7a82b2593aea" class="bulleted-list"><li style="list-style-type:circle">During “asynchronous periods”, read operations can return non-consistent versions</li></ul><ul id="09765439-7e5f-49ed-8d30-a61c103232ce" class="bulleted-list"><li style="list-style-type:circle"><strong>Eventual consistency</strong></li></ul></li></ul><p id="79ad915a-2f6e-4214-8ddc-02480245db88" class=""><strong><strong><strong><strong><strong><strong>tldr: </strong></strong></strong></strong></strong></strong></p><ul id="2cae9b49-1b0d-43d7-86bb-529f4564c590" class="bulleted-list"><li style="list-style-type:disc">Optimistic or Lazy replication performs synchronisation in the background</li></ul><ul id="091dbb88-6425-4cbb-99b9-e61edc1ea165" class="bulleted-list"><li style="list-style-type:disc">Possible for conflicts to arise</li></ul><ul id="48361729-cb8f-442a-aa53-b33e75375c67" class="bulleted-list"><li style="list-style-type:disc">Resolving conflicts comes at a cost</li></ul><ul id="4546ef14-c393-4b83-a252-9e3fe90d90c3" class="bulleted-list"><li style="list-style-type:disc">Scales to large numbers of replicas due to lower burden of synchronising</li></ul><h3 id="361768c4-3625-49ea-a10e-7a6e867a7565" class="">CP Systems</h3><ul id="d3d8ea33-72e9-40b1-ae40-1324681b46b9" class="bulleted-list"><li style="list-style-type:disc">There can be use cases where relying on inconsistent data might not be acceptable</li></ul><ul id="02b1629f-ed60-436d-9b7e-359644752b29" class="bulleted-list"><li style="list-style-type:disc">In that case, the data store gives up availability to ensure consistency and partition
+tolerance → <strong>CP </strong>System</li></ul><figure id="690caf0b-8782-4731-935a-b0210e071f6e" class="image"><a href="Data%20Replication%20and%20Scalability%201d5215d3fe2e4566ba28e23035a7432b/Screenshot_2023-05-17_at_15.41.24.png"><img style="width:288px" src="Data%20Replication%20and%20Scalability%201d5215d3fe2e4566ba28e23035a7432b/Screenshot_2023-05-17_at_15.41.24.png"/></a></figure><p id="75df5747-4eec-4d13-b021-b3e3cb456b5b" class=""><strong><strong><strong><strong><strong><strong>tldr: 1) Need to synchronise replicas to achieve consistency </strong></strong></strong></strong></strong></strong>and <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>high cost in keeping replicas up to date</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><h3 id="d569e5fd-e5cb-4a15-bab7-17f1f5700f5d" class="">CA Systems</h3><ul id="afabff0b-f6c8-464c-844d-669ef6bb3db6" class="bulleted-list"><li style="list-style-type:disc"><strong>CA </strong>Systems give up partition tolerance to ensure consistency and availability</li></ul><ul id="38805bc3-e3e2-4992-bb90-37c7b54273e7" class="bulleted-list"><li style="list-style-type:disc">What does it mean to <em>give up partition tolerance</em>?<ul id="5013b009-da92-4ead-9c8b-8b8e93c8af7e" class="bulleted-list"><li style="list-style-type:circle">Assuming that partitions cannot occur</li></ul><ul id="36f53c75-0296-45eb-bac8-9cb891e8a991" class="bulleted-list"><li style="list-style-type:circle">A distributed system deployed on a single site (i.e., a datacenter) is much less likely to experience network partitions than a geographically distributed system</li></ul><ul id="b38ab8aa-8123-417c-8962-a4430717536a" class="bulleted-list"><li style="list-style-type:circle">However, network partitions in a data centre are not impossible</li></ul><ul id="26521432-77d2-48cb-876b-d79491557ee2" class="bulleted-list"><li style="list-style-type:circle">What happens if a network partition takes place?</li></ul><ul id="bc2aa6d3-c00e-4dab-904b-a24a0915328b" class="bulleted-list"><li style="list-style-type:circle">A design choice should be made between consistency and availability</li></ul><ul id="7e22ca87-0721-4fc2-b4e9-3914275fb3fd" class="bulleted-list"><li style="list-style-type:circle">Therefore, forfeiting partition tolerance is not really an option...</li></ul></li></ul><h1 id="8f419e5c-450f-42cc-b4d2-3a5970064c75" class="">Scalability</h1><p id="618c163f-9d31-4edc-9b04-89baed8a0794" class="">Refers to the possibility to adapt something to meet greater needs in the future</p><p id="6252ea52-6bf5-4355-a94f-3ae7a9416505" class="">In C.S., extremely important to cope with huge growth of several parameters such as users and generated data</p><h3 id="f5c41e1d-f7a0-4c14-a75e-0a831111f709" class="">Definitions</h3><figure id="ce0ec867-5bdf-4f72-bbf5-3e7950289230" class="image"><a href="Data%20Replication%20and%20Scalability%201d5215d3fe2e4566ba28e23035a7432b/Screenshot_2023-04-12_at_20.05.24.png"><img style="width:1758px" src="Data%20Replication%20and%20Scalability%201d5215d3fe2e4566ba28e23035a7432b/Screenshot_2023-04-12_at_20.05.24.png"/></a></figure><h3 id="74a77f44-88a7-4a4d-8d4a-47d13c54caa9" class="">Assessment</h3><figure id="e5dc13a9-85c1-4997-910c-746d0e931a0b" class="image"><a href="Data%20Replication%20and%20Scalability%201d5215d3fe2e4566ba28e23035a7432b/Screenshot_2023-04-12_at_20.06.42.png"><img style="width:1698px" src="Data%20Replication%20and%20Scalability%201d5215d3fe2e4566ba28e23035a7432b/Screenshot_2023-04-12_at_20.06.42.png"/></a></figure><h3 id="b62c4821-3d74-454a-9b8d-13255687e162" class="">Strategies</h3><p id="32d1ff08-d968-4eed-88b1-69c909dfd2cf" class="">What is the overhead of adding more servers?</p><ul id="73423f4b-7e61-4171-b908-d692ffcdd42f" class="bulleted-list"><li style="list-style-type:disc">Reconfiguration (downtime)</li></ul><ul id="a326bdd9-f5d0-4a3b-9f2d-83532c4f53c0" class="bulleted-list"><li style="list-style-type:disc">Communication among servers (e.g., O(n^2) messages with n servers)</li></ul><figure id="e2cf5836-c206-4bcc-8449-4600fa13df54" class="image"><a href="Data%20Replication%20and%20Scalability%201d5215d3fe2e4566ba28e23035a7432b/Screenshot_2023-05-17_at_15.43.59.png"><img style="width:288px" src="Data%20Replication%20and%20Scalability%201d5215d3fe2e4566ba28e23035a7432b/Screenshot_2023-05-17_at_15.43.59.png"/></a></figure><h3 id="c92062ff-4a83-4380-a99d-f36c3786a3ee" class="">Activity Questions</h3><div id="a951defd-633b-4017-985b-38206f89f6cd" class="column-list"><div id="c8b24f59-ca1e-466f-a364-dc19b46140a1" style="width:50%" class="column"><p id="9fc57b67-416d-40d2-8d63-a0f2d802f447" class="">
+</p><p id="f9e23e10-fe3f-4dbb-b347-e4db1abaad1f" class="">Looking at the system described above in the previous activity, think about these questions:</p></div><div id="cda5138b-20bc-4b30-8628-bf9405d06183" style="width:50%" class="column"><figure id="222ec815-c6ba-4feb-b1ad-1fbae34ccfc5" class="image"><a href="Data%20Replication%20and%20Scalability%201d5215d3fe2e4566ba28e23035a7432b/Screenshot_2023-04-12_at_20.32.11.png"><img style="width:288px" src="Data%20Replication%20and%20Scalability%201d5215d3fe2e4566ba28e23035a7432b/Screenshot_2023-04-12_at_20.32.11.png"/></a></figure></div></div><figure id="5be4f418-bde3-4ad1-adc7-efb562a955b1" class="image"><a href="Data%20Replication%20and%20Scalability%201d5215d3fe2e4566ba28e23035a7432b/Screenshot_2023-04-12_at_20.34.34.png"><img style="width:1702px" src="Data%20Replication%20and%20Scalability%201d5215d3fe2e4566ba28e23035a7432b/Screenshot_2023-04-12_at_20.34.34.png"/></a></figure></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

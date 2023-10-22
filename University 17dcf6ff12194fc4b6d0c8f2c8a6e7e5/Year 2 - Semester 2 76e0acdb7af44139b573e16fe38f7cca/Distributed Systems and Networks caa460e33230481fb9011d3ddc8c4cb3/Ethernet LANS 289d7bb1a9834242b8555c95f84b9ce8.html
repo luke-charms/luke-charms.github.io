@@ -1,0 +1,679 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Ethernet / LANS</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="289d7bb1-a983-4242-b855-5c95f84b9ce8" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/swap-horizontally_red.svg"/></div><h1 class="page-title">Ethernet / LANS</h1><p class="page-description"></p></header><div class="page-body"><nav id="bb417739-bbb4-4303-9fb3-c51c8a8fed09" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8747cca7-bbcd-4566-b3ee-05b10aa0e85b">Ethernet Networking</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#25e384a1-66cc-487d-975b-870e53dc0e20">Ethernet Frame</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e5447e2c-f928-44bb-b50c-8bc69d1aad8e">MAC Addresses</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#fe8d7384-6bc4-4ad6-8d3e-5cb7f1b439b7">Building Ethernet Networks</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2920b34a-3003-4fd1-b6a3-b59b18d5a90e">Ethernet Switches</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#58d1464e-d605-4b8d-b6c8-4ff0d23539b8">Sending IP datagrams over Ethernet</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1481aec8-a39c-4d0b-bd24-b230816ac7f7">ARP - Address Resolution Protocol</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#7b76bbc8-8636-4d53-ae50-591eca64d139">Message types - Side note</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#55d2a5fe-4d6c-48d0-93e5-1de864a2d882">ARP message format</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#2e660c0c-7daf-43cc-9bb5-c99e8976ea62">Additional information about ARP</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f8fa8141-01cf-43e6-b6bf-bcb62581812f">Ethernet broadcast domains</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f6f437e1-005f-4c77-88ec-3194396fd3d7">Connecting Ethernet LANs</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#48ccc780-8cf2-4b5a-8fd6-bae95dc94d7c">The Default Router</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#e793f3bb-4e64-4628-baf0-08b5b04d66ba">Ethernet Addresses and Routers</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e478bc46-8b19-40a2-9636-37edb5e4e75a">IP subnets and IP routers</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f69c11c6-ad17-4ef1-aa6c-b7e04784955f">Intra-Building Ethernet</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#6723d8df-8f3a-4806-9e97-db4e9e978e91">Spanning Tree (802.1d)</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#2dba0eb1-092c-46d1-9169-a66e50f506c8">VLAN (802.1Q)</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#0f2f8861-f174-44aa-bd61-d2dce7d618f8">Ethernet frame priority (802.1p)</a></div></nav><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="c781aa00-c54d-4816-8042-01c57864a24b"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">REMEMBER: All part of the <em><em><em><em><em>link layer</em></em></em></em></em></div></figure><h1 id="8747cca7-bbcd-4566-b3ee-05b10aa0e85b" class="">Ethernet Networking</h1><p id="ef9cf59b-8be0-4935-b27e-8cd1d195ddbc" class=""><strong>Ethernet in its various forms is a core enabling technology for many networks</strong></p><ul id="b6f3433e-df12-4bbc-ab4a-5b74f75a324a" class="bulleted-list"><li style="list-style-type:disc">Campus networks</li></ul><ul id="320211b9-548f-4155-b5aa-2131a64ed158" class="bulleted-list"><li style="list-style-type:disc">Home networks</li></ul><p id="b8d250d0-258b-4a17-9fb2-ae57b0b6b0ef" class="">Ethernet uses a protocol called Carrier Sense Multiple Access with Collision Detection (CSMA/CD) to transmit data over a network. This protocol allows multiple devices to share the same network medium and ensures that collisions are detected and resolved.</p><h2 id="25e384a1-66cc-487d-975b-870e53dc0e20" class="">Ethernet Frame</h2><p id="8983b4f3-6428-4d8f-bf41-45c8fc93f169" class="">An ethernet frame includes:</p><ul id="a0e7af1c-5e66-4275-a7f7-b7eeb311228e" class="bulleted-list"><li style="list-style-type:disc">48-bit source and destination MAC addresses</li></ul><ul id="31ec9c4d-c105-4105-b798-3ff0e4079c34" class="bulleted-list"><li style="list-style-type:disc">802.1Q tag for optional VLAN ID and frame priority</li></ul><p id="6a75fc66-59ec-4181-bf12-7bdefe43b9ac" class="">Maximum Transmission Unit is usually 1500 bytes</p><ul id="5b36a038-bc10-4024-ae4f-a6af2f3dc8d6" class="bulleted-list"><li style="list-style-type:disc">Larger messages are usually broken down which are then re-assembled by the receiver</li></ul><figure id="0adf0741-d8a4-43fd-b980-cd85f3e8e034" class="image"><a href="Ethernet%20LANS%20289d7bb1a9834242b8555c95f84b9ce8/Screenshot_2023-05-12_at_16.25.51.png"><img style="width:2084px" src="Ethernet%20LANS%20289d7bb1a9834242b8555c95f84b9ce8/Screenshot_2023-05-12_at_16.25.51.png"/></a></figure><h2 id="e5447e2c-f928-44bb-b50c-8bc69d1aad8e" class="">MAC Addresses</h2><ul id="315f68f9-c894-45c5-8682-515577f6f4ae" class="bulleted-list"><li style="list-style-type:disc">Link layer addresses<ul id="9877ed13-40ff-4947-81ae-1e3541bdc03e" class="bulleted-list"><li style="list-style-type:circle">Usually referred to as MAC addresses</li></ul><ul id="8a08c46c-b76f-4c7c-a7ba-8a7e842d26e5" class="bulleted-list"><li style="list-style-type:circle">Currently defined to be 48 bits, extensible to 64 bits</li></ul></li></ul><ul id="3370fe62-3d56-4f61-9791-410b41bc5159" class="bulleted-list"><li style="list-style-type:disc">Needs to be unique, so:<ul id="3bef8e68-c21c-4da2-be98-8a0a8993f6a1" class="bulleted-list"><li style="list-style-type:circle">24 bits used for vendor allocations</li></ul><ul id="b72de5a4-5dff-4856-b02a-851b2659e26a" class="bulleted-list"><li style="list-style-type:circle">Last 24 bits assigned by vendor</li></ul></li></ul><h1 id="fe8d7384-6bc4-4ad6-8d3e-5cb7f1b439b7" class="">Building Ethernet Networks</h1><ul id="f6388d36-1c6e-41d6-84d0-8f6acab2c011" class="bulleted-list"><li style="list-style-type:disc">Each host typically connects to a port on a switch</li></ul><ul id="8161479e-73a2-417a-8151-288ea4e1ab73" class="bulleted-list"><li style="list-style-type:disc">Today desktops typically 1Gbit/s Ethernet</li></ul><ul id="ab4bf698-c977-4c3e-8ae7-f14755027d61" class="bulleted-list"><li style="list-style-type:disc">Servers and backbone on 10Gbit/s Ethernet</li></ul><h2 id="2920b34a-3003-4fd1-b6a3-b59b18d5a90e" class="">Ethernet Switches</h2><p id="c088cdaa-03ff-4fbb-8e8b-501eda679307" class="">Receive Ethernet frames and make a decision whether to forward the frame, and if so, on which port</p><ul id="8c6d4473-3872-42c3-a1e8-e381f1a5bd16" class="bulleted-list"><li style="list-style-type:disc">Provides ‘smart’ forwarding</li></ul><ul id="2e8ce7b2-d781-4a56-ae10-76c12cb0407c" class="bulleted-list"><li style="list-style-type:disc">It learns Ethernet addresses of host(s) seen on each switch interface/port</li></ul><ul id="c87315c4-1680-4878-bd39-d95e43385c6f" class="bulleted-list"><li style="list-style-type:disc">Hosts generally <em><em><em><em><em><em><em><em><em><em><em><em><em><em>only see packets sent to them</em></em></em></em></em></em></em></em></em></em></em></em></em></em>, or broadcast packets</li></ul><p id="ac007983-56eb-480c-89e5-a255f24bf934" class="">Can store and forward Ethernet frames</p><ul id="2acd09a5-b139-4025-9660-b28f410f5087" class="bulleted-list"><li style="list-style-type:disc">So can check for errors (CRC check) before forwarding</li></ul><p id="e3f6e163-f689-44ea-998c-fe2a06beaf0f" class="">Some switches support more advanced functions</p><ul id="83376108-c159-4b16-ad03-e2359fbad6be" class="bulleted-list"><li style="list-style-type:disc">e.g., VLANs, QoS</li></ul><h2 id="58d1464e-d605-4b8d-b6c8-4ff0d23539b8" class="">Sending IP datagrams over Ethernet</h2><ul id="292ac60c-3ac9-4141-8778-d97eb6aadf86" class="bulleted-list"><li style="list-style-type:disc">Link layer receives <strong>datagrams</strong> from the network layer</li></ul><ul id="f831353b-e5f6-49a3-8cb3-ac443093ee29" class="bulleted-list"><li style="list-style-type:disc">Encapsulates these as the payload of an Ethernet frame</li></ul><ul id="db7512ed-cb8f-410a-83f4-80f1fb45dd56" class="bulleted-list"><li style="list-style-type:disc">IP datagram has a source and destination IP address</li></ul><ul id="6779f55e-b827-4ddc-b8c3-ad947a888cbc" class="bulleted-list"><li style="list-style-type:disc">Need to send it to the destination IP address using the Ethernet layer</li></ul><ul id="cac5eab3-0b30-4c7f-ab06-887d6fb5ccdc" class="bulleted-list"><li style="list-style-type:disc">Implies the network layer can determine the ethernet address of the destination IP address<ul id="4a425ead-2147-44a8-b98f-d99a6f73bdbc" class="bulleted-list"><li style="list-style-type:circle">However, need some method to <strong><strong><strong><strong><strong><strong>resolve</strong></strong></strong></strong></strong></strong> an IP address to a MAC address</li></ul></li></ul><h3 id="1481aec8-a39c-4d0b-bd24-b230816ac7f7" class="">ARP - Address Resolution Protocol</h3><p id="42dd7e99-405a-4aba-b12c-1a60058ffc0d" class="">This is exactly that method - used to determine the destination’s MAC address</p><p id="7b48977a-38bf-46c2-a716-a6c21481a712" class="">ARP uses <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>link layer broadcast message</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><div class="indented"><ul id="95bd000c-79b0-4d3c-9706-72d2009a3bae" class="bulleted-list"><li style="list-style-type:disc"><strong>To the special Ethernet broadcast address ff:ff:ff:ff:ff:ff</strong><ul id="8f3e85c6-7784-4661-b796-262ddb7e37c5" class="bulleted-list"><li style="list-style-type:circle">Sender asks “Who has this IP address</li></ul></li></ul><ul id="2d2e9132-26d6-4457-bf4d-2f03b3d6b8c9" class="bulleted-list"><li style="list-style-type:disc"><strong>Seen by all hosts </strong><em><strong>in the same Ethernet LAN</strong></em><ul id="1fc232e7-558a-4afc-805f-27233441e45b" class="bulleted-list"><li style="list-style-type:circle">The host with the target IP address responds</li></ul></li></ul><ul id="e5d7adbb-f6c5-4c08-a793-d602cf0978d6" class="bulleted-list"><li style="list-style-type:disc"><strong>Sender can then use result to send Ethernet frame
+</strong><ul id="31dba4f9-5773-4806-8510-e5347f0a7f29" class="bulleted-list"><li style="list-style-type:circle">caches the result (e.g. 15 - 45 seconds on Win10)</li></ul></li></ul></div></p><h2 id="7b76bbc8-8636-4d53-ae50-591eca64d139" class="">Message types - Side note</h2><figure id="324a9014-2de4-4b79-9256-10c70126b606" class="link-to-page"><a href="Ethernet%20LANS%20289d7bb1a9834242b8555c95f84b9ce8/Message%20Types%20324a90142de44b79925610c70126b606.html"><img class="icon" src="https://www.notion.so/icons/conversation_gray.svg"/>Message Types</a></figure><h2 id="55d2a5fe-4d6c-48d0-93e5-1de864a2d882" class="">ARP message format</h2><figure id="e96d656a-4fc5-4d9b-a3b0-3a16f1803277" class="image"><a href="Ethernet%20LANS%20289d7bb1a9834242b8555c95f84b9ce8/Screenshot_2023-05-12_at_17.03.49.png"><img style="width:1842px" src="Ethernet%20LANS%20289d7bb1a9834242b8555c95f84b9ce8/Screenshot_2023-05-12_at_17.03.49.png"/></a></figure><h3 id="2e660c0c-7daf-43cc-9bb5-c99e8976ea62" class="">Additional information about ARP</h3><p id="686e9297-9db9-4030-9499-742affbec6b8" class="">Is it secure?</p><ul id="590f0f76-d55e-4b7a-ac57-112e32c411d2" class="bulleted-list"><li style="list-style-type:disc">ARP is potentially open to spoofing (pretending to have the IP address when you don’t)</li></ul><ul id="4933d89f-326b-4c9a-bed4-c34fd619d834" class="bulleted-list"><li style="list-style-type:disc">A host can change its MAC address</li></ul><p id="f13cf091-3128-4195-a4a7-333444a9cf10" class="">Change of IP or MAC address</p><ul id="19b67c8b-077f-4eae-ab7d-a39c0bd924f9" class="bulleted-list"><li style="list-style-type:disc">You can send ARP messages when you don’t need to, which lets you quickly update your banks of information for devices which have potentially changed their MAC or IP</li></ul><ul id="a515f5fe-58f8-4839-ba77-354d19097aa8" class="bulleted-list"><li style="list-style-type:disc">Enables a quick update of the correct information</li></ul><p id="d3ec72eb-75cd-40ab-a860-e338b07a2db8" class="">ARP probe</p><ul id="c00c576e-8c4b-4dd8-bde2-441eba3fffb2" class="bulleted-list"><li style="list-style-type:disc">ARPs will also tell you by nature if IP addresses clash - you might get mutliple responses when you were just expecting one. </li></ul><h1 id="f8fa8141-01cf-43e6-b6bf-bcb62581812f" class="">Ethernet broadcast domains</h1><p id="292387d1-734a-4e4b-9769-e9478229912d" class="">Even in a switched network, Ethernet broadcasts will flood the LAN</p><ul id="52c685e3-220f-478d-8198-28e37db10ea2" class="bulleted-list"><li style="list-style-type:disc">In a 20,000 host campus network, that’s a lot of broadcasts</li></ul><ul id="ab068e0e-b46f-445a-9699-c6606490e575" class="bulleted-list"><li style="list-style-type:disc">Wireless APs will also be plugged in</li></ul><ul id="9b2b816e-154a-4717-93ef-f3e79bb0d77b" class="bulleted-list"><li style="list-style-type:disc">ARP isn’t the only protocol that does broadcasts</li></ul><p id="d60bc6a8-ba56-44ce-a157-3347eeee26be" class="">Therefore we must keep Ethernet LANs limited to a reasonable size (a LAN per floor, or building)</p><h2 id="f6f437e1-005f-4c77-88ec-3194396fd3d7" class="">Connecting Ethernet LANs</h2><ul id="a5751c4b-e57b-4f47-a3b1-154f3eccd14f" class="bulleted-list"><li style="list-style-type:disc">When we create an Ethernet LAN with switches, all the devices on the LAN can talk directly to each other, using their link layer (MAC addresses)</li></ul><ul id="d876d692-f271-4582-bf53-0df1f4f8eed8" class="bulleted-list"><li style="list-style-type:disc">A LAN will also use a certain range of network layer IP addresses<ul id="88323ace-7625-4f62-9cbc-c0e2fe823d96" class="bulleted-list"><li style="list-style-type:circle">e.g., 152.78.10.0 to 152.78.10.255 (256 addresses)</li></ul></li></ul><ul id="c90ffd51-9053-4f81-9e5f-f00c1dd31d13" class="bulleted-list"><li style="list-style-type:disc">If we wish to connect two such LANs together, we need to use an IP (network layer) router</li></ul><ul id="2582cd3d-7970-457e-bb56-c829f11012db" class="bulleted-list"><li style="list-style-type:disc">The router then forwards IP packets between the LANs<ul id="dc8bda3c-74e9-4252-8822-b6a549dcf274" class="bulleted-list"><li style="list-style-type:circle">Routers <em>do not forward </em>Ethernet broadcasts; they handle IP</li></ul></li></ul><ul id="1415f5d9-cef8-46f9-b22c-bb8249872c7d" class="bulleted-list"><li style="list-style-type:disc">The router will typically advertise to other routers the reachability of the IP address range it directly serves</li></ul><h3 id="48ccc780-8cf2-4b5a-8fd6-bae95dc94d7c" class="">The Default Router</h3><p id="d0a7f275-7f9e-4f45-bf25-ebe386520de4" class="">If the destination is in the same LAN, then the destination MAC address is the receiver’s
+Ethernet address</p><ul id="5dec49d5-ff00-4017-814d-1ac7780fd46d" class="bulleted-list"><li style="list-style-type:disc">But what if the destination is in a different LAN, or another remote network?</li></ul><ul id="355169a7-d4f2-45c6-8598-16a51b476bfc" class="bulleted-list"><li style="list-style-type:disc"><em>(e.g., university web server, accessed from desktop)</em></li></ul><p id="fead190d-fd4f-4f2e-9f17-674e6da6799b" class=""><mark class="highlight-red_background">A host will send direct to another host, or to its ‘</mark><mark class="highlight-red_background"><strong><strong><strong><strong><strong><strong><strong><strong>default’ </strong></strong></strong></strong></strong></strong></strong></strong></mark><mark class="highlight-red_background"><em><em><em><em><em><em><em><em><em><strong><strong><strong><strong><strong><strong><strong><strong>IP router</strong></strong></strong></strong></strong></strong></strong></strong></em></em></em></em></em></em></em></em></em></mark></p><h1 id="e793f3bb-4e64-4628-baf0-08b5b04d66ba" class="">Ethernet Addresses and Routers</h1><p id="e0748e32-3e39-44c3-b02f-0b14b8b40fc3" class=""><strong>IP routers act as </strong><span style="border-bottom:0.05em solid"><strong>network layer</strong></span><strong> gateways between individual link layer Ethernet LANs</strong></p><ul id="698f4c0a-b809-4cc0-b481-7f99f5431ce9" class="bulleted-list"><li style="list-style-type:disc">Each LAN has a block of IP addresses to use</li></ul><ul id="a53cf053-dc85-4776-a2b1-7cc8912fef7f" class="bulleted-list"><li style="list-style-type:disc">The ‘default’ router handles traffic sent to IP addresses which are not on the local LAN</li></ul><ul id="984a2a7e-949a-4e81-af11-a60e843cf76b" class="bulleted-list"><li style="list-style-type:disc"><em>How does sender know if the destination IP is local or not?</em></li></ul><h2 id="e478bc46-8b19-40a2-9636-37edb5e4e75a" class="">IP subnets and IP routers</h2><p id="2dc2e2f0-a230-4f7c-9289-192edb7cc404" class="">An IP router sits at the edge of an Ethernet LAN</p><ul id="927d137c-b403-4730-86e3-6c5ea68c7fbd" class="bulleted-list"><li style="list-style-type:disc">In a campus, typically 20-500 hosts per LAN</li></ul><ul id="174fafb2-d7a2-49af-a283-8cd42c3d4a32" class="bulleted-list"><li style="list-style-type:disc">The administrators assign an IP subnet to each LAN</li></ul><ul id="a81494ce-565c-4c1b-8d17-0b96a29dd114" class="bulleted-list"><li style="list-style-type:disc">An IP address plan determines which LANs use which IP address prefixes<strong>
+</strong></li></ul><h2 id="f69c11c6-ad17-4ef1-aa6c-b7e04784955f" class="">Intra-Building Ethernet</h2><ul id="620a67b7-7b57-4128-97b0-84ade5b63987" class="bulleted-list"><li style="list-style-type:disc">Typically uses copper twisted pair cabling</li></ul><p id="5fa1a3eb-2939-483c-a15d-763c1e8e44d4" class="">May be deployed by using:</p><ul id="f3226b74-355d-4c65-9665-1e3149d7ecef" class="bulleted-list"><li style="list-style-type:disc">Data riser<ul id="6bb72224-658b-44a5-95e2-8782488c478a" class="bulleted-list"><li style="list-style-type:circle">Vertically aligned switch/server rooms</li></ul></li></ul><ul id="faca158c-296c-47fd-a386-cb339c8416c6" class="bulleted-list"><li style="list-style-type:disc">Flood wiring per floor<ul id="5855db38-07c0-4008-bd14-9197ca7ab515" class="bulleted-list"><li style="list-style-type:circle">To faceplates from switch room</li></ul></li></ul><ul id="9aa4a80f-40c7-428b-a6e7-db1d1480b66a" class="bulleted-list"><li style="list-style-type:disc">Ethernet switch stacks<ul id="44cc896d-1ad2-4a4c-9b63-70ef47c9e123" class="bulleted-list"><li style="list-style-type:circle">One switch port per faceplate</li></ul></li></ul><p id="cf06cf67-88c6-4561-a811-a654d9ddb689" class="">Inter-building is typically a fibre link</p><h3 id="6723d8df-8f3a-4806-9e97-db4e9e978e91" class="">Spanning Tree (802.1d)</h3><p id="361aed91-6ec3-42e5-b1ee-92d528d0cd89" class="">Bridging lots of LANs together can lead to multiple paths creating loops</p><p id="10e62b33-6f3f-4c29-87a9-7869d81d13c4" class="">IEEE 802.1d protocols can detect loops and remove paths</p><ul id="eef5ec2a-919c-4996-9d56-3571b9fa52c3" class="bulleted-list"><li style="list-style-type:disc">Spanning Tree Algorithm facilitates this:<ul id="cd5fcc20-afe7-4f91-a0f7-5a89b7f84ca0" class="bulleted-list"><li style="list-style-type:circle">Let’s you create physical loops, without breaking network</li></ul><ul id="2e4ed169-07a0-4ed5-b2d8-eb80f6570fd7" class="bulleted-list"><li style="list-style-type:circle">Algorithm decides (elects) a root bridge/switch (lowest MAC address)</li></ul><ul id="73108550-8003-4d0a-b848-e967dcac7d39" class="bulleted-list"><li style="list-style-type:circle">Determines least cost paths to the root, forming a tree of paths</li></ul><ul id="9aa264e1-9b38-410b-8add-d795c1b48068" class="bulleted-list"><li style="list-style-type:circle">Switches determine the root and best paths to root</li></ul></li></ul><h3 id="2dba0eb1-092c-46d1-9169-a66e50f506c8" class="">VLAN (802.1Q)</h3><p id="4402a387-b261-458c-9601-4030888b5284" class="">Virtual switched networks over fixed infrastructure</p><p id="f8771b67-e475-4761-a823-94b6116a782f" class="">Ethernet frame includes an optional VLAN identifier</p><ul id="a9a092a9-ba55-4965-8bdc-ea9cfab0c5ad" class="bulleted-list"><li style="list-style-type:disc">12-bit value in 802.1Q tag so 4096 different VLAN IDs</li></ul><ul id="404cbe43-1df5-48b9-b563-ed9479531f9d" class="bulleted-list"><li style="list-style-type:disc">Can then place a switch port in specific VLAN(s)</li></ul><ul id="9101068b-1b95-4041-8e53-de251d4c3346" class="bulleted-list"><li style="list-style-type:disc">Can carry multiple VLANs over one trunked uplink</li></ul><p id="f063d7b3-05b5-4919-ba63-c5f0edabd434" class="">Avoids need to physically re-cable <strong>and</strong> can control broadcasts to certain areas</p><h3 id="0f2f8861-f174-44aa-bd61-d2dce7d618f8" class="">Ethernet frame priority (802.1p)</h3><p id="8a2e48a5-ae77-4ab9-8a5e-3a2d80cb2961" class="">It may be desirable to give certain traffic priority in Ethernet networks</p><p id="a0cc5a1a-cfbe-45cb-9605-c82995a0f580" class="">Examples:</p><ul id="3888a50c-0a58-4834-844d-7f0245e13c94" class="bulleted-list"><li style="list-style-type:disc">Voice over IP data</li></ul><ul id="c02da139-38f1-4037-ab99-959bb8cf9588" class="bulleted-list"><li style="list-style-type:disc">Network control data</li></ul><p id="f9bf1137-2042-427f-88b9-eb0fa03c2a24" class="">Supported by using part of the 802.1Q tag</p><p id="053eb161-f268-4798-a8a0-71fa1002f6a9" class="">Only affects the prioritisation at the switch (however, is <strong><strong><strong><strong>not </strong></strong></strong></strong>end to end)</p><hr id="0b57578e-784c-4979-b740-26ccd24280a5"/><p id="d3222561-fe7e-4219-8f64-908652ce091f" class=""><time>@May 24, 2023</time> - Read <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Tanenbaum chapter 4.3</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="5a8e1ca4-0645-4996-bf14-6446b8fde0b9" class="bulleted-list"><li style="list-style-type:disc">Ethernet <strong>- pp. </strong><span style="border-bottom:0.05em solid"><strong>280-299</strong></span></li></ul><ul id="eb67c298-7529-4326-894e-2a589fa8e377" class="bulleted-list"><li style="list-style-type:disc">Switching, MAC learning, spanning tree, VLANs,802.1p -<strong> pp. </strong><span style="border-bottom:0.05em solid"><strong>350-368</strong></span></li></ul><ul id="6a4e475c-94ac-4e45-83b9-26cd94219577" class="bulleted-list"><li style="list-style-type:disc">ARP - <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>pp.485-487</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

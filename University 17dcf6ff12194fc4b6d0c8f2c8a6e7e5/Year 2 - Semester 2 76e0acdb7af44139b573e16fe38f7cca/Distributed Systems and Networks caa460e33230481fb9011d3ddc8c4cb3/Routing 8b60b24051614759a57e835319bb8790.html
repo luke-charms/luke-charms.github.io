@@ -1,0 +1,679 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Routing</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="8b60b240-5161-4759-a57e-835319bb8790" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/map_gray.svg"/></div><h1 class="page-title">Routing</h1><p class="page-description"></p></header><div class="page-body"><nav id="95988189-989b-493d-98f4-90038e761a6e" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#08363a0a-1aa2-4841-9599-d5ac0cb2f005">Routing the Internet</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#fe04d782-dece-41ea-97dd-76c8836aa12b">How Routing Works</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#dd9baa5e-f4f0-4b21-8807-c3623c174913">Types of Routing</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#4855090c-9821-4bd1-9eac-d894800d17ae">Static Routing</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#106c30ae-7880-4fc9-a0d0-6d052b851f87">Dynamic Routing</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#bd17c9d6-1d59-4fe8-add9-247accc8a2d4">Border Gateway Protocol (BGP)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#09a97e85-0c67-416e-9074-0f9b58146afd">Conclusion</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5d39b276-cb3b-4a20-939b-6af3111c6f30">Routing (w/o AI)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ef5100fa-02fa-41b7-afa5-8a43e8af30ab">IP Routing</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#7dbbe2b3-83e5-4315-bc5b-2045a819eb23">Subnet Masks</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#fdb2747f-5824-438b-81ed-15a6af6c2611">Routing Tables</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a632fd5f-c682-4b9b-9682-1b79cadbf635">Routing Protocols</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#3225f8f3-4ada-4b30-8707-eb38c948df5a">Types of Interior Gateway Protocol</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#59503dff-fd72-4518-8f01-bad37efb5126">RIP (Routing Information Protocol)</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#068ec5f9-ede6-453b-941a-3e5c74bf4bc2">Link State Routing</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#f4d08feb-9c86-472a-ad5a-60b0810baf0e">Discovering Neighbours</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#5e69f506-a483-4672-9737-6ea77f9fa05e">Building Link State Packets</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#85df856b-cd0d-40c0-aade-8e0995fb5909">Computing shortest path tree</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#aba09b3c-4305-4aa9-847e-abe83cef0388">Link state vs Distance Vector</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f9f8cfaa-9799-42e9-b9c4-ab57310b0ac6">Routing between sites</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#6bfee791-0729-4792-88f9-f9cf6194ad13"><strong>Downsides of BGP</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0f1d9d05-477d-40c8-bad8-3f69e6988c2e">Summary!</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#8882775a-4a82-4fbf-b456-e24bb874878e">Subnet Cheat Sheet</a></div></nav><h1 id="08363a0a-1aa2-4841-9599-d5ac0cb2f005" class="">Routing the Internet</h1><p id="14e8ded3-71b6-48d4-ba64-bd78e353734a" class="">Routing refers to the process of forwarding data packets from their source to their destination through a network. In the case of the internet, routing allows data to flow from one computer to another over various networks until it reaches its destination.</p><h2 id="fe04d782-dece-41ea-97dd-76c8836aa12b" class="">How Routing Works</h2><p id="8d14fbac-1620-4ab7-a74c-d523091550a3" class="">Routing on the internet works by using a system of protocols that determine the most efficient path for data to travel. When a computer sends data over the internet, it is broken down into small packets of information. Each packet contains the address of the sender and the recipient, as well as the actual data being sent.</p><p id="8e3186d2-379b-4a69-9db6-ef4239db518f" class="">Each network device, such as routers and switches, has a routing table that contains information about other devices on the network. The routing table helps these devices determine the best path for data to travel based on the address information in the packet.</p><p id="89dcbae5-5eaf-450c-9a1f-439737e3bb00" class="">When a packet arrives at a network device, the device checks the packet’s destination address and consults its routing table to determine the best path for the packet to take. The device then forwards the packet to the next device in the path, which repeats the process until the packet reaches its final destination.</p><h2 id="dd9baa5e-f4f0-4b21-8807-c3623c174913" class="">Types of Routing</h2><p id="142aa193-bc85-4d23-ba20-dd8e6ea365bd" class="">There are several types of routing used on the internet.</p><h3 id="4855090c-9821-4bd1-9eac-d894800d17ae" class="">Static Routing</h3><p id="ee6a1ccc-9c51-4ae4-8a4f-0ba49481ec43" class="">Static routing is a simple form of routing that involves manually configuring the routing table on each network device. This type of routing is best suited for small networks with a limited number of devices.</p><h3 id="106c30ae-7880-4fc9-a0d0-6d052b851f87" class="">Dynamic Routing</h3><p id="c5851e4f-1856-4d1f-a916-ece9225b2c58" class="">Dynamic routing is a more complex form of routing that involves devices communicating with each other to determine the best path for data to travel. This type of routing is best suited for large networks with many devices and changing network conditions.</p><h3 id="bd17c9d6-1d59-4fe8-add9-247accc8a2d4" class="">Border Gateway Protocol (BGP)</h3><p id="08c9ed87-4a78-4b88-8f5a-71409e0cbc5c" class="">BGP is a dynamic routing protocol used on the internet to exchange routing information between different networks. BGP allows networks to advertise their address space to other networks and determine the best path for data to travel across the internet.</p><h2 id="09a97e85-0c67-416e-9074-0f9b58146afd" class="">Conclusion</h2><p id="cfeda289-e00c-4425-a2a0-fff8458ed70d" class="">Routing is a fundamental aspect of the internet that allows data to flow between devices and networks. By using routing protocols, network devices can determine the most efficient path for data to travel, ensuring that data is delivered quickly and reliably.</p><p id="ad7a30a1-4814-4731-bd45-33d2b9579347" class="">
+</p><hr id="cd8a882f-6de2-4758-9344-d3ca712812b4"/><h1 id="5d39b276-cb3b-4a20-939b-6af3111c6f30" class="">Routing (w/o AI)</h1><h2 id="ef5100fa-02fa-41b7-afa5-8a43e8af30ab" class="">IP Routing</h2><p id="8ee68fee-df06-4ebc-9567-4bff8cb4e3e4" class="">Occurs where there is a change in the IP address space</p><p id="67866137-2d0f-4a6c-bdb0-854ad32e05fb" class="">A router has an IP address in each address space it routes between</p><p id="1ec9759f-350e-41da-94c8-09efa0029526" class="">There can be many routers between hosts on the Internet</p><ul id="e0724164-1bd7-4190-aee1-f1e82b4615fc" class="bulleted-list"><li style="list-style-type:disc">A host can only directly send packets to a router on its own subnet</li></ul><p id="8ab26760-be46-4348-832c-83bb912b0984" class="">Parts of the IP header are rewritten at each hop</p><h2 id="7dbbe2b3-83e5-4315-bc5b-2045a819eb23" class="">Subnet Masks</h2><p id="8faa7a55-3a1a-4f0b-a0c4-8dd9b520f5e5" class="">A subnet mask indicates the size of a subnet</p><ul id="3d6ca599-15e3-426a-9a58-6fd3513c610a" class="bulleted-list"><li style="list-style-type:disc">States how many bits are common between addresses on the same network</li></ul><p id="d1926657-15c7-4c3c-91df-3c5940d034f1" class="">Expressed in dot-decimal or CIDR notation for IPv4</p><ul id="37092f51-0761-4d32-aba0-29e61865867f" class="bulleted-list"><li style="list-style-type:disc">e.g., 255.255.255.0 and /24 <strong>both</strong> indicate the first 24 bits identify the network</li></ul><p id="9189d2cf-52c2-426f-804b-fce9b676edd5" class="">Expressed in CIDR notation for IPv6</p><ul id="8d884fad-f567-4c7e-ab69-6c10ef6a3277" class="bulleted-list"><li style="list-style-type:disc">e.g., /64 indicates the first 64-bits identify the network</li></ul><h2 id="fdb2747f-5824-438b-81ed-15a6af6c2611" class="">Routing Tables</h2><p id="15f90356-8f5b-4168-9f00-68bd2d0792b8" class="">Routing tables are sets of rules used to determine which route is used to get certain IPs on a subnet</p><p id="2d6f7e3e-4b52-44b7-b836-049c7b9f9773" class="">The most specific matching route is packed first</p><ul id="a9a3e87c-18b6-4121-b76c-08fcf47c3a0e" class="bulleted-list"><li style="list-style-type:disc">e.g., the route with the longest prefix</li></ul><p id="2316e391-4d2c-4f39-ba06-c0bc2ff2c4c1" class="">The metric determines the priority of routes with the same specificity</p><ul id="52795cee-2375-4a80-b9ec-34ab5ff067be" class="bulleted-list"><li style="list-style-type:disc">A lower metric means a higher priority</li></ul><p id="9c6d5230-1741-4256-ad32-d0da41a2bb5a" class="">A subnet’s prefix can be aggregated with other adjacent subnets</p><ul id="8d1c96ff-1116-45d9-b549-a9da689c9301" class="bulleted-list"><li style="list-style-type:disc">e.g., <strong>192.168.10.0/24</strong> and <strong>192.168.11.0/24</strong> can be aggregated to <strong>192.168.10.0/23</strong></li></ul><figure class="block-color-yellow_background callout" style="white-space:pre-wrap;display:flex" id="c56bfe3c-02eb-490e-a37a-f3c5df9bda37"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%">IPv4 exhaustion makes prefix aggregation harder and routing tables larger</div></figure><h2 id="a632fd5f-c682-4b9b-9682-1b79cadbf635" class="">Routing Protocols</h2><p id="cbf874cd-42f2-4523-8154-b6d15fc148c5" class="">A routing protocol allows routers to build and exchange routing information automatically</p><p id="9c027f90-0dfc-4ef8-98a4-93273312c250" class="">Different protocols are used for different networks:</p><ul id="f2c27856-05bb-41f7-9e45-712e363d39af" class="bulleted-list"><li style="list-style-type:disc">Interior gateway protocols: Used within an Autonomous System (e.g., within a corporate network)</li></ul><ul id="1cd4978b-6ad4-4785-a756-68c869a8c5e7" class="bulleted-list"><li style="list-style-type:disc">Exterior gateway protocols: Used between Autonomous Systems (e.g., the Internet)</li></ul><h3 id="3225f8f3-4ada-4b30-8707-eb38c948df5a" class="">Types of Interior Gateway Protocol</h3><ul id="22f6d8c9-485b-4146-b22e-1251d2b1dcf7" class="bulleted-list"><li style="list-style-type:disc">Distance Vector:<ul id="a449c50d-fe4b-41c7-85fe-c56333a8530f" class="bulleted-list"><li style="list-style-type:circle">Talk only to neighbouring routers</li></ul><ul id="3e7887bc-d32b-41fc-b1c4-f701b52e6c01" class="bulleted-list"><li style="list-style-type:circle">Exchange the “best route” (shortest distance) information for any known prefixes with direct neighbours (e.g., RIP)</li></ul></li></ul><ul id="df94aa5d-846f-4e17-a43c-7889309ec8dd" class="bulleted-list"><li style="list-style-type:disc">Link state:<ul id="9504180a-2aad-4a2d-8a8d-84cbfcf7ea23" class="bulleted-list"><li style="list-style-type:circle">Talk to all routers to establish full knowledge of the routers/topology in a site</li></ul><ul id="b377005a-8d46-4d47-be2b-be7a786ddc57" class="bulleted-list"><li style="list-style-type:circle">Routers flood information messages describing their connected neighbours around entire site network (e.g., IS-IS, OSPF)</li></ul></li></ul><h3 id="59503dff-fd72-4518-8f01-bad37efb5126" class="">RIP (Routing Information Protocol)</h3><p id="cdd8707d-e397-4daf-b618-7c83a6a1a6fb" class="">One of the oldest routing protocols (RFC 1058, 1988)</p><ul id="5273188f-11c0-4645-8395-3a838c35721f" class="bulleted-list"><li style="list-style-type:disc">Uses hop count as a metric</li></ul><ul id="c9be64fc-b6b5-46b3-97b6-0c943a854c1d" class="bulleted-list"><li style="list-style-type:disc">RIPv1 uses broadcast, RIPv2 and RIPng use multicast</li></ul><p id="9a0567b1-9366-45d4-a578-abf115c05382" class="">Router sends its whole routing table periodically (every 30s) to directly connected routers</p><ul id="2ba3874f-f9da-4f2d-8f53-b9eea32a64b1" class="bulleted-list"><li style="list-style-type:disc">Destination network (prefix) and distance (cost) in hops</li></ul><ul id="8b930927-35dd-4173-b270-d1986bede300" class="bulleted-list"><li style="list-style-type:disc">Receiving routers update their view of the best route (lowest distance) to a given network (prefix)</li></ul><figure id="189ecdde-dfab-4105-8bf2-70cb182bd921" class="image"><a href="Routing%208b60b24051614759a57e835319bb8790/Screenshot_2023-05-10_at_12.09.03.png"><img style="width:1680px" src="Routing%208b60b24051614759a57e835319bb8790/Screenshot_2023-05-10_at_12.09.03.png"/></a></figure><p id="581b4794-92e1-4a9b-82a8-82fca00132d4" class="">
+</p><p id="7a5124cf-25e8-4622-ac26-0f62080fc7ab" class=""><strong><strong><strong><strong><strong><strong><strong><strong>Limitations:</strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="4615f7f6-8aa4-4097-9184-ac80af18c2da" class="bulleted-list"><li style="list-style-type:disc">Updates sent only every 30 seconds</li></ul><ul id="204d6acd-c78c-414c-b518-7fe7cefa3111" class="bulleted-list"><li style="list-style-type:disc">Updates are not acknowledged (UDP)</li></ul><ul id="a62aabcb-c429-4d0c-b283-eaf823dc253d" class="bulleted-list"><li style="list-style-type:disc">Metrics are simple hop count values<ul id="03f66210-d2d8-48e5-91c2-b94e645ac4b0" class="bulleted-list"><li style="list-style-type:circle">Limited to a max value of <strong><strong><strong>15</strong></strong></strong>, 16 means unreachable</li></ul></li></ul><ul id="830e61f3-f119-43a6-bd62-c2fa02b43ea0" class="bulleted-list"><li style="list-style-type:disc">Routers don’t have knowledge of network topology<ul id="f05cb599-bae4-458e-aeb6-2db1670d9be1" class="bulleted-list"><li style="list-style-type:circle">Can lead to ‘count to infinity’ problem</li></ul></li></ul><h3 id="068ec5f9-ede6-453b-941a-3e5c74bf4bc2" class="">Link State Routing</h3><p id="5114600f-6bdb-422e-8142-16d673b1c356" class="">De facto enterprise routing algorithm<div class="indented"><ul id="e73733cd-e707-4a70-9801-65b75ff08b0a" class="bulleted-list"><li style="list-style-type:disc">Usually IS-IS or OSPF</li></ul></div></p><p id="79a67c8f-08a0-4a16-a0a2-f26d58950f31" class=""><strong><strong><strong><strong><strong><strong>Steps:</strong></strong></strong></strong></strong></strong></p><ol type="1" id="14d11a09-ac66-41d8-b541-e127d7c40db3" class="numbered-list" start="1"><li>Discover neighbours and determine cost metric</li></ol><ol type="1" id="2379ee0e-5457-4fa3-a7b7-f36b9dc3c4fb" class="numbered-list" start="2"><li>Flood message with this information to all routers</li></ol><ol type="1" id="2ebdb85f-9486-4995-8f83-72824098c012" class="numbered-list" start="3"><li>Use received message ti build topology: compute shortest paths for prefixes served by any router</li></ol><p id="6da7e35f-5557-4eeb-816d-7555ea3f1c30" class="">Messages are sent periodically, or any time a change in connectivity is detected</p><p id="f568f551-be6f-49f2-89d0-80df6acdba46" class="">Both ends of a link must agree for it to be valid</p><p id="8023c8dd-c441-4028-982b-c36463afdc5d" class="">All routers learn the full network topology</p><h3 id="f4d08feb-9c86-472a-ad5a-60b0810baf0e" class="">Discovering Neighbours</h3><p id="a9e7c1f3-1a75-49e4-ad8b-52036974e406" class="">Neighbours are discovered with <em><em><em><em><em><em><em><em><em>broadcast</em></em></em></em></em></em></em></em></em> packets sent on all interfaces</p><p id="28a74351-f321-416b-9390-40b4526c429b" class="">Link cost is then determined:</p><ul id="f3557f6d-6155-46b6-b374-45205d6d212c" class="bulleted-list"><li style="list-style-type:disc">Typically based on bandwidth and/or delay</li></ul><ul id="69d96910-fd3f-4017-94ff-4d1b33b2e435" class="bulleted-list"><li style="list-style-type:disc">Could be based on other factors</li></ul><h3 id="5e69f506-a483-4672-9737-6ea77f9fa05e" class="">Building Link State Packets</h3><p id="b8f75cb6-cd0a-4053-a478-560ec0f11d16" class="">Each router creates link state packets based on neighbours and costs to reach them</p><p id="d604f734-7522-4b66-86c2-590a5ccdba19" class="">The packets are sent to all routers in the network</p><ul id="cbb934b5-3739-4819-adc7-4d7b9940cdf4" class="bulleted-list"><li style="list-style-type:disc">May be multicast or broadcast</li></ul><ul id="5ba54fe4-cbb2-4bc7-8170-9344c0602121" class="bulleted-list"><li style="list-style-type:disc">Sent periodically or when requested</li></ul><figure id="f1349b54-4fac-4c39-a139-d503cc76fc9f" class="image"><a href="Routing%208b60b24051614759a57e835319bb8790/Screenshot_2023-05-10_at_12.51.55.png"><img style="width:1918px" src="Routing%208b60b24051614759a57e835319bb8790/Screenshot_2023-05-10_at_12.51.55.png"/></a></figure><h3 id="85df856b-cd0d-40c0-aade-8e0995fb5909" class="">Computing shortest path tree</h3><ul id="7d952e5b-0289-475e-8198-9b70ef5e9c29" class="bulleted-list"><li style="list-style-type:disc">Each route computes the best past using <a href="https://www.geeksforgeeks.org/introduction-to-dijkstras-shortest-path-algorithm/">Dijkstra’s algorithm</a> to build a tree</li></ul><ul id="2d5f007d-a5d6-43e8-b78d-5f7b6e9a7e80" class="bulleted-list"><li style="list-style-type:disc">Tree is then used to populate the routing table</li></ul><h3 id="aba09b3c-4305-4aa9-847e-abe83cef0388" class="">Link state vs Distance Vector</h3><ul id="7f15d975-b191-4b59-845d-ecf4c6512c76" class="bulleted-list"><li style="list-style-type:disc">Link state converges faster, e.g., OSPF can detect changes to topology and converge in seconds</li></ul><ul id="27dd6d10-b7fc-4d99-8f0d-68ddde51a7ca" class="bulleted-list"><li style="list-style-type:disc">Link state is better at avoiding loops<ul id="21f27e06-1219-4b08-a8d3-c399959b2f8a" class="bulleted-list"><li style="list-style-type:circle">Every node knows everything, can avoid loops</li></ul><ul id="71d27a76-efe6-45a6-923e-0fac891dc2a0" class="bulleted-list"><li style="list-style-type:circle">In distance vector, each node knows a little - relying on accuracy of information from prior nodes</li></ul></li></ul><h2 id="f9f8cfaa-9799-42e9-b9c4-ab57310b0ac6" class="">Routing between sites</h2><p id="8f442e76-8a21-4344-92c4-0ad05e7d875c" class="">Inter-site routing uses exterior routing protocols </p><ul id="aaa72754-8588-4cb1-a2a6-939aa99bb0f8" class="bulleted-list"><li style="list-style-type:disc">Advertise your network prefixes to neighbouring networks</li></ul><ul id="7b2b9b03-d645-467b-bb9b-ba8f0f88257d" class="bulleted-list"><li style="list-style-type:disc">You can either offer transit to other networks or not</li></ul><ul id="82450dfd-678e-4f1f-8e26-84c7f2fff18d" class="bulleted-list"><li style="list-style-type:disc">Policy is often more important than path costs</li></ul><p id="fe8f3b56-70cf-494c-a730-381664bf3655" class="">De facto protocol is <strong>Border Gateway Protocol (BGP)</strong></p><ul id="69bd66a6-e1ad-426c-a033-51e3b966bcbf" class="bulleted-list"><li style="list-style-type:disc">Works between Autonomous Systems</li></ul><ul id="084c34bc-d4a1-461b-984f-58245a6bcc9f" class="bulleted-list"><li style="list-style-type:disc">Distance Vector-like, but includes information about the AS path associated with a given route, cost of paths and other rich attributes</li></ul><ul id="f98ee473-9f83-4614-9194-a427ef3751d2" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.techtarget.com/searchnetworking/feature/BGP-tutorial-The-routing-protocol-that-makes-the-Internet-work">BGP Operation</a></li></ul><h3 id="6bfee791-0729-4792-88f9-f9cf6194ad13" class=""><strong>Downsides of BGP</strong></h3><ul id="36ee5fcb-8682-414d-aa95-607fbf286db6" class="bulleted-list"><li style="list-style-type:disc">BGP relies on trust<ul id="c692bd4e-353f-4de4-8012-64c55a73e78a" class="bulleted-list"><li style="list-style-type:circle">A malicious peer can cause routing issues</li></ul></li></ul><ul id="0d7c1fe6-b35a-4cea-926f-7828327b6dba" class="bulleted-list"><li style="list-style-type:disc">BGP is slow<ul id="8a33f806-25e3-48de-9aa1-dde709d34101" class="bulleted-list"><li style="list-style-type:circle">Updating BGP takes a lot of effort</li></ul></li></ul><ul id="3f798161-7844-456c-904e-1730cc175425" class="bulleted-list"><li style="list-style-type:disc">Routers have limited BGP routing table sizes<ul id="7dca20ca-0252-4e4e-ba44-4ff3105870fc" class="bulleted-list"><li style="list-style-type:circle">The limit is being pushed on older hardware.</li></ul></li></ul><figure class="block-color-yellow_background callout" style="white-space:pre-wrap;display:flex" id="90f292af-0a45-4a31-a3e1-2ad35dd42fe5"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%">Latency ≠ Round-Trip-Time / 2</div></figure><ul id="47d7b7d4-976f-4423-a0c1-1e96531b6031" class="toggle"><li><details open=""><summary><strong><strong><strong><strong>WHY?</strong></strong></strong></strong></summary><p id="f368658b-0f6b-40d3-900d-6bc772643cb3" class="">&quot;Latency&quot; can mean different things. Generally, it&#x27;s a delay of some sort - application latency is the reaction time of an application (from input to output), network latency the delay for getting a packet from point A to B and so on.</p><p id="4f54ca99-5f81-460d-8bd3-5a595b5cb754" class="">&quot;Round-trip time&quot; is more or less well defined as the network delay from point A to B and back . This is the sum of all encoding, queueing, processing, decoding, and propagation delays in both directions. Essentially, it&#x27;s the delay when A may be expecting an answer from B for a request that requires very little processing.</p><p id="c3117d42-9259-4c95-a272-09b434da23ae" class="">Very often, round-trip time is compared to the <em>ping time</em> between A and B. The ping time may provide a good value for the effective RTT but it might also be something else, due to potential routing and processing differences between the ICMP packets used by ping and those for the actually used protocol packets.</p><p id="8a5029fd-8bde-45a9-b533-563da4f34396" class="">In your case &quot;latency&quot; means an artificial delay within the HTTP server that gets added on top of the already present delays. So, if you&#x27;ve got an effective round-trip time of 50 ms to the server and select &quot;200 ms latency&quot; you can expect a reply to a request within 250 ms (plus the processing overhead on the server).</p></details></li></ul><h2 id="0f1d9d05-477d-40c8-bad8-3f69e6988c2e" class="">Summary!</h2><ul id="aab69188-26f5-4aca-b509-4833aa77d96c" class="bulleted-list"><li style="list-style-type:disc">Host on a LAN/subnet use a Default Router</li></ul><ul id="2d76de6e-65cc-49ae-a14d-eefefd4743f4" class="bulleted-list"><li style="list-style-type:disc">An enterprise site network uses a Routing Protocol</li></ul><ul id="b0a696ac-f941-4fb5-b0c4-d31362e66e04" class="bulleted-list"><li style="list-style-type:disc">The Internet is a set of interconnected Autonomous Systems</li></ul><ul id="a6ebee9e-69b3-4295-ac66-034ab8029da6" class="toggle"><li><details open=""><summary>Wikipedia Articles on everything…</summary><p id="9e8d00b5-458a-427f-8e6d-e5754b99cd2e" class=""><a href="https://en.wikipedia.org/wiki/Routing_Information_Protocol">RIP</a></p><p id="9f3c5dcb-e5ae-40c0-ac35-9d0c12f1ce73" class=""><a href="https://en.wikipedia.org/wiki/IS-IS">IS-IS</a></p><p id="c13909af-b455-4d66-b10a-8b1051d9773a" class=""><a href="https://en.wikipedia.org/wiki/Open_Shortest_Path_First">OSPF</a></p><p id="dea79a18-52ac-4b8c-9a37-8d9a36566ba8" class=""><a href="https://en.wikipedia.org/wiki/Border_Gateway_Protocol">BGP</a></p><p id="b2027fd9-be9b-4bb4-80dd-21108db0e7c4" class=""><a href="https://en.wikipedia.org/wiki/Autonomous_system_(Internet)">AS</a></p></details></li></ul><h2 id="8882775a-4a82-4fbf-b456-e24bb874878e" class="">Subnet Cheat Sheet</h2><figure id="6a84b61d-936d-4b70-a386-3bf6b4ebe2e2" class="image"><a href="Routing%208b60b24051614759a57e835319bb8790/Screenshot_2023-05-10_at_12.36.23.png"><img style="width:1416px" src="Routing%208b60b24051614759a57e835319bb8790/Screenshot_2023-05-10_at_12.36.23.png"/></a></figure><figure id="48ce21a0-9ccb-4f53-9ea0-3ff5164435c5" class="image"><a href="Routing%208b60b24051614759a57e835319bb8790/Screenshot_2023-05-10_at_12.36.37.png"><img style="width:1416px" src="Routing%208b60b24051614759a57e835319bb8790/Screenshot_2023-05-10_at_12.36.37.png"/></a></figure><p id="f71bbbdc-1286-4f29-a90f-3c74140c55e2" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

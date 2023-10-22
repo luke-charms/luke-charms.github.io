@@ -1,0 +1,679 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Fundamental Models</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="915d2ad4-890a-4e62-93af-a6c2b9e142bc" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/leaf_gray.svg"/></div><h1 class="page-title">Fundamental Models</h1><p class="page-description"></p></header><div class="page-body"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="6eae0b51-ee61-44ef-8f95-e56225114175"><div style="font-size:1.5em"><span class="icon">📢</span></div><div style="width:100%"><strong>Need to be able to do:</strong><ul id="74f6e604-5e57-4f25-bcff-82523b57359b" class="bulleted-list"><li style="list-style-type:disc">LO1 discuss the differences between synchronous and asynchronous models</li></ul><ul id="bc2297fb-ebdd-4f15-abc6-d5822c4acc3a" class="bulleted-list"><li style="list-style-type:disc">LO2 select appropriate failure models for a distributed system</li></ul></div></figure><nav id="702c809a-e7df-48ed-8b19-b0cd66ca49cd" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d57e822d-36f2-4904-b7c6-5cd2ac57cd61">Fundamental Models</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#75a3d167-eb69-4caa-a794-054de82a58a4">Interaction Model</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#64fac80b-eae6-403c-a2ee-76fc362b8559">Synchronous vs Asynchronous Systems</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5eb5b210-b6ca-47ec-b9e1-09fbe3e808ea">Failure Model</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#c0dfb9a5-e1f7-45fc-be46-901d4d879c14">Process Omission Failures</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#c0a3fe40-d493-40e7-9205-01bdff943679">Channel Omission Failures</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#bd3cb509-ce13-42b7-bdd0-dccd74e27a60"><strong>Arbitrary (Byzantine) failures</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#52cd7083-ab50-45d1-8df0-cf3dd050b6db">Timing Failures</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#deba70c2-38f8-4390-9ad1-cd564b50ddf3">Dealing with Failure</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#f2d984ac-f088-4ca7-a116-5804877ece8e">Guaranteed by System (important!)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5309e754-d61d-40be-8000-5ccbe2aa0cea">Security Model</a></div></nav><h1 id="d57e822d-36f2-4904-b7c6-5cd2ac57cd61" class="">Fundamental Models</h1><p id="6ef91fa1-ba55-45e6-a702-3da1aca66d63" class="">All distributed systems share a number of properties:</p><ul id="8ad44204-4a16-4743-8fa6-91618b3e163e" class="bulleted-list"><li style="list-style-type:disc">Processes communicate over a network<ul id="904a530e-cf8f-4c1d-9fc1-bcb7bd4e99b2" class="bulleted-list"><li style="list-style-type:circle">Interactions take time and can affect performance</li></ul></li></ul><ul id="84faba1e-4ff5-4860-be25-05183977e866" class="bulleted-list"><li style="list-style-type:disc">Processes, machines and network infrastructure can fail<ul id="40a3a356-e13e-465e-ac63-93b3f77c51af" class="bulleted-list"><li style="list-style-type:circle">Need to handle failures to ensure system reliability</li></ul></li></ul><ul id="8177a126-d1a2-4193-a0b3-124f04e90d47" class="bulleted-list"><li style="list-style-type:disc">Systems widely distributed over distant machines and Internet-wide networks<ul id="73658f7b-1b69-45e9-bf08-76f40e523d3e" class="bulleted-list"><li style="list-style-type:circle">Larger cyberattack surface, need to ensure system <span style="border-bottom:0.05em solid">cybersecurity</span></li></ul></li></ul><p id="78923364-4ec9-4059-b117-b3610156811f" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>All these models below help to capture these properties!</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><h2 id="75a3d167-eb69-4caa-a794-054de82a58a4" class="">Interaction Model</h2><p id="238a001d-2b8b-4251-9032-09f75296d4dd" class="">Conventional algorithms</p><ul id="1fcb2608-5792-4961-8191-a3be421cbce0" class="bulleted-list"><li style="list-style-type:disc">Behaviour and state determined by sequential steps of the single executing process</li></ul><p id="08a391da-be67-48ed-8086-d04a9b1887bd" class="">Distributed algorithms</p><ul id="e6dcb512-9552-4bc2-bb98-7ebf7a582138" class="bulleted-list"><li style="list-style-type:disc">Behaviour and state are determined by the intertwining of the sequential steps of each involved process</li></ul><ul id="f735c1a8-41a9-48b3-9286-8503a56282af" class="bulleted-list"><li style="list-style-type:disc">A distributed algorithm includes the transmission of messages</li></ul><ul id="133f8988-971e-4c68-bbd0-30c00f68e2de" class="bulleted-list"><li style="list-style-type:disc">Processes proceed at different rates and send/receive messages at different rates</li></ul><ul id="b662101f-2a00-4dc5-92b5-d5c11b2a3bab" class="bulleted-list"><li style="list-style-type:disc">The system state is distributed as well, no global notion of system state</li></ul><ul id="a7116520-887c-405f-abf4-86ddb84fd8bb" class="bulleted-list"><li style="list-style-type:disc">Global system state: combination of the local state of all involved processes</li></ul><p id="02be0dec-91a2-453e-9246-f33b2a14b419" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>How can I ensure that all three processes always share the same global state?</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></p><ul id="857d4ef3-3123-433f-99e9-9b155e14b1fa" class="bulleted-list"><li style="list-style-type:disc">Global state = [State 1, State 2, State 3]</li></ul><figure id="b962bba2-f10f-4d86-ad32-114fd65bc205" class="image"><a href="Fundamental%20Models%20915d2ad4890a4e6293afa6c2b9e142bc/Screenshot_2023-05-15_at_18.48.07.png"><img style="width:432px" src="Fundamental%20Models%20915d2ad4890a4e6293afa6c2b9e142bc/Screenshot_2023-05-15_at_18.48.07.png"/></a></figure><p id="6f2955ae-3447-4707-9bc6-4d2cefdecc47" class="">Performance of communication channels</p><ul id="6b8b156c-29f0-4d59-aab3-2054181c654b" class="bulleted-list"><li style="list-style-type:disc">Latency: from start of transmission to start of reception, measured in seconds<ul id="334c18af-619f-4049-b7d8-9166be9d80bb" class="bulleted-list"><li style="list-style-type:circle">Network latency</li></ul><ul id="71553c17-be4d-436e-857e-e83f6886381e" class="bulleted-list"><li style="list-style-type:circle">Network card delay</li></ul><ul id="ead15a40-bd34-43e1-a1eb-eccf50c15fb6" class="bulleted-list"><li style="list-style-type:circle">OS delay</li></ul></li></ul><ul id="a1e31322-1b51-45ab-a23d-fe75e98a6c61" class="bulleted-list"><li style="list-style-type:disc">Bandwidth: total amount of information that can be transmitted over it in a given time<ul id="886681f0-5cfb-477e-83a0-2e70d93ac373" class="bulleted-list"><li style="list-style-type:circle">Measured in bit per second</li></ul></li></ul><ul id="8d8bc2e0-90bd-4c2a-891b-217dab65a56a" class="bulleted-list"><li style="list-style-type:disc">Jitter: variation in the time it takes to deliver a series of messages<ul id="57682d15-5e96-4d69-97c6-3b91cf253e19" class="bulleted-list"><li style="list-style-type:circle">Measured in units of time (e.g., ms)</li></ul><ul id="1eb52caf-9f21-44e5-b6c4-a5f9b0e942ee" class="bulleted-list"><li style="list-style-type:circle">e.g., media stream</li></ul></li></ul><p id="f596a32a-6f68-42d1-a529-1676aba68dd5" class="">Computer clocks and timing events</p><ul id="efd303c7-020b-4e2e-965d-cd7622205717" class="bulleted-list"><li style="list-style-type:disc">If two processes running on different physical machines read their clocks at the same time, they would get different time values</li></ul><ul id="ca5550de-7d66-49e1-9eeb-d3aaaa870d7e" class="bulleted-list"><li style="list-style-type:disc">Even if the clocks are set to the same time initially, their value will eventually vary quite
+significantly unless corrections are applied<ul id="97331e2f-b9b5-4a02-b476-41870dcc0d45" class="bulleted-list"><li style="list-style-type:circle">Drift: clocks update their counting register with different frequencies, hence they deviate over time</li></ul><ul id="a5317096-8675-4d3f-86a5-24cc3afcc50c" class="bulleted-list"><li style="list-style-type:circle">Drift rate: time difference for time unit with respect to an ideal clock<ul id="37aee874-0c2b-434d-b336-5695136d482a" class="bulleted-list"><li style="list-style-type:square">e.g., High-precision quartz clock drift rate is 10-7-10-8 secs/sec</li></ul></li></ul></li></ul><ul id="6fa3c480-4088-4593-81de-9814b8397d81" class="bulleted-list"><li style="list-style-type:disc">Corrections can be applied through synchronisation protocols, but the accuracy is
+affected by network delays</li></ul><ul id="4763dfcf-091d-40c9-a8ec-89d39667f113" class="bulleted-list"><li style="list-style-type:disc">No global notion of time, cannot rely on local clocks for synchronisation purposes!!!</li></ul><h3 id="64fac80b-eae6-403c-a2ee-76fc362b8559" class="">Synchronous vs Asynchronous Systems</h3><p id="3e833544-b003-47ff-80cd-751e6367345c" class="">Difficult to set limits (i.e., make assumptions) on:</p><ul id="d9f7f3e9-adae-4d20-9ea7-c04c78f47ceb" class="bulleted-list"><li style="list-style-type:disc">Process execution time<ul id="0f616d35-6340-4ae4-967a-70197a753380" class="bulleted-list"><li style="list-style-type:circle">Shared resources within the same machine (i.e., CPU, memory, disk), so different processes compete to access these resources and may need to wait</li></ul></li></ul><ul id="45c85477-1ac8-4287-b029-39b674156331" class="bulleted-list"><li style="list-style-type:disc">Message latency<ul id="7f87b08c-c848-4c9d-b5e8-3fd90038f85e" class="bulleted-list"><li style="list-style-type:circle">Network bandwidth is limited</li></ul></li></ul><ul id="076330d4-4c3b-427a-a182-073134643626" class="bulleted-list"><li style="list-style-type:disc">Clock drift rate</li></ul><p id="be4ec965-2c7b-4c01-ab49-7cd120cf6c68" class="">Estimations are possible but replying on them is not safe</p><p id="c571f9a2-ea9b-45e5-8182-8db36dac1d33" class="">(<em>e.g., on average, each process completes its local task in 0.1 seconds; if we rely on the assumption that each process completes its local task in 0.2 seconds, what happens when it takes longer?)</em></p><p id="eaa2bc21-e722-4835-a8b9-73a1651c1605" class=""><span style="border-bottom:0.05em solid"><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Synchronous Distributed Systems</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></span></p><ul id="d1751e22-a15a-406f-bd6e-c52d45f7e208" class="bulleted-list"><li style="list-style-type:disc">Assumptions: known upper and lower bounds on processing time, network latency and clock drift rate</li></ul><ul id="190da344-92f4-48ad-8600-9f0fe6fd3444" class="bulleted-list"><li style="list-style-type:disc">Simpler design</li></ul><ul id="679ab246-043d-4e9c-89b5-9d0a2aa4637e" class="bulleted-list"><li style="list-style-type:disc">Useful when starting the design of a new distributed algorithm, to draft a preliminary version and validate it<ul id="d0d7c1fd-4c98-4d09-91ef-617ae4527805" class="bulleted-list"><li style="list-style-type:circle">(e.g., can use timeouts to detect failures)</li></ul></li></ul><p id="a9af1f89-b21d-492b-82a1-0cd7af4ccb29" class=""><span style="border-bottom:0.05em solid"><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Asynchronous Distributed Systems</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></span></p><ul id="31ca6d08-dda3-4f58-b998-b3ffb4ee5e59" class="bulleted-list"><li style="list-style-type:disc">Assumptions: no bound on process execution speed, message transmission time and clock drift rate</li></ul><ul id="afa7487a-ade2-49df-b298-775b9d9541b2" class="bulleted-list"><li style="list-style-type:disc">Harder to design</li></ul><ul id="8c410159-4ae7-4056-8047-12c1e7f8ba2d" class="bulleted-list"><li style="list-style-type:disc">Models the Internet and real systems much better than synchronous assumptions</li></ul><ul id="defe23f0-772c-48a7-8ede-d19d98982630" class="bulleted-list"><li style="list-style-type:disc">Any solution that is valid for an asynchronous distributed system is also valid for a synchronous one</li></ul><h2 id="5eb5b210-b6ca-47ec-b9e1-09fbe3e808ea" class="">Failure Model</h2><ul id="d034ada0-68e9-4030-8381-e8c7486464b1" class="bulleted-list"><li style="list-style-type:disc">Processes and communication channels fail when they depart from the expected 
+(i.e., correct/desirable) behaviour</li></ul><p id="666aae04-958c-491f-a0a9-de7ca7211f83" class="">The failure model defines the possible ways a process or communication channel can fail:</p><ul id="2d684fc8-5bec-4c49-9cc3-049e4e9e132f" class="bulleted-list"><li style="list-style-type:disc"><strong>Process/Channel Omission failures</strong></li></ul><ul id="e49d9c1a-6283-410b-8daf-955c1508cf5a" class="bulleted-list"><li style="list-style-type:disc"><strong>Arbitrary failures</strong></li></ul><ul id="850aaeaf-cbf5-4dac-a1b6-6a0ca4e8a235" class="bulleted-list"><li style="list-style-type:disc"><strong>Timing failures</strong></li></ul><h3 id="c0dfb9a5-e1f7-45fc-be46-901d4d879c14" class="">Process Omission Failures</h3><p id="e73f74dc-6aeb-4543-95dc-4c2d84a1f6d8" class="">Crash: process has halted and will not execute any further steps of its program ever</p><p id="6d942af9-0203-406d-9b01-0e7bb7c9a075" class="">Can other processes detect that a process has crashed?</p><ul id="72e80678-9208-443b-98fb-f48ed10fb076" class="bulleted-list"><li style="list-style-type:disc">Synchronous model<ul id="26ce3609-600a-4435-b381-b71b861e03fd" class="bulleted-list"><li style="list-style-type:circle">Can use timeout: if a process P does not reply to a message within a certain timeout, then P is considered crashed</li></ul><ul id="bb51a674-dd10-4526-8d60-5e396d62a03b" class="bulleted-list"><li style="list-style-type:circle">All the processes can detect a crashed process: fail-stop failure</li></ul></li></ul><ul id="beaa4058-00ee-4993-8eb3-771b4f342f91" class="bulleted-list"><li style="list-style-type:disc">Asynchronous model<ul id="6279aa22-5301-40af-a28e-ee37ee467d08" class="bulleted-list"><li style="list-style-type:circle">Maybe the process is not replying because it is slow or the message is not arrived yet</li></ul><ul id="8324d5bf-f168-4948-9723-a5e12a7745b5" class="bulleted-list"><li style="list-style-type:circle">Other process cannot reliably detect a crashed process: crash failure</li></ul></li></ul><h3 id="c0a3fe40-d493-40e7-9205-01bdff943679" class="">Channel Omission Failures</h3><ul id="296c8255-b190-4730-9f22-83f63e820601" class="bulleted-list"><li style="list-style-type:disc">Send omission failure</li></ul><ul id="3f6de1fc-975f-4b1f-a6e1-e01763975743" class="bulleted-list"><li style="list-style-type:disc">Receive omission failure</li></ul><figure id="dd9252bc-8649-4434-9412-e93ef320b2d2" class="image"><a href="Fundamental%20Models%20915d2ad4890a4e6293afa6c2b9e142bc/Screenshot_2023-05-15_at_18.58.14.png"><img style="width:576px" src="Fundamental%20Models%20915d2ad4890a4e6293afa6c2b9e142bc/Screenshot_2023-05-15_at_18.58.14.png"/></a></figure><h3 id="bd3cb509-ce13-42b7-bdd0-dccd74e27a60" class=""><strong>Arbitrary (Byzantine) failures</strong></h3><ul id="8523fb81-9a26-4431-ba94-5377890bd577" class="bulleted-list"><li style="list-style-type:disc">Send or transmit arbitrary messages at arbitrary times</li></ul><ul id="ea1bdd9d-95a4-47ee-b4cd-05acd709d8a1" class="bulleted-list"><li style="list-style-type:disc">Commit omissions</li></ul><ul id="5f91270a-1848-4257-adc0-bd2a8fa78138" class="bulleted-list"><li style="list-style-type:disc">A process may stop or take an incorrect step</li></ul><ul id="3ea8b0ef-3559-4c4a-b960-b5cf49095d2c" class="bulleted-list"><li style="list-style-type:disc">A malicious process (e.g., infected by malware)</li></ul><h3 id="52cd7083-ab50-45d1-8df0-cf3dd050b6db" class="">Timing Failures</h3><ul id="c0c6bc25-2577-48cf-a45e-5d733c39c4df" class="bulleted-list"><li style="list-style-type:disc">Relevant in synchronous systems</li></ul><ul id="206d8cab-243b-412d-ba0b-f5e81027f884" class="bulleted-list"><li style="list-style-type:disc">Time limits on process execution time, message delivery time or clock drift rate are violated</li></ul><h3 id="deba70c2-38f8-4390-9ad1-cd564b50ddf3" class="">Dealing with Failure</h3><p id="1388c666-ba55-4b84-a2c1-a9f96568d1d0" class=""><strong>Masking</strong></p><ul id="74639333-d92d-4ad2-be34-493e4c8aa3da" class="bulleted-list"><li style="list-style-type:disc">Process replication to tolerate process omission failures</li></ul><ul id="6acec0e9-7490-4710-9beb-5a285b80ecbf" class="bulleted-list"><li style="list-style-type:disc">Retransmission to tolerate channel omission failures</li></ul><p id="6dfaff8c-71de-4375-8eaa-cad005270ccd" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Conversion</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="865f5aca-356d-43ed-8b54-0f35cf379b38" class="bulleted-list"><li style="list-style-type:disc">Use checksum to detect corrupted messages and discard them; arbitrary failure converted to channel omission failure</li></ul><p id="b7e1d5b0-9e7a-4ba1-ba4b-cbaead0c6cf7" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Reliability of one-to-one communication</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="82997871-7d10-49a2-be50-2695bd813c4d" class="bulleted-list"><li style="list-style-type:disc">Validity: any message in the outgoing message buffer is eventually delivered to the incoming message buffer</li></ul><ul id="556f9a39-44bf-44ca-8938-02e97c2a2a0f" class="bulleted-list"><li style="list-style-type:disc">Integrity: the message received is identical to one sent, and no messages are delivered twice</li></ul><h3 id="f2d984ac-f088-4ca7-a116-5804877ece8e" class="">Guaranteed by System (important!)</h3><ul id="0427f80a-b07a-4c27-917d-45356bf248e8" class="bulleted-list"><li style="list-style-type:disc">Timeout-based retransmission can guarantee validity</li></ul><ul id="b152dad3-2040-4778-9708-a15fb3cf9ab9" class="bulleted-list"><li style="list-style-type:disc">Checksum + retransmission can guarantee “part of” integrity (i.e., “the message received is identical to one sent”)</li></ul><ul id="dd82c64e-a112-46d0-a7d3-1ff2e77791ec" class="bulleted-list"><li style="list-style-type:disc">Discarding duplicated received messages is required to guarantee “the other part of” integrity (i.e., “no messages are delivered twice”)</li></ul><h2 id="5309e754-d61d-40be-8000-5ccbe2aa0cea" class="">Security Model</h2><figure id="35933386-3088-4182-9683-9688fe874139" class="image"><a href="Fundamental%20Models%20915d2ad4890a4e6293afa6c2b9e142bc/Screenshot_2023-05-15_at_19.03.52.png"><img style="width:1404px" src="Fundamental%20Models%20915d2ad4890a4e6293afa6c2b9e142bc/Screenshot_2023-05-15_at_19.03.52.png"/></a></figure><p id="5707aa60-19c5-49de-aa72-6326ef6764c1" class=""><strong><strong><strong><strong>GOALS:</strong></strong></strong></strong></p><ul id="8770722d-940d-4a43-ba34-c4aac99286e7" class="bulleted-list"><li style="list-style-type:disc">Protecting objects (e.g., access control)</li></ul><ul id="789e3073-4904-49ed-8466-715a26600ba8" class="bulleted-list"><li style="list-style-type:disc">Securing processes and their interactions</li></ul><p id="48e30ac2-ee77-40a9-a5ba-cc17ada2458b" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>The enemy (Threat Model)</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="49a3c3b1-a1f7-48e3-a8c5-4e7e9105bb9c" class="bulleted-list"><li style="list-style-type:disc">Threats to processes: identity spoofing, malicious code</li></ul><ul id="4dbd3b4b-3c79-4cc8-b9b3-042f5ca82e37" class="bulleted-list"><li style="list-style-type:disc">Threats to communication channels: copy/alter/inject messages</li></ul><ul id="02aa7059-6cb2-4720-932c-ffd783212044" class="bulleted-list"><li style="list-style-type:disc">Denial of service (DDoS)</li></ul><p id="05b10b4d-b70d-4f41-b953-f10206889606" class="">Cryptography</p><ul id="b854e4c6-3f7b-46b0-83b5-107b73e0857e" class="bulleted-list"><li style="list-style-type:disc">Encrypt exchanged and stored data to preserve confidentiality</li></ul><p id="cd549aab-e361-4b6b-a8d5-c0ebd4de0a37" class="">Authentication</p><ul id="36908a89-4228-456a-89b2-04fad420cbc4" class="bulleted-list"><li style="list-style-type:disc">Based on cryptography and message digests; digital signatures</li></ul><ul id="ab8febc8-84a9-43d3-b144-c2ee8f5e8f32" class="bulleted-list"><li style="list-style-type:disc">Prove the identity of sender and receiver</li></ul><p id="432bfbc5-6ca5-48d4-8db9-fc900708ab36" class="">Secure Channels</p><ul id="5edc190e-80d1-4207-8ae0-7aea50a2e493" class="bulleted-list"><li style="list-style-type:disc">Authenticated parties</li></ul><ul id="627f3924-e5c1-4529-9a2d-0458b96b925a" class="bulleted-list"><li style="list-style-type:disc">Provide integrity and privacy of transmitted data</li></ul><hr id="90f1ab22-a98c-456f-9470-eb098f91f9f4"/><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="c7917d37-943d-42f8-8f25-7bd6f9be03a9"><div style="font-size:1.5em"><span class="icon">📕</span></div><div style="width:100%">Chapter2 (section 2.4) - Distributed Systems Book (Coulouris)</div></figure></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

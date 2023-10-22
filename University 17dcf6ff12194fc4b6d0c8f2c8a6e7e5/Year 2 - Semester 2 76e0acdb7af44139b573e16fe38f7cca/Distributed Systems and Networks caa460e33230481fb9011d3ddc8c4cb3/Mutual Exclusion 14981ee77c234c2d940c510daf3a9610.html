@@ -1,0 +1,716 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Mutual Exclusion</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="14981ee7-7c23-4c2d-940c-510daf3a9610" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/new-alert_gray.svg"/></div><h1 class="page-title">Mutual Exclusion</h1><p class="page-description"></p></header><div class="page-body"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="e90067ec-2681-40a3-9885-852d24eef723"><div style="font-size:1.5em"><span class="icon">📢</span></div><div style="width:100%"><strong>Need to be able to do:</strong><ul id="ec00b6ea-aeff-4d53-a259-7e8f8b2ee778" class="bulleted-list"><li style="list-style-type:disc">LO1 discuss the differences between synchronous and asynchronous models</li></ul><ul id="d0ea3e74-f22f-44b8-9654-46c95d9daf83" class="bulleted-list"><li style="list-style-type:disc">LO2 select appropriate failure models for a distributed system</li></ul></div></figure><nav id="a4823ed0-1ba7-427d-964a-befd2d963b2b" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#376b6251-c311-4e81-9ca3-cc2f554fe56c">Single Computer System vs Distributed Systems</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#77efafc6-8e20-4a9b-a982-0d716993bfc1">Mutual Exclusion Requirements</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#93ffe00e-cf43-4da0-84cf-6ae6f99636c3">Mutual Exclusion Distributed Solutions</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#7fe86c21-dd58-4880-b338-5092a9e8a83d">Token Based Algorithms</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#061f7a40-fb57-4921-9073-d282bfebe20d">Centralised Algorithm</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#08eba52d-42ae-4801-9795-ca7f205917a5">Ring Token Algorithm</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#53b6ceeb-b23e-4032-a396-fe190e31ea30">Raymond’s Tree Based Algorithm (using tokens)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#bb03ba99-a354-4328-ba7a-6a42ffeeb7ff">Non-Token Based Algorithms</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#87216106-19e0-4166-b7f2-4bd308051a51">Ricart-Agrawala Algorithm</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a8c40b21-20b1-4af0-b4f4-3497cd348739">Quorum Based Approach</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#01e25cad-5c21-4fcc-90f6-288afedea23c">Maekawa’s Algorithm</a></div></nav><hr id="aaeca527-65e2-493d-b59c-2eb15e331c92"/><p id="f56be7d3-4660-4511-b2ba-f54c401236c8" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Critical Section:</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="dd0f3f7a-25ea-4173-8acb-cebe743f71c8" class="bulleted-list"><li style="list-style-type:disc">When more than one process can access the same code segment</li></ul><ul id="44958709-bc19-4478-b741-0d8d1e296051" class="bulleted-list"><li style="list-style-type:disc">Contain shared variables or resources</li></ul><ul id="a1126091-5c52-47a5-97cb-eade009bca11" class="bulleted-list"><li style="list-style-type:disc">Required to maintain the consistency of the variables</li></ul><ul id="66b34844-8a8b-4fad-9caa-7818f9308c41" class="bulleted-list"><li style="list-style-type:disc">The values depend on the sequence of execution of instructions - Race condition</li></ul><h1 id="376b6251-c311-4e81-9ca3-cc2f554fe56c" class="">Single Computer System vs Distributed Systems</h1><p id="e9b2ea9b-b013-4937-bf88-11b2f2ac3909" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Single Computer System</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="22614520-d907-4e56-9513-47c2b2b01628" class="bulleted-list"><li style="list-style-type:disc">Memory and other resources are shared between different processes</li></ul><ul id="301506df-cba9-49f0-bf68-0baaa9b01045" class="bulleted-list"><li style="list-style-type:disc">Status of shared resources are easily available</li></ul><p id="a9d5b85b-f289-488e-b42d-9f3e3e53f480" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Distributed System</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="a4b3f415-3f52-4b8c-8b9c-41e563872acc" class="bulleted-list"><li style="list-style-type:disc">No shared memory or common physical clock</li></ul><ul id="71ace627-d53d-4573-a51d-8c508302040a" class="bulleted-list"><li style="list-style-type:disc">Do not have complete information of state of system</li></ul><ul id="b0f181b6-6088-4bd1-871a-3557fc35e067" class="bulleted-list"><li style="list-style-type:disc">Message passing can be used</li></ul><h2 id="77efafc6-8e20-4a9b-a982-0d716993bfc1" class="">Mutual Exclusion Requirements</h2><p id="7a11c9d7-50b8-46de-a5ab-d8676c3e0af1" class=""><strong>No Deadlock</strong></p><ul id="781aba1c-aa19-42f1-8060-db42f99b67b5" class="bulleted-list"><li style="list-style-type:disc">Two or more sites should not endlessly wait for any message that will never arrive</li></ul><p id="3c6bacd3-b4e1-4d88-b0a8-def7f26ac86c" class=""><strong>No Starvation</strong></p><ul id="7c1ff34f-24b1-45c6-b119-a7d4abce4898" class="bulleted-list"><li style="list-style-type:disc">Every site that wants to execute critical section should get an opportunity to execute</li></ul><ul id="09f1a927-a9ac-48c6-9c12-94c001a8dac5" class="bulleted-list"><li style="list-style-type:disc">Every site should not wait indefinitely</li></ul><p id="da3e25b3-e710-4bf7-af17-3f0125b4e625" class=""><strong>Fairness</strong></p><ul id="169eda1f-73cb-456e-83da-70203a8b59a4" class="bulleted-list"><li style="list-style-type:disc">Every site should get a fair chance to execute critical section</li></ul><ul id="9b73108a-631f-4a7c-89cb-d73e402aeb44" class="bulleted-list"><li style="list-style-type:disc">Execute requests based on the order that they are made</li></ul><p id="8657222a-8c0d-448e-a0a3-5868748c902e" class=""><strong>Fault Tolerance</strong></p><ul id="1ed852ae-c14f-40c6-af1f-eefb4d4a2e13" class="bulleted-list"><li style="list-style-type:disc">Ability to recognise failures to avoid disruption</li></ul><p id="6acbe340-9a73-4db7-b489-677e605a5924" class="">
+</p><p id="1a87be80-471c-4803-90c9-c236db6fba6c" class=""><span style="border-bottom:0.05em solid"><strong>Safety &amp; Liveness Properties</strong></span></p><ul id="ec2be944-fff6-4e76-8cbb-f6ba61f3c1e8" class="bulleted-list"><li style="list-style-type:disc"><strong>Safety properties</strong> so ‘bad things don’t happen’</li></ul><ul id="cffcb370-481d-483c-844f-cbee0b83d86e" class="bulleted-list"><li style="list-style-type:disc"><strong>Liveness properties</strong> so ‘good things do happen’</li></ul><p id="c76f5041-0bb0-45b7-8a7a-136d4ed133bf" class=""><strong>Safety properties</strong></p><ul id="2d7039aa-53a1-4d45-bb50-8870108bc6db" class="bulleted-list"><li style="list-style-type:disc">One process can remain in its critical section at any time (mutual exclusion)</li></ul><ul id="3aef2cd5-c5c9-421b-b5c0-fc3e4b15d19b" class="bulleted-list"><li style="list-style-type:disc">Freedom from deadlock, at least one process must be eligible to take an action and enter its critical section</li></ul><p id="380711c4-9f7e-414b-a094-ae644dbfc47d" class=""><strong>Liveness properties</strong></p><ul id="27d74a44-5155-4758-8ff0-231153615d6c" class="bulleted-list"><li style="list-style-type:disc">Every process trying to enter its critical section must eventually succeed (livelock or starvation)</li></ul><p id="7f9af3f4-812b-44d0-8521-a29cb4ec35e8" class="">
+</p><p id="21537fcf-8270-40c6-b689-8fc6a6d606aa" class=""><span style="border-bottom:0.05em solid"><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Fairness and Performance Properties</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></span></p><p id="32985205-d1bd-4cd9-b04c-14bb92c970b9" class=""><strong>Fairness properties</strong></p><ul id="0c2a7a63-49fd-4d97-b4bc-a33f5d1d1a60" class="bulleted-list"><li style="list-style-type:disc">Access to critical section should happened in fair order</li></ul><ul id="1abe028b-be2a-4719-a583-a13d8b104d0e" class="bulleted-list"><li style="list-style-type:disc"><em>Happened-before ordering</em><ul id="6d8c7fcb-5c9b-417e-8d91-c11b5bdbc730" class="bulleted-list"><li style="list-style-type:circle">if one <em>request</em> to enter the critical section happened before another then it should enter the critical section first</li></ul></li></ul><p id="788454de-40c2-4e71-b566-25535874d1fb" class=""><strong>Performance properties</strong></p><ul id="0388797f-3d27-44b4-b33c-005c8db9f6ac" class="bulleted-list"><li style="list-style-type:disc">Minimise number of messages in sent to each entry/exit operation</li></ul><ul id="63fd5fb0-3a0e-4372-bf6f-c7198da725b0" class="bulleted-list"><li style="list-style-type:disc">Minimise client delay when entering/exiting critical section</li></ul><ul id="0d8bb06b-487c-4f2d-9298-8b8e7f91debf" class="bulleted-list"><li style="list-style-type:disc">Minimise synchronisation delay which is the time between exiting critical section and the next entering</li></ul><h1 id="93ffe00e-cf43-4da0-84cf-6ae6f99636c3" class="">Mutual Exclusion Distributed Solutions</h1><p id="7bc0e027-041b-4f23-a0ce-cab67f575a9f" class="">Three types exist:</p><p id="097614f0-95f8-42b3-bf85-25fab7e25ec3" class=""><strong>Token Based Algorithms</strong></p><ul id="61dc1849-6323-42f6-ba52-e39ef1aa40da" class="bulleted-list"><li style="list-style-type:disc">Centralised, Ring and Raymond’s algorithm</li></ul><p id="0f5856a0-ef9a-46c9-844e-7bd5b4cab062" class=""><strong>Non-Token Based Algorithms</strong></p><ul id="1f1cae2d-fe5a-41bf-a6ac-3670c2a17beb" class="bulleted-list"><li style="list-style-type:disc">Lamport’s Algorithms and Ricart-Agrawala</li></ul><p id="49c7b28f-7655-42e0-82fb-273ac8625913" class=""><strong>Quorum based approach</strong></p><ul id="aeb561d0-d13f-4803-bb85-bef44331dd86" class="bulleted-list"><li style="list-style-type:disc">Maekawa’s Algorithm</li></ul><h2 id="7fe86c21-dd58-4880-b338-5092a9e8a83d" class="">Token Based Algorithms</h2><ul id="2f13d211-0252-4f82-af64-3bbdb5fb0c56" class="bulleted-list"><li style="list-style-type:disc">A unique token is shared among all sites</li></ul><ul id="d7e178da-54f0-4861-bbe9-4c0b89b3fdbb" class="bulleted-list"><li style="list-style-type:disc">If a site possesses the unique toke it is allow to enter the critical section</li></ul><ul id="26c1e70c-b00a-4fc3-895d-0e7b98672313" class="bulleted-list"><li style="list-style-type:disc">Uses sequence numbers to order requests</li></ul><ul id="2ef4ea76-f1e4-4963-8d41-8a6a08d4c743" class="bulleted-list"><li style="list-style-type:disc">Sequence numbers used to identify old and current requests</li></ul><ul id="234bfb62-ab02-4ef1-a846-ba56b8d4d2c0" class="bulleted-list"><li style="list-style-type:disc">Each token is unique</li></ul><p id="d9fb634e-24bd-4fa9-86dd-afe9b96dc697" class="">(<em><strong>example: Centralised Algorithm, Ring Algorithm, Raymond’s Algorithm)</strong></em></p><h3 id="061f7a40-fb57-4921-9073-d282bfebe20d" class="">Centralised Algorithm</h3><p id="5d665d96-7b6f-4086-a339-7703b7224deb" class=""><strong><strong><strong><strong><strong><strong>Steps:</strong></strong></strong></strong></strong></strong></p><ol type="1" id="2a33f285-cc62-4a7e-b48e-d42102f48fb0" class="numbered-list" start="1"><li>P3 requests token</li></ol><ol type="1" id="2f575d09-1ddb-470d-a265-2764447b383a" class="numbered-list" start="2"><li>Token is granted</li></ol><ol type="1" id="49a103ff-dab8-44bf-a8fe-c972e419e4f7" class="numbered-list" start="3"><li>P2 requests token</li></ol><ol type="1" id="ca1b0770-d094-4131-9138-7db7642eeb05" class="numbered-list" start="4"><li>P2 added to coordinators queue</li></ol><ol type="1" id="66ab924e-d4dc-497f-8406-03400d9c82dd" class="numbered-list" start="5"><li>P1 requests token</li></ol><ol type="1" id="29830959-68a0-411f-babb-8c0460f94e4b" class="numbered-list" start="6"><li>P3 releases token</li></ol><ol type="1" id="4a7b43d0-8f6b-4493-b46e-f9ac5f108eb5" class="numbered-list" start="7"><li>P0 grants token to P2, removes P2 from queue</li></ol><figure id="6fcbf6ac-6046-4dbe-b02d-b6db7142ec39" class="image"><a href="Mutual%20Exclusion%2014981ee77c234c2d940c510daf3a9610/ezgif.com-gif-maker-2.gif"><img style="width:570px" src="Mutual%20Exclusion%2014981ee77c234c2d940c510daf3a9610/ezgif.com-gif-maker-2.gif"/></a></figure><p id="dbdaccd9-d896-4e73-8dc4-1a0be28d093e" class="">
+</p><p id="2852a7d2-0aff-4cec-9750-886b8b4dbf25" class=""><span style="border-bottom:0.05em solid"><strong>Safety &amp; Liveness Properties</strong></span></p><p id="7f34cf24-63a5-433d-a502-2c4c45314deb" class=""><span style="border-bottom:0.05em solid">Safety properties:</span></p><ul id="ce88ce15-ade8-4fbf-8a1a-565e10e0750a" class="bulleted-list"><li style="list-style-type:disc">Server ensures grant is only sent after a release is received</li></ul><ul id="c884810b-1606-4d69-9c89-3c13f9dfb801" class="bulleted-list"><li style="list-style-type:disc">Queue ensures only one process is eligible to enter critical section</li></ul><p id="ee9bf50c-e2c1-4b7b-b183-bc71056aa31a" class=""><span style="border-bottom:0.05em solid">Liveness properties</span></p><ul id="c5afe215-fca6-47bf-9900-3cc5e08ff146" class="bulleted-list"><li style="list-style-type:disc">Server maintains a queue so all processes will eventually enter critical section in order</li></ul><p id="9653635a-1819-457a-833d-2450985d4378" class="">
+</p><p id="90e43fdf-2dca-4225-9ccc-267f5740a0ae" class=""><span style="border-bottom:0.05em solid"><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Fairness and Performance Properties</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></span></p><p id="52968ca7-6e50-4802-b763-d17ebf745c75" class=""><span style="border-bottom:0.05em solid">Fairness properties</span></p><ul id="079ddcf1-d46a-45f3-9952-c94c5307ab49" class="bulleted-list"><li style="list-style-type:disc">Server maintains a queue so all processes will eventually enter critical section in order</li></ul><ul id="897ba290-8c3e-4059-ab7e-d78277ef2d9a" class="bulleted-list"><li style="list-style-type:disc">Can not ensure happened-before ordering if in an asynchronous system</li></ul><p id="db93a075-ec39-4ca0-b3f9-20a03fcdfe10" class=""><span style="border-bottom:0.05em solid">Performance properties</span></p><ul id="6d30303a-2f79-4855-9d40-5d99d756a897" class="bulleted-list"><li style="list-style-type:disc">Enter overhead: 2 messages, exit overhead: 0 message</li></ul><ul id="fdef426b-6fa1-4021-8e2d-466913ba573b" class="bulleted-list"><li style="list-style-type:disc">Entry delay: message round trip</li></ul><ul id="79ca5291-f40c-446a-af70-b57a95518dc6" class="bulleted-list"><li style="list-style-type:disc">Synchronisation delay: message round trip (release and grant)</li></ul><ul id="1268ec91-b6a9-4b40-9bf2-6c304d1c306b" class="bulleted-list"><li style="list-style-type:disc">Single point of failure</li></ul><ul id="5bb54ddd-e1af-4a64-8e42-14859645ddf4" class="bulleted-list"><li style="list-style-type:disc">Server can be bottleneck</li></ul><ul id="6723bba6-cb37-4917-84cc-0601fc98711b" class="bulleted-list"><li style="list-style-type:disc">Server must be known (or elected)</li></ul><h3 id="08eba52d-42ae-4801-9795-ca7f205917a5" class="">Ring Token Algorithm</h3><p id="7fb90c4e-8f82-42d2-ab2b-c6047c9cdd00" class=""><strong><strong><strong><strong><strong><strong>Steps:</strong></strong></strong></strong></strong></strong></p><ol type="1" id="f53ae71e-40cb-4d86-b480-5f8a5d3ccd53" class="numbered-list" start="1"><li>P0 has the token, its queue is empty</li></ol><ol type="1" id="4b0b1acb-dadb-4692-a600-7d921b597b44" class="numbered-list" start="2"><li>P0 releases the token to P1</li></ol><ol type="1" id="8bb39837-3415-4632-aef3-af6ed10c07c7" class="numbered-list" start="3"><li>P1 accesses the critical process the oldest item in the queue</li></ol><ol type="1" id="efe9eb9c-aa36-4f13-9669-2295215ece1e" class="numbered-list" start="4"><li>Removes the oldest item in the queue</li></ol><ol type="1" id="22f855f8-aae9-4d84-a68e-a9aba72d084f" class="numbered-list" start="5"><li>P1 has the token, its queue is empty</li></ol><ol type="1" id="d287216b-21f2-41ff-864a-dab347488018" class="numbered-list" start="6"><li>P1 Releases the token to P2</li></ol><ol type="1" id="ebe9e29b-ad52-4b87-998d-58c8d23e2eb9" class="numbered-list" start="7"><li>P2 releases the token to P3</li></ol><ol type="1" id="82ed42ac-d5ed-42d8-825b-3a4a6ca47af7" class="numbered-list" start="8"><li>P3 access the critical process with the oldest item in the queue</li></ol><figure id="cdbe0b08-630b-4239-88bf-cdb056ff1386" class="image"><a href="Mutual%20Exclusion%2014981ee77c234c2d940c510daf3a9610/ezgif.com-gif-maker-3.gif"><img style="width:432px" src="Mutual%20Exclusion%2014981ee77c234c2d940c510daf3a9610/ezgif.com-gif-maker-3.gif"/></a></figure><p id="238900ea-f15c-4f5c-832a-9a8ed9e25928" class="">
+</p><p id="a5fab15a-b864-4e87-bd7b-e0d178e3b0da" class=""><span style="border-bottom:0.05em solid"><strong>Safety &amp; Liveness Properties</strong></span></p><p id="c44bb8b1-2dd7-4a85-b129-67734d88f58e" class=""><span style="border-bottom:0.05em solid">Safety properties</span></p><ul id="a498f199-09ca-4138-ae7e-09c4d57dcf72" class="bulleted-list"><li style="list-style-type:disc">There is only one token and the critical section can only be entered when the process holds the token, therefore only one process can enter the critical section at any time</li></ul><ul id="93ee9ff7-6609-4cf9-90e8-9c5afd5267fd" class="bulleted-list"><li style="list-style-type:disc">Deadlock free because only one token</li></ul><p id="99cc6a71-c119-4589-8943-ae5f9f668551" class=""><span style="border-bottom:0.05em solid">Liveness properties</span></p><ul id="dead70a3-7f3b-4946-bb57-3d4fd662c266" class="bulleted-list"><li style="list-style-type:disc">Every process gets access to the critical section because the token is passed onto the next process after each critical section</li></ul><p id="d15f5199-e61a-4df3-81a4-05a721ec4837" class="">
+</p><p id="d6321f95-dda3-4d1c-ac02-d71114f7b4fc" class=""><span style="border-bottom:0.05em solid"><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Fairness and Performance Properties</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></span></p><p id="420a8bb3-0c72-47a0-b95a-cc36ecef7bac" class=""><span style="border-bottom:0.05em solid">Fairness Properties</span></p><ul id="a5182742-10b6-4d38-9350-9b365fe91786" class="bulleted-list"><li style="list-style-type:disc">Access to critical section is not fair</li></ul><ul id="d765748e-3351-405e-95a5-46671bcead4a" class="bulleted-list"><li style="list-style-type:disc">Order is based on ring and the location of the token</li></ul><p id="5a0e6730-bacc-479f-b55d-b7cedccbc315" class=""><span style="border-bottom:0.05em solid">Performance Properties</span></p><ul id="834a5cd6-9d66-4083-8806-c79c9dfed457" class="bulleted-list"><li style="list-style-type:disc">Enter: 0 to N messages, exit: 0 message</li></ul><ul id="d3ce228b-32a5-45db-8863-e7657b30657a" class="bulleted-list"><li style="list-style-type:disc">Delay entering: 0 to N messages, delay exiting: 0</li></ul><ul id="7ecc1c3c-1cd3-44f8-9043-74228f91be9f" class="bulleted-list"><li style="list-style-type:disc">Synchronisation delay: 1 to N-1 messages</li></ul><ul id="53399335-151a-4a24-a2b9-9e843c149f2d" class="bulleted-list"><li style="list-style-type:disc">Token circulating consumes bandwidth</li></ul><h3 id="53b6ceeb-b23e-4032-a396-fe190e31ea30" class="">Raymond’s Tree Based Algorithm (using tokens)</h3><p id="92d6459f-55ba-4ae4-8d46-f8ea0d5b0c28" class="">Each node has only one parent</p><p id="2322779b-cfe8-4e52-8bde-7335090b03ec" class="">A child node can only send requests to its parents</p><p id="8435b1b7-9bc0-40c1-a6d2-3a377d1c72d1" class="">Each node maintains a FIFO queue of requests</p><p id="c255c015-598b-4fdd-bcea-d73dc4cf6bed" class="">If any node is forwarding privilege to other node and has non-empty queue, then it forwards a request message</p><p id="fafe8ac9-d5d1-4349-a30e-f720261f0117" class=""><strong><strong><strong><strong><strong><strong>Steps:</strong></strong></strong></strong></strong></strong></p><ol type="1" id="dd39dba6-45e1-4630-a6d9-70e554f5bf88" class="numbered-list" start="1"><li>If a node i (not holding the token) wants to use the token, so that it can enter the critical section, it sends a request to its parent, node j.<ul id="e8c0cf1d-807c-4eb2-b025-2ec8c1c4e445" class="bulleted-list"><li style="list-style-type:disc">If node j FIFO queue is empty, node j shifts i into its FIFO queue; j then issues a request to its parent, k, that it desires the token</li></ul><ul id="08a7233e-bb1b-4b73-9421-9354b397f32a" class="bulleted-list"><li style="list-style-type:disc">If node j FIFO queue is not empty, it simply shifts i into the queue</li></ul></li></ol><ol type="1" id="bf65e0aa-9c40-4d01-96ff-9412deb0fdf1" class="numbered-list" start="2"><li>When node k has token and receives the request from j it sends token to j and sets j as its parent</li></ol><ol type="1" id="c9312079-9a0a-418d-b4f6-fb4f3dee2383" class="numbered-list" start="3"><li>When node j receives the token from k, it forwards the token to i and i is removed from the queue of j<ul id="c39aa1f6-1d8d-451f-aae9-f1148f0241bb" class="bulleted-list"><li style="list-style-type:disc">If the queue of j is not empty after forwarding the token to i, j must issue a request to i in order to get the token back</li></ul></li></ol><p id="0476018b-3765-4424-b08b-0c3195c95f15" class=""><strong><strong><strong><strong><strong><strong><strong><strong>Example:</strong></strong></strong></strong></strong></strong></strong></strong></p><ol type="1" id="6a22dc88-1cb4-494c-b346-985195da8989" class="numbered-list" start="1"><li>P3 wants the token, and adds itself to its own FIFO queue</li></ol><ol type="1" id="b0cfca4b-cf39-464e-9ee1-653d7331c02c" class="numbered-list" start="2"><li>Sends a request message to P2</li></ol><ol type="1" id="c5a5dc97-9610-4d94-b9a3-9186e02ab20d" class="numbered-list" start="3"><li>P2 receives the request from P3, and adds P3 to its queue</li></ol><ol type="1" id="c21ed06b-bbac-4f65-a3a5-04c9af633cff" class="numbered-list" start="4"><li>P2 sends the request to P1</li></ol><ol type="1" id="2090fda4-f352-47f6-b313-c0437fa18a8e" class="numbered-list" start="5"><li>P1 receives the request from P2 and adds P3 to its queue </li></ol><ol type="1" id="4324b1a9-0f3d-4d52-90be-217ce7eaf69d" class="numbered-list" start="6"><li>Passes the request to its parent P0</li></ol><ol type="1" id="aef0946d-8658-49b4-8145-53b6a2ab100d" class="numbered-list" start="7"><li>P2 also wants the token, and adds itself to its queue</li></ol><ol type="1" id="e1cb9262-eb4b-482d-96ba-9ae1caa92ad2" class="numbered-list" start="8"><li>P0 receives the request message, and sends the token to P1.</li></ol><ol type="1" id="1b768bee-817f-45f9-90e1-b9641a2ae2d2" class="numbered-list" start="9"><li>P1 removes the top element and passes the token to P2</li></ol><ol type="1" id="fb7dcd60-b293-4440-b61c-0d45f0c0a993" class="numbered-list" start="10"><li>P2 passes the token to P3 and removes 3 from its queue, temporary changing its direction so P3 is the root</li></ol><ol type="1" id="071b97ab-bb57-45fc-8bec-ad1b0cc0b596" class="numbered-list" start="11"><li>P3 accesses critical section</li></ol><ol type="1" id="4686757b-d766-4af1-ac07-7e5f54d03998" class="numbered-list" start="12"><li>When P3 is done it clears its queue and sends the token to P2 and changes the root</li></ol><figure id="1b9f80ce-0e42-4701-b62a-2dbf9a970634" class="image"><a href="Mutual%20Exclusion%2014981ee77c234c2d940c510daf3a9610/ezgif.com-gif-maker-4.gif"><img style="width:562px" src="Mutual%20Exclusion%2014981ee77c234c2d940c510daf3a9610/ezgif.com-gif-maker-4.gif"/></a></figure><p id="641a4797-bebb-48fb-88a5-e055c3c0de6c" class="">
+</p><p id="90fe28a5-8c5d-4ac8-93fe-6b4172c23987" class=""><span style="border-bottom:0.05em solid"><strong>Safety &amp; Liveness Properties</strong></span></p><p id="fe39fa4d-1051-4a34-833b-814e942b0469" class=""><span style="border-bottom:0.05em solid">Safety properties</span></p><ul id="256a531c-ff6c-4366-95e6-fe59f42ab6ad" class="bulleted-list"><li style="list-style-type:disc">Only one process can hold the privileged token</li></ul><ul id="22cb0b6e-b4e2-404c-915e-63eb799c3b46" class="bulleted-list"><li style="list-style-type:disc">Deadlock is impossible</li></ul><p id="7510ab31-f6fd-45a5-8959-2c92fd834a20" class=""><span style="border-bottom:0.05em solid">Liveness properties</span></p><ul id="4fe3f7ef-4be1-41b7-bbcd-40ab5c0f5c12" class="bulleted-list"><li style="list-style-type:disc">Algorithm can cause starvation as it used a greedy strategy, where a site can execute the critical section on receiving the token even when its request is not on the top of the request queue</li></ul><p id="979116e9-a978-465b-88d8-d49268f67c3f" class="">
+</p><p id="02f986f0-783b-41d9-8750-fefe09094a69" class=""><span style="border-bottom:0.05em solid"><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Fairness and Performance Properties</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></span></p><p id="7981809b-d9bc-4dd2-b2f7-9a13898a76fd" class=""><span style="border-bottom:0.05em solid">Fairness properties</span></p><ul id="fff8437d-8141-4821-8f03-44d93d1afb44" class="bulleted-list"><li style="list-style-type:disc">Everyone is allowed to hold the token, non greedy strategy</li></ul><p id="ee3a8e11-07c2-45ab-9019-2804e16de7d6" class=""><span style="border-bottom:0.05em solid">Performance Properties</span></p><ul id="ca97ed4a-2c97-4991-bd80-3ea2b3610c42" class="bulleted-list"><li style="list-style-type:disc">Enter: 0 to N messages, exit: 1 message</li></ul><ul id="b229bdb9-1894-4173-a7b5-450c84e78b83" class="bulleted-list"><li style="list-style-type:disc">Delay entering: 0 to N messages, delay exiting: 0</li></ul><ul id="f0709422-f2f5-4739-bd7f-798ed205d5ad" class="bulleted-list"><li style="list-style-type:disc">Synchronisation delay: ( log N )/ 2</li></ul><ul id="22ded37a-92f1-478c-8853-49d7022dcecd" class="bulleted-list"><li style="list-style-type:disc">The message complexity of this algorithm is O(log N) as the average distance between any two nodes in a tree with N nodes is log N</li></ul><p id="830075c6-9c25-4157-9263-eefbed942df4" class="">
+</p><p id="85d4bd22-8144-4c25-95fe-e1efbec682f6" class=""><span style="border-bottom:0.05em solid"><strong>Issues with Token Based Algorithms</strong></span></p><p id="4c1d9baf-99b2-44f0-acdc-7f7fb89bad64" class=""><strong>How do we deal with lost tokens?</strong></p><p id="6a8a228b-5951-408e-b9a9-b931618b2f71" class=""><strong>Process failures how do we detect them?</strong></p><p id="a8b15cc4-00de-4850-ad5d-94cf8b6a4e7a" class=""><em>—&gt; Employ simple algorithm at network cost</em></p><h2 id="bb03ba99-a354-4328-ba7a-6a42ffeeb7ff" class="">Non-Token Based Algorithms</h2><ul id="4c0e493b-a22e-41f6-bc2d-5ba6a6eb661b" class="bulleted-list"><li style="list-style-type:disc">A site communicates with other sites in order to determine which sites should execute critical section</li></ul><ul id="fb9fb4fa-98d7-4dd1-8189-e3e4874efe76" class="bulleted-list"><li style="list-style-type:disc">Uses timestamps instead of sequence number to order requests</li></ul><ul id="8f9cc67c-dba7-4806-a69c-51edda838c53" class="bulleted-list"><li style="list-style-type:disc">Whenever a request is received it gets a timestamp</li></ul><ul id="2713d774-989a-4511-8375-2fc362f76551" class="bulleted-list"><li style="list-style-type:disc">Timestamps used to resolve any conflicts between requests</li></ul><ul id="6ef6294c-b475-453f-87dc-f985adbec285" class="bulleted-list"><li style="list-style-type:disc">Maintain a logical clock (logical clock updates according to Lamport’s scheme)</li></ul><p id="e38078fd-da5e-4f42-a72d-7276c88965c1" class=""><em>(</em><em><strong>examples: Lamport’s Algorithm and Ricart-Agrawala)</strong></em></p><h3 id="87216106-19e0-4166-b7f2-4bd308051a51" class="">Ricart-Agrawala Algorithm</h3><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="d7f9e18f-52e5-46e9-8815-2fe630c60aaa"><div style="font-size:1.5em"><span class="icon">📌</span></div><div style="width:100%">Optimised Lamport’s algorithm by removing the need for acknowledgement messages</div></figure><ul id="ce5010ea-3e82-4635-87d5-56709c8f4f54" class="toggle"><li><details open=""><summary><strong>Terminology</strong></summary><p id="3603823f-f57b-4a92-9046-00b54b54b5ba" class="">A <strong>site</strong> is any computing device which runs the Ricart-Agrawala Algorithm</p><p id="b001e3a6-0b74-4d48-ba22-4d24ae6c1413" class="">The <strong>requesting site </strong>is the site which is requesting to enter the critical section.</p><p id="0288288a-934e-4362-889a-a4ee19a8d527" class="">The <strong>receiving site </strong>is every other site which is receiving a request from the requesting site.</p></details></li></ul><p id="857903a5-a9da-4108-ad15-c455c690e67e" class=""><strong><strong><strong><strong><strong><strong>Steps:</strong></strong></strong></strong></strong></strong></p><ol type="1" id="a0e3cf38-816d-4305-a124-9fd6e0ddcfc5" class="numbered-list" start="1"><li>All sites have their own queue</li></ol><ol type="1" id="e71f68fe-1dab-4171-bc96-f8e8972347b8" class="numbered-list" start="2"><li>Request messages contain the site id and timestamp - <em>request(id, timestamp)</em></li></ol><ol type="1" id="4e1b2618-0641-4b76-822c-5997dc494cfb" class="numbered-list" start="3"><li>When a site wants to use the critical section it broadcasts it to all the sites</li></ol><ol type="1" id="9ff9c6d9-c3d1-49b1-b439-e2cca7fb08e8" class="numbered-list" start="4"><li>All sites add it to their queue, and respond iff:<ul id="423b18cb-9039-41cb-8a42-df0df160feb0" class="bulleted-list"><li style="list-style-type:disc">the receiving process is not currently interested in the critical section</li></ul><ul id="c2e616d6-d6c0-405f-a4b8-c6372d9416bb" class="bulleted-list"><li style="list-style-type:disc">the receiving process has a lower priority based on timestamp</li></ul><ul id="1d04e5b8-b4b2-428b-a1e3-c2c68f24b944" class="bulleted-list"><li style="list-style-type:disc">Otherwise they will respond to the requesting site</li></ul></li></ol><ol type="1" id="7d1b4989-9c34-432e-94d2-14e8eba9dfa3" class="numbered-list" start="5"><li>Requesting site waits until all sites have replied to use the critical section</li></ol><ol type="1" id="0c52aeb2-260c-4562-a916-d799bec6f1b3" class="numbered-list" start="6"><li>When the requesting site has exited the critical section, it sends any deferred response messages</li></ol><figure id="425c25f0-0a0c-4732-a64e-9c89aa455a24" class="image"><a href="Mutual%20Exclusion%2014981ee77c234c2d940c510daf3a9610/ezgif.com-gif-maker-5.gif"><img style="width:944px" src="Mutual%20Exclusion%2014981ee77c234c2d940c510daf3a9610/ezgif.com-gif-maker-5.gif"/></a><figcaption>1. Site S0 wants to make a request (s0,ts0), it adds it to its own queue
+2. Site S0 broadcasts it’s request to the other sites
+3. All the other sites add it to their queues
+4. Sites S3 and S4 send responses, sites S1 and S2 defer their response, and remove the request from their queue
+5. When site S2 has executed the critical section it sends its deferred responses to sites S0 and S1, then S2 deletes its queue
+6. Site S1 enters the critical section
+7. Site S1 exits the critical section and sends the deferred response message to S0 so that it can enter the critical section
+8. Site S1 enters the critical section</figcaption></figure><p id="af43971b-ff7b-4813-898b-734a6d1ceac8" class=""><span style="border-bottom:0.05em solid"><strong>Safety &amp; Liveness Properties</strong></span></p><p id="f1ff849c-839d-43f5-b40e-fdcc9c12c9b5" class=""><span style="border-bottom:0.05em solid">Safety properties</span></p><ul id="e0aa8925-37bd-4cc4-893b-d97a7a607d06" class="bulleted-list"><li style="list-style-type:disc"><span style="border-bottom:0.05em solid">I</span>f a process is in the critical section, it doesn’t reply until it exits</li></ul><ul id="b6023269-a518-4469-affb-f1b550b5652f" class="bulleted-list"><li style="list-style-type:disc">If more than one process is requesting, process with lowest timestamp will get all N-1 replies first</li></ul><p id="93478a9a-22cc-4c0e-a810-36c4d639be6b" class=""><span style="border-bottom:0.05em solid">Liveness properties</span></p><ul id="37561788-874c-4ff7-962b-ef750efadd2a" class="bulleted-list"><li style="list-style-type:disc">Total ordering of timestamps ensures each request will eventually get all replies</li></ul><p id="6771d1d7-1e97-4f10-a8ae-181816f8de3a" class="">
+</p><p id="4b21bdb2-392f-421e-a955-d3fe2faced97" class=""><span style="border-bottom:0.05em solid"><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Fairness and Performance Properties</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></span></p><p id="237350c0-9a83-4801-87d0-d5b690bb6b53" class=""><span style="border-bottom:0.05em solid">Fairness Properties</span></p><ul id="69fa679e-82d3-452a-828f-2573191e4ef9" class="bulleted-list"><li style="list-style-type:disc">Clocks ensue fair ordering</li></ul><p id="a42487a5-bc0f-46bf-a2a9-35f840fd3a6b" class=""><span style="border-bottom:0.05em solid">Performance Properties</span></p><ul id="9833070b-19bb-4b56-88e1-054c5a705cc3" class="bulleted-list"><li style="list-style-type:disc">Entry: 2(N-1) messages, Exit: 0 to N-1</li></ul><ul id="9c36d7a8-8d3d-48d9-8b74-24d93a676231" class="bulleted-list"><li style="list-style-type:disc">Entry delay: message round trip, exit delay: 0</li></ul><ul id="47c1393d-35aa-42b7-b213-3804d3e658db" class="bulleted-list"><li style="list-style-type:disc">Synchronization delay: 1 message</li></ul><ul id="5957da22-e674-4367-b5d2-0fa1f6916b4c" class="bulleted-list"><li style="list-style-type:disc">Better than Lamport’s algorithm</li></ul><h2 id="a8c40b21-20b1-4af0-b4f4-3497cd348739" class="">Quorum Based Approach</h2><ul id="d57b8e22-fc64-4f27-93ff-159cfee6cd4c" class="bulleted-list"><li style="list-style-type:disc">Instead of requesting permission to execute from all possible sites, each site requests only a subset of sites (quorum)</li></ul><ul id="b6701cee-3996-4709-a926-132ce0f4d838" class="bulleted-list"><li style="list-style-type:disc">Any two subsets of Quorum contains a common site</li></ul><ul id="f0508f37-48a4-4c29-bb13-8491a2bcdcab" class="bulleted-list"><li style="list-style-type:disc">This common site is responsible to ensure mutual exclusion</li></ul><p id="64d10cbc-bed9-4bf7-aa73-2dd1ce395a9c" class=""><em>(</em><em><strong>example: Maekawa’s Algorithm)</strong></em></p><h3 id="01e25cad-5c21-4fcc-90f6-288afedea23c" class="">Maekawa’s Algorithm</h3><p id="96c0fa3b-7c49-42f7-93a2-590b6efa8d71" class="">Divide <em>N</em> processes into <em>N</em> request subsets R</p><p id="cb74e015-07bf-4032-95d5-4632574d77a8" class="">Ri is the request subset for Pi</p><p id="c7d4f607-295a-44da-8164-268a5282a94b" class="">Maekawa’s algorithm runs within a request subset</p><p id="06aff531-a779-4e01-9625-7c0e96d16831" class="">Subsets of size <em>K</em>, each process is in <em>M</em> subsets</p><p id="8fc69347-5551-49d9-8a24-6d647118939e" class="">Maekawa showed that optimal values are: <em>K ~ √N, M=K</em></p><p id="d6e787d4-9ba4-47ef-9e33-2d71b4e35486" class=""><strong>Each node has its own:</strong></p><ul id="643abf75-1477-41af-b405-395d79815fed" class="bulleted-list"><li style="list-style-type:disc">Queue</li></ul><ul id="4d91b081-df14-4de8-ade6-d325aa9bf7c6" class="bulleted-list"><li style="list-style-type:disc">Boolean voted TRUE/FALSE</li></ul><ul id="1343f278-2c1d-41ef-b024-543e5bbc9ab7" class="bulleted-list"><li style="list-style-type:disc">State WANTED/RELEASED/HELD</li></ul><pre id="8973cefd-3e63-4b92-b2ff-c3d9ebf0db86" class="code"><code>Initial state: state=RELEASED, voted=FALSE, queue=[]
+
+Pi: wants to enter Critical Section:
+Set state=WANTED
+multicast request to all processes in Ri
+Wait until received K reply messages
+Set state=HELD
+
+Pi: wants to exit Critical Section:
+Set state=RELEASE
+multicast release to all processes in Ri
+
+Pj: receives request from Pi
+If	State=HELD or voted=True:    queue request
+Else: send reply to Pi and set voted=True
+
+Pj received release from Pi
+If queue is empty:    set voted=False
+Else:
+Px = head of queue
+Remove Px  from queue and send Px the reply
+Set voted=True</code></pre><figure id="f663065c-b3f9-4aa8-95cc-dac42681a642" class="image"><a href="Mutual%20Exclusion%2014981ee77c234c2d940c510daf3a9610/ezgif.com-gif-maker-6.gif"><img style="width:1020px" src="Mutual%20Exclusion%2014981ee77c234c2d940c510daf3a9610/ezgif.com-gif-maker-6.gif"/></a></figure><p id="8f699161-bb01-4e45-90b1-c7ccefb70f11" class=""><span style="border-bottom:0.05em solid"><strong>Safety &amp; Liveness Properties</strong></span></p><p id="6ff1f562-e380-4470-a70d-934cc2910ff0" class=""><span style="border-bottom:0.05em solid">Safety properties</span></p><ul id="8d71f192-27bc-4d58-9f51-76ce847cc419" class="bulleted-list"><li style="list-style-type:disc">Processes can only vote for 1 process at time so only one process can gain enough votes to enter critical section</li></ul><p id="93c29140-cbc9-4327-b3c2-861c0f8b25c7" class=""><span style="border-bottom:0.05em solid">Liveness properties</span></p><ul id="b67fc72a-6c82-4335-a987-9d4900ed06bd" class="bulleted-list"><li style="list-style-type:disc">Very easy to deadlock</li></ul><ul id="7afbbe65-a75b-4d0d-891b-b2f1b9684d68" class="bulleted-list"><li style="list-style-type:disc">Two processes can broadcast <strong>request</strong> at the same time</li></ul><ul id="791d90a7-3d0f-4df0-8460-6fc20e1a03e5" class="bulleted-list"><li style="list-style-type:disc">Solved by modifying queue behaviour to use happened-before order</li></ul><p id="97d0fa58-1870-4bd6-972d-5a6ae3b38743" class="">
+</p><p id="190ec6ef-36b6-4d24-b2ba-8b740dd17d7b" class=""><span style="border-bottom:0.05em solid"><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Fairness and Performance Properties</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></span></p><p id="d75d9c82-fe8a-49b3-a44a-925c67694420" class=""><span style="border-bottom:0.05em solid">Fairness Properties</span></p><ul id="9a132fa5-382b-47ff-a879-2006cfe9c03c" class="bulleted-list"><li style="list-style-type:disc">No, but can be introduced by using Vector clocks to determine the order of requests</li></ul><p id="9cdc066b-0ace-4d68-bd6d-23cb9e5ec45b" class=""><span style="border-bottom:0.05em solid">Performance Properties</span></p><ul id="55ec1d3e-1f5c-4133-967f-92583a798f58" class="bulleted-list"><li style="list-style-type:disc">Entry: 2√N messages,  Exit: √N messages</li></ul><ul id="42c3dd6d-21f9-4e74-9ba7-be09e8dc4919" class="bulleted-list"><li style="list-style-type:disc">Better than Ricart and Agrawala’s if N &gt; 4</li></ul><ul id="5edd37c2-3dee-4476-8fc7-1be2ff13a161" class="bulleted-list"><li style="list-style-type:disc">Delay entry: 2 messages, delay exit: 1 message</li></ul><ul id="99af20a3-5c6c-495a-88da-c17886911546" class="bulleted-list"><li style="list-style-type:disc">Synchronization delay: 2 messages</li></ul><p id="1aad4e59-b399-4699-96cb-f8e7e85dd2bc" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

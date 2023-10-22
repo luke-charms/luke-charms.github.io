@@ -1,0 +1,682 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Consensus Models</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="7036c44b-7ae4-489c-8edb-e4c4da1faf67" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/construction-crane_gray.svg"/></div><h1 class="page-title">Consensus Models</h1><p class="page-description"></p></header><div class="page-body"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="cb20e33a-9401-48a5-accb-fac8b9d0a72a"><div style="font-size:1.5em"><span class="icon">📢</span></div><div style="width:100%"><strong>Need to be able to do:</strong><ul id="d6057fde-8b40-43ef-a513-487a904bb4e9" class="bulleted-list"><li style="list-style-type:disc">…</li></ul></div></figure><h1 id="ef03a8cb-eea0-49dc-b033-e13b1c8c2bc7" class="">Consensus Protocols</h1><ul id="056ff1ef-e615-467a-aaf6-32a9b6b3a3b0" class="bulleted-list"><li style="list-style-type:disc">A consensus algorithm is a process used to achieve agreement on a single data value among distributed processes</li></ul><ul id="1d0cfb86-7cb8-4626-af83-9ad4295ab2fc" class="bulleted-list"><li style="list-style-type:disc">Designed to achieve reliability in a network involving multiple processes</li></ul><ul id="a9c69729-cb6d-4a7f-9fa8-7fdfbd85f37e" class="bulleted-list"><li style="list-style-type:disc">General approaches for consensus in synchronous and asynchronous systems</li></ul><ul id="50276373-8f92-4deb-a232-ede12a551f20" class="bulleted-list"><li style="list-style-type:disc">Used in cryptocurrency blockchain networks</li></ul><h1 id="6db437d9-6dda-403b-a4c0-3a6da52108e8" class="">Classical Consensus Problems</h1><p id="0d6af68f-3983-4841-9f30-8cab93dd1187" class="">How do you decide to commit to a transaction with someone if you don’t know if you can trust them?</p><h2 id="c2d19b09-206d-4ba9-b5c5-34266897442a" class="">Two Generals Problems</h2><figure id="e0064cdd-1a88-4ba8-b3ab-11ddee55c195" class="image"><a href="Consensus%20Models%207036c44b7ae4489c8edbe4c4da1faf67/Screenshot_2023-05-16_at_16.50.16.png"><img style="width:514px" src="Consensus%20Models%207036c44b7ae4489c8edbe4c4da1faf67/Screenshot_2023-05-16_at_16.50.16.png"/></a></figure><ul id="9cff376e-621d-4a51-8f8e-e2ded399af43" class="bulleted-list"><li style="list-style-type:disc">Two generals control two separate armies against a common enemy</li></ul><ul id="16f9e3ab-5107-4050-ae8d-93bc59e3fa3c" class="bulleted-list"><li style="list-style-type:disc">If they both attack at the same time they will be victorious</li></ul><figure id="867a039c-be5d-400e-9c50-7f9fdc51f6d6" class="image"><a href="Consensus%20Models%207036c44b7ae4489c8edbe4c4da1faf67/Screenshot_2023-05-16_at_16.50.49.png"><img style="width:786px" src="Consensus%20Models%207036c44b7ae4489c8edbe4c4da1faf67/Screenshot_2023-05-16_at_16.50.49.png"/></a></figure><ul id="cd1237cd-4e0c-47f4-ba60-4f337c653679" class="bulleted-list"><li style="list-style-type:disc">They can <strong>only</strong> communicate via messengers that have to travel through hostile territory</li></ul><ul id="c2ab8cc9-5811-4dda-8b72-1b380fdc347c" class="bulleted-list"><li style="list-style-type:disc">Messages are unreliable</li></ul><ul id="be146b3d-cfce-4224-82cf-e17a1e4ee09c" class="bulleted-list"><li style="list-style-type:disc">How do they decide when to act?</li></ul><figure id="a88076c4-9518-4f48-8e18-0b5eec072ba2" class="image"><a href="Consensus%20Models%207036c44b7ae4489c8edbe4c4da1faf67/Screenshot_2023-05-16_at_16.51.23.png"><img style="width:682px" src="Consensus%20Models%207036c44b7ae4489c8edbe4c4da1faf67/Screenshot_2023-05-16_at_16.51.23.png"/></a></figure><h3 id="245ffe84-8b6c-45c4-8469-fc3e5aa21731" class="">Solutions?</h3><ol type="1" id="80b853fb-7f40-4318-9f4e-2c58eed05ce0" class="numbered-list" start="1"><li>General 1 will always attack even if no response:<ul id="884b2f1e-70aa-4f71-acc9-1873810a77b3" class="bulleted-list"><li style="list-style-type:disc">General 1 sends many messengers in the hope that at least one gets through</li></ul><ul id="6638abad-e3a3-433f-9b3e-23d017fa9782" class="bulleted-list"><li style="list-style-type:disc">If none do, general 2 wont attack and general 1 <strong>loses</strong></li></ul></li></ol><ol type="1" id="61323945-7013-40b8-bca4-6e3a0e4bc4d1" class="numbered-list" start="2"><li>General 1 only attacks if receives positive response from General 2:<ul id="fe8ee808-ebf2-4b16-8183-f52ea10f3af4" class="bulleted-list"><li style="list-style-type:disc">General 1 is now safe from defeat</li></ul><ul id="9ffd0c60-b9ee-4b90-8b5c-bde3c40acb78" class="bulleted-list"><li style="list-style-type:disc">General 2 needs to be sure the acknowledgement gets through</li></ul><ul id="043c3af3-69dd-493e-a48f-e3927dc4e3de" class="bulleted-list"><li style="list-style-type:disc">General 2 is now in the <strong>same position</strong> as General 1 in Option 1</li></ul></li></ol><p id="0fea663d-a24c-477d-b6fd-14d37e20e77d" class="">Distributed systems with No Common Knowledge</p><ul id="9f20716e-20cf-44bf-b51e-a5d53f530667" class="bulleted-list"><li style="list-style-type:disc">All information has to be communicated</li></ul><ul id="a48e2fab-ffb0-4a4c-adfe-52d932704225" class="bulleted-list"><li style="list-style-type:disc">Never have absolute certainty that info information is transferred</li></ul><p id="db0f3aab-873a-45a8-a55d-f81c16a76bea" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>(this scenario is the exact same when shopping online: where the online shop is one “general” and the customer is another, where dispatching goods and confirming/paying for them are the two choices!)</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></p><h2 id="cb891d77-471c-4c1b-b410-88273603f970" class="">Byzantine Generals</h2><figure id="6aafbc91-21d2-4305-a350-5ccfb569baa2" class="image"><a href="Consensus%20Models%207036c44b7ae4489c8edbe4c4da1faf67/Screenshot_2023-05-16_at_16.53.34.png"><img style="width:528px" src="Consensus%20Models%207036c44b7ae4489c8edbe4c4da1faf67/Screenshot_2023-05-16_at_16.53.34.png"/></a></figure><p id="c2af0998-8ff9-43d7-b6f4-ccef8b863c2d" class="">Three generals must agree to attack or retreat</p><p id="a03852d5-3585-48e2-b1bd-618089c75ed8" class="">One general issues order, the other two decide</p><p id="47db173e-f903-4f66-add1-3b1bf3d2f2e2" class="">One or more generals are treacherous</p><figure id="e869b7b6-e8ce-4e23-9771-bb0de873e537" class="image"><a href="Consensus%20Models%207036c44b7ae4489c8edbe4c4da1faf67/Screenshot_2023-05-16_at_16.53.52.png"><img style="width:852px" src="Consensus%20Models%207036c44b7ae4489c8edbe4c4da1faf67/Screenshot_2023-05-16_at_16.53.52.png"/></a></figure><p id="1f512625-ccbb-4025-a97a-757596158e13" class="">Up to <em>f</em> generals might behave maliciously</p><p id="62d161e7-53ba-4501-b8ab-e8adae6caf5e" class="">Honest generals don’t know who the malicious generals are</p><p id="48560461-436f-4ebd-8be6-e79b58a94a92" class="">The malicious generals may collude</p><p id="1398b07e-0bcd-4819-b03f-5f012764f686" class="">Nevertheless, honest generals must agree on a plan</p><p id="c226594f-162b-4d32-ace5-22bdc01ae209" class="">
+</p><p id="69a054e8-14a4-428b-9f0d-d0af64bf0eeb" class=""><span style="border-bottom:0.05em solid"><strong>Theorem</strong></span>: Need 3<em>f</em> +1 generals in total to tolerate<em> f </em>malicious generals (i.e. &lt;1/3 may be malicious)</p><p id="4e1b91cd-4693-487b-9a39-5cb4faf5e15c" class="">
+</p><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="2f6ec9e7-7a3a-47a6-9416-578ccdbb281d"><div style="font-size:1.5em"><span class="icon">📌</span></div><div style="width:100%">In real systems, both nodes and networks may be faulty
+ - <strong>Two Generals:</strong> A model of networks
+ - <strong>Byzantine Generals:</strong> A model of node behaviour</div></figure><h1 id="d321d8a9-2d86-4068-82e3-e3280c483412" class="">Distributed Consensus Algorithms</h1><p id="61296d5a-d2b7-485f-8741-e8761e5231ff" class="">Distributed computing often requires coordinating processes to reach consensus or agree on some data value that is needed during computation</p><ul id="69faeadc-362f-479a-b4ba-bf0be9e30c30" class="bulleted-list"><li style="list-style-type:disc"><strong>Banking</strong>: commit / abort transaction</li></ul><ul id="15a5a355-516f-4cd8-a10a-baf676366b1d" class="bulleted-list"><li style="list-style-type:disc"><strong>Replicated data</strong>: commit / abort updates</li></ul><ul id="5a5ecd9f-8aab-4004-aa34-9a0023f1a59b" class="bulleted-list"><li style="list-style-type:disc"><strong>Total ordered multicast:</strong> agree on the order of message delivery</li></ul><p id="a4698aeb-0048-4771-aa0b-d8c3e4b47461" class="">Some of the processes may fail or be unreliable</p><p id="2847672c-64d4-4629-9fb4-37593226a911" class="">Consensus protocols must be fault tolerant or resilient</p><p id="38110b2d-56b6-4d66-9461-0b745e79cc74" class="">The processes puts forth their candidate values, communicate with one another, and agree on a single consensus value</p><h3 id="7542bcf0-01a6-4e4d-bf57-1752f0946f1e" class="">Scenario:</h3><p id="9b75c1b9-5858-4a3d-b6ce-ffe52611cdda" class=""><span style="border-bottom:0.05em solid">Initially</span>:</p><ul id="72289602-a505-482f-b7f8-f28069e60276" class="bulleted-list"><li style="list-style-type:disc">Processes begin in undecided state about a value</li></ul><ul id="812d8329-a33c-4d93-b29e-2e91fffbb2c0" class="bulleted-list"><li style="list-style-type:disc">Each proposes an initial candidate value</li></ul><p id="1c157dac-08df-429f-8311-ade25b2a8652" class=""><span style="border-bottom:0.05em solid">Then</span>:</p><ul id="3db70792-ef97-43fa-8436-b135c4ee9039" class="bulleted-list"><li style="list-style-type:disc">Consensus algorithm runs and processes exchange values</li></ul><ul id="84e0144a-2982-4470-bcdf-3d503ed4f1eb" class="bulleted-list"><li style="list-style-type:disc">Each process decides on a value and enters decided state</li></ul><h3 id="792e2a8b-54e0-4ae0-8009-430f17c23907" class="">Assumptions</h3><p id="83b1b538-68f4-46c4-bb75-134d1831a9d9" class="">N processes</p><p id="f19abca4-a6df-48bb-8907-a9f7642130e9" class="">Reliable network communication</p><p id="d7c3819e-ce02-4642-a939-b2aa182534b3" class="">Synchronous or asynchronous communication</p><p id="116ebfdc-5c1c-4fbb-9f9d-18ac572fdc91" class="">Must tolerate:</p><ul id="6ba9bffe-a847-4e7f-a7db-2ec9abafb147" class="bulleted-list"><li style="list-style-type:disc">Process crash failures</li></ul><ul id="79d534ba-2505-46b2-89a8-ba31930c4cf4" class="bulleted-list"><li style="list-style-type:disc">Byzantine failures (e.g. processes can send false messages with malicious intent)</li></ul><ul id="e12c74ce-a942-4d07-b224-660e19bb93ff" class="bulleted-list"><li style="list-style-type:disc">Faulty processes</li></ul><h3 id="47fa26fd-ef2c-4c00-9e4e-83aef34ed5c0" class="">Requirements:</h3><p id="36483acc-0123-4a61-add2-246cb1c2295b" class=""><strong>Termination</strong></p><ul id="79501092-dfb6-4287-8cbe-23f81267cb9f" class="bulleted-list"><li style="list-style-type:disc">Eventually every correct process sets its value</li></ul><p id="fea4034d-0ba7-4f93-bd5d-f75cc68aa13d" class=""><strong>Agreement</strong></p><ul id="425a9572-12d2-4cfa-8409-b8562da267fc" class="bulleted-list"><li style="list-style-type:disc">All correct processes must decide on the same value</li></ul><p id="7ecc9ac7-d6ed-4fbf-a98f-9a13980c6282" class=""><strong>Integrity</strong></p><ul id="95beaa29-69be-40ab-add7-7133fd26aebe" class="bulleted-list"><li style="list-style-type:disc">If all correct processes propose the same value, then any correct process that has decided must choose that value</li></ul><ul id="658770c2-31c2-49ce-b88f-02bf1a32e880" class="bulleted-list"><li style="list-style-type:disc">Variations depend on application, e.g. some consensus algorithm require the majority of processes to agree a value</li></ul><h3 id="a169670c-dbcb-430a-8dc6-137d3bd5af16" class="">When there are no failures?</h3><p id="cfaf9713-258f-4a23-b552-0a9ef4efd677" class="">When there are <strong>NO</strong> failures</p><ul id="620a1e0a-e401-44ba-a20b-5544e0bb6336" class="bulleted-list"><li style="list-style-type:disc">We can use reliable multicast to send proposed value</li></ul><ul id="1d4a7555-a694-489c-895f-11476e21772b" class="bulleted-list"><li style="list-style-type:disc">Wait until received N values</li></ul><ul id="959794f5-1795-4e29-95b3-d6e2c9a95f3e" class="bulleted-list"><li style="list-style-type:disc">A shared agreement on a decision mechanism (majority, highest/lowest value, message order)</li></ul><p id="a3f0a25d-fbe6-4f8d-a58a-a08793acb6e2" class="">…<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>and this works because:</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="33dabdf9-e0de-459d-a9d6-dedfb0fb81a9" class="bulleted-list"><li style="list-style-type:disc"><strong>Termination</strong> and <strong>agreement</strong> guaranteed by reliable multicast</li></ul><ul id="a4129b37-a78d-479a-981e-df20fb2f3f35" class="bulleted-list"><li style="list-style-type:disc"><strong>Integrity</strong> guaranteed by decision mechanism</li></ul><h3 id="a84bbe42-81fb-49a5-b048-a27cd2ec9974" class="">Detecting Consensus Failures</h3><p id="d09b6971-1820-4958-9dfb-06efefb71159" class=""><strong>Crash failure:</strong></p><ul id="736e388d-3293-432f-a5ff-9dc8e7692e59" class="bulleted-list"><li style="list-style-type:disc">Process stops sending values after a while</li></ul><ul id="fcc24b41-20ec-466f-958e-b349bdd2431f" class="bulleted-list"><li style="list-style-type:disc">Easy to detect in a synchronous system</li></ul><ul id="818295fa-e899-4755-9e54-3560da922fdf" class="bulleted-list"><li style="list-style-type:disc">Difficult to detect in an asynchronous system</li></ul><p id="a071465f-4c36-418d-8df4-68567988b761" class=""><strong>Arbitrary failure:</strong></p><ul id="9456b3ef-0d71-40c8-aed3-7390b8c47433" class="bulleted-list"><li style="list-style-type:disc">Either due to a bug or deliberate (ie malicious)</li></ul><ul id="1de68491-3cc4-4b02-87b6-fe87a623baf4" class="bulleted-list"><li style="list-style-type:disc">Difficult to detect in both synchronous and asynchronous systems</li></ul><h3 id="09c80667-cfc5-4b84-944c-36a95b3655f5" class="">Consensus and Total-order Multicast</h3><p id="18ce4fd2-d0f2-45e9-85cc-dfd68d902cd5" class="">Consensus and Total-order multicast are very closely related</p><p id="b716a147-c9f9-4160-ad26-ded5b46b3697" class="">We can use TO-multicast to implement an algorithm to solve Consensus:</p><ul id="67ca3081-2873-4626-89be-4deaaff4fe38" class="bulleted-list"><li style="list-style-type:disc">For N processes to archive consensus, they TO-Multicast their proposed value</li></ul><ul id="7fd6d7d3-08b5-40dd-9456-7cd158dec2af" class="bulleted-list"><li style="list-style-type:disc">For example, all N processes could select the <strong>first</strong> value that is delivered by TO-Multicast</li></ul><ul id="65154f66-d875-4a0d-826b-c1d20e7ba1c5" class="bulleted-list"><li style="list-style-type:disc">Since TO-Multicast guarantees all processes see messages in the same order, decisions about the agreed value can be made on the order of the messages</li></ul><p id="a00fc3de-cb43-49e2-acb4-ea7774f63f94" class=""><em>Conversely</em>, if we have an algorithm that solves Consensus, it can be used to implement TO-Multicast:</p><ul id="79727321-7a24-4e0c-b08c-230d6b0255ee" class="bulleted-list"><li style="list-style-type:disc">Use successive rounds of the Consensus algorithm to decide on the next message</li></ul><ul id="4f412c62-5920-4583-bdb9-d70d79799484" class="bulleted-list"><li style="list-style-type:disc">Repeat until all messages have been sent</li></ul><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="a99f058e-6165-475b-9570-9ff793349844"><div style="font-size:1.5em"><span class="icon">📌</span></div><div style="width:100%">Total-Order Multicast RECAP:<ul id="b54e7016-a4ac-4d5e-883a-fd38f5394cbe" class="bulleted-list"><li style="list-style-type:disc">TO-multicast we saw in the previous lecture used a single leader</li></ul><ul id="65e878ae-e66b-468d-bb0c-21de7db27cfa" class="bulleted-list"><li style="list-style-type:disc"><strong>BUT</strong> algorithm is <strong>not</strong> reliable in the face of process failure</li></ul><ul id="c6b9ac11-05cb-46bc-bd68-44adb1742027" class="bulleted-list"><li style="list-style-type:disc">If the leader fails, then TO-multicast message delivery fails too</li></ul></div></figure><h2 id="9c7da4c1-7b92-47e4-8143-20642d5635f8" class="">Consensus in Synchronous Systems with Crash Failures</h2><p id="f0235b03-fa23-4729-95b0-a299f125935b" class=""><span style="border-bottom:0.05em solid"><strong>Assume:</strong></span></p><p id="d2b5e9ad-3cf6-452e-93b4-55850b7c76e6" class="">Basic multicast guarantees delivery of consensus messages to correct processes</p><p id="c0eae318-d60e-4170-b632-cd90b5ffaa67" class="">Processes may crash at any point</p><p id="f13956fe-ecab-4f3d-905a-65ab5e9aac81" class=""><span style="border-bottom:0.05em solid"><strong>Outline of a consensus algorithm dealing with crash failures:</strong></span></p><p id="40e7520e-56f3-44c5-8591-c3970323a817" class="">Consensus algorithm runs for a number of rounds</p><p id="c5211563-e947-4e3d-9276-6797e25f1eb6" class="">Each round uses timeouts to detect when a process might have failed</p><p id="262cc51a-6cd5-43b7-b4c1-c95fc33f6c3a" class=""><span style="border-bottom:0.05em solid"><strong>Initial step:</strong></span></p><p id="c90182e0-2f62-4d5c-9670-610cada95a27" class="">Each process Pi proposes a candidate value Vi1</p><p id="343c3274-93aa-42e5-a60c-163a0b99be80" class="">Each process Pi maintains set of values Vir known to it at round r</p><p id="0a95151f-7537-42af-94d5-567ea4e1fe8e" class=""><span style="border-bottom:0.05em solid"><strong>In round r:</strong></span></p><p id="fc007ca0-feac-49c9-a7d9-4975cdae0298" class="">Processes only multicast newly added values from previous round</p><p id="d2f3bba5-92cb-42db-8f27-62333379f816" class="">Receives multicast messages and records them in Vir+1</p><p id="3900e450-60cf-4e49-adac-1716a4ee5a4e" class=""><span style="border-bottom:0.05em solid"><strong>Final round:</strong></span></p><p id="6b82657b-f290-4f08-8cf7-b6b6684b474b" class="">Choose Vi based on selection criteria</p><p id="2728d653-d356-4aa0-b799-9e8945568b85" class=""><span style="border-bottom:0.05em solid"><em>(Number of rounds required depends on the number of crash failures and each round uses a timeout to handle any process failing)</em></span></p><p id="15608662-0d9f-4f9d-a082-63665f8e361d" class="">
+</p><p id="81dda1f2-0e85-41c7-9d25-74adf28521d1" class=""><span style="border-bottom:0.05em solid"><strong>If we assume up to F processes may crash, we need:</strong></span></p><ul id="b063b1ff-be0f-49ab-9dd4-37a1391bf285" class="bulleted-list"><li style="list-style-type:disc">At least F+2 <strong>processes</strong>:<ul id="da92b09c-abf0-47e9-bdc4-20cc8a7b1a50" class="bulleted-list"><li style="list-style-type:circle">We need at least 2 processes to form a consensus</li></ul></li></ul><ul id="3caafd90-63ff-4970-99bb-4e5186d3b410" class="bulleted-list"><li style="list-style-type:disc">F+1 <strong>rounds</strong>:<ul id="1912d730-3e35-476a-b20d-4ac7a76a96ad" class="bulleted-list"><li style="list-style-type:circle">If there is a failure during a round, then it maybe that some processes have not correctly received values</li></ul><ul id="27a8fe1f-3225-43d5-a27d-9592ef6b9801" class="bulleted-list"><li style="list-style-type:circle">Another round is necessary to ensure that any missing values are updated</li></ul></li></ul><h3 id="8d74b336-da75-4ca0-a3f7-e9e39f855f73" class=""><span style="border-bottom:0.05em solid">…with Arbitrary Failures</span></h3><blockquote id="31c5430c-808d-4d9a-9c11-3ba87d8429b8" class="">Lamport found that for 3 processes, if 1 process experiences arbitrary failure then its impossible to reach consensus</blockquote><p id="2986f7d5-9e5a-4abd-9b8f-40d49c783d71" class="">Pease generalized this to N processes, if one third or more process fail then impossible to reach consensus</p><ul id="5867bb26-9d76-42c1-b3e8-751530ef398b" class="bulleted-list"><li style="list-style-type:disc">i.e.  if  N <em>≤ </em>3F then <span style="border-bottom:0.05em solid">impossible</span> to reach</li></ul><p id="55a80ed3-3604-4cea-82b0-97306a71ef19" class=""><strong>BUT</strong> Consensus <strong>can</strong> be achieved if N &gt; 3F, also taking F+1 rounds</p><p id="d93e8258-8b4b-41c6-9894-227cc812e35b" class="">But number of messages makes it impractical O(N^(F+1))</p><p id="3a58a62c-d478-4e91-a43e-60d11afd3ab8" class="">There are techniques to improve the number of messages such as using cyptography to sign messages</p><h3 id="79154c36-09e1-4e32-8d23-6e98ceceb167" class="">…Summary</h3><p id="a32ae5e5-0709-4146-a586-6c651b3db601" class="">For Consensus algorithms in synchronous systems:</p><ul id="ff433cbd-a8f1-4d0d-be18-64fa3aec5f6e" class="bulleted-list"><li style="list-style-type:disc">Algorithm when no failures</li></ul><ul id="eab43606-0cac-4e37-8ada-aee650242ee2" class="bulleted-list"><li style="list-style-type:disc">Algorithm when crash failures occur – when N <em>≥ </em>F+2</li></ul><ul id="97c06b8b-0d50-4283-854d-bb152e0d700b" class="bulleted-list"><li style="list-style-type:disc">Algorithm when arbitrary/malicious failures occur – when N &gt; 3F</li></ul><h2 id="1734459d-ed5b-41bf-bf7c-96501e714d57" class="">Consensus in Asynchronous Systems</h2><p id="d2315b66-f01f-4924-bc0f-f8e5640afa36" class="">Can not use timeout to detect missing message</p><p id="25ffc188-842f-493f-82cb-f6b2e9ab047d" class="">Can not detect crashed processes</p><ul id="cdce9a6e-06fb-42a3-82b2-c263bb08c110" class="bulleted-list"><li style="list-style-type:disc">A process could just be very slow</li></ul><p id="d9e4b3df-0462-4b12-b18f-89052b3a540c" class="">Deterministic algorithm does not exist</p><ul id="69ff2530-a168-41c4-81d5-a907d09f2c23" class="bulleted-list"><li style="list-style-type:disc">This does not mean processes could never reach consensus</li></ul><ul id="76e7ca2b-33f0-4c01-9089-0a76db7ca996" class="bulleted-list"><li style="list-style-type:disc">Consensus can be achieved but only with a probability to a certain level</li></ul><p id="b23b0e75-cfd9-423a-8ccc-09ae34aa303e" class=""><span style="border-bottom:0.05em solid"><strong>Good solutions exist:</strong></span></p><ul id="61cb8389-7700-43df-8f9e-dacce48c83e6" class="bulleted-list"><li style="list-style-type:disc"><strong>Replicating data</strong>: Paxos (Leslie Lamport) and Raft used for</li></ul><ul id="fa560626-9e96-40ee-b46f-130ef6d7b902" class="bulleted-list"><li style="list-style-type:disc"><strong>Distributed transactions</strong>: Two-phase commit for atomicity<ul id="1895fa42-d185-4183-914d-d370990a6d7a" class="bulleted-list"><li style="list-style-type:circle">Does not always achieve consensus, applications have to handle this</li></ul></li></ul><p id="6e91fe73-b0b1-406b-aede-7e2c6904095b" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

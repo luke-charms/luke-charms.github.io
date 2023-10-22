@@ -1,0 +1,685 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>L1. Eye and Human Vision</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="f566de4a-ebf4-4d28-80da-ca4e6b94acdf" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/view-off_gray.svg"/></div><h1 class="page-title">L1. <strong>Eye and Human Vision</strong></h1><p class="page-description"></p></header><div class="page-body"><hr id="9d29e3fd-80fc-4a1b-ae01-a925487d5cf1"/><blockquote id="ad790d85-4164-44c0-b304-2ab6b2d9434d" class=""><strong>Book pp. 1-28</strong></blockquote><nav id="3e5a21a4-66ec-4c40-9e97-f98c1d087efc" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#859e0bde-0e2e-472e-83ba-ec43c4657f04">Human eye</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f06caf62-3369-4377-8389-e226fc6f1733">Sensors</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5b361e41-2beb-48bf-a626-3b495a8d669a"><strong>Spectral responses
+</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b3a7a7a2-47e8-4ab1-884f-5f5a7f352fd8"><strong>Neural processing
+</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#80b39158-450d-4635-851e-0665accda45b">Example (1) - Mach Bands</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e3bd90e8-bbfa-4dd0-b876-f97bc3579a39">Example (2) - Using edges</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#745d27f6-435a-48bf-8d4c-cebeee009a63">Example (3) - Static Illusions</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#fae9f00e-1226-4a7b-b480-36cb7e586a09">Main points</a></div></nav><hr id="31f38836-f3a2-4862-b8b6-53821a092738"/><blockquote id="d73fa105-315b-40fb-84fc-4ff882476efc" class=""><strong><strong>Is human vision a good model for computer vision?
+</strong></strong></blockquote><h2 id="859e0bde-0e2e-472e-83ba-ec43c4657f04" class="">Human eye</h2><div id="b2fcb014-72f1-48b3-8d90-69e82977119a" class="column-list"><div id="cb3445eb-ac11-490e-a461-fb6fc6e7740e" style="width:50%" class="column"><p id="b663f15a-be37-49d9-b2ba-899eaeb796af" class="">Evolved for <strong>survival</strong></p><p id="9a9c9a5e-b056-4318-ab1d-9359b598193d" class="">Function of the eye is to form an image on the <strong>retina</strong> (on <strong>fovea</strong>)</p><p id="496680f2-1ee8-4f62-abed-94243af01c4d" class="">The lens is <strong>shaped</strong>, rather than <strong>moved</strong></p><p id="d62c421c-df1b-4791-89d3-9bee20fa58ce" class="">Image is transmitted via <strong>optic nerve</strong></p><p id="33c006e2-c02b-4a2e-b395-390663b3ce60" class="">The brain must invert the image afterwards, exactly like a camera.</p></div><div id="f109bfb6-6645-49e4-807b-af0b59d0e760" style="width:50%" class="column"><figure id="c0d8b102-0453-4b34-8514-cb7e68922989" class="image"><a href="L1%20Eye%20and%20Human%20Vision%20f566de4aebf44d2880daca4e6b94acdf/Screenshot_2023-10-05_at_13.26.15.png"><img style="width:240px" src="L1%20Eye%20and%20Human%20Vision%20f566de4aebf44d2880daca4e6b94acdf/Screenshot_2023-10-05_at_13.26.15.png"/></a></figure></div></div><h3 id="f06caf62-3369-4377-8389-e226fc6f1733" class="">Sensors</h3><p id="401e42ca-e360-426a-82ad-75c04cfe8d91" class="">Colours come in three different types, encoded in <strong>cones</strong> (10^7) </p><p id="be81ab4e-47fa-4c93-a535-9a3200a5fc22" class="">Grey-level is encoded through <strong>rods </strong>(10^8)</p><p id="2a551f4b-c7d6-434a-88a9-04b7ef435929" class="">Cones come in three types:</p><ul id="29d002f2-4b5c-4d3f-ac99-2f275a9a4504" class="bulleted-list"><li style="list-style-type:disc">S – short wavelength (blue)</li></ul><ul id="b26774a0-46ab-4bc5-a13a-da4f6727ffbe" class="bulleted-list"><li style="list-style-type:disc">M – medium wavelength (green)</li></ul><ul id="f3ff0439-f175-4135-ae81-7f7833487baf" class="bulleted-list"><li style="list-style-type:disc">L – long wavelength (red)</li></ul><p id="fa48d3dd-ae24-466a-bc5e-40031bced234" class="">Insufficient bandwidth of optic nerve implies coding</p><h3 id="5b361e41-2beb-48bf-a626-3b495a8d669a" class=""><strong>Spectral responses
+</strong></h3><figure id="5c25ea0b-77b3-4253-9d02-0d4322da044f" class="image"><a href="L1%20Eye%20and%20Human%20Vision%20f566de4aebf44d2880daca4e6b94acdf/Screenshot_2023-10-05_at_13.30.42.png"><img style="width:1750px" src="L1%20Eye%20and%20Human%20Vision%20f566de4aebf44d2880daca4e6b94acdf/Screenshot_2023-10-05_at_13.30.42.png"/></a></figure><p id="511123f1-2da5-4dd1-85b4-d789f07c732a" class="">Sometimes need to compensate responses in camera, etc…</p><h3 id="b3a7a7a2-47e8-4ab1-884f-5f5a7f352fd8" class=""><strong>Neural processing
+</strong></h3><figure id="683aa892-8fee-4a37-bcd5-b929c4147373" class="image"><a href="L1%20Eye%20and%20Human%20Vision%20f566de4aebf44d2880daca4e6b94acdf/Screenshot_2023-10-05_at_13.31.57.png"><img style="width:480px" src="L1%20Eye%20and%20Human%20Vision%20f566de4aebf44d2880daca4e6b94acdf/Screenshot_2023-10-05_at_13.31.57.png"/></a></figure><figure class="block-color-yellow_background callout" style="white-space:pre-wrap;display:flex" id="73044e5a-0f3c-4f01-a821-37544ac647e4"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Sensor information must be combined - <strong><strong><strong><strong><strong>note </strong></strong></strong></strong></strong><a href="https://www.explorepsychology.com/what-is-webers-law/">weber’s law</a></div></figure><figure id="a1285a9d-0fc4-4326-ac40-775b8940b7f4" class="image"><a href="L1%20Eye%20and%20Human%20Vision%20f566de4aebf44d2880daca4e6b94acdf/Screenshot_2023-10-05_at_13.34.21.png"><img style="width:480px" src="L1%20Eye%20and%20Human%20Vision%20f566de4aebf44d2880daca4e6b94acdf/Screenshot_2023-10-05_at_13.34.21.png"/></a></figure><p id="ca14b5ef-a704-4db4-bf4c-87d17bcc76d9" class="">Most computing techniques for computer vision are the same as the methods used in the brain. e.g., using edges to form shapes and distinguish between different items</p><h3 id="80b39158-450d-4635-851e-0665accda45b" class="">Example (1) - Mach Bands</h3><div id="0ec97e47-6b67-4d26-8536-1a80ce34f2a8" class="column-list"><div id="2e137838-92c3-4b07-a4e5-f4ccd49d83ae" style="width:50%" class="column"><p id="15edc5f2-5c43-4f09-b965-e06fa3a460f6" class="">
+</p><p id="3a1dfcca-2585-4836-9be9-3e1d1200f03d" class="">Mach bands are <strong>not</strong> in the image - your vision introduces them</p><p id="a3d50fd8-d4a2-4ee1-8c4a-9758c9bee3ab" class="">Result of <strong>brightness adaption</strong></p><p id="c0f418cb-1b21-4fc7-bbeb-1db7a150ced5" class="">
+</p></div><div id="e87854d3-7fad-49ea-b019-b90e1b3f5338" style="width:50%" class="column"><figure id="89a08634-3c90-4946-93de-2fa8c483332a" class="image"><a href="L1%20Eye%20and%20Human%20Vision%20f566de4aebf44d2880daca4e6b94acdf/Screenshot_2023-10-05_at_13.36.43.png"><img style="width:336px" src="L1%20Eye%20and%20Human%20Vision%20f566de4aebf44d2880daca4e6b94acdf/Screenshot_2023-10-05_at_13.36.43.png"/></a></figure></div></div><h3 id="e3bd90e8-bbfa-4dd0-b876-f97bc3579a39" class="">Example (2) - Using edges</h3><p id="ac1ee933-8615-4fbf-aa70-67cd9a283aa0" class=""><strong>The human eye needs training and can be deceived
+</strong></p><figure id="435f8bb6-45a3-400b-b0f0-a292495ef1b1" class="image" style="text-align:left"><a href="L1%20Eye%20and%20Human%20Vision%20f566de4aebf44d2880daca4e6b94acdf/Screenshot_2023-10-05_at_13.38.32.png"><img style="width:240px" src="L1%20Eye%20and%20Human%20Vision%20f566de4aebf44d2880daca4e6b94acdf/Screenshot_2023-10-05_at_13.38.32.png"/></a></figure><h3 id="745d27f6-435a-48bf-8d4c-cebeee009a63" class="">Example (3) - Static Illusions</h3><div id="960f72f2-a995-467e-9060-6d627035df9e" class="column-list"><div id="ad77faa2-4152-4d4d-a9b9-d88722e6e3fa" style="width:50%" class="column"><figure id="d3b561a9-9e85-45a7-8807-ff9ae17c8280" class="image"><a href="L1%20Eye%20and%20Human%20Vision%20f566de4aebf44d2880daca4e6b94acdf/Screenshot_2023-10-05_at_13.41.00.png"><img style="width:240px" src="L1%20Eye%20and%20Human%20Vision%20f566de4aebf44d2880daca4e6b94acdf/Screenshot_2023-10-05_at_13.41.00.png"/></a></figure></div><div id="2dbd7fe7-b9bd-43fd-b88e-426bb1246d39" style="width:50%" class="column"><figure id="fb6805c6-41b4-4b04-9e28-a3f8c479a72a" class="image"><a href="L1%20Eye%20and%20Human%20Vision%20f566de4aebf44d2880daca4e6b94acdf/Screenshot_2023-10-05_at_13.40.49.png"><img style="width:336px" src="L1%20Eye%20and%20Human%20Vision%20f566de4aebf44d2880daca4e6b94acdf/Screenshot_2023-10-05_at_13.40.49.png"/></a></figure></div></div><div id="f2da1273-19fe-4146-886d-6840d04423ac" class="column-list"><div id="c0b70b42-27bb-496a-9156-7757e281d0f8" style="width:50%" class="column"><ol type="1" id="e545a584-4a2c-4f87-afd7-ddf3443b6d26" class="numbered-list" start="1"><li>Zollner</li></ol></div><div id="b1dc0373-165a-4c10-b41a-051365f7be50" style="width:50%" class="column"><ol type="1" id="0ccab258-afdf-4812-83e8-c72b1e6d5821" class="numbered-list" start="2"><li>Ebbinghaus</li></ol></div></div><h2 id="fae9f00e-1226-4a7b-b480-36cb7e586a09" class="">Main points</h2><ol type="1" id="152fe851-e5eb-457f-adfe-ab119555c213" class="numbered-list" start="1"><li>human eye can be modelled in three sections</li></ol><ol type="1" id="8e18bced-cee4-4cdb-abb8-e13cad220d99" class="numbered-list" start="2"><li>it works very well</li></ol><ol type="1" id="b2941877-4e10-426d-ad6c-bdbfe3ef7868" class="numbered-list" start="3"><li>...... but it can be deceived</li></ol><ol type="1" id="7a85f3a8-81d3-48c2-85dc-1875a60c4d92" class="numbered-list" start="4"><li>is it a good model for computer vision?</li></ol><p id="f271d4fa-798e-4aa6-a0e1-f234f89eadb7" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1,0 +1,678 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Exam Revision</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="899c64ca-276f-40c8-ab52-c4a69cd93104" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/book_gray.svg"/></div><h1 class="page-title">Exam Revision</h1><p class="page-description"></p></header><div class="page-body"><nav id="d5300bd2-7529-45ea-a4a3-0d238ed818da" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d5e65cc4-5457-43ec-b1f9-b5ac678ea39d">What to know!</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#8d4aea5b-fc20-4a45-b6ac-47d581757da3">Variables and Syntax</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#55415b34-52c0-4526-926c-02d8ae5b6122">Lexing and Parsing</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e315641e-16fe-4829-b027-e875f70146de"><strong>Typing and Semantics</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#120ac416-aa64-46c2-ab09-67d0e7198d6b"><strong>Reasoning about concurrency</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ffc3e9f3-4d11-4ce2-a8ea-b32c866a89fc">Concurrency</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1bfc5712-ff0a-41f1-a6a7-41b598ca4b3f">Past Paper Revision</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#774908d3-afd0-4431-8b09-0d360653487e">Important Points:</a></div></nav><h1 id="d5e65cc4-5457-43ec-b1f9-b5ac678ea39d" class="">What to know!</h1><h2 id="8d4aea5b-fc20-4a45-b6ac-47d581757da3" class="">Variables and Syntax</h2><p id="5ff1a986-320f-45e4-953a-cbeab7e41589" class="">Variables :<div class="indented"><ul id="a6228915-467d-40c9-a801-bc4daf271124" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Static/Dynamic Binding</mark></li></ul><ul id="d5399e6f-454a-4185-9cfc-4dfca117acd3" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Extent/Scope</mark></li></ul><ul id="a40bc874-4eb2-4c75-9623-6d47592a949d" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Kinds of Variables</mark></li></ul></div></p><p id="6ff7bd97-4e7c-4986-a506-7b1e72407eed" class="">Syntax :<div class="indented"><ul id="8bcece32-02eb-4fd2-b958-0a660b8a42c4" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Syntax vs Semantics</mark></li></ul><ul id="45e72f39-e1a0-48c6-8864-2c84b8a1d16b" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">BNF</mark></li></ul><ul id="f0b5d544-6138-45a1-bc60-2d45099f3d87" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Parse Trees</mark></li></ul><ul id="3970d437-4673-4e7d-8f1c-3d6a816dca36" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Abstract Syntax Trees</mark></li></ul><ul id="ec68c55c-dd86-4e95-972a-2ad01049120e" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Ambiguous Grammars</mark></li></ul><ul id="6dc26cd6-b4fe-4ac3-ae49-171401610df0" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Resolving Ambiguity</mark></li></ul></div></p><h2 id="55415b34-52c0-4526-926c-02d8ae5b6122" class="">Lexing and Parsing</h2><p id="9238edd6-d1ee-4a5f-b8d9-8c6e6c38a416" class="">Lexing :<div class="indented"><ul id="7a0c936f-14df-48dd-a87a-a63d36e65542" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Lexemes / Tokens</mark></li></ul><ul id="28307da0-ed11-40d6-a139-066d5eb9b731" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Scanning / Evaluation</mark></li></ul><ul id="f39935ea-93b6-4dbd-9373-1fb133328795" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Benefits of Lexer Generation</mark></li></ul></div></p><p id="c059edd7-60a0-4f23-9b26-fa22f0af12e4" class="">Parsing :</p><ul id="1e954e41-2e4b-4ff2-8644-43cdf59eb065" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Relationship to lexing</mark></li></ul><ul id="e8638dd8-723c-482e-9985-1e15b1e903b0" class="bulleted-list"><li style="list-style-type:disc">LL and LR parsers</li></ul><ul id="af2b8de6-ca88-4609-9b1e-042a78b8e4c0" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Left recursive / Right recursive grammars</mark></li></ul><ul id="c1b0c04b-2050-463d-a32a-2f7bb238d11a" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Shift/Reduce</mark></li></ul><ul id="5769e3c0-0800-40f5-99c3-4d046490a4cb" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Benefits of Parser Generation</mark></li></ul><h2 id="e315641e-16fe-4829-b027-e875f70146de" class=""><strong>Typing and Semantics</strong></h2><p id="5956f856-58f1-4ec3-b8e8-84f1f3a0e83f" class="">Typing :</p><ul id="d3492e0b-4a76-416c-b59a-6793eceab2d3" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Static vs Dynamic</mark></li></ul><ul id="10f4bf87-b2d5-47b0-96a2-73559c2ddad4" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Strong vs Weak</mark></li></ul><ul id="597599aa-2f72-49cd-9d13-464370a74a84" class="bulleted-list"><li style="list-style-type:disc">Checking vs Inference</li></ul><ul id="96f7ed10-f4e2-467e-892b-88e2073caa2f" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">How to read and write simple type rules including structured types</mark></li></ul><ul id="ea79058d-2830-4e32-90f7-e61e1e3f8bdc" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Understanding the different approaches to subtyping</mark></li></ul><ul id="7dd6c1f2-d50a-4527-82da-180845a54ad5" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">How to write a type derivation tree</mark></li></ul><p id="c6508fc6-46d8-4d5b-87e6-7c348dc285bd" class="">Operational Semantics :</p><ul id="98649b9b-b78e-4a75-aab8-14e30caff098" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Small step vs Big Step Reduction</mark></li></ul><ul id="b14cd10b-1f21-46ba-9d52-6c50777fbac9" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Deterministic reduction</mark></li></ul><ul id="f409f56d-f970-4cc1-9db8-ddb31e3a4733" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Progress and Preservation</mark></li></ul><ul id="3fc50913-d543-467b-b3d5-11b085ad84f3" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">How to read and write simple reduction rules</mark></li></ul><ul id="5d907e64-7436-4bda-997c-32867564c38a" class="bulleted-list"><li style="list-style-type:disc">How to use both big and small step reduction rules</li></ul><h2 id="120ac416-aa64-46c2-ab09-67d0e7198d6b" class=""><strong>Reasoning about concurrency</strong></h2><ul id="342dec1a-84e4-4ada-987d-c8d6850033cc" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Concept of Thread and need for interaction</mark></li></ul><ul id="b7d0dddc-6ba6-4ffb-a1c7-c1d803b9e928" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Synchronous vs Asynchronous communication</mark></li></ul><ul id="7628bcae-bc84-44a3-875d-f8a4dd2ae0f2" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Labelled transition system</mark></li></ul><ul id="4706867d-f4bc-4954-bd14-6244cb1b59fe" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Trace Equivalence and how to calculate trace sets</mark></li></ul><ul id="4c40b979-574f-496d-8351-990cb01c3511" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Simulation Equivalence</mark><ul id="ecd15199-5cc5-452f-a79f-83a7590136c1" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-yellow_background">how to prove it using relations and</mark></li></ul><ul id="6aeaf622-688e-4e91-85cd-ef00711e5c99" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-yellow_background">how to disprove it using simulation game.</mark></li></ul></li></ul><ul id="723ff1fb-3b97-4289-96f4-a364b5dddbe4" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Bisimulation Equivalence</mark><ul id="0a27bb2e-0ad0-477d-97f9-61ec16ab743d" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-yellow_background">how to prove it using relations and</mark></li></ul><ul id="96588944-828f-411a-88af-fbba45cc7a4e" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-yellow_background">how to disprove it using bisimulation game.</mark></li></ul></li></ul><ul id="0230287d-8771-4c3b-98e5-d9187a594f6f" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background"><strong>Relationship between the equivalences (i.e., which one is more fine than the other)</strong></mark></li></ul><h2 id="ffc3e9f3-4d11-4ce2-a8ea-b32c866a89fc" class="">Concurrency</h2><ul id="1fc273db-6a66-4100-af9c-9ac9d388ae2b" class="bulleted-list"><li style="list-style-type:disc">Race conditions, Critical Section, Mutual Exclusion</li></ul><ul id="734e1258-7122-4f41-aeea-3037944fe72c" class="bulleted-list"><li style="list-style-type:disc">Thread Safety</li></ul><ul id="a7053c3c-1607-4407-a8e9-6928274d993d" class="bulleted-list"><li style="list-style-type:disc">Memory Barriers</li></ul><ul id="92bb0866-d3f3-4fc6-aca9-3ba472d90b7e" class="bulleted-list"><li style="list-style-type:disc">Deadlocks</li></ul><ul id="ac294fba-395a-4dec-9361-7ebb1554dbac" class="bulleted-list"><li style="list-style-type:disc">Fine-Grained vs Coarse-Grained Concurrency</li></ul><ul id="f30f10e3-4696-4b41-8df4-988db7873568" class="bulleted-list"><li style="list-style-type:disc">Shared Variable Concurrency</li></ul><ul id="3ce6c2af-52f9-423f-80e1-a9037ce495dd" class="bulleted-list"><li style="list-style-type:disc">Message Passing Concurrency</li></ul><ul id="5ab82ee6-7fb4-40dd-86dc-8428f3cf1f61" class="bulleted-list"><li style="list-style-type:disc">Common concurrency controls - e.g. Monitors, Latches,</li></ul><ul id="b14f0b03-1940-4f21-bd22-ac3a22f48afa" class="bulleted-list"><li style="list-style-type:disc">Actor Concept</li></ul><ul id="68e419eb-02ef-4b3f-b3e6-c4273ecd7a59" class="bulleted-list"><li style="list-style-type:disc">Coroutine Concept</li></ul><ul id="3d84068a-4879-41c6-bfcb-84435d4a48f2" class="bulleted-list"><li style="list-style-type:disc">Futures/Promises Concept</li></ul><ul id="ac680785-09dc-47ba-bdca-fe337c3b075e" class="bulleted-list"><li style="list-style-type:disc">Techniques for lock-free concurrency including CAS</li></ul><h1 id="1bfc5712-ff0a-41f1-a6a7-41b598ca4b3f" class="">Past Paper Revision</h1><figure id="02a083b9-dc57-4a5e-8dd8-a6c512c89e65" class="link-to-page"><a href="Exam%20Revision%20899c64ca276f40c8ab52c4a69cd93104/Past%20Paper%20Revision%2002a083b9dc574a5e8dd8a6c512c89e65.html"><img class="icon" src="https://www.notion.so/icons/gradebook_orange.svg"/>Past Paper Revision</a></figure><p id="c4773412-abb1-4699-acff-63ae7253a1c0" class="">
+</p><h1 id="774908d3-afd0-4431-8b09-0d360653487e" class="">Important Points:</h1><p id="7f953710-37ff-45f3-869d-0342b3fc8c39" class=""><em>In programming languages that employ call-by-name evaluation strategy, small step semantics is more useful.</em></p><p id="807cb9fc-c9f2-4d46-a4ca-1228302e8223" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

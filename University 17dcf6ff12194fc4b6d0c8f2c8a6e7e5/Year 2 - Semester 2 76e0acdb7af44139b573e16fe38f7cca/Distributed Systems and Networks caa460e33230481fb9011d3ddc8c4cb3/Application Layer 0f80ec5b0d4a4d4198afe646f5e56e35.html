@@ -1,0 +1,681 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Application Layer</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="0f80ec5b-0d4a-4d41-98af-e646f5e56e35" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/notification_orange.svg"/></div><h1 class="page-title">Application Layer</h1><p class="page-description"></p></header><div class="page-body"><h1 id="84e6c853-9fe7-4802-af85-574d527851c3" class="">The Application Layer of the Network Model for the Internet</h1><ul id="bd7f843f-1066-4f71-a649-02abbcaeeabf" class="bulleted-list"><li style="list-style-type:disc">Definition of the Application Layer</li></ul><ul id="68b31a83-3abc-4ac4-bceb-89ca1b84689b" class="bulleted-list"><li style="list-style-type:disc">Functions of the Application Layer<ul id="47303046-e37f-4978-a5bf-4efbf7e560f1" class="bulleted-list"><li style="list-style-type:circle">Network Virtual Terminal</li></ul><ul id="6dcc6378-2e09-4d99-ab73-e9f1ffe35120" class="bulleted-list"><li style="list-style-type:circle">File Transfer</li></ul><ul id="3b59cd87-af64-42bd-992e-edac9f6c89f1" class="bulleted-list"><li style="list-style-type:circle">Email</li></ul><ul id="673431d9-7379-413f-a8f9-dc86eecbf0d1" class="bulleted-list"><li style="list-style-type:circle">Remote Login</li></ul><ul id="10734f1b-0d83-4cae-b1a6-28b0f1da671c" class="bulleted-list"><li style="list-style-type:circle">Web Browsing</li></ul></li></ul><ul id="906b18d2-045e-402c-b1a9-0fb3f8db1a99" class="bulleted-list"><li style="list-style-type:disc">Protocols used in the Application Layer<ul id="37be9a7b-cf28-4ad0-9fd1-66bdd00f5a80" class="bulleted-list"><li style="list-style-type:circle">DHCP</li></ul><ul id="16d62c15-a6ab-4972-ada9-fe31a8b8ff33" class="bulleted-list"><li style="list-style-type:circle">HTTP</li></ul><ul id="a68e8e30-a3b9-44db-bd5b-c75b0857e63e" class="bulleted-list"><li style="list-style-type:circle">FTP</li></ul><ul id="4c525d87-596f-4b66-b8f2-2196ea97087b" class="bulleted-list"><li style="list-style-type:circle">SMTP, IMAP</li></ul><ul id="0fb76aba-d1e0-4b8d-92dc-1a997b1c15b8" class="bulleted-list"><li style="list-style-type:circle">QUIC</li></ul><ul id="8fd3b059-b952-4e9e-91ae-0fa20255d96b" class="bulleted-list"><li style="list-style-type:circle">RTSP/RTP/streaming</li></ul><ul id="19bc6c3f-e875-46d9-a6a0-5ea53ad308d4" class="bulleted-list"><li style="list-style-type:circle">Telnet</li></ul><ul id="4fabd8b1-f2ab-412d-81fb-dbd9d8f65c85" class="bulleted-list"><li style="list-style-type:circle">DNS</li></ul></li></ul><h1 id="3ce9b233-e14a-4a48-823b-cd2ef7241e1c" class="">DHCP (<strong><strong>Dynamic host configuration protocol)</strong></strong></h1><p id="3add997c-6fc1-4877-9dbe-1dc645fe6b77" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>How systems get a dynamic IP address</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></p><figure id="0c659912-7d35-4917-ba33-3b29c54d6929" class="image"><a href="Application%20Layer%200f80ec5b0d4a4d4198afe646f5e56e35/Screenshot_2023-05-12_at_19.24.48.png"><img style="width:432px" src="Application%20Layer%200f80ec5b0d4a4d4198afe646f5e56e35/Screenshot_2023-05-12_at_19.24.48.png"/></a></figure><h1 id="71aba931-827b-4a8d-94dc-0473017ddab9" class="">Telnet</h1><p id="9b0deffd-f67f-4c44-9647-b048582ff8dc" class="">Simple unencrypted terminal emulation protocol</p><p id="8daaea1b-a8d1-4bd8-b465-254320abd53c" class="">Currently not used across the internet now but used occasionally on local nets for configuring old hardware</p><p id="3d574371-f00a-4660-9833-83e507e8b522" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>Has been replaced by ssh, scp</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></p><h1 id="576411cb-d8a3-4624-b175-719ffb1a3ac0" class="">Simple mail Transfer Protocol</h1><ul id="f5cbf6cc-d574-4992-a4f5-c8e395dc5a72" class="bulleted-list"><li style="list-style-type:disc">Reliable protocol used to send email</li></ul><ul id="dd2a216b-be11-4975-bbe1-5817eedb8133" class="bulleted-list"><li style="list-style-type:disc">Typically TCP connection to a mail server, with these commands/replies:<ul id="422126cc-7fe4-49a1-9263-bdc73f28d237" class="bulleted-list"><li style="list-style-type:circle">MAIL,RCPT,DATA</li></ul></li></ul><ul id="81db31c2-b94d-486c-9cdd-ff8a1816cfbe" class="bulleted-list"><li style="list-style-type:disc">SMTP Authentication is an extension<ul id="3632eaaa-3133-41b5-a846-4b93ec6ca876" class="bulleted-list"><li style="list-style-type:circle">Original email had none – so mail relays were used for spam</li></ul></li></ul><figure id="df46c098-6492-44b0-9069-539f98d4e5dd" class="image"><a href="Application%20Layer%200f80ec5b0d4a4d4198afe646f5e56e35/Untitled_1-2.png"><img style="width:480px" src="Application%20Layer%200f80ec5b0d4a4d4198afe646f5e56e35/Untitled_1-2.png"/></a></figure><h1 id="1fa246d5-3158-4cdd-8b70-dbb06fcbce3d" class="">HTTP (Hypertext Transfer Protocol)</h1><p id="04dd7447-9951-42cd-a684-23d24413f176" class="">It’s a text-based protocol </p><ul id="c97d3e45-ae31-4ba4-91a0-60ed6423cbfe" class="bulleted-list"><li style="list-style-type:disc">TCP connect to server ip (normally) on port 80</li></ul><ul id="79b8a9a9-4d3e-4ef6-8a2c-e98240fe0725" class="bulleted-list"><li style="list-style-type:disc">Send request, e.g., GET /something/page.html HTTP/1.1</li></ul><ul id="78b115d8-1961-471e-aeaa-b0283957de1c" class="bulleted-list"><li style="list-style-type:disc">Receive response message with data - HTTP/1.1 200 OK <em><em><em><em><em><em><em><em><em>(followed by payload)</em></em></em></em></em></em></em></em></em></li></ul><p id="d3639451-6a83-4126-9483-51685080fd10" class="">Main HTTP requests:</p><ul id="50fc2f14-91b8-49f1-8030-4f427b8f771c" class="bulleted-list"><li style="list-style-type:disc">GET</li></ul><ul id="67e43cb5-2867-4911-a2d4-90bfe942c327" class="bulleted-list"><li style="list-style-type:disc">HEAD - like GET but no data is sent back</li></ul><ul id="094f89ef-7284-4463-8f67-502206568c13" class="bulleted-list"><li style="list-style-type:disc">POST - send data to the server, could create</li></ul><ul id="94084caf-8e04-413f-9a47-9f7c74196cae" class="bulleted-list"><li style="list-style-type:disc">PUT - meant to change the resource on the server</li></ul><ul id="12998e76-d6f4-4caa-a756-c5fdd238fe13" class="bulleted-list"><li style="list-style-type:disc">DELETE - removes a resource</li></ul><p id="aae61229-ac8f-466d-b696-7537b8e02168" class="">Error codes:</p><ul id="0eaf308c-7983-4683-8827-0ee998697a8d" class="bulleted-list"><li style="list-style-type:disc">1xx -&gt; information</li></ul><ul id="a62a8aae-7d41-4c63-af88-b051f0b4f377" class="bulleted-list"><li style="list-style-type:disc">2xx -&gt; Success</li></ul><ul id="731db47a-a2ac-42f9-ad32-6eb0c582e6dc" class="bulleted-list"><li style="list-style-type:disc">3xx -&gt; Redirection (e.g. 301 moved)</li></ul><ul id="2c6d4772-121e-419d-ac2e-0911cfcdec2c" class="bulleted-list"><li style="list-style-type:disc">4xx -&gt; Client error (e.g. 403 forbidden, 404 not found)</li></ul><ul id="0a1de618-f1e7-444f-afcb-9aa314518686" class="bulleted-list"><li style="list-style-type:disc">5xx -&gt; server error (e.g. 500 internal error)</li></ul><h3 id="16524c5d-fbc2-479f-860b-2aab448a9cae" class="">Versions</h3><p id="eb2bb242-f89e-4d89-8662-eb489042c727" class=""><strong>version 2: </strong></p><ul id="e9e2c3bb-6c66-445a-a132-a48602e9606f" class="bulleted-list"><li style="list-style-type:disc">First major revision to HTTP, published in 2015</li></ul><ul id="8bf98cdd-d44d-43a9-afc9-ca3c35f94d2a" class="bulleted-list"><li style="list-style-type:disc">Header compression – now binary using HPACK</li></ul><ul id="d3d2450d-2df4-4292-8581-1d3cb9a6df7c" class="bulleted-list"><li style="list-style-type:disc">Server push</li></ul><ul id="ed35f7ff-b5f8-459a-9268-f86bd45ba07b" class="bulleted-list"><li style="list-style-type:disc">Multiplexing multiple requests over a single TCP connection</li></ul><p id="96721a23-6538-4ea6-b7ad-a7c42f7e6055" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>version 3:</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="29b42390-312e-4683-9cd4-43cbad4dceff" class="bulleted-list"><li style="list-style-type:disc">Does not use TCP connections</li></ul><ul id="8fd49daf-fe19-4706-b915-d2d07b2f8732" class="bulleted-list"><li style="list-style-type:disc">Runs instead over QUIC with UDP and is widely in use (which helps with previous TCP issues)</li></ul><h1 id="1f4dd4d4-465c-4926-a2f4-2e122e3ce5b3" class="">QUIC - <strong>Quick UDP Internet Connections</strong></h1><ul id="22f21d98-9837-4456-9e6e-4b66084585d3" class="bulleted-list"><li style="list-style-type:disc">UDP protocol to make web/etc faster – than TCP</li></ul><ul id="4713c59b-d684-4e90-aa97-dcb2a6388a0a" class="bulleted-list"><li style="list-style-type:disc"><em>Really a transport protocol – </em>but is in User-space so... it can easily be upgraded</li></ul><ul id="42bad538-4fc9-4675-8aae-b334a2e84529" class="bulleted-list"><li style="list-style-type:disc">Google pushed it forward so LOTs of traffic is now QUIC - and IETF is standardising it</li></ul><ul id="ac499d11-a2c4-4bde-b491-392fdb81bfba" class="bulleted-list"><li style="list-style-type:disc">Still establishes some “state”/sessions and encryption</li></ul><h1 id="38a86b13-4f49-495b-9827-842df73a9a8f" class="">CoAP - <strong>Constrained Application Protocol
+</strong></h1><p id="aa57522e-87bd-4fc7-af95-b5206ab593b6" class="">Provides HTTP-like protocol for simpler devices</p><ul id="cd26899c-70cc-40b8-9f55-5a3b19283986" class="bulleted-list"><li style="list-style-type:disc">Minimal overhead, good for IoT</li></ul><ul id="85f5d9d5-8601-416e-a495-ac7a96341f46" class="bulleted-list"><li style="list-style-type:disc">Binary GET/PUT/… (like HTTP)</li></ul><ul id="544168d7-0556-4ff5-9c42-251919b25839" class="bulleted-list"><li style="list-style-type:disc">Simple discovery mechanism (GET a list of resources)</li></ul><ul id="ae46b10a-fe04-48b6-8173-565bff1b9b0f" class="bulleted-list"><li style="list-style-type:disc">Simple Subscribe method (Used in Ikea smart lighting for example)</li></ul><h1 id="91775842-73b4-4288-8178-20aaea1ac6e4" class="">Real time audio/video streaming</h1><p id="6fbbe782-e132-44be-be81-f9ee38971ea1" class="">Video frames can be “packetised” so that losses do not corrupt the whole stream</p><p id="fdc41b24-70f2-44ff-b418-2877cfcbffff" class="">TCP and UDP can be used for <em><em><em><em><em><em><em><em><em>transport</em></em></em></em></em></em></em></em></em> (Clearly, however, UDP is a better choice)</p><p id="1981a746-4ded-4456-b5ce-21ed75bfbdd5" class="">HTTP can be used to stream media files</p><h3 id="9c906ee4-9ada-44f3-9ccd-adb0151d23e2" class="">Real Time Streaming Protocol (RTSP)</h3><div id="081ef9d8-8dd7-4f9e-a8bc-152f50a49239" class="column-list"><div id="abf46384-3fcb-4f41-917c-4e3df5478c05" style="width:50%" class="column"><figure id="df93c4c3-5556-4968-8e73-8ebddce6f36d" class="image"><a href="Application%20Layer%200f80ec5b0d4a4d4198afe646f5e56e35/Screenshot_2023-05-12_at_21.31.17.png"><img style="width:288px" src="Application%20Layer%200f80ec5b0d4a4d4198afe646f5e56e35/Screenshot_2023-05-12_at_21.31.17.png"/></a></figure></div><div id="8b9642dd-7daa-4cca-9a9e-2673430ff3d6" style="width:50%" class="column"><p id="0c12ec36-17ed-4f6f-abbd-230a2b3bd6df" class="">
+</p><p id="bc5587cb-b596-4933-804f-22bd12e3bcd3" class="">Has a URL scheme with arguments (Used by Youtube to Flash players)</p><p id="00b4d609-f14e-46dd-82ff-6c438d595109" class="">Real-time transport protocol (RTP) delivers the media (typically UDP)</p></div></div><h1 id="acaee75f-d65d-43e8-bb85-bea7be2d9ad2" class="">SMB - File sharing protocols</h1><div id="2a48a839-758a-4aed-b0dc-3c69bd12cddb" class="column-list"><div id="b2f8484d-a5a7-4076-889b-89a51f47c283" style="width:50%" class="column"><p id="1014a4a6-e23d-418f-9098-a27de77e2c5b" class=""><strong>Server Message Block</strong></p><ul id="a865d09d-93e1-4bb8-a756-9e13d0f044a9" class="bulleted-list"><li style="list-style-type:disc">From Microsoft world</li></ul><ul id="4de93b5f-09a7-4fa0-875d-f0973da979fc" class="bulleted-list"><li style="list-style-type:disc">TCP port 445 or UDP ports</li></ul><ul id="99decf17-8440-449b-bd6c-6c3493c19b8d" class="bulleted-list"><li style="list-style-type:disc">Provides authentication, file locking, etc…</li></ul><p id="0a62a930-788b-46ed-bf0e-1c65fb874eb1" class="">
+</p><p id="76a0bf3e-f975-4481-8d7b-a6a636b7f862" class=""><strong><strong><strong>NFS</strong></strong></strong></p><p id="a111742c-3e48-4c0e-99ab-00da8be79bc5" class="">Used mainly in Unix/Linux</p><p id="5ccccc1a-82d7-407e-aa9b-f772d4f61086" class="">Common between servers</p><p id="a4f638f3-e526-41dd-8064-1f07f5105496" class="">Has to cope with very large files and file numbers</p><p id="86675d9b-9d84-4380-a1f9-a4ea5681e173" class="">
+</p></div><div id="738130c1-4d4e-4060-9a44-c4bf6f932fe1" style="width:50%" class="column"><figure id="92f10eab-ef4a-4eaa-a113-6dd51c3c2e21" class="image"><a href="Application%20Layer%200f80ec5b0d4a4d4198afe646f5e56e35/Screenshot_2023-05-12_at_21.32.55.png"><img style="width:240px" src="Application%20Layer%200f80ec5b0d4a4d4198afe646f5e56e35/Screenshot_2023-05-12_at_21.32.55.png"/></a><figcaption>Determining SMB and NTLM version (Windows)</figcaption></figure></div></div><p id="abad2f92-e65c-4b5b-849e-1c0dd81f4731" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

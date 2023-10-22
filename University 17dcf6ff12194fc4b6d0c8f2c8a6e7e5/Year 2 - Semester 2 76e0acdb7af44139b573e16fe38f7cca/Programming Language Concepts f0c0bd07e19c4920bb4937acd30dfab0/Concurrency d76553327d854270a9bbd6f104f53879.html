@@ -1,0 +1,679 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Concurrency</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="d7655332-7d85-4270-a9bb-d6f104f53879" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/repeat_pink.svg"/></div><h1 class="page-title">Concurrency</h1><p class="page-description"></p></header><div class="page-body"><nav id="25b2f67a-a88d-449e-a980-1d2971315bd0" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b6e925de-851c-4634-afcb-f153a999c19d">Concurrency vs Parallel Computing</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#62879517-9d76-4e1f-8205-431b5a89ce6e">Concurrency from first Principles</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#8f8a13e6-f4d3-4fd2-81b9-51a007037763">Signal and Wait</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#68cd90bf-c372-4c5c-b68d-f11a6af70662">Signal and Continue</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#447fd95b-213f-410a-a4f9-d4f84a718b8c">Semantics First</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5ee389a3-2307-416e-a4af-20e316b74540">No Thread is Independent</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5e809020-5014-4757-ab48-4c5519ae2363">Multiple Threads</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#929f2ae4-9de7-47bc-ac53-a4e198ab606d">Simple Concurrency Calculus</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2571657d-fe52-4326-a788-43fdc78c5785">CCS Syntax</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#d300d18a-ce92-4a4b-9144-e6de1c624077">Example CCS Process</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1d17d302-e525-43ff-97b0-f0043736200c">Variations of Synchronisation</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5f1ffc36-24b5-4a8c-b72a-5d96a732092c">Asynchrony in CCS</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#ce6bbf91-4751-4894-82e5-8f5abf825a5b">Broadcast Communication</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0d31e76a-d2b4-420a-bf8c-659041b1a4e8">Non-Determinism</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#4d3d1c2b-a7c4-4b65-a2af-7aa1211118e9">Complex Semantics</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#3d47215c-e590-4f1d-875e-e7507ed5015a">Exercise Sheet - Semantics of Concurrency</a></div></nav><h1 id="b6e925de-851c-4634-afcb-f153a999c19d" class="">Concurrency vs Parallel Computing</h1><p id="971a0ea4-ae90-45b7-814e-3f6115e6e16f" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Parallel Computing: </strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>Multiple computations are created by dividing a task into smaller, <strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em>independent, </em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong>pieces of work; which are then executed simultaneously</p><ul id="c78bc7a0-99f1-4fb7-8c08-05e1d5f4d269" class="bulleted-list"><li style="list-style-type:disc">Can be multi-core, symmetric multiprocessing, distributed, massively parallel</li></ul><p id="8e0ecb9d-e7ac-46c8-a7b4-ad646dc2192a" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Concurrency: </strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>Several computations executing simultaneously, potentially <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>interacting </strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>with each other - typically done on a single (multi-core) machine</p><figure class="block-color-yellow_background callout" style="white-space:pre-wrap;display:flex" id="97f370c3-c576-4757-b0fa-b5a812522a9c"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">“<em><em><em><em><em><em><em><em><em><em><em><em><em><em>Interaction” </em></em></em></em></em></em></em></em></em></em></em></em></em></em>is the <strong><strong><strong><strong><strong>main </strong></strong></strong></strong></strong>differentiator between the two, i.e., are the process talking to each other (concurrent) or not?</div></figure><h1 id="62879517-9d76-4e1f-8205-431b5a89ce6e" class="">Concurrency from first Principles</h1><ul id="68b700c6-21bb-4535-8bd1-cc3fa66611e3" class="bulleted-list"><li style="list-style-type:disc">What is clear from the definition of concurrency is that in this computational model, the simultaneously executing tasks will interact</li></ul><ul id="b4bd7b73-d496-4cd6-8b2c-fce9734a994a" class="bulleted-list"><li style="list-style-type:disc">We call each executing sequence of control a <strong>thread</strong></li></ul><ul id="c5c07586-dd91-443e-a325-921cffa80d23" class="bulleted-list"><li style="list-style-type:disc">For threads to interact they must be able to synchronise</li></ul><ul id="01546aad-fce9-4a60-93bd-c6703f3ae629" class="bulleted-list"><li style="list-style-type:disc">This means that threads must be able to send signals to other threads and threads must be able to recognise when signals have been sent from other threads</li></ul><ul id="7f92e66e-b31d-44a4-b7ad-369ecc91c17f" class="bulleted-list"><li style="list-style-type:disc">This is the basis of all inter-thread communication however how the signals are sent, what information is sent with them and how the threads synchronise on signals varies greatly across systems</li></ul><h2 id="8f8a13e6-f4d3-4fd2-81b9-51a007037763" class="">Signal and Wait</h2><ul id="8eb9b11c-19b4-4f74-af03-ff7a669cc05f" class="bulleted-list"><li style="list-style-type:disc">One paradigm of synchronisation is that of &quot;signal and wait&quot;.</li></ul><ul id="e8093377-66d3-47c5-b900-1bfc776053a7" class="bulleted-list"><li style="list-style-type:disc">A thread that signals another thread sends its <strong>signal</strong> and then enters a <strong>waiting</strong> state so that it cannot be scheduled further until the signal is received</li></ul><div id="d60b229e-770a-4a6e-bbba-48491ee330d1" class="column-list"><div id="58091551-b581-4c09-98cd-974f86bc35d4" style="width:50%" class="column"><figure id="7958c141-0f26-442d-bb03-f06dcd41698f" class="image" style="text-align:left"><a href="Concurrency%20d76553327d854270a9bbd6f104f53879/Screenshot_2023-05-11_at_18.46.25.png"><img style="width:240px" src="Concurrency%20d76553327d854270a9bbd6f104f53879/Screenshot_2023-05-11_at_18.46.25.png"/></a></figure></div><div id="252133b7-10fc-4b2a-b52a-0e296b3398e2" style="width:50%" class="column"><p id="01cfbe64-ad43-4b1d-bcc5-bd343f42acf7" class="">
+</p><ul id="2ec7f39e-ca8d-4ed3-a830-60b39b28a220" class="bulleted-list"><li style="list-style-type:disc">This is also called <strong>synchronous communication - </strong>threads that are communicating rendezvous at a given point in their execution.</li></ul></div></div><h2 id="68cd90bf-c372-4c5c-b68d-f11a6af70662" class="">Signal and Continue</h2><ul id="2eb1f0eb-6d92-429e-96c6-8cf969b1d6c4" class="bulleted-list"><li style="list-style-type:disc">An alternative paradigm of synchronisation is that of &quot;signal and continue&quot;</li></ul><ul id="32276d20-9b20-4072-8ae1-d122e680abc5" class="bulleted-list"><li style="list-style-type:disc">A thread that signals to other threads does not need to <strong>wait</strong> until the <strong>signal</strong> is received. It may <strong>continue</strong> its execution immediately after signalling</li></ul><div id="71103efd-aaba-4e2a-9471-a57923138b08" class="column-list"><div id="7674da8b-4849-44d5-bf4d-933d6b21e7e9" style="width:50%" class="column"><figure id="cf6b1b12-451f-4bdd-bc65-cd5c252166f1" class="image" style="text-align:left"><a href="Concurrency%20d76553327d854270a9bbd6f104f53879/Screenshot_2023-05-11_at_18.47.23.png"><img style="width:384px" src="Concurrency%20d76553327d854270a9bbd6f104f53879/Screenshot_2023-05-11_at_18.47.23.png"/></a></figure></div><div id="00081434-3794-489f-90bb-6dddbce57598" style="width:50%" class="column"><p id="094bc261-f99d-472f-9aa3-7bfba0b14fd3" class="">
+</p><ul id="dee14282-f405-49cd-80e8-166b73a8f8c5" class="bulleted-list"><li style="list-style-type:disc">This is also called <strong>asynchronous communication </strong>threads that are sending do not need to rendezvous. Threads that are receiving signals do still need to rendezvous on a signal</li></ul></div></div><h1 id="447fd95b-213f-410a-a4f9-d4f84a718b8c" class="">Semantics First</h1><ul id="d5096bc1-24f8-499a-a8ad-55bd416028f5" class="bulleted-list"><li style="list-style-type:disc">If we were to introduce concurrency support in to a programming language, a reasonable way of starting would be to consider the semantics</li></ul><ul id="b2db6d79-6a7a-4131-af0f-937d1dd6cd00" class="bulleted-list"><li style="list-style-type:disc">We would need to choose the synchronisation mechanism and what operators the language will feature</li></ul><ul id="ef000046-a4cb-411e-99d6-e6440d0b2c75" class="bulleted-list"><li style="list-style-type:disc">How do we write down a small step semantics for multiple threads</li></ul><ul id="87821977-202f-4618-b9b7-3e3dde644708" class="bulleted-list"><li style="list-style-type:disc">We could imagine a relation of the form:</li></ul><figure id="336b550b-029f-4512-9b65-f96a5eff3ee6" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>T</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>T</mi><mn>2</mn></msub><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msub><mi>T</mi><mi>n</mi></msub><mo>→</mo><msubsup><mi>T</mi><mn>1</mn><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup><mo separator="true">,</mo><msubsup><mi>T</mi><mn>2</mn><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msubsup><mi>T</mi><mi>n</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup></mrow><annotation encoding="application/x-tex">T_1,T_2 ... ,T_n \rightarrow T_1&#x27;,T_2&#x27; ... , T_n&#x27;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">...</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.048892em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8018919999999999em;"><span style="top:-2.4530000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8018919999999999em;"><span style="top:-2.4530000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mord">...</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8018919999999999em;"><span style="top:-2.4530000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span></span></span></span></span></div></figure><ul id="587b840d-2b2a-42ee-92e4-f5c64970a2b0" class="bulleted-list"><li style="list-style-type:disc">where each thread <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">T_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> may execute in a single step</li></ul><h2 id="5ee389a3-2307-416e-a4af-20e316b74540" class="">No Thread is Independent</h2><ul id="8d4fa8fb-6ece-4367-8c93-9f88222d4788" class="bulleted-list"><li style="list-style-type:disc">The semantics of each individual thread <strong>cannot</strong> be considered in isolation however!</li></ul><ul id="b1146d01-2469-490f-a0b8-661588281600" class="bulleted-list"><li style="list-style-type:disc">The semantics of each thread must consider the interactions it makes with the environment in which it executes</li></ul><ul id="9bf344ff-9ec3-4b5e-841d-c21112b0994e" class="bulleted-list"><li style="list-style-type:disc">This can be interactions with memory, with other threads, etc…</li></ul><p id="8ff5cae6-ee15-41e9-8102-f12a025f76df" class="">The semantics of a thread could therefore be defined as a small step operational semantics where the relation also includes an indication of any interaction the thread makes as well as computation steps internal to the thread.</p><figure id="42e3918c-271d-47ab-8b15-5763b315ac2a" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>T</mi><mo>→</mo><mrow><mi>a</mi><mi>c</mi><mi>t</mi><mi>i</mi><mi>o</mi><mi>n</mi></mrow><mo>→</mo><msup><mi>T</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup></mrow><annotation encoding="application/x-tex">T \rightarrow {action} \rightarrow T&#x27;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="mord mathnormal">c</span><span class="mord mathnormal">t</span><span class="mord mathnormal">i</span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.801892em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.801892em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span></span></div></figure><figure class="block-color-yellow_background callout" style="white-space:pre-wrap;display:flex" id="134f79da-57dd-46ad-91e8-568bf61dfd29"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><em>Here, &#x27;action&#x27; refers to whether the thread is sending a signal, receiving a signal or reducing without interacting.</em></div></figure><h2 id="5e809020-5014-4757-ab48-4c5519ae2363" class="">Multiple Threads</h2><figure id="afded66a-8c84-4b9a-af49-534c750ad135" class="image"><a href="Concurrency%20d76553327d854270a9bbd6f104f53879/Screenshot_2023-05-11_at_18.52.27.png"><img style="width:1830px" src="Concurrency%20d76553327d854270a9bbd6f104f53879/Screenshot_2023-05-11_at_18.52.27.png"/></a></figure><p id="0e790d58-5087-41a2-8224-8f9a5f1752fb" class="">Where actions may <strong>synchronise</strong> - i.e. action-<em>i</em>-<em>k</em> and action-<em>j</em>-<em>k</em> may be complementary <strong>send</strong> and <strong>receive</strong> signal actions <span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid">or</span></span></p><p id="b87d0a5e-5c1d-419a-be69-cb32a58ec042" class="">Where action-<em><em><em>i-k</em></em></em> and action-<em><em><em><em><em>j-k’</em></em></em></em></em> may be write to memory and read memory actions</p><h1 id="929f2ae4-9de7-47bc-ac53-a4e198ab606d" class="">Simple Concurrency Calculus</h1><ul id="34b5a965-5102-41fd-912b-e9916611ccec" class="bulleted-list"><li style="list-style-type:disc">Just like the <em>lambda calculus</em> is a language used for the study of <strong>pure functions</strong>, we can define <em>small calculi </em>for studying <strong>concurrency</strong></li></ul><ul id="a4d9988b-4086-42ca-85f7-1c66ac8c5f4a" class="bulleted-list"><li style="list-style-type:disc">A particularly well-known example of such a calculus is called<strong> CCS </strong>(Calculus of Communicating Systems)</li></ul><ul id="795d9d87-c1a5-425a-ba27-5439ea6834c1" class="bulleted-list"><li style="list-style-type:disc">This calculus distills the essence of concurrent threads of computation that may execute both independently and by communication with other threads</li></ul><ul id="89401b6b-8946-43ed-bab9-3fea46c3de28" class="bulleted-list"><li style="list-style-type:disc">The semantics of the calculus is given in the style described above by operational semantics with extra annotations indicating the kind of action being performed</li></ul><ul id="d43d3d45-13f6-40b5-8128-b5c81c026bb9" class="bulleted-list"><li style="list-style-type:disc">CCS is one among many many examples of what is called a <strong>Process Calculus.</strong></li></ul><h2 id="2571657d-fe52-4326-a788-43fdc78c5785" class="">CCS Syntax</h2><p id="03625777-7ffa-4803-b536-2a85c80a4019" class="">The <strong><strong><strong><strong><strong><strong><strong>Grammar</strong></strong></strong></strong></strong></strong></strong> of CCS looks like:</p><p id="bbf570a1-d748-41d6-9b48-38ed3a968e52" class="">P ::= nil  |  a!P  |  a?P  |  τP  |  P||P  |  P\a  |  X  |  rec X.P</p><ul id="a2118528-5b85-4bd6-97f1-f150150adf90" class="bulleted-list"><li style="list-style-type:disc"><em>nil</em> is an inert process - it has terminated</li></ul><ul id="28022e0e-8f54-4cda-9a85-1e41ad095d7c" class="bulleted-list"><li style="list-style-type:disc"><em>a!P</em> sends a signal on a channel named &#x27;a&#x27; and then continues execution as P</li></ul><ul id="1dcaf3f2-16b0-4c3a-9304-48f334ff0a0e" class="bulleted-list"><li style="list-style-type:disc"><em>a?P</em> receives a signal on a channel named &#x27;a&#x27; and then continues execution as P</li></ul><ul id="4d179dc2-e43e-4126-b28b-0fd4c2454aa0" class="bulleted-list"><li style="list-style-type:disc"><em>τP</em> takes an internal computation step</li></ul><ul id="f63ec0d5-58b9-49f8-a80d-7144855d6ded" class="bulleted-list"><li style="list-style-type:disc"><em>P </em>||<em> P</em> represents two concurrent processes, this models thread spawning also</li></ul><ul id="b2fbec8f-9370-4071-950d-18ef5fd52f93" class="bulleted-list"><li style="list-style-type:disc"><em>P </em>\<em> a</em> is a restriction operation - no communication on channel &#x27;a&#x27; originating inside of P can be seen</li></ul><ul id="a3732e7b-6d81-488c-9dc9-174f040befd6" class="bulleted-list"><li style="list-style-type:disc"><strong>X </strong>and <strong>rec X.P</strong> are used for recursive behaviour e.g., rec X . a!b? X is a process that repeatedly sends a signal on &#x27;a&#x27; and receives a signal on &#x27;b&#x27;</li></ul><h3 id="d300d18a-ce92-4a4b-9144-e6de1c624077" class="">Example CCS Process</h3><figure id="cb737d01-297b-4b0d-b736-ae83b3d375ed" class="image"><a href="Concurrency%20d76553327d854270a9bbd6f104f53879/Screenshot_2023-05-11_at_18.58.13.png"><img style="width:528px" src="Concurrency%20d76553327d854270a9bbd6f104f53879/Screenshot_2023-05-11_at_18.58.13.png"/></a></figure><p id="fa174e24-693e-46c9-8a0c-5789ac8a0299" class="">- Server thread P1 publishes an invitation to client threads P2 and P3 to respond on channel &#x27;b&#x27;. The first to do so gets to interact with P1, the other is blocked.</p><p id="ddf40935-425f-49f5-a3f3-57804aef3698" class="">- Client thread P2 or P3 calls channel &#x27;s&#x27; some number of times and calls &#x27;z&#x27; to finish. 
+Process P4, counts the number of signals sent on channel &#x27;e&#x27;.</p><h2 id="1d17d302-e525-43ff-97b0-f0043736200c" class="">Variations of Synchronisation</h2><p id="bd742cc8-780e-42e8-9052-41449e1c3c7f" class="">Semantics of CCS are typically presented as synchronous communicaton</p><p id="6550b4b2-a12f-48ad-8bbf-7ac2e8a8c14a" class="">The rule for communication looks like:</p><figure id="71452851-1445-49a1-8ef9-b2e05b5524a6" class="image"><a href="Concurrency%20d76553327d854270a9bbd6f104f53879/Screenshot_2023-05-11_at_19.00.12.png"><img style="width:384px" src="Concurrency%20d76553327d854270a9bbd6f104f53879/Screenshot_2023-05-11_at_19.00.12.png"/></a></figure><p id="f1c2cfb7-476c-4f5f-8431-03f628e2a5d6" class="">This says that, if P is ready to send a signal on channel &#x27;a&#x27; and Q is ready to receive a signal on channel &#x27;a&#x27; then when both P and Q are executing in parallel then they may communicate to produce a computation step internal to P || Q</p><p id="3ea84f99-9d99-4064-967c-f4023a5a20e2" class="">In this case, if P is ready to send a signal it must wait until there is a corresponding process Q to receive the signal</p><p id="e6119e8a-e1a1-423d-94b3-b9ec796004a0" class="">This is also what is known as a <strong>handshake </strong>communication as it only involves a single sender and receiver</p><h2 id="5f1ffc36-24b5-4a8c-b72a-5d96a732092c" class="">Asynchrony in CCS</h2><p id="80a50dad-191b-4975-beb6-de2869621c0e" class="">It is straightforward to consider an asynchronous variation of CCS</p><p id="f7319dcf-5c4b-42b8-a08d-2c6d09bd3c1c" class="">We simply adjust the grammar to forbid any continuation of the process after a send signal</p><p id="39ba614c-3176-4a8c-a9b6-e1a66e5f2ba5" class="">It would look like this:</p><ul id="dbba8a45-e013-4dca-b2d2-f23bb823a99e" class="bulleted-list"><li style="list-style-type:disc">P ::= nil  |  <mark class="highlight-red">a ! nil </mark> |  a?P  |  τP  |  P||P  |  P\a  |  X  |  rec X.P</li></ul><p id="57bb9dab-baa5-4254-ba5a-3a03928802b2" class="">In this case, a communication would take the form e.g.</p><figure id="61497f3b-57f0-4dbc-adf8-b0bbdc2b8e9b" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>a</mi><mtext> </mtext><mo stretchy="false">?</mo><mtext> </mtext><mo stretchy="false">(</mo><mi>b</mi><mtext> </mtext><mo stretchy="false">!</mo><mtext> </mtext><mi>n</mi><mi>i</mi><mi>l</mi><mtext> </mtext><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><mtext> </mtext><mi>P</mi><mo stretchy="false">)</mo><mtext> </mtext><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><mtext> </mtext><mi>a</mi><mo stretchy="false">!</mo><mtext> </mtext><mi>n</mi><mi>i</mi><mi>l</mi><mtext> </mtext><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><mtext> </mtext><mi>c</mi><mo stretchy="false">?</mo><mtext> </mtext><mi>b</mi><mo stretchy="false">?</mo><mtext> </mtext><mi>Q</mi></mrow><annotation encoding="application/x-tex">a \space ? \space (b \space ! \space nil \space || \space P)\space ||\space a!\space nil\space ||\space c?\space b?\space Q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mspace"> </span><span class="mclose">?</span><span class="mspace"> </span><span class="mopen">(</span><span class="mord mathnormal">b</span><span class="mspace"> </span><span class="mclose">!</span><span class="mspace"> </span><span class="mord mathnormal">ni</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mspace"> </span><span class="mord">∣∣</span><span class="mspace"> </span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mclose">)</span><span class="mspace"> </span><span class="mord">∣∣</span><span class="mspace"> </span><span class="mord mathnormal">a</span><span class="mclose">!</span><span class="mspace"> </span><span class="mord mathnormal">ni</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mspace"> </span><span class="mord">∣∣</span><span class="mspace"> </span><span class="mord mathnormal">c</span><span class="mclose">?</span><span class="mspace"> </span><span class="mord mathnormal">b</span><span class="mclose">?</span><span class="mspace"> </span><span class="mord mathnormal">Q</span></span></span></span></span></div></figure><p id="4f4d6e4d-77ff-4019-8a71-3f92626247cf" class="">In this example, the leftmost process can receive a signal on channel &#x27;a&#x27;. It then spawns a new thread that does nothing but send a signal on &#x27;b&#x27; and can immediately proceed as P without waiting</p><p id="d71ffc5e-92e7-40ec-b644-cc2f918309ec" class="">The rightmost process may eventually receive the signal on channel &#x27;b&#x27; if it receives a signal on &#x27;c&#x27; first</p><h1 id="ce6bbf91-4751-4894-82e5-8f5abf825a5b" class="">Broadcast Communication</h1><ul id="22c82b36-0d61-4d62-9ec4-c8597246b541" class="bulleted-list"><li style="list-style-type:disc">Another common communication mechanism that one sees is that of <strong>broadcast</strong> (as opposed to <strong>handshake</strong>) communication</li></ul><ul id="6dcb9b25-8ec0-4e61-b398-07d757210083" class="bulleted-list"><li style="list-style-type:disc">In that model, a signal is sent to all concurrent processes that are ready to receive that signal, not just a single process</li></ul><ul id="158d2194-acc8-440d-9d73-92a7e4792dde" class="bulleted-list"><li style="list-style-type:disc">The process calculus CSP (Communicating Sequential Processes) developed by Tony Hoare uses such a mechanism</li></ul><ul id="eaff87c7-eba9-4c3b-8793-771154e89c91" class="bulleted-list"><li style="list-style-type:disc">This calculus is similar to CSP except for the broadcast communication and a denotationally presented semantics rather than the small step operational semantics of CCS</li></ul><h2 id="0d31e76a-d2b4-420a-bf8c-659041b1a4e8" class="">Non-Determinism</h2><ul id="806dfc52-ea50-4772-a6fe-d481db180a86" class="bulleted-list"><li style="list-style-type:disc">You will notice from the previous example that running the overall system does not have a determined behaviour</li></ul><ul id="07378f73-5281-4b82-8582-e1554f76a0c5" class="bulleted-list"><li style="list-style-type:disc">The number of signals ultimately sent on channel &#x27;e&#x27; depends on whether P2 or P3 first responds to the initial signal</li></ul><ul id="a8302dc1-f3c3-4bda-8a4f-7ee05d65cb7c" class="bulleted-list"><li style="list-style-type:disc">In practice this choice is made by operator system scheduling</li></ul><ul id="680c7b84-8aef-44c1-bf59-1fbc82c47da0" class="bulleted-list"><li style="list-style-type:disc">In this calculus, either interaction can be taken</li></ul><ul id="67338152-ecab-4796-9bcc-b86c4e87dde9" class="bulleted-list"><li style="list-style-type:disc">What is clear is that the semantics of a process does not take the form of a single sequence of labelled reductions</li></ul><figure id="c51c412c-e0a3-4a86-baac-55ac1fe7cd1e" class="image"><a href="Concurrency%20d76553327d854270a9bbd6f104f53879/Screenshot_2023-05-11_at_19.06.17.png"><img style="width:1472px" src="Concurrency%20d76553327d854270a9bbd6f104f53879/Screenshot_2023-05-11_at_19.06.17.png"/></a></figure><ul id="98877913-a33e-4cb8-8954-e465e72f521b" class="bulleted-list"><li style="list-style-type:disc">Rather, the semantics of a process forms a <strong>tree </strong>of labelled reductions as choices are made in the overall system behaviour.</li></ul><ul id="0351dab8-9e6d-438c-8344-824ff0a31769" class="bulleted-list"><li style="list-style-type:disc">Versions of CCS sometimes also include an explicit choice operation - P + Q that means, behave like P next or behave like Q next.</li></ul><h2 id="4d3d1c2b-a7c4-4b65-a2af-7aa1211118e9" class="">Complex Semantics</h2><ul id="f6901ff0-1466-4776-8c00-09bc0ffbff4b" class="bulleted-list"><li style="list-style-type:disc">Therefore, when it comes to understanding a concurrent program we must consider each of its threads and the semantics of each thread can be represented as a tree of behaviours</li></ul><ul id="7b332e7e-fe67-4905-9d85-aeb6be45a7a5" class="bulleted-list"><li style="list-style-type:disc">When considering whether an implementation of an particular thread meets its semantics we must have a means of considering<ul id="34a4b097-7b5d-4513-80cc-88b3c1a5710b" class="bulleted-list"><li style="list-style-type:circle">The actual behaviour of a thread (as a tree of actions) <strong>and</strong></li></ul><ul id="e192576d-32f2-4814-a9ff-dc19af31749b" class="bulleted-list"><li style="list-style-type:circle">The specified semantics (as a tree of actions)</li></ul></li></ul><ul id="b4e4d9d7-b97a-42a4-b8ec-ad2e027ca19b" class="bulleted-list"><li style="list-style-type:disc">We need a way of comparing trees of actions</li></ul><ul id="8f9632c8-a215-4dfb-be9e-c0dc0b2fc05d" class="bulleted-list"><li style="list-style-type:disc">The particular forms of trees we use are actually represented as graphs of labelled actions and are referred to as <strong>labelled transition systems</strong></li></ul><ul id="ab095dba-456c-4428-ba44-f9fa9180438b" class="bulleted-list"><li style="list-style-type:disc">The notions of equality between concurrent systems is a rich field and forms the basis of many reasoning and verification techniques for concurrency</li></ul><h1 id="3d47215c-e590-4f1d-875e-e7507ed5015a" class="">Exercise Sheet - Semantics of Concurrency</h1><figure id="e0586f88-e86e-4acd-a50a-b8712b9e3291" class="link-to-page"><a href="Concurrency%20d76553327d854270a9bbd6f104f53879/Exercise%20Sheet%20-%20Semantics%20of%20Concurrency%20e0586f88e86e4acda50ab8712b9e3291.html"><img class="icon" src="https://www.notion.so/icons/report_pink.svg"/>Exercise Sheet - Semantics of Concurrency</a></figure></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

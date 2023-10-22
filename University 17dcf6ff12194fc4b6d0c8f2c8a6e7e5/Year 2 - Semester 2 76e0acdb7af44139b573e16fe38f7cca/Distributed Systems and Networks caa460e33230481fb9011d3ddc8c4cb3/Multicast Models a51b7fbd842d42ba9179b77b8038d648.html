@@ -1,0 +1,729 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Multicast Models</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="a51b7fbd-842d-42ba-9179-b77b8038d648" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/conversation_gray.svg"/></div><h1 class="page-title">Multicast Models</h1><p class="page-description"></p></header><div class="page-body"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="fb4c4943-202f-45cc-85f2-8a022c3b639a"><div style="font-size:1.5em"><span class="icon">📢</span></div><div style="width:100%"><strong>Need to be able to do:</strong><ul id="11dc6716-70b1-4ed4-a980-756c564aac22" class="bulleted-list"><li style="list-style-type:disc">…</li></ul></div></figure><nav id="bcbc61f7-1152-4d86-b7f2-fd7d41269815" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4b2b71ff-7dab-4a7e-b14b-de174b6498d8">Multicast Models</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a67a0fa4-397c-41a4-9d84-f2ef6f986425">How do Groups of Processes Communicate?</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c531800c-c30e-481b-ad2f-ff4ec76082c5">Multicast Protocols</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#32a6c47f-f7ca-4a4a-9ddd-b83afeaf03e9">Multicast and IP</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f273aeea-2562-4b84-84b1-c277df3d32df">Receiving vs Delivering</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b1a79559-fca9-47e8-a7ea-abff4561bd58">Basic Multicast</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#47daad92-bcab-4fc5-aa6d-ebfa98ebc353">Reliable Multicast</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0c08fc62-3bc3-45fd-8ad1-b8c24f5d82a2"><strong><strong><strong><strong><strong>Conclusion</strong></strong></strong></strong></strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#4f1b412a-450c-421c-9f28-758ae1830950">Gossip Protocol</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#da0305ce-357b-43a0-83d9-a0fd0eeaaee7">Ordered Multicast</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#8907114f-9b0d-45d8-a267-db90d37b79c0">FIFO Order</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#03a63675-13a8-4e49-b22b-e3d4f1c84175">Causal Order</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#fd731954-ea52-4d28-bdea-6512e07da37c">Total Order</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#990f3e74-9aed-43d3-99fa-412489deb751">Total Ordering of Multicast Models</a></div></nav><h1 id="4b2b71ff-7dab-4a7e-b14b-de174b6498d8" class="">Multicast Models</h1><h2 id="a67a0fa4-397c-41a4-9d84-f2ef6f986425" class="">How do Groups of Processes Communicate?</h2><p id="ef76f793-0215-4293-aed8-1e1a86c8e51c" class=""><strong>Unicast: One-to-one</strong></p><ul id="d9c0c06e-d37b-490f-9201-6c8ac80ee708" class="bulleted-list"><li style="list-style-type:disc">Best effort: message may be delivered, but will be intact</li></ul><ul id="fea20b73-46e0-4f85-a438-3c13f66a0150" class="bulleted-list"><li style="list-style-type:disc">Reliable: message will be delivered</li></ul><p id="3ccba236-f030-4309-bdbb-584a4ab3c211" class=""><strong>Broadcast: One-to-all</strong></p><ul id="a3f3513c-ab64-470f-9bb4-f438045d47b7" class="bulleted-list"><li style="list-style-type:disc">Impractical for large networks</li></ul><p id="d1481564-8734-4426-a345-a151a4b13367" class=""><strong>Multicast: One-to-many or many-to-many</strong></p><ul id="f41f5fc2-8720-47d0-ba0d-28a3fa29285c" class="bulleted-list"><li style="list-style-type:disc">More efficient use of network bandwidth</li></ul><h2 id="c531800c-c30e-481b-ad2f-ff4ec76082c5" class="">Multicast Protocols</h2><p id="23431945-d45a-4a69-b5a6-f88ec5988de5" class="">Multicast is <strong>group communication</strong></p><p id="8f784e0c-3360-4f71-b6b1-f8b04fecff02" class="">One process sends a message, all process in the group deliver it</p><p id="44c5040f-b9a0-4930-8d5d-128d55c9314d" class="">The members of a group may be fixed or dynamic</p><ul id="4aaf3b52-16e6-4390-9f5d-918c229c151a" class="bulleted-list"><li style="list-style-type:disc">We will only be studying fixed groups</li></ul><p id="2e216eb9-ca9f-4d2d-b599-d1f73bc9e170" class="">If a process is faulty, we expect the remaining members of the group to be able to continue communicating</p><p id="1eb68ffd-a00b-4359-9f13-d8f9c340b35e" class="">Network communication will be asynchronous</p><ul id="18b2e958-0b98-4979-932c-9707744b55fc" class="bulleted-list"><li style="list-style-type:disc">No upper bound on message latency</li></ul><h2 id="32a6c47f-f7ca-4a4a-9ddd-b83afeaf03e9" class="">Multicast and IP</h2><p id="1d8e1870-ede9-40e5-a5b4-5f0faf5ba433" class=""><strong>Network Layer multicast</strong></p><ul id="3d271639-1152-4799-984d-0120d6a94459" class="bulleted-list"><li style="list-style-type:disc">OSI Layer 3 / Internet layer</li></ul><ul id="ac1db552-3472-40cd-ac24-f48de83f517d" class="bulleted-list"><li style="list-style-type:disc">Local network and handling of broadcast and multicast packets</li></ul><ul id="f34846b4-b019-4cd7-a7d9-fa50c968835b" class="bulleted-list"><li style="list-style-type:disc">Uses UDP</li></ul><ul id="c659cb37-e8d3-4414-bbaf-25a4236fbfcd" class="bulleted-list"><li style="list-style-type:disc">Characterised by small packet size, unreliable delivery, out of order delivery</li></ul><p id="0c1c006e-9981-4e77-b0df-5b3200ef5eff" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Application Layer Multicast</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><p id="8c18139f-ad9b-4b37-9f95-bbb7e2aeb9ac" class="">OSI Layer 7 / Application Layer</p><p id="875267a2-26a2-4c39-979b-2d96e0ddeaa4" class="">Multicast-style communication built on top of traditional IP networking</p><p id="b41d3c0c-1a1b-43bc-9005-413c6ccab9dc" class="">More readily available across a wide range of devices:</p><ul id="c5343540-a617-4bb9-a713-d567fd8bc7bb" class="bulleted-list"><li style="list-style-type:disc">Servers, virtualised systems, mobile phones, VPN connected devices</li></ul><h2 id="f273aeea-2562-4b84-84b1-c277df3d32df" class="">Receiving vs Delivering</h2><figure id="e4239b16-20f7-46da-854d-02387b310120" class="image"><a href="Multicast%20Models%20a51b7fbd842d42ba9179b77b8038d648/Screenshot_2023-05-16_at_16.03.44.png"><img style="width:912px" src="Multicast%20Models%20a51b7fbd842d42ba9179b77b8038d648/Screenshot_2023-05-16_at_16.03.44.png"/></a></figure><p id="71426dce-2c3b-4561-8e89-4cf2f905e2bb" class="">Applications use the multicast operation to send messages and the deliver operation to asynchronously receive a message</p><p id="3ba008b5-c5c0-44e6-9874-c1dde9157706" class="">After multicast algorithm receives message from the network, it may buffer or queue it before delivering to the application</p><p id="8ecde7ee-b78a-400f-95df-c86156892cbf" class="">The multicast algorithm uses send and receive methods to send messages between processes on the network</p><p id="2ad82d92-fd9d-4e60-b96c-19daa1a1fb37" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Multicast Approaches</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="f30dd17a-ee11-4c06-a557-b5091869ed95" class="bulleted-list"><li style="list-style-type:disc">Basic Multicast</li></ul><ul id="91d4e840-3d18-4baf-85e2-0786580056da" class="bulleted-list"><li style="list-style-type:disc">Reliable Multicast<ul id="f4f5b0be-c8a3-4938-bb5e-cd259dd24b74" class="bulleted-list"><li style="list-style-type:circle">R-Multicast</li></ul><ul id="cafee9dd-5ba4-40be-9ad5-0f6863f174fd" class="bulleted-list"><li style="list-style-type:circle">Gossip Algorithm</li></ul></li></ul><ul id="c72f31a2-bf08-4a05-9be8-0cbead405f24" class="bulleted-list"><li style="list-style-type:disc">Ordered Multicast<ul id="b60ed4e6-73f1-4322-85e9-ab6ce4f5ae9c" class="bulleted-list"><li style="list-style-type:circle">FIFO</li></ul><ul id="5efbc05b-083a-45f1-a369-f226293bf3a6" class="bulleted-list"><li style="list-style-type:circle">Causal</li></ul><ul id="fb3ee4bb-aac9-4f84-bb24-1c95f563e740" class="bulleted-list"><li style="list-style-type:circle">Total Order</li></ul></li></ul><h1 id="b1a79559-fca9-47e8-a7ea-abff4561bd58" class="">Basic Multicast</h1><div id="e6a4dc0c-9045-4da5-844a-1d508a9bca73" class="column-list"><div id="8d7e01e2-76ed-4e3d-9c89-7387cbeaba4d" style="width:43.75%" class="column"><figure id="fe2f0f85-b784-45d2-ab1e-b3e5af72f2b2" class="image"><a href="Multicast%20Models%20a51b7fbd842d42ba9179b77b8038d648/Screenshot_2023-05-16_at_16.05.45.png"><img style="width:288px" src="Multicast%20Models%20a51b7fbd842d42ba9179b77b8038d648/Screenshot_2023-05-16_at_16.05.45.png"/></a></figure></div><div id="ce0c744f-389e-42d1-a469-bef9bd16f231" style="width:56.25%" class="column"><p id="ea117004-a656-43a9-aee1-21222ad0d17e" class="">Basic multicast guarantees that:</p><ul id="2b1bc77d-68b0-4c50-8f1a-0d707e3806fe" class="bulleted-list"><li style="list-style-type:disc">A correct process will eventually deliver the message, if the multicaster does not crash</li></ul><ul id="27db2d73-b2d1-4d11-8aeb-7a7c7c9a88dc" class="bulleted-list"><li style="list-style-type:disc">Only group members receive messages sent to the group</li></ul><p id="b6781b8f-e27d-4467-8717-ab5c06bbc8c8" class="">Groups can be closed or open:</p><ul id="0cbe64f7-4594-4f49-8de2-938466df01f4" class="bulleted-list"><li style="list-style-type:disc">Only group members are allowed to multicast to closed groups</li></ul><ul id="2185fcf0-0798-47b5-9610-a6f02b0fee90" class="bulleted-list"><li style="list-style-type:disc">Closed groups often assumed for reliability and security such as limited tampering by external processes</li></ul></div></div><p id="18e71834-deb0-447e-9472-cd19214b6f6f" class=""><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong>Implementation:</strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></p><p id="44ae9282-02cb-45ca-a115-7c97d80d988f" class="">Basic Multicast introduces <strong>B-multicast</strong><em> </em>and <strong>B-deliver </strong><em><em><em><em><em><em><em><em>(in receiving and delivery image above instead)</em></em></em></em></em></em></em></em></p><p id="c90ea778-025d-4dec-afbf-1907047206c7" class="">Use <em>reliable</em> network calls <strong>send(</strong><em><strong>p</strong></em><strong>, m) </strong>and <strong>receive(m)</strong></p><ul id="d1c52ade-5897-4baa-b2bb-f9bc0e6f9c28" class="bulleted-list"><li style="list-style-type:disc"><strong>B-multicast(g, m):</strong><ul id="a5a651c5-1221-41de-90f8-6f77ebfe472d" class="bulleted-list"><li style="list-style-type:circle">for each process <em>p</em> in group g, send the message m with send(p, m).</li></ul><ul id="54fa21ae-d281-4b0e-9235-c0fed9714ce5" class="bulleted-list"><li style="list-style-type:circle">On <strong>receive(m) </strong>at <em>p</em> call <strong>B-deliver(m)</strong> at <em>p</em></li></ul></li></ul><p id="6f5e7980-ccfc-4f62-a1ed-7dedd0dc8f6a" class="">Messages incorporate meta-data about the sender and destination group</p><p id="0311a3a2-bd7c-40e5-b6c2-a5a89eacd27a" class="">Works for <mark class="highlight-yellow_background">open</mark> and <mark class="highlight-yellow_background">closed</mark> groups</p><p id="240b66a5-00d4-4726-9e2b-5805315a7613" class="">
+</p><p id="d5a69d7d-83a4-4cf6-8bd2-1cb6d47d97be" class=""><span style="border-bottom:0.05em solid"><strong>Basic Multicast and Failure</strong></span></p><div id="1e101dbe-eb04-4069-9ac1-836107193841" class="column-list"><div id="59938c25-f1b6-4afb-a9f1-f7615f5f437f" style="width:50%" class="column"><figure id="b3bb594e-3e79-4cb7-84a5-5bf7703c153f" class="image"><a href="Multicast%20Models%20a51b7fbd842d42ba9179b77b8038d648/Screenshot_2023-05-16_at_16.10.06.png"><img style="width:288px" src="Multicast%20Models%20a51b7fbd842d42ba9179b77b8038d648/Screenshot_2023-05-16_at_16.10.06.png"/></a></figure></div><div id="9088a4a3-7c22-4fe9-8f43-808abba7e5a0" style="width:50%" class="column"><p id="ef6bb462-ece4-42de-b668-843cf7dc599e" class="">In the definition of basic multicast, we had the guarantee:</p><ul id="45139d66-4dc1-4032-8e50-d66f35236fc1" class="bulleted-list"><li style="list-style-type:disc">A correct process will eventually deliver the message, <strong>if the multicaster does not crash</strong></li></ul><p id="2410bafd-49af-42e1-a288-e3c25a60c5af" class="">If the multicast sender <strong>crashes</strong> in the middle of the sending loop:</p><ul id="389d2ec3-84f6-4112-843a-186b81e2aab9" class="bulleted-list"><li style="list-style-type:disc">For each process p in group g: send(p, m)</li></ul><p id="b0e60989-b87e-4e2f-b75e-7480bbe5ba1f" class="">Then not all of the processes in the group will get the message</p></div></div><h1 id="47daad92-bcab-4fc5-aa6d-ebfa98ebc353" class="">Reliable Multicast</h1><p id="02f5d4d6-4bc3-49e0-8dee-58f2297db0ac" class="">R-Multicast delivers a reliable sequence of messages to multiple processes simultaneously</p><p id="671b4629-8e9d-4ca1-be89-419b2f4326ed" class="">Tolerates process crashes and assumes closed group</p><p id="7200b147-c90e-45ed-9a81-12f8148c767d" class="">Delivery guarantees:</p><ul id="2ad5a5fc-f8ca-4cec-b9ad-d6c0a616bdf4" class="bulleted-list"><li style="list-style-type:disc"><strong>Integrity</strong>: A correct (i.e., non-faulty) process p delivers a message m at most once<ul id="5b0826f2-bea8-43bf-ba75-1560e373843f" class="bulleted-list"><li style="list-style-type:circle">“Non-faulty” is defined as not deviating from the protocol and being alive</li></ul></li></ul><ul id="20c21c7e-dabc-4533-a8ed-a485b4f738fa" class="bulleted-list"><li style="list-style-type:disc"><strong>Agreement</strong>: If a correct process delivers message m, then all the other correct processes in group(m) will eventually deliver m<ul id="b7002724-98b8-4bf8-8fbe-82b1b92ba9fb" class="bulleted-list"><li style="list-style-type:circle">Property of “all or nothing.”</li></ul></li></ul><ul id="f9d76424-9390-4663-a27f-18b2fc9c5344" class="bulleted-list"><li style="list-style-type:disc"><strong>Validity</strong>: If a correct process multicasts message m, then it will eventually deliver m<ul id="866bde0d-d8de-4eff-a894-8ef5b7dd54cd" class="bulleted-list"><li style="list-style-type:circle">Guarantees liveness to the sender</li></ul></li></ul><p id="fb49d08c-5fce-419d-b4eb-a2c6503696e3" class="">Validity and agreement together ensure overall liveness: if some correct process multicasts a message m, then, all correct processes deliver m too.</p><div id="70c52507-d0bd-4f08-a147-b7136fe37ca2" class="column-list"><div id="dd922de9-f60b-42f8-bf1a-f389a9d2c4ea" style="width:50%" class="column"><pre id="b19da2a4-7026-49f5-a103-580f0bf77c4e" class="code"><code>On initialization
+	Received := {};
+
+For process p to R-multicast message m to group g:
+	B-multicast(g, m);
+
+On B-deliver(m) at process q with g = group(m)
+	if (m ∉ Received):
+		Received := Received ∪ {m};
+		if (q ≠ p):
+			B-multicast(g, m); 
+		R-deliver(m)</code></pre></div><div id="74260999-80a1-408f-83c1-586b92f7da08" style="width:50%" class="column"><ul id="173c8cfa-a960-432a-9b9e-e79e62b35a7f" class="bulleted-list"><li style="list-style-type:disc">Each process initialises received to an empty set</li></ul><ul id="6b52a078-ded8-429f-9182-22ea5ec09397" class="bulleted-list"><li style="list-style-type:disc">When a process R multicasts a message, it uses the B-multicast primitive<ul id="3398c6f8-1f46-4a82-8e14-b35b013bd2d8" class="bulleted-list"><li style="list-style-type:circle">The sending process also receives the message</li></ul></li></ul><ul id="c77d2456-dab7-4c32-b79f-84ec4504c699" class="bulleted-list"><li style="list-style-type:disc">When a message B is delivered…<ul id="58c23aab-a913-4078-9902-0943aaf46859" class="bulleted-list"><li style="list-style-type:circle">If the message has not already been received it will add it to the received messages set; and B multicasts the message (unless it was the sender)</li></ul><ul id="43441833-59d3-4b19-ae06-5ae1c48d43c7" class="bulleted-list"><li style="list-style-type:circle">R-deliver the message to the receiving process</li></ul></li></ul></div></div><p id="f26f65d2-ee3e-4b85-a537-a20120bcb9ed" class=""><strong><strong><strong><strong><strong><strong><strong>Integrity: </strong></strong></strong></strong></strong></strong></strong><em><em><em><em><strong><strong><strong><strong><strong><strong><strong>yes!</strong></strong></strong></strong></strong></strong></strong></em></em></em></em></p><p id="47dc89c3-37a7-46e5-a17d-b41379f908de" class="">—&gt; Duplicates are detected (using <code>m ∉ Received</code>)</p><p id="e0ece899-b097-4167-8058-fbad02204faa" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Validity: </strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><em><em><em><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>yes!</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em></em></em></em></p><p id="36f23ee5-03bd-4afe-a27a-6958eeaa708b" class="">—&gt; A correct sender will eventually R-deliver a message (<code>R-deliver(m)</code>)</p><p id="2f4ecd16-f262-480e-b7f5-c99c08d3d83a" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Agreement: </strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><em><strong><em><strong><em><strong><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>yes!</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em></strong></em></strong></em></strong></em></p><p id="4814bf9e-705c-4898-8684-5c822d674c65" class="">—&gt; If the sender crashes before it delivers the message, either:<div class="indented"><ul id="23462ab7-e894-4d31-841d-c2930d620fd5" class="bulleted-list"><li style="list-style-type:disc">It did not B-multicast at all <strong><strong>or</strong></strong></li></ul><ul id="bfda530b-177a-4430-853e-c227470866a3" class="bulleted-list"><li style="list-style-type:disc">At least one other process received the message and called B-multicast therefore sending the message to the sender (<code>B-multicast(g, m)</code>)</li></ul></div></p><h3 id="0c08fc62-3bc3-45fd-8ad1-b8c24f5d82a2" class=""><strong><strong><strong><strong><strong>Conclusion</strong></strong></strong></strong></strong></h3><p id="6d34d6a1-80c3-4513-84ca-ae895cc032e5" class="">Algorithm meets the integrity, validity and agreement requirements</p><p id="a225c39a-f277-46b4-a03f-f281c48dbb16" class=""><strong>BUT Algorithm is inefficient</strong></p><p id="734f38ce-8ef7-417d-866e-637fdb604d89" class="">O(N^2) messages for every R-Multicast message</p><p id="3c2040c2-650e-4abe-ad36-ce8d778b09e5" class=""><em>Not practical for large multicast groups</em></p><h2 id="4f1b412a-450c-421c-9f28-758ae1830950" class="">Gossip Protocol</h2><p id="174045a2-8035-45ad-bc6e-3ddcea1f581a" class="">Useful when multicasting to large number of processes
+When a process receives a message for the first time, forward it to 3 other processes, chosen randomly</p><figure id="cf7778ee-e8b0-4d49-9da1-54b16e0356f4" class="image"><a href="Multicast%20Models%20a51b7fbd842d42ba9179b77b8038d648/ezgif.com-gif-maker-7.gif"><img style="width:850px" src="Multicast%20Models%20a51b7fbd842d42ba9179b77b8038d648/ezgif.com-gif-maker-7.gif"/></a></figure><p id="fdc3b304-1ca5-4f4c-a54a-e66f2ff769a3" class="">Eventually reaches all processes (with high probability)</p><h1 id="da0305ce-357b-43a0-83d9-a0fd0eeaaee7" class="">Ordered Multicast</h1><p id="3b8776b1-e979-4452-9ef8-6556657a3d63" class="">Having established <strong>reliable multicast</strong>, however it does not ensure any delivery order for messages sent to same group</p><p id="db644ce4-31ca-42c7-84ca-d3f8d95c68cc" class="">There are several possible order guarantees:</p><ul id="b58580f6-5555-4ecf-88e1-ffaed2ce2fff" class="bulleted-list"><li style="list-style-type:disc"><strong>FIFO Order</strong>: m1 and m2 are multicast by the <strong>same</strong> process and multicast(g, m1) happens-before multicast(g, m2), then m1 must be delivered before m2</li></ul><ul id="31353c09-5de2-41d3-8377-9f7a990d4b38" class="bulleted-list"><li style="list-style-type:disc"><strong>Causal Order</strong>: if multicast(g, m1) happens-before multicast(g, m2) then m1 must be delivered before m2</li></ul><ul id="f90cbed8-b6eb-4c44-8133-f2caf5adceca" class="bulleted-list"><li style="list-style-type:disc"><strong>Total Order</strong>: if m1 is delivered before m2 to a process then m1 must be delivered before m2 to all processes in the same group</li></ul><h2 id="8907114f-9b0d-45d8-a267-db90d37b79c0" class="">FIFO Order</h2><figure id="0a87d016-7732-4bf1-9496-05a03858dab0" class="image"><a href="Multicast%20Models%20a51b7fbd842d42ba9179b77b8038d648/Screenshot_2023-05-16_at_16.20.46.png"><img style="width:882px" src="Multicast%20Models%20a51b7fbd842d42ba9179b77b8038d648/Screenshot_2023-05-16_at_16.20.46.png"/></a></figure><p id="e0838402-8e09-4de9-8e6e-135ec1064100" class="">Messages sent by the same process must be delivered in the order that they were sent</p><p id="188fa403-3427-4ebf-a3e2-d5ccf50b6cb7" class="">Message sent by different processes can be delivered in any order</p><p id="8b642b69-879d-4935-86ef-ebd08239c6e2" class="">Valid orders:<strong> (m1,m2,m3)</strong> or <strong>(m1,m3,m2) </strong>or <strong>(m2,m1,m3)</strong></p><div id="44a21e34-ead3-424d-a43d-f3b3f22d93fa" class="column-list"><div id="831aa5d6-d405-40b3-9298-2cdff4d0ee42" style="width:56.25%" class="column"><pre id="d5c6d438-a67a-4139-9847-ed6179941f40" class="code"><code>On initialisation
+	sendSeq:=0; delivery:=&lt;0,0,…,0&gt;; buffer:={}
+
+For p to FO-Multicast message m to group g
+	R-multicast(&lt;sendSeq, m&gt;, g)
+	sendSq:=sendSq+1
+
+On R-deliver(msg) at process q with group(msg)
+	buffer:=buffer ∪ {msg}
+	while ∃sender, m. (sender, delivered[sender],m) ∈ buffer do
+		FO-deliver(m) to the application
+		delivered[sender]:=delivered[sender]+1</code></pre></div><div id="b7571fac-8fec-4de4-8089-651b345252a9" style="width:43.74999999999999%" class="column"><ul id="f8a2204f-6834-4dbe-afb4-45cdca174be7" class="bulleted-list"><li style="list-style-type:disc">Each process in the group starts by initialising sendSeq, the delivery count vector and buffer</li></ul><ul id="60aaefaa-9511-4c9b-b92b-b6a93aea3081" class="bulleted-list"><li style="list-style-type:disc">When a process FIFO-multicasts a message it uses the R-multicast primitive to send the message along with its current sendSeq. It then increments sendSeq</li></ul><ul id="7a8a1155-d8e8-4437-a50a-2994c0a040ab" class="bulleted-list"><li style="list-style-type:disc">When a message is R-delivered it is added to the message buffer</li></ul><ul id="7754a65e-f3da-4562-bf12-c199abae6111" class="bulleted-list"><li style="list-style-type:disc">Any messages that match the expected delivered sequence counter for the sender are FO-delivered to the application and the relevant delivered counter is incremented</li></ul></div></div><div id="e7926cef-35ea-48a1-a890-9505ab0d69c1" class="column-list"><div id="86d78ae4-ceec-4536-ac3d-101bcf6d8962" style="width:56.25%" class="column"><ul id="d7bffb4c-068a-44c0-ba21-0eedb019c556" class="bulleted-list"><li style="list-style-type:disc">FIFO Order Multicast algorithm maintains a buffer</li></ul><ul id="78d6ce28-db5d-430a-aaac-a9d84fdbf6b4" class="bulleted-list"><li style="list-style-type:disc">Stores incoming messages until they are ready for delivering to the application</li></ul><ul id="a4d7b306-d5d7-42a7-8e65-83824812ef20" class="bulleted-list"><li style="list-style-type:disc">Once message is ready, it is put on delivery queue ready for the deliver primitive</li></ul></div><div id="f3205dc0-581f-4821-86a2-c999d1c6af70" style="width:43.75%" class="column"><figure id="ccbc3cdf-9ecc-469b-a040-e81ed5ee7805" class="image"><a href="Multicast%20Models%20a51b7fbd842d42ba9179b77b8038d648/Screenshot_2023-05-16_at_16.22.30.png"><img style="width:336px" src="Multicast%20Models%20a51b7fbd842d42ba9179b77b8038d648/Screenshot_2023-05-16_at_16.22.30.png"/></a></figure></div></div><h2 id="03a63675-13a8-4e49-b22b-e3d4f1c84175" class="">Causal Order</h2><figure id="f3bb8bcc-69c6-4382-a3df-f5ece4790ab6" class="image"><a href="Multicast%20Models%20a51b7fbd842d42ba9179b77b8038d648/ezgif.com-gif-maker-8.gif"><img style="width:874px" src="Multicast%20Models%20a51b7fbd842d42ba9179b77b8038d648/ezgif.com-gif-maker-8.gif"/></a></figure><p id="a60a44d7-ff75-42a2-95b0-df3087aad8e0" class="">Casual related messages must be delivered in causal order, concurrent messages can be delivered in any order</p><p id="ba8c05ad-ef0d-4994-8d4f-5a2fbca1c9bc" class="">Here: multicast(m1) <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span></span><span>﻿</span></span> multicast(m2) <strong>and</strong> multicast(m1) <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span></span><span>﻿</span></span> multicast(m3)</p><p id="388339a8-3758-4b8c-8537-0e2789872cbf" class="">Valid orders: <strong>(m1,m2,m3) </strong>or <strong>(m1,m3,m2)</strong></p><pre id="acb76539-e0db-4d2b-b5f9-c97794c1795d" class="code"><code>On initialization:
+	sendSed:=0; delivered=&lt;0, 0, .. O&gt;; buffer:=(
+
+For p to CO-multicast m:
+	deps := delivered; depsip! := sendSea
+	R-multicast(&lt;p, m, deps&gt;) sendSed:= sendSed. + 1
+
+On R-deliver(msg):
+	buffer := buffer U (msg)
+	while a(p, m, deps) € buffer and deps &lt; delivered
+	buffer = buffer \ {&lt;p, m, deps&gt;)
+	CO-deliver(m)
+	delievered{p]:= delievered{p] + 1</code></pre><ul id="50b95e4d-dfe6-45e1-8048-ccac2365775d" class="bulleted-list"><li style="list-style-type:disc">Maintains the current sequence number, a vector of sequence numbers and a buffer</li></ul><ul id="7c86a361-eae1-442d-98a8-d47695b67866" class="bulleted-list"><li style="list-style-type:disc">When a process Causal-Order-multicasts a message<ul id="b60fc492-2ee0-4fa2-b4dd-1c68eb5b8748" class="bulleted-list"><li style="list-style-type:circle">Updates the dependencies for the message by setting its sendSeq</li></ul><ul id="5858efc6-f11b-428c-886d-dae72748b40b" class="bulleted-list"><li style="list-style-type:circle">R-multicasts process id, message and dependencies</li></ul><ul id="81e0bace-e762-4ad7-9907-d86c021bce46" class="bulleted-list"><li style="list-style-type:circle">It then increments sendSeq</li></ul></li></ul><ul id="3816c12e-2c16-4854-bbbc-9ea75db67bd6" class="bulleted-list"><li style="list-style-type:disc">On receiving a message<ul id="41c48a8d-c1d6-41b2-9255-3618ce65eb86" class="bulleted-list"><li style="list-style-type:circle">Add the message to the buffer</li></ul><ul id="6c9a0761-1b21-46ea-be18-58a28cbc6fc1" class="bulleted-list"><li style="list-style-type:circle">Find any messages in the buffer whose dependencies are before the current delivered vector<ul id="267606c9-74b5-407e-8f46-eb6999cbc8b8" class="bulleted-list"><li style="list-style-type:square">Remove from buffer and deliver the message</li></ul><ul id="d1ee0edb-f381-40b8-8cfc-9b93f685d940" class="bulleted-list"><li style="list-style-type:square">Update the delivered vector</li></ul></li></ul></li></ul><h2 id="fd731954-ea52-4d28-bdea-6512e07da37c" class="">Total Order</h2><figure id="e45dc12c-336b-461e-8332-39fcde674590" class="image"><a href="Multicast%20Models%20a51b7fbd842d42ba9179b77b8038d648/Screenshot_2023-05-16_at_16.26.12.png"><img style="width:874px" src="Multicast%20Models%20a51b7fbd842d42ba9179b77b8038d648/Screenshot_2023-05-16_at_16.26.12.png"/></a></figure><p id="b9dc1a2f-44f8-423a-b0d2-af5e3e63ee57" class="">All processes must deliver messages in the same order: <strong>(m1, m2, m3)</strong></p><p id="c5600ff2-ad6a-42e7-8048-a66a10195a08" class="">This includes a process’ deliveries to itself</p><p id="1bc5654b-6fea-4b85-b763-6af80240f398" class=""><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong>Algorithm</strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></p><p id="80995c92-e73a-4744-912f-28c61d2ce5ce" class="">One process is the <strong>Sequencer</strong> and a set of <strong>Group</strong> members</p><p id="bd77f151-6f1a-4b92-928b-46cb0a273a42" class="">The Sequencer is a process responsible for ordering messages</p><p id="efae68f1-1501-41f6-a14c-623adc4c801f" class="">The Sequencer auto-increments the sequence number for each TO-multicast message that it sees</p><div id="b9cf4f39-056e-4136-89c1-fe9ad20fd5ee" class="column-list"><div id="3faff38b-dd75-4ef0-a02d-919629d102cd" style="width:50%" class="column"><pre id="f4b9404d-47be-465b-88af-1de43b9b2409" class="code"><code>Initialization Seq := 0
+
+On R-deliver(&lt;m, id&gt;):
+R-multicast(&lt;“order”, id, Seq&gt;)
+Seq := Seq + 1</code></pre><ul id="893dc2b8-1add-4317-9e36-d2c4181bc7c4" class="bulleted-list"><li style="list-style-type:disc">Maintains Seq which is the current sequence number</li></ul><ul id="5ed99802-b1d8-4ed7-aa0b-e1f2ab750304" class="bulleted-list"><li style="list-style-type:disc">Multicasts the sequence number and message ID</li></ul><p id="f61f7692-69c2-4015-860a-58aace3f1495" class="">
+</p><p id="f53e1449-c280-43ab-a51d-2e28eb31365b" class=""><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong>Benefits and Drawbacks:</strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></p><ul id="03998442-d6a6-4c82-91a4-ca2a432f6ab0" class="bulleted-list"><li style="list-style-type:disc">Shown a single leader approach</li></ul><ul id="f8d8529d-3471-4c91-9cb9-afef3e7d519f" class="bulleted-list"><li style="list-style-type:disc">One process is designated as sequencer to control the sequence of messages</li></ul><ul id="63771f58-a6b1-4054-b718-e9b3d2642298" class="bulleted-list"><li style="list-style-type:disc">When multicasting a message, sequencer produces a sequence number</li></ul><ul id="85c30fa3-44fa-4c6c-b5d7-1d6232fc18e2" class="bulleted-list"><li style="list-style-type:disc">Problem: If the leader crashes, then no more messages are delivered</li></ul><ul id="7ce1c6a5-6d7b-465d-8682-6d91b39d8b57" class="bulleted-list"><li style="list-style-type:disc">Also, changing the leader safely is difficult ñ tackled in the upcoming lecture on Consensus</li></ul></div><div id="b952f416-5841-4603-bebb-a91d02b3fb9e" style="width:50%" class="column"><pre id="33d6cdf1-5fc9-4804-826e-55eda45bf33b" class="code"><code>Initialization: R := 0; buffer:={}
+
+To TO-multicast m,
+	R-multicast(&lt;m, id&gt;) to the group and sequencer
+
+On R-deliver(&lt;m, id&gt;)
+	buffer := buffer ∪ {&lt;m, id&gt;}
+
+On R-deliver(&lt;“order”, id, Seq&gt;):
+	When &lt;m, id&gt;    buffer and Seq = R
+		T0-deliver(m)
+		buffer = buffer \ {&lt;m, id&gt;}
+		set R := Seq + 1</code></pre><ul id="45870e15-f5b1-47a2-9bb5-ae380ee32a20" class="bulleted-list"><li style="list-style-type:disc">Maintains the current sequence number and a buffer</li></ul><ul id="892733e5-5831-4574-841c-61d1de5526ae" class="bulleted-list"><li style="list-style-type:disc">When process TO-multicasts a message, add a unique id to the message and R-multicast it to the group and sequencer</li></ul><ul id="7e141033-76e3-40bb-a72a-03f134598a45" class="bulleted-list"><li style="list-style-type:disc">On receiving a message add it to the buffer</li></ul><ul id="5e4970b7-c5b1-47e0-8c1a-95ec4ffdcfb0" class="bulleted-list"><li style="list-style-type:disc">On receiving an order, wait until the message id is in the buffer and for the current sequence number to match the sequence number in the order message<ul id="1e491519-a723-4ab3-bba1-41b7409dfa62" class="bulleted-list"><li style="list-style-type:circle">Deliver the message</li></ul><ul id="8791b9ba-6e50-47b0-8143-3442963a5f6d" class="bulleted-list"><li style="list-style-type:circle">Remove from buffer</li></ul><ul id="b0e3e281-d6f4-42f6-a085-cf015f73b729" class="bulleted-list"><li style="list-style-type:circle">Update the current sequence number</li></ul></li></ul></div></div><h1 id="990f3e74-9aed-43d3-99fa-412489deb751" class="">Total Ordering of Multicast Models</h1><figure id="5011d6b4-30f6-4cbc-9a10-b934bdecc815" class="image"><a href="Multicast%20Models%20a51b7fbd842d42ba9179b77b8038d648/Screenshot_2023-05-16_at_16.30.26.png"><img style="width:778px" src="Multicast%20Models%20a51b7fbd842d42ba9179b77b8038d648/Screenshot_2023-05-16_at_16.30.26.png"/></a></figure><ul id="a17091da-45af-430c-9a74-0eafd2dbe63e" class="bulleted-list"><li style="list-style-type:disc">Taking a layered approach by building reliable multicast on top of basic multicast</li></ul><ul id="43c9f0b7-0467-4bac-a356-ddab0a30acbd" class="bulleted-list"><li style="list-style-type:disc">Enforce specific ordering behaviours built on top of reliable multicast</li></ul><ul id="04a05fc5-23e5-4abc-8d43-ff25e1e99e4b" class="bulleted-list"><li style="list-style-type:disc">FIFO-Total Order multicast combines both FIFO multicast and Total Order. The combination also meets the requirements for Causal multicast</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

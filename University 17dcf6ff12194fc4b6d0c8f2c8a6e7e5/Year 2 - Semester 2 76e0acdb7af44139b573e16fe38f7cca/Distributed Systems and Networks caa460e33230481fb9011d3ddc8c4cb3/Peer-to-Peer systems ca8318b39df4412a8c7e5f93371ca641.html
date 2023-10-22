@@ -1,0 +1,676 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Peer-to-Peer systems</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="ca8318b3-9df4-412a-8c7e-5f93371ca641" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/meeting_gray.svg"/></div><h1 class="page-title">Peer-to-Peer systems</h1><p class="page-description"></p></header><div class="page-body"><nav id="2447b2f4-2a0d-459b-9090-397a074e652b" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#adebe635-c9a6-4a9a-8c85-7067f4648a3a">Peer-to-Peer vs Client Server</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2a6dacd5-6a56-45b6-bac4-86288edcd0da">“Replace” clients and servers with peers (Scenario 1)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c67dccb4-3d10-4b51-9170-f80fe69ab00f">“Replace” just servers as peers (Scenario 2)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#cbeb5e0d-84ce-4c45-97f3-ef9c2f0eaa67">Napster</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1b0e3f73-7227-4aa9-808e-6d547f1b55de">Lessons Learned</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f550c980-bae2-4e3e-9ea1-c02286724620">BitTorrent</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#724a6ffc-dbd2-43fa-9198-612d091b273d">Architecture</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#99c68c94-855e-4e87-bb70-817d7c6a563b">How it works?</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d2cbfd4e-ba07-4c57-95d8-418c4b60c4ab">Reducing BitTorrent’s Centralisation Problem?</a></div></nav><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="b77798e5-6b76-4a5f-9c78-6cf6bfb7789d"><div style="font-size:1.5em"><span class="icon">📢</span></div><div style="width:100%"><strong>Need to be able to do:</strong><ul id="b770b1a5-8e7b-4612-824f-ee4515e52c85" class="bulleted-list"><li style="list-style-type:disc">LO1 Discuss the differences between client-server and peer-to-peer models</li></ul><ul id="0e759d6d-b88a-4e34-8c95-97a9b261d83b" class="bulleted-list"><li style="list-style-type:disc">LO2 Describe how Napster works and its limitations</li></ul><ul id="46aa98a3-85bc-46a3-810d-79a091d4d0ec" class="bulleted-list"><li style="list-style-type:disc">LO3 Explain BitTorrent protocol and how it evolved</li></ul></div></figure><h1 id="adebe635-c9a6-4a9a-8c85-7067f4648a3a" class="">Peer-to-Peer vs Client Server</h1><ul id="ade95056-94f6-46af-8290-b96a8cb95085" class="bulleted-list"><li style="list-style-type:disc">Trend: workload usually grows over time<ul id="a3afd591-2efd-4560-8b1e-791574214ba3" class="bulleted-list"><li style="list-style-type:circle">More clients</li></ul><ul id="b3bbc2d7-8cf0-4980-8a6e-ea413d01d5b1" class="bulleted-list"><li style="list-style-type:circle">More requests from each client</li></ul></li></ul><ul id="30a1b4f6-d6f7-434e-8ad4-fa09ae865510" class="bulleted-list"><li style="list-style-type:disc">Client-server architectures might have bottlenecks<ul id="74e8f707-4cc5-482c-a1c4-2ba2119bb5c4" class="bulleted-list"><li style="list-style-type:circle">Computational power</li></ul><ul id="bd279f31-c08e-4aa3-9197-2bfbee19cfa8" class="bulleted-list"><li style="list-style-type:circle">Memory/disk</li></ul><ul id="1fc73c3f-59a1-4d97-9378-244c353a45cc" class="bulleted-list"><li style="list-style-type:circle">Network bandwidth</li></ul></li></ul><ul id="ebb892b9-6651-454b-b12f-9d3291ef2c91" class="bulleted-list"><li style="list-style-type:disc">Upgrade the infrastructure with more (and/or more powerful) servers/bandwidth<ul id="3ea4f865-d796-441f-8bd7-3eb5fabefaf2" class="bulleted-list"><li style="list-style-type:circle">High upgrade/maintenance/management costs</li></ul><ul id="0618a387-4a49-4ff6-8a58-96fe1b1629fb" class="bulleted-list"><li style="list-style-type:circle">Upgrading requires time</li></ul><ul id="9727aa6e-2888-4c2c-acee-ada475fe4ba2" class="bulleted-list"><li style="list-style-type:circle">Does adding more servers increase how much workload can be sustained?</li></ul></li></ul><figure id="4c956e68-7fd6-427a-a212-2d9be7bcb008" class="image" style="text-align:left"><a href="Peer-to-Peer%20systems%20ca8318b39df4412a8c7e5f93371ca641/Screenshot_2023-05-07_at_11.03.56.png"><img style="width:288px" src="Peer-to-Peer%20systems%20ca8318b39df4412a8c7e5f93371ca641/Screenshot_2023-05-07_at_11.03.56.png"/></a></figure><p id="b553d54d-7f92-480d-9d1e-59502e5611d5" class=""><span style="border-bottom:0.05em solid"><strong>Alternative Pattern to Distribute Application/Data </strong></span></p><p id="81eda747-bab9-49a7-8dbd-f614ec1715ee" class="">—&gt; Two main scenarios:</p><h3 id="2a6dacd5-6a56-45b6-bac4-86288edcd0da" class="">“Replace” clients and servers with peers (Scenario 1)</h3><ul id="169d6acd-5839-4ef1-8686-fd9881bc7624" class="bulleted-list"><li style="list-style-type:disc">Many hosts contribute data and computation</li></ul><ul id="39e7b191-cae0-4633-a191-5e7a79be4ec6" class="bulleted-list"><li style="list-style-type:disc">Peers are spread over the internet</li></ul><ul id="bd43ee10-b282-4422-947d-1cbcd392c83f" class="bulleted-list"><li style="list-style-type:disc">Peers can leave or fail</li></ul><p id="71374498-570a-4c2c-a03c-f137a250af48" class="">Computational power, memory, disk and bandwidth increase with the number of peers</p><p id="ef66bc61-dc33-4a27-b781-58539b683255" class=""><strong><strong><strong>Challenges:</strong></strong></strong></p><ul id="b9dd8317-a5b4-477c-b403-703b4b8e8fb8" class="bulleted-list"><li style="list-style-type:disc">How to distribute data and computation?</li></ul><ul id="98a4aa8b-5509-4028-ba4b-49080638696e" class="bulleted-list"><li style="list-style-type:disc">How to access distributed data/computation? </li></ul><ul id="52ebd764-ceda-4d8b-9530-70899ba42858" class="bulleted-list"><li style="list-style-type:disc">How to cope with failures and high level of <em><em><em><em><em><em><em>churn</em></em></em></em></em></em></em>?</li></ul><figure id="08902458-6004-4848-8ec7-2745a0b116cc" class="image" style="text-align:left"><a href="Peer-to-Peer%20systems%20ca8318b39df4412a8c7e5f93371ca641/Screenshot_2023-05-07_at_11.05.49_copy.png"><img style="width:288px" src="Peer-to-Peer%20systems%20ca8318b39df4412a8c7e5f93371ca641/Screenshot_2023-05-07_at_11.05.49_copy.png"/></a></figure><h3 id="c67dccb4-3d10-4b51-9170-f80fe69ab00f" class="">“Replace” just servers as peers (Scenario 2)</h3><p id="df3ea7a4-99d5-49b0-85f9-ecbffbb335b6" class=""><strong>…</strong></p><figure id="fc53e840-e4bf-456d-be7e-e34a1d7c9924" class="image"><a href="Peer-to-Peer%20systems%20ca8318b39df4412a8c7e5f93371ca641/Screenshot_2023-05-07_at_11.05.49.png"><img style="width:480px" src="Peer-to-Peer%20systems%20ca8318b39df4412a8c7e5f93371ca641/Screenshot_2023-05-07_at_11.05.49.png"/></a></figure><h1 id="cbeb5e0d-84ce-4c45-97f3-ef9c2f0eaa67" class="">Napster</h1><ul id="c964c796-ec27-4237-a720-06381184a023" class="bulleted-list"><li style="list-style-type:disc">First working, large-scale application of p2p paradigm (1999)</li></ul><ul id="d7c3b2e9-1542-452f-bd70-0889c7974666" class="bulleted-list"><li style="list-style-type:disc">Famous for music exchange in MP3 format</li></ul><ul id="7b9f4149-c872-4f33-86c8-634b58c6c5d8" class="bulleted-list"><li style="list-style-type:disc">Up to millions of users simultaneously downloading/uploading music files</li></ul><ul id="9afb9df3-4818-41e3-8129-47666d1cc9b2" class="bulleted-list"><li style="list-style-type:disc">Shut down for copyright infringement in 2001</li></ul><figure id="aa531017-478d-45ac-96cd-417b8b7203fa" class="image"><a href="Peer-to-Peer%20systems%20ca8318b39df4412a8c7e5f93371ca641/Screenshot_2023-05-07_at_11.16.25.png"><img style="width:1538px" src="Peer-to-Peer%20systems%20ca8318b39df4412a8c7e5f93371ca641/Screenshot_2023-05-07_at_11.16.25.png"/></a></figure><h2 id="1b0e3f73-7227-4aa9-808e-6d547f1b55de" class="">Lessons Learned</h2><ul id="3429c4f3-3a89-4107-b384-5c9f93e36624" class="bulleted-list"><li style="list-style-type:disc">Large-scale p2p systems are technically feasible<ul id="8bbc07f3-ed9f-44ad-85d8-a41430879bc3" class="bulleted-list"><li style="list-style-type:circle">Although not a pure p2p system</li></ul></li></ul><ul id="93b800ac-8e13-404b-8e6d-0146ffb08e77" class="bulleted-list"><li style="list-style-type:disc">Allocation of “servers” to “clients” based on network locality can reduce network load<ul id="3e0e922c-db08-4c39-9348-47a2109bc099" class="bulleted-list"><li style="list-style-type:circle">List of peers sorted by number-of-hops</li></ul></li></ul><ul id="b078c1d2-ca65-4ec9-99b8-2fca9b1293e1" class="bulleted-list"><li style="list-style-type:disc">Limitations of server-based indexing, it is likely to become a bottleneck<ul id="1b141a77-79f6-455c-a70d-8494dc9d4a67" class="bulleted-list"><li style="list-style-type:circle">File location requests and index update operations can overload centralised servers</li></ul></li></ul><ul id="96fa848a-fdd1-4045-8c35-d5fcc39ae9e2" class="bulleted-list"><li style="list-style-type:disc">Specific features of shared files can simplify the design<ul id="6eedb83b-ccd2-4a02-a4dc-a005e331a571" class="bulleted-list"><li style="list-style-type:circle">Music files are never updated, hence ensuring replica consistency is simple</li></ul></li></ul><h1 id="f550c980-bae2-4e3e-9ea1-c02286724620" class="">BitTorrent</h1><ul id="faed8e15-64cf-4663-b379-0fe46014a297" class="bulleted-list"><li style="list-style-type:disc">Well know p2p system for file sharing</li></ul><ul id="993e0d37-2a28-422b-aa1b-12a9a6d15da8" class="bulleted-list"><li style="list-style-type:disc">Enable sharing large files (e.g., movies)</li></ul><p id="13b8786c-4187-49c7-8817-763af354d065" class="">Files split into chunks</p><p id="bfbf7ed3-0ed0-4d8f-bb7f-36429c0c8f78" class="">- Chunks are replicated over peers</p><p id="5848fea2-77b8-461d-bad8-98ceae745013" class="">- A “client” peer can download different chunks from different “servers” peers in parallel<div class="indented"><p id="1a79d4e8-84bb-473f-82b2-97bb7bcb68d3" class="">&gt; Can improve overall download time</p><p id="51c302d3-0761-4c21-97a1-218227bdc587" class="">&gt; Reduces the burden on “server” peers</p><p id="f65cd5a1-dbf8-452c-b6a3-c36038682f22" class="">&gt; Allows for better load balancing</p></div></p><h2 id="724a6ffc-dbd2-43fa-9198-612d091b273d" class="">Architecture</h2><p id="eb63264f-49f9-4566-b2d4-9978251800bb" class="">BitTorrent contains:</p><div id="8257cef4-7a6b-449f-97a5-4b314dd47eeb" class="column-list"><div id="6a41b234-4cc6-4406-8dff-43e0c3f5a49e" style="width:50%" class="column"><ul id="5746a928-f544-48ea-8bc5-8378bd7dedd7" class="bulleted-list"><li style="list-style-type:disc">Tracker</li></ul></div><div id="947582a0-b980-4825-9099-8511b1075daf" style="width:50%" class="column"><ul id="edec8714-bf24-4c6d-b511-5ed2074a5854" class="bulleted-list"><li style="list-style-type:disc">.torrent server</li></ul></div></div><div id="f90da3d0-be8a-42fe-8e53-d1e0b7fb32c7" class="column-list"><div id="c57f4e30-f6f8-4ecf-b8c1-ab5f251901d5" style="width:50%" class="column"><ul id="ab9a1d57-556a-4c60-9b1b-3ebe132a2139" class="bulleted-list"><li style="list-style-type:disc">Peer<ul id="10580fb6-1679-42f3-b621-0f0b71220be2" class="bulleted-list"><li style="list-style-type:circle">Seeder</li></ul><ul id="e38afc56-527c-4543-b9d0-01e63153a83a" class="bulleted-list"><li style="list-style-type:circle">Leecher</li></ul></li></ul></div><div id="c87acbe2-23ce-4979-95e9-519818cc7dda" style="width:50%" class="column"><ul id="bfcb0dda-9760-4d5d-9d3c-c0287d7b6f3e" class="bulleted-list"><li style="list-style-type:disc">.torrent file<ul id="58f37f18-98da-435f-8383-05b25afa31f3" class="bulleted-list"><li style="list-style-type:circle">Trackers</li></ul><ul id="383471b9-0386-4a50-8916-ccba4bfda3db" class="bulleted-list"><li style="list-style-type:circle">File name and size</li></ul><ul id="479f05d2-7ce8-40cf-9694-3bc10a5b55ed" class="bulleted-list"><li style="list-style-type:circle">Chunks and checksums</li></ul></li></ul></div></div><figure id="2b27c308-1864-487e-bb2f-a4772c3d135a" class="image"><a href="Peer-to-Peer%20systems%20ca8318b39df4412a8c7e5f93371ca641/Screenshot_2023-05-07_at_11.23.54.png"><img style="width:528px" src="Peer-to-Peer%20systems%20ca8318b39df4412a8c7e5f93371ca641/Screenshot_2023-05-07_at_11.23.54.png"/></a></figure><h2 id="99c68c94-855e-4e87-bb70-817d7c6a563b" class="">How it works?</h2><ul id="5c71f229-262c-4ae0-b53d-0d5cc504d7a1" class="bulleted-list"><li style="list-style-type:disc">To work well, BitTorrent relies on the willingness of peers to upload chunks</li></ul><ul id="8b4adb7c-ddf5-410b-9f24-c1250ba212f0" class="bulleted-list"><li style="list-style-type:disc">Incentive mechanism: “tit-for-tat”<ul id="74d3690c-01e5-476f-9ea7-71bf15aa8c3c" class="bulleted-list"><li style="list-style-type:circle">To reward cooperative peers</li></ul><ul id="0bdaf416-3fd4-4948-8b9b-06c6e3aabaa8" class="bulleted-list"><li style="list-style-type:circle">Preference to “client” peers that are acting as “server” peers</li></ul><ul id="44378954-82f4-4998-b28d-f88ec5a6ed6d" class="bulleted-list"><li style="list-style-type:circle">Peers that are not uploading enough are “choked”</li></ul><ul id="8a473edf-b528-4cc7-8361-379c42f1ff0c" class="bulleted-list"><li style="list-style-type:circle">Choking/unchoking decisions based on the uploading rate of a peer</li></ul><ul id="2a48b5ad-4ded-4696-97b0-e0894096c163" class="bulleted-list"><li style="list-style-type:circle">New peers would be penalised because they don’t have chunks to upload<ul id="f0230464-32dc-44c3-9aed-752d85e8a3fa" class="bulleted-list"><li style="list-style-type:square">Optimistic unchoking: random peer unchoked every 30 seconds</li></ul></li></ul></li></ul><h2 id="d2cbfd4e-ba07-4c57-95d8-418c4b60c4ab" class="">Reducing BitTorrent’s Centralisation Problem?</h2><p id="13d88427-935c-4a7e-9407-5b2e4078a75a" class=""><span style="border-bottom:0.05em solid">BitTorrent evolved to reduce its centralisation problems:</span></p><p id="5a95b435-36cf-4525-b46b-b34289a99354" class=""><strong>Every peer acts like a tracker server </strong></p><p id="9c2d0f3f-9637-4911-9fb7-052b4f8ed0be" class=""><strong>Peers are organised in a Distributed Hash Table (DHT), i.e., a ring overlay network</strong></p><ul id="3e8b0c51-3668-446f-b596-af6cac785997" class="bulleted-list"><li style="list-style-type:disc">Each DHT node has a unique ID, randomly chosen</li></ul><ul id="0231bfc0-296d-4832-b70f-1e6ff23ee0fe" class="bulleted-list"><li style="list-style-type:disc">The ID defines the virtual position of a node within the DHT</li></ul><ul id="7072d03b-de6d-4065-a6fa-c5be7ff4bf01" class="bulleted-list"><li style="list-style-type:disc">The distance between two IDs reflects the virtual distance between corresponding nodes in the DHT</li></ul><ul id="a01370b7-caba-4e09-a207-ed758ebc3d60" class="bulleted-list"><li style="list-style-type:disc">Each DHT node knows many neighbour (close) nodes and a few further nodes</li></ul><ul id="fdc42fde-59d5-466e-95a7-84ffe17efbe6" class="bulleted-list"><li style="list-style-type:disc">A specific node can be found starting from any node in a number of steps logarithmic in the size of the DHT</li></ul><ul id="ca7fe8ee-0eb6-4a93-be55-ca588906ab8b" class="bulleted-list"><li style="list-style-type:disc">Easy to maintain the overlay network as nodes join and leave</li></ul><ul id="41af71c9-b609-4e41-8880-c20c5cadab45" class="bulleted-list"><li style="list-style-type:disc">To find a file, its hash is used to find the node in the DHT that acts as tracker for that file</li></ul><ul id="6a37dab6-b059-4f1e-8c16-494afdc32338" class="bulleted-list"><li style="list-style-type:disc">The tracker is decentralised</li></ul><ul id="8153542d-6d10-463e-8129-a9465b403220" class="bulleted-list"><li style="list-style-type:disc">Magnet links defines file hash<ul id="103de6a2-a6ea-4d20-9f87-03cd7125788e" class="bulleted-list"><li style="list-style-type:circle">They replace .torrent files</li></ul></li></ul><figure id="50a31e8a-5e9f-488f-8aab-7ab3a22b3d20" class="image"><a href="Peer-to-Peer%20systems%20ca8318b39df4412a8c7e5f93371ca641/Screenshot_2023-05-07_at_11.24.29.png"><img style="width:384px" src="Peer-to-Peer%20systems%20ca8318b39df4412a8c7e5f93371ca641/Screenshot_2023-05-07_at_11.24.29.png"/></a></figure><p id="9d53b385-480d-44e3-bee7-cb39dae86705" class=""><time>@May 24, 2023</time> Distributed Systems Book (Coulouris) - <strong><strong><strong><strong><strong><strong><strong><strong><strong>chpt 10. (sec: 10.0-10.2)</strong></strong></strong></strong></strong></strong></strong></strong></strong></p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

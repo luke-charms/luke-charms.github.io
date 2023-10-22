@@ -1,0 +1,685 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Network Security</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="83c3b5c9-d25c-4ded-8402-deec66713ffe" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/unlock-keyhole_lightgray.svg"/></div><h1 class="page-title">Network Security</h1><p class="page-description"></p></header><div class="page-body"><nav id="8e7b2d4c-a280-43f0-be9b-02bf0be0e90a" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#97390d56-c39f-4901-be85-af93a5b19c38">Introduction</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#9bb6d1cd-82c3-4265-8ad3-6dc81ca82385">Security Mechanisms</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#604c6093-69ea-404e-a115-c80dc6bed509">Firewall</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2f1f8c60-9bcf-442e-9f06-5d48185c5075"><strong>Stateful Firewalls </strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#620d1644-b5e8-4f10-b81e-0d645e03f623"><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Application Layer Firewall</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#05144488-ca87-4ea9-bcac-b76bf21ea6a6"><strong>Network Intrusion Detection</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6051ee4a-8224-43f9-ab21-248da8f6e43e"><strong>IPSEC</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#24d683e3-6614-4f92-8a1e-441263c90552">Virtual Private Network (VPN)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#953c7a20-6cd9-4a60-9738-8e8c8fc94689">Wireless Security</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4f96bd68-41c5-4f80-8c12-5ac622b1c0e7">Other types of exploit</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#cb05eb8a-7c9c-4ede-a476-7382f2193f3f">DNS Exploitation</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#c2561312-a7e7-4bc3-b276-91de60387408">Trusting DNS responses?</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#fc07e030-1377-42fb-90af-a45a6d3e479c">DNS Privacy</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#16a70367-1959-46eb-8381-367966729a6c">DNS Security Extensions</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#f2a92b30-9131-433f-9658-d99be09d63df">DNS Hijacking: DNSpionage</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#893f4ba9-1f7b-406a-b281-d6638dafc1c5">DDoS</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#002d9a3c-df5b-4f73-87cc-4a00246eb304">Example: TCP SYN Flood</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#4c966cce-1683-4e10-8498-16b61fa56b87">DDoS Mitigation</a></div></nav><h1 id="97390d56-c39f-4901-be85-af93a5b19c38" class="">Introduction</h1><figure id="9403a0fd-0127-4b1b-98f3-8bc5a295eab0" class="link-to-page"><a href="Network%20Security%2083c3b5c9d25c4ded8402deec66713ffe/Introduction%209403a0fd01274b1b98f38bc5a295eab0.html"><img class="icon" src="https://www.notion.so/icons/cursor_orange.svg"/>Introduction</a></figure><h1 id="9bb6d1cd-82c3-4265-8ad3-6dc81ca82385" class="">Security Mechanisms</h1><h2 id="604c6093-69ea-404e-a115-c80dc6bed509" class="">Firewall</h2><ul id="b69bfeb9-7b78-4661-b159-ec825e5e49d1" class="bulleted-list"><li style="list-style-type:disc">A network device that sits at the edge of network</li></ul><ul id="7e360d30-14a4-415f-9d8d-d7b6d96bd1b0" class="bulleted-list"><li style="list-style-type:disc">Inspects each packet passing through it and matches them to a set of rules:<ul id="6cd53f44-7a81-41c7-9e05-82de182e2902" class="bulleted-list"><li style="list-style-type:circle">Packets that meet the requirements are passed through</li></ul><ul id="d1235037-4cb3-4c70-ab19-44022a6c2ce1" class="bulleted-list"><li style="list-style-type:circle">Packets that don’t meet the rules are dropped or rejected</li></ul></li></ul><ul id="cd2eb003-717e-4e34-bb10-b676ec210a64" class="bulleted-list"><li style="list-style-type:disc">In a SOHO scenario: usually an embedded platform with other functions</li></ul><ul id="898ef659-203d-41e8-9c01-b15d492493f7" class="bulleted-list"><li style="list-style-type:disc">In an enterprise scenario: might be combined with a router or implemented as a standalone device (bridging/transparent firewall)</li></ul><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="cd4d5ca3-4a6e-4f7a-9805-5a12c4ba0884"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%">NAT is not a security mechanism!</div></figure><h2 id="2f1f8c60-9bcf-442e-9f06-5d48185c5075" class=""><strong>Stateful Firewalls </strong></h2><ul id="e83e73d5-2c3a-4969-abbc-3473e3fbf5bd" class="bulleted-list"><li style="list-style-type:disc">Stateless firewalls are limited:<ul id="f606b477-7a15-4aee-9900-efe9df8ad348" class="bulleted-list"><li style="list-style-type:circle">A rule to allow web traffic to any web server would allow an attacker to do anything from port 80 inbound</li></ul></li></ul><ul id="e8a9afdc-cbde-4513-baf6-6fc0835a030e" class="bulleted-list"><li style="list-style-type:disc">Modern firewalls are stateful <ul id="c0e13858-83ba-45cf-b431-a2ff4d133a36" class="bulleted-list"><li style="list-style-type:circle">Inspect TCP/IP header fields and keep track of connections</li></ul><ul id="ce7dfd54-7e89-4985-a8ee-dc92a8bc9229" class="bulleted-list"><li style="list-style-type:circle">Have rules for related and established </li></ul><ul id="221e4a6c-ad49-4a18-871c-41a186e9866a" class="bulleted-list"><li style="list-style-type:circle">e.g. allow outbound traffic to port 80 but block inbound traffic from port 80 unless it is related to existing connection</li></ul></li></ul><ul id="257f1932-d5b0-4eaa-8f6a-53be632e820e" class="bulleted-list"><li style="list-style-type:disc">A common rule set for (home) firewalls is:<ul id="822a60c2-3180-4143-8b69-61a924a01ecd" class="bulleted-list"><li style="list-style-type:circle">Deny all inbound unless related / established</li></ul><ul id="7ffaf8e1-2820-4251-b2ca-1bc5634aa790" class="bulleted-list"><li style="list-style-type:circle">Allow all outbound.</li></ul></li></ul><h2 id="620d1644-b5e8-4f10-b81e-0d645e03f623" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Application Layer Firewall</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></h2><ul id="81445f43-636e-47f4-9a58-5d07a008a82c" class="bulleted-list"><li style="list-style-type:disc">Even more advanced firewalls can act at the application layer <ul id="408db98c-4441-4522-94b1-01e2c1876b0c" class="bulleted-list"><li style="list-style-type:circle">May be known as “Layer 7” firewalls or Application Layer Gateways</li></ul></li></ul><ul id="f425ac6d-0f7e-4b7f-bd3c-c4094bb3fe04" class="bulleted-list"><li style="list-style-type:disc">Inspect the contents of the packet to make sure that that packet that looks like HTTP on port 80 is actually HTTP</li></ul><ul id="4b023c89-1634-421d-ae62-33f237062cbe" class="bulleted-list"><li style="list-style-type:disc">Doesn&#x27;t necessarily work with encrypted traffic:<ul id="592a5ebd-1dbf-443f-904b-68d0022c72ea" class="bulleted-list"><li style="list-style-type:circle">e.g. SSH might &quot;look&quot; like HTTPs</li></ul></li></ul><p id="ba33d65f-3e02-4a1a-b76e-e4ea39bc0eaf" class="">
+</p><h2 id="05144488-ca87-4ea9-bcac-b76bf21ea6a6" class=""><strong>Network Intrusion Detection</strong></h2><ul id="f35eee39-6f8b-4f11-bf5b-cc36bf92bad3" class="bulleted-list"><li style="list-style-type:disc">Sometimes people get into your network or legitimate users do malicious things</li></ul><ul id="aa943948-904e-49b2-99c2-203d1a48d2c2" class="bulleted-list"><li style="list-style-type:disc">&quot;How can you mitigate this?” Try to detect it.</li></ul><ul id="5893e629-06c3-4f59-a70b-ac6100ede45f" class="bulleted-list"><li style="list-style-type:disc">Enter (N)IDS: a legitimate use of network sniffing<ul id="6de285b6-96b4-4ab8-b634-2e103a466a06" class="bulleted-list"><li style="list-style-type:circle">Monitors a network looking for malicious activity or policy
+violations</li></ul><ul id="fb8e9614-f7c0-4709-989a-c8711d6b98b3" class="bulleted-list"><li style="list-style-type:circle">May be signature based or use anomaly-based detection</li></ul></li></ul><ul id="05ccc8bb-7618-41f2-8de1-ecb535b7820c" class="bulleted-list"><li style="list-style-type:disc">NIDS may be monitor and alert only, or it may be able to take action to prevent the intrusion.</li></ul><p id="c5678ee1-76df-47b0-ba69-ee192d0a4f28" class="">
+</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="7b369cff-5c25-4d9f-8bbb-82ef5ada4e17"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%">Physical Security: preventing physical access from unauthorised users is not always possible so a technological solution is required
+→ simplest solution is MAC address filtering - however easy to circumvent and an administrative overhead
+→ <strong><strong><strong><strong><strong><strong><strong><strong>better solution: </strong></strong></strong></strong></strong></strong></strong></strong>802.1x (port-based network access control)</div></figure><p id="6ae9749d-63ab-40d5-b0a8-e49c738ff399" class=""><strong>802.1x →</strong></p><ul id="b0f736c9-001c-408b-b795-26054f7b35ca" class="bulleted-list"><li style="list-style-type:disc">Uses the Extensible Authentication Protocol (EAP) to authenticate clients.</li></ul><ul id="3336e6cc-580b-4725-bfd2-92537dac4c36" class="bulleted-list"><li style="list-style-type:disc">Blocks the switch port/ wireless client until they authenticate successfully.</li></ul><ul id="1444626d-87f2-42e3-ac46-fcd35016f8c1" class="bulleted-list"><li style="list-style-type:disc">Involves 3 parties:<ul id="d6f23a4b-25fa-41b6-a38f-4d25cded9e29" class="bulleted-list"><li style="list-style-type:circle">A supplicant (client)</li></ul><ul id="7b828c42-d915-44fd-a001-90ec3b2f92c5" class="bulleted-list"><li style="list-style-type:circle">An Authenticator (switch or access point)</li></ul><ul id="4dd21245-90fe-46a4-9db3-5efc7db977b5" class="bulleted-list"><li style="list-style-type:circle">An Authentication Server (e.g. LDAP using RADIUS)</li></ul></li></ul><figure id="92a6bf16-bba8-4625-a9da-221a7669c489" class="image"><a href="Network%20Security%2083c3b5c9d25c4ded8402deec66713ffe/Screenshot_2023-02-26_at_15.54.49.png"><img style="width:288px" src="Network%20Security%2083c3b5c9d25c4ded8402deec66713ffe/Screenshot_2023-02-26_at_15.54.49.png"/></a></figure><h2 id="6051ee4a-8224-43f9-ab21-248da8f6e43e" class=""><strong>IPSEC</strong></h2><ul id="e169a8b1-9c0c-4b25-b660-402ef6e46bee" class="bulleted-list"><li style="list-style-type:disc">NAC doesn’t stop unauthorised parties sniffing traffic if they tap a condition<ul id="bcb7e9e2-4bed-409f-bf59-a1b455fdd953" class="bulleted-list"><li style="list-style-type:circle">For a 10/100, Hubs can be used as a tap</li></ul><ul id="90842706-7692-4c49-9131-e47b39d2673f" class="bulleted-list"><li style="list-style-type:circle">For Gigabit, a network tap (or port mirror) is required </li></ul><ul id="0b4484f4-9cbd-4530-948b-25c8b021f814" class="bulleted-list"><li style="list-style-type:circle">Fibre is not immune</li></ul><ul id="a82e7764-9a78-4c51-97f4-81cfd754424d" class="bulleted-list"><li style="list-style-type:circle">ARP cache poisoning can be used to get traffic as well</li></ul></li></ul><ul id="820849a2-94b1-4f02-9789-473003f0a8e5" class="bulleted-list"><li style="list-style-type:disc">If traffic is sent “in the clear” over wire, then it can be sniffed </li></ul><ul id="dab0d788-41a7-4dfe-b7fd-386622da9945" class="bulleted-list"><li style="list-style-type:disc">Solution: IP security - encryption at the Network layer</li></ul><ul id="ebf333e7-3eea-401a-ae83-539fc2e46a96" class="bulleted-list"><li style="list-style-type:disc">Authenticates and encrypts packets</li></ul><p id="31c03325-3a47-41e3-b57b-8932751ec8c6" class="">
+</p><h2 id="24d683e3-6614-4f92-8a1e-441263c90552" class="">Virtual Private Network (VPN)</h2><ul id="06914005-57b2-439c-8d32-3fe23e975e88" class="bulleted-list"><li style="list-style-type:disc">A secure way to connect remote sites or users over an untrusted network, such as the internet</li></ul><ul id="cd844779-8257-4ca8-8f1b-62d3667cf77c" class="bulleted-list"><li style="list-style-type:disc">Two different kinds:<ul id="7f68743a-448b-40df-bf84-d4dbe96abaef" class="bulleted-list"><li style="list-style-type:circle">Site-to-Site: Securely connects two networks</li></ul><ul id="ae054f90-063a-4e63-ad5b-c78118a0c983" class="bulleted-list"><li style="list-style-type:circle">Remote-access: individual clients connect to a VPN server</li></ul></li></ul><ul id="4d142b16-c5ea-4fdb-a990-2124e05433d6" class="bulleted-list"><li style="list-style-type:disc">Creates an encrypted tunnel between the two endpoints</li></ul><ul id="ed37c0cf-1e4d-461e-a7c6-b984b6542360" class="bulleted-list"><li style="list-style-type:disc">Used to provide secure remote access for employees or to connect branch offices</li></ul><ul id="99899cdf-1ba8-4f33-b7bb-c9b65e5d741d" class="bulleted-list"><li style="list-style-type:disc">VPNs can use various protocols, such as:<ul id="4ffea94b-178c-49d1-8575-c583361147e9" class="bulleted-list"><li style="list-style-type:circle">Point-to-Point Tunneling Protocol (PPTP)</li></ul><ul id="d120acff-93e5-4334-b293-d8f3a9c17c0b" class="bulleted-list"><li style="list-style-type:circle">Layer Two Tunneling Protocol (L2TP)</li></ul><ul id="8051b7ce-f0a6-4d7b-a2e2-bf8fff41340f" class="bulleted-list"><li style="list-style-type:circle">Secure Socket Tunneling Protocol (SSTP)</li></ul><ul id="83d7fd3b-9cab-456e-bd4a-896d51e6217c" class="bulleted-list"><li style="list-style-type:circle">Internet Protocol Security (IPsec)</li></ul></li></ul><p id="d3e5f8a5-a815-458e-8e93-f60ef44fd6aa" class="">
+</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="fbe5e515-1d5a-47bc-b325-e56344d64b03"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%">Wireless security is inherently less secure than a wired connection because: 
+signal is not constrained by wires / anyone within range can listen</div></figure><p id="2fdd18e2-b8dd-484c-bcbf-83ef10f9e2d1" class="">Simple networks behave like hubs as every client receives all traffic</p><h1 id="953c7a20-6cd9-4a60-9738-8e8c8fc94689" class="">Wireless Security</h1><figure id="8e593c8b-2e3f-40a9-a057-e749fd2e0f72" class="link-to-page"><a href="Network%20Security%2083c3b5c9d25c4ded8402deec66713ffe/Wireless%20Security%208e593c8b2e3f40a9a057e749fd2e0f72.html"><img class="icon" src="https://www.notion.so/icons/wifi_orange.svg"/>Wireless Security</a></figure><h1 id="4f96bd68-41c5-4f80-8c12-5ac622b1c0e7" class="">Other types of exploit</h1><h2 id="cb05eb8a-7c9c-4ede-a476-7382f2193f3f" class="">DNS Exploitation</h2><p id="d5560a6e-bf60-4ac6-be79-018385ffeb68" class="">Welcome to this tutorial on how to do a <strong>DNS amplification attack:</strong></p><ol type="1" id="b51ee5ff-1294-452b-8abe-0c367b8cda01" class="numbered-list" start="1"><li>Spoof source IP address to send lots of (small) DNS requests</li></ol><ol type="1" id="28589dab-9e54-4ada-bc1e-660e1d29341d" class="numbered-list" start="2"><li>DNS server replies to spoofed address with lots of (large) DNS responses</li></ol><ol type="1" id="2a381173-d0d4-48c9-981a-aa4c8dfd426a" class="numbered-list" start="3"><li>Destination is inundated with traffic and falls over</li></ol><ol type="1" id="f7c42a8b-33ae-466e-a4d2-89a30b08d611" class="numbered-list" start="4"><li>???</li></ol><ol type="1" id="9d399203-9363-4c3a-a49c-4b3d66263c6d" class="numbered-list" start="5"><li>PROFIT 🤑</li></ol><h3 id="c2561312-a7e7-4bc3-b276-91de60387408" class="">Trusting DNS responses?</h3><p id="c6113131-8c31-40f2-a37e-d6c2b2991742" class="">DNS is not <strong><strong><strong><strong><strong><strong><strong>signed </strong></strong></strong></strong></strong></strong></strong>or <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>encrypted!</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><p id="3428bb53-328f-48b8-b565-8f3eedf489c3" class="">Can be taken further to DNS cache poisoning</p><ul id="2f031c1c-f1e2-4021-91fd-5e90de949686" class="bulleted-list"><li style="list-style-type:disc">Attacker supplies a bogus response to a caching resolver</li></ul><ul id="a0fc54cb-3ce7-4e0d-8591-7e8536afd75a" class="bulleted-list"><li style="list-style-type:disc">All users of the resolver now use the bogus entry</li></ul><p id="8e70bc1b-74da-4e27-8871-38e7c4cc8996" class=""><strong><strong>OR</strong></strong>, just a malicious network operator (include dodgy entries in their DNS server)</p><h3 id="fc07e030-1377-42fb-90af-a45a6d3e479c" class="">DNS Privacy</h3><p id="ae73383e-fbfb-477c-a8ec-d0bae59208dc" class="">Your connection to a server may be encrypted i.e., <strong>what</strong> you are doing<strong> </strong>is obscured</p><p id="5bfba4c3-e39c-4af3-b7bc-98483a5cab47" class="">Nevertheless, DNS is <strong><strong><strong><strong>not </strong></strong></strong></strong>encypted</p><ul id="79ff045b-63a8-4a11-b267-bd03d0a8cb38" class="bulleted-list"><li style="list-style-type:disc">Anyone sniffing the connection can see your DNS requests</li></ul><ul id="a49eff13-ad6e-4eb9-aab8-caeef2337fef" class="bulleted-list"><li style="list-style-type:disc">therefore, <strong><strong><strong><strong><strong><strong>where </strong></strong></strong></strong></strong></strong>you are doing it is not obscured!</li></ul><h3 id="16a70367-1959-46eb-8381-367966729a6c" class="">DNS Security Extensions</h3><p id="f7383f28-07ab-4dcc-9ad6-504257f01cca" class="">DNSSEC addresses DNS insecurity</p><ul id="c9aa5e7a-c8c0-4b36-a797-a28985088453" class="bulleted-list"><li style="list-style-type:disc">Allows responses to be signed</li></ul><ul id="194a9f3c-5b47-432c-a69c-259f084229cf" class="bulleted-list"><li style="list-style-type:disc">BUT responses are larger and there exists complexity managing signatures</li></ul><p id="5d1cce56-d8ed-450f-8872-90c638e2b075" class=""><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid">Other Improvements:</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></p><ul id="2e7e1691-353e-4b08-a19e-9651c8e59875" class="bulleted-list"><li style="list-style-type:disc">Mitigating DNS amplification - block resolver lookups from a non-local IP address and then restrict lookups to those from your organisation or customers only!<ul id="baf4fa85-2a0a-444c-a968-7d111def3d58" class="bulleted-list"><li style="list-style-type:circle">Ignore certain request types (&lt;root&gt; and ANY)</li></ul></li></ul><h3 id="f2a92b30-9131-433f-9658-d99be09d63df" class="">DNS Hijacking: DNSpionage</h3><p id="1e4c47ed-d61b-4fdd-878f-0bda143ab63e" class="">Example of hackers stealing credentials using DNS</p><p id="c3cc54d2-078c-470e-889f-23828a806aef" class="">Achieved it using DNS Hijacking</p><ul id="ed17f368-e70b-4ee2-afca-b7406991bbf3" class="bulleted-list"><li style="list-style-type:disc">Attackers were able to use hijacked DNS to get LetsEncrypt certificates </li></ul><p id="2739db06-2af8-41c5-8ec3-b20e094a9877" class="">(<em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>bunch more info on slides or just look </em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em><a href="https://arstechnica.com/information-technology/2019/02/inside-the-dnspionage-hacks-that-hijack-domains-at-an-unprecedented-scale/"><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>here</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></a><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>)</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></p><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="255cf670-7b48-4454-b1fc-fcacf8c47fd8"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%">DNS can leak <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>your usage patterns </strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>and <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>potentially credentials!</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></div></figure><h2 id="893f4ba9-1f7b-406a-b281-d6638dafc1c5" class="">DDoS</h2><p id="6dddb06f-66cd-4c98-a3ef-aa0a5ab2647f" class="">Goal of DDoS attacks is to take a target system DOWN 👇🏼</p><p id="92eded7e-9965-4b09-b1f5-1fba15c449fa" class="">Can be done by consuming:</p><ul id="16552ba3-9b81-4613-9c06-d9c3f1b0ecaa" class="bulleted-list"><li style="list-style-type:disc">Network bandwidth</li></ul><ul id="cd53a505-7c79-4ffe-b42a-dfc97a90af51" class="bulleted-list"><li style="list-style-type:disc">CPU cycles</li></ul><ul id="4110a530-0dc6-46ac-92f3-82bf2e39cc3d" class="bulleted-list"><li style="list-style-type:disc">Server state capacity</li></ul><ul id="e4be42d3-2514-4e0a-ae16-2192628f6813" class="bulleted-list"><li style="list-style-type:disc">Other system resources</li></ul><p id="bea22346-82b8-446f-90cb-5e4ca080ae7f" class="">Can also be used as a distraction for other cyber attacks:</p><ul id="f505b8c8-1e3e-42dd-8d34-d93358c62ed8" class="bulleted-list"><li style="list-style-type:disc">Deploying malware</li></ul><ul id="f2f5920b-97c4-4cba-884e-1a665485cf58" class="bulleted-list"><li style="list-style-type:disc">Stealing data</li></ul><p id="886a8b6e-6ea7-4990-b1fe-9dd2c14fc1a7" class=""><span style="border-bottom:0.05em solid"><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>What is it?</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></span></p><p id="32fe8eda-6b29-4961-92a2-31da64dfad5e" class="">There are effective forms of an attack from a single source system</p><p id="7e0fc3c0-8108-41d3-afec-e14be3bd789c" class="">A distributed attack may be more effective though:</p><ul id="bc25ff00-84c8-472d-83ff-e1d4a0ead22a" class="bulleted-list"><li style="list-style-type:disc">Uses more systems to deprive the victim of the targeted resource (usually bandwidth)</li></ul><ul id="b2b3be0b-d989-46a1-b302-f11592b07ce2" class="bulleted-list"><li style="list-style-type:disc">Is harder to step as there are multiple sources (compromised computers/routers/people calling to action) and many of them may be expected sources in normal conditions</li></ul><h3 id="002d9a3c-df5b-4f73-87cc-4a00246eb304" class="">Example: TCP SYN Flood</h3><p id="6a6e4a24-23ce-4ef9-b5b0-ecea5a46af5a" class="">Exploits the TCP protocol</p><ul id="91cee248-b0cd-4615-a200-c188eefc54d2" class="bulleted-list"><li style="list-style-type:disc">Attacks the connection handshake</li></ul><ul id="c88c5105-e795-4f4d-a55c-17a028070b6f" class="bulleted-list"><li style="list-style-type:disc">Attacker sends a TCP SYN packet</li></ul><ul id="3f019b2f-ec32-4dbc-bb70-48c44d70952a" class="bulleted-list"><li style="list-style-type:disc">Server replies with SYN ACK</li></ul><ul id="bd9e8b49-4657-4bb6-8734-4c08b6c7de96" class="bulleted-list"><li style="list-style-type:disc">Attacker never sends final ACK so the <em><em><em><em><em><em><em>victim </em></em></em></em></em></em></em>is left waiting</li></ul><p id="212fa1dc-8f07-4498-bfe9-334d52b6bd69" class="">Consumes state on server, especially many half-open connections which means that eventually cannot respond to legitimate requests</p><p id="9bc3abd4-2bfb-45e3-ab4d-01271da37df7" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Low Orbit Ion Cannon (LOIC) and HOIC</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><p id="47bbb5f4-8ea8-48bc-808f-8e659ad8d52e" class="">A fairly crude UDP/TCP attack tool</p><p id="1ee6878d-57a1-4c06-a38d-e78b4ee428c1" class="">Can be partially mitigated by blocking UDP and ICMP</p><p id="5bd7837f-0e43-406f-a185-464926586b23" class="">(<em><em><em><em><em><em><em><em><em>look more online in case)</em></em></em></em></em></em></em></em></em></p><p id="0d002183-8e1d-401f-a017-de77851deb2e" class=""><strong><strong><strong><strong>SlowLORIS</strong></strong></strong></strong></p><p id="c0ab6a02-4a10-42d7-9451-060d8461bc14" class="">Uses a single machine or even a mobile phone!</p><p id="8204568e-aeca-4e31-ae95-984f922b3ebf" class="">Opens lots of connections </p><p id="8ca982fa-8cb6-4a72-9840-7a040b59db17" class="">Exact implementation depends on web server</p><p id="c4964540-bb64-49ae-8da8-f75f2e441fd8" class="">Can be mitigated with (reverse) proxies, limiting the number of connections per-IP or increasing capacity</p><p id="2a27107d-c088-4edf-a07e-0fa524cca47c" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>IPv6 RA Flood</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><p id="65565a22-6aa5-4c5d-afd9-c82a9612d6cd" class="">Sends a large number of IPv6 RA multicasts</p><p id="fad7e5f4-f1ef-444a-be30-bd16b9241454" class="">Consumes CPU on victim machines</p><p id="fcb7b864-93a4-4ace-935c-141581cde03a" class="">“easy” to exploit</p><h3 id="4c966cce-1683-4e10-8498-16b61fa56b87" class="">DDoS Mitigation</h3><p id="accedf9d-c82e-43f5-9cf7-eccebe33614a" class="">Anycast/content delivery networks: Spreads the load across lots of networks/systems</p><p id="5d6addbc-0b3d-47ce-9ed1-042501f0de84" class="">Responsive network team which can block attacks as they occur and redistribute services across the different connections</p><p id="524ca891-fc8a-4b6b-8e29-745587a919f2" class="">Make sure your systems are patched and configured securely</p><hr id="2352f345-8b4f-45d9-a118-31af13faa44e"/><p id="027ca840-6fb3-4e6f-97d4-be8d3f4a5e69" class=""><time>@May 24, 2023</time> <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Tanenbaum - </strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><div class="indented"><p id="a1598df4-a2aa-4186-8b46-f9b156512d5a" class="">pp. 781-784, pp. 832-845</p></div></p><p id="2a47d5f2-1313-4d3a-b53b-b2e4cd49e2f8" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1,0 +1,721 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>L2. Image Formation</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="f0f9d897-679d-49b4-ae23-1090380f51a3" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/photo-landscape_gray.svg"/></div><h1 class="page-title">L2. Image Formation</h1><p class="page-description"></p></header><div class="page-body"><hr id="e62f9a57-c458-4595-b342-0ad07e45c659"/><blockquote id="e74a5659-dd4b-4fc0-89af-d516d51747eb" class=""><strong>Book pp. 29-38 &amp; 57-66
+</strong></blockquote><nav id="de787ce1-8f0d-4ba5-a6e4-88ec38731b57" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8a2fdf48-30c8-4af1-afcc-fe7a49d18798">How is an image formed?</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#81d81b8b-60a8-4ec0-a9c0-281ecd138845">Decomposing an image into bits</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#674761c7-c05a-454d-8cc2-e2a1abae89da">Effects of differing image resolution</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#6da7bd51-0a00-4dc7-892a-e89b33608a0f">Some maths stuff</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6cc93a2c-91d3-4a17-96f8-4763cf12c434">Complex exponential function</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#41b6e55d-9581-4ec7-b22f-0f73fec1a89e">Frequency</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d5da8cb5-8b22-4e6d-baa2-5593460e8282">Step-up Fourier</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#8b86a9d2-6152-4dba-b32a-27d2993a5cb6">Inverse Fourier</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5901cdfb-066d-4613-bc65-64cf8e77a495">What do these equations do actually?</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#7e92b688-c6f4-4a08-84f0-99661321be02">other forms of Fourier…</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#73a1133b-065f-4a41-b70b-ee50d9730e31">Examples</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#19a8c148-7f8c-4ced-aeaa-e822cb0a11c5">A rectangular pulse and its Fourier transform</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#c694a832-87c5-4240-8012-c270ed14f10f"><strong>Reconstructing a signal from its Fourier transform</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#4a24cec8-a08c-4b9d-ad0f-995ce1cd4dd0"><strong>Magnitude and phase of Fourier transform of a pulse
+</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#20b0b56b-821d-495a-86dd-4d0ee28debb5">Matlab Fourier transformation example</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d21fa2cc-f924-40cb-bf59-14715a708fa5">What’s the importance?</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1cd43667-22ee-44af-a3e6-e749b6d3bb78">Changing Images</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#f112e156-abe9-4848-8811-2576830b73a8">DATA COMPRESSION!</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#3af9c64d-5c78-4e2d-b904-7eac0e5d1e10">RECAP</a></div></nav><hr id="3aeb9101-8fba-41c0-92ee-d77036c9972d"/><h1 id="8a2fdf48-30c8-4af1-afcc-fe7a49d18798" class="">How is an image formed?</h1><h3 id="81d81b8b-60a8-4ec0-a9c0-281ecd138845" class="">Decomposing an image into bits</h3><div id="b1200c1e-6202-4f3c-82a8-217649f66cc4" class="column-list"><div id="8fce6ede-e2e2-4157-bdd6-2332c2175bef" style="width:43.75%" class="column"><p id="ee3933df-450b-4c3f-a6d4-e0f6562f8188" class="">Every pixel is an 8-bit unsigned integer in (0,255)</p><p id="1e19ca94-040b-4a21-bba2-74cef803f605" class="">Colour is represented by a vector stored in the pixel (e.g., using RGB for storing an image results in a 3x1 matrix stored at every bit)</p></div><div id="e7d5c3aa-7d37-48de-bdbc-2c681993a49d" style="width:56.25%" class="column"><figure id="cdc29b28-61f4-4c50-9d75-b5b6404a1f5f" class="image"><a href="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.06.53.png"><img style="width:240px" src="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.06.53.png"/></a></figure></div></div><figure id="e08b0691-6276-4be1-ab69-72d5ca5fc325" class="image"><a href="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.07.02.png"><img style="width:576px" src="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.07.02.png"/></a></figure><p id="8e2f2b55-8a4e-499f-b32e-e3471e2ee46e" class="">The <strong>Most Significant Bit </strong>carries the<strong> most information </strong>whereas<strong> bit 0 </strong>is<strong> noise</strong></p><figure id="33d6c652-e19c-4a52-9f7c-816d11672579" class="image"><a href="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.11.20.png"><img style="width:528px" src="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.11.20.png"/></a><figcaption>…<strong>and here, bit 4 is the lighting</strong></figcaption></figure><h3 id="674761c7-c05a-454d-8cc2-e2a1abae89da" class="">Effects of differing image resolution</h3><p id="056ffd7e-22df-452c-bb26-30bc84c73999" class="">Low resolution loses information but NxN points implies a lot of storage - so how to choose an appropriate value for N?<em> (example resolutions: 64x64; 128x128; 256x256)</em></p><h1 id="6da7bd51-0a00-4dc7-892a-e89b33608a0f" class="">Some maths stuff</h1><h3 id="6cc93a2c-91d3-4a17-96f8-4763cf12c434" class="">Complex exponential function</h3><div id="f2fa384c-3355-4902-9319-45879efa7775" class="column-list"><div id="de413c34-df47-4464-ac26-d48a112cdd42" style="width:50%" class="column"><figure id="c6793a8a-f42f-481a-85eb-21a79a0746f7" class="image"><a href="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.19.18.png"><img style="width:288px" src="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.19.18.png"/></a></figure></div><div id="7ea1ec36-f93d-495d-abab-793dfae22201" style="width:50%" class="column"><figure id="8c9446a1-d0d4-4186-a76f-12a5b9d8dd3b" class="image"><a href="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.18.31.png"><img style="width:432px" src="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.18.31.png"/></a></figure></div></div><h3 id="41b6e55d-9581-4ec7-b22f-0f73fec1a89e" class="">Frequency</h3><p id="d02598d5-f47c-4eba-b8a1-d360e63075b7" class="">The frequency of a wave is the number of waves passing a point in a certain time. We normally use a time of one second, so this gives frequency the unit hertz, since one hertz is equal to one wave per second.</p><p id="a6700f6e-36e8-4497-bfa8-079b5395433d" class="">The relationship between the frequency 𝜉 and the period 𝑇 is: 𝜉 = 1/𝑇</p><p id="5601bbeb-f12d-491c-9f70-f51daa578935" class="">Fourier said…</p><blockquote id="efb31539-9ee1-487b-a7cc-dbadb6d51811" class=""><strong>Any periodic function is the result of adding up sine and cosine waves of different frequencies</strong></blockquote><h3 id="d5da8cb5-8b22-4e6d-baa2-5593460e8282" class="">Step-up Fourier</h3><figure id="29776550-4680-4c98-bc80-a892d543ef6a" class="image"><a href="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.22.11.png"><img style="width:1980px" src="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.22.11.png"/></a></figure><figure class="block-color-yellow_background callout" style="white-space:pre-wrap;display:flex" id="5e5960f3-ed7e-42ac-bc19-54a20cc320e2"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><strong>changes the domain from the signal domain to the frequency domain</strong></div></figure><h3 id="8b86a9d2-6152-4dba-b32a-27d2993a5cb6" class="">Inverse Fourier</h3><figure id="b69e07db-f9fb-4a82-8745-23ef42ebaa08" class="image"><a href="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.24.14.png"><img style="width:528px" src="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.24.14.png"/></a></figure><figure class="block-color-yellow_background callout" style="white-space:pre-wrap;display:flex" id="97cd1e88-8d10-476b-a974-3187b4ad94f0"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><strong>does the opposite of the above, i.e., the inverse</strong></div></figure><h3 id="5901cdfb-066d-4613-bc65-64cf8e77a495" class="">What do these equations do actually?</h3><figure id="94f7f2e4-87fc-4609-9f81-cee8d7a25bab" class="image"><a href="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.26.27.png"><img style="width:624px" src="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.26.27.png"/></a></figure><p id="d58335f9-2584-42e6-8429-933bf320f061" class="">**<em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>might need some more explaining here…**</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></p><h3 id="7e92b688-c6f4-4a08-84f0-99661321be02" class="">other forms of Fourier…</h3><figure id="2624ab8b-a15f-46a1-9e95-071eaec333b3" class="image"><a href="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.28.59.png"><img style="width:528px" src="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.28.59.png"/></a></figure><figure class="block-color-yellow_background callout" style="white-space:pre-wrap;display:flex" id="1665eed1-ab86-4bc8-8378-b7cd79cff0f9"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">main difference here is: <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>∗</mo><mn>2</mn><mo>∗</mo><mi>p</mi><mi>i</mi><mo>∗</mo><mi>f</mi><mi>r</mi><mi>e</mi><mi>q</mi><mo>∗</mo><mi>t</mi></mrow><annotation encoding="application/x-tex">j*2*pi*freq*t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">re</span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathnormal">t</span></span></span></span></span><span>﻿</span></span></div></figure><h2 id="73a1133b-065f-4a41-b70b-ee50d9730e31" class="">Examples</h2><h3 id="19a8c148-7f8c-4ced-aeaa-e822cb0a11c5" class="">A rectangular pulse and its Fourier transform</h3><figure id="bc6d0f3f-b2e2-4a9d-bee1-d89cb5d238a6" class="image"><a href="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.31.21.png"><img style="width:1294px" src="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.31.21.png"/></a></figure><figure class="block-color-yellow_background callout" style="white-space:pre-wrap;display:flex" id="b4181967-c4d3-499a-bf18-a815fd93efeb"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><strong>After transformation, values are complex numbers!</strong></div></figure><p id="25a4ed13-5ca0-4b79-84bf-f8bb25ceeed1" class="">Equations to get here…</p><figure id="463bdbb1-b25b-4caa-a2e2-c87aa46f966a" class="image"><a href="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.32.36.png"><img style="width:432px" src="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.32.36.png"/></a></figure><h3 id="c694a832-87c5-4240-8012-c270ed14f10f" class=""><strong>Reconstructing a signal from its Fourier transform</strong></h3><figure id="dc0b0b80-4773-4039-b3f0-1c6f068e97a3" class="image"><a href="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.33.25.png"><img style="width:384px" src="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.33.25.png"/></a></figure><figure class="block-color-yellow_background callout" style="white-space:pre-wrap;display:flex" id="ddf4d317-98d5-4e10-95f1-a32edcf471d6"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><strong>This is the inverse Fourier transformation!</strong></div></figure><h3 id="4a24cec8-a08c-4b9d-ad0f-995ce1cd4dd0" class=""><strong>Magnitude and phase of Fourier transform of a pulse
+</strong></h3><figure id="b78b4ac8-4878-417f-9b7b-bc0ffc92a1fb" class="image"><a href="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.35.19.png"><img style="width:1716px" src="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.35.19.png"/></a></figure><p id="9d0d0d4d-ebdd-47d5-bffe-fd233030ccdd" class="">Can get the magnitude and the phase respectively. These terms mean this… **definition**</p><h3 id="20b0b56b-821d-495a-86dd-4d0ee28debb5" class="">Matlab Fourier transformation example</h3><p id="c2473fd0-e0ad-4fd6-892f-72ad7e8dfd28" class="">This is the Fourier transformation of the Hard Day’s night chord</p><figure id="76d92056-58d9-4627-ba5b-ec4927cc1008" class="image"><a href="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.36.50.png"><img style="width:1302px" src="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.36.50.png"/></a></figure><pre id="718a4532-9bc6-44a0-8649-4aa20ccbf3d7" class="code"><code>syms t f w
+% disp(&#x27;let us start with a continuous FT&#x27;)
+% p=0.5*sin(t)+0.25*sin(2*t)+0.35*sin(3*t)+0.25*sin(4*t);
+% TW=36;  %base period is 6, so TW=18 = 3*T
+% wR = 1/(0.5*(TW/2))*rectangularPulse(-TW/2,TW/2,t);
+% wHAN=(.5+0.5*cos(pi*t/(TW/2)))*wR; %scaling is by area
+% FwHAN=fourier(wHAN);
+% magwHAN=sqrt(real(FwHAN)*real(FwHAN)+imag(FwHAN)*imag(FwHAN));
+% HAN_windowed_p=p*wHAN;
+% subplot(1,2,1)
+% fplot(HAN_windowed_p, [-12 12])
+% title(&#x27;Original signal&#x27;)
+% F_HAN_windowed_p=fourier(HAN_windowed_p);
+% magF_HAN_windowed_p=sqrt(real(F_HAN_windowed_p)*real(F_HAN_windowed_p)+imag(F_HAN_windowed_p)*imag(F_HAN_windowed_p));
+% subplot(1,2,2)
+% fplot(magF_HAN_windowed_p, [-12 12])
+% title(&#x27;Continuous FT of signal&#x27;)
+% pause
+
+disp(&#x27;Hard days night&#x27;)
+hard=audioread(&#x27;hard_chord_long.wav&#x27;);
+hard_for_centred=centre1D(hard);
+subplot(1,2,1)
+plot(hard)
+title(&#x27;Hard days night opening chord&#x27;)
+F_hard=fft(hard_for_centred); %we&#x27;ll use fft (which comes later) as DFT takes donkeys!
+subplot(1,2,2)
+plot(abs(F_hard))
+title(&#x27;Fourier transform of Hard days night&#x27;)
+pause
+
+disp(&#x27;now FT of pulse&#x27;)
+T=0.5;
+p=rectangularPulse(-T/2,T/2,t);
+Fp=fourier(p);
+subplot(1,2,1)
+fplot(p, [-1.5,1.5])
+title(&#x27;Pulse&#x27;)
+mag=real(Fp)*real(Fp)+imag(Fp)*imag(Fp);
+subplot(1,2,2)
+fplot(mag, [-12*pi,12*pi])
+title(&#x27;Fourier transform of pulse&#x27;)</code></pre><h2 id="d21fa2cc-f924-40cb-bf59-14715a708fa5" class="">What’s the importance?</h2><h3 id="1cd43667-22ee-44af-a3e6-e749b6d3bb78" class="">Changing Images</h3><figure id="1086ea34-da40-4e43-b9ac-f69159adde87" class="image"><a href="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.41.05.png"><img style="width:2004px" src="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.41.05.png"/></a></figure><p id="19ee47e3-2c9d-449c-909c-a83bbb58072a" class="">Both reconstructions resemble something similar to their original photos</p><h3 id="f112e156-abe9-4848-8811-2576830b73a8" class="">DATA COMPRESSION!</h3><figure id="14171859-1e24-4348-8505-4a8c8a4130c5" class="image"><a href="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.42.21.png"><img style="width:1946px" src="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.42.21.png"/></a></figure><div id="6833c9d3-9d70-4d79-8e62-72c75cac0dd6" class="column-list"><div id="db3cb671-abe7-4314-8dc2-db429f459a78" style="width:50%" class="column"><p id="08ed8a27-68b0-41a4-9b85-4f0a3e786886" class="">Can get complete images back by just storing the Fourier transform of small percentages of the images, which can save <strong>TONS</strong> on storage</p></div><div id="4740c8e3-422a-4a8b-b7a6-4b9bb533f4b6" style="width:50%" class="column"><figure id="2ccb3c50-58f0-4d11-b141-8b8b65134642" class="image"><a href="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.42.50.png"><img style="width:384px" src="L2%20Image%20Formation%20f0f9d897679d49b4ae231090380f51a3/Screenshot_2023-10-06_at_16.42.50.png"/></a></figure></div></div><h1 id="3af9c64d-5c78-4e2d-b904-7eac0e5d1e10" class="">RECAP</h1><ol type="1" id="625bf340-b5c5-43d4-84cc-e5331cc1233f" class="numbered-list" start="1"><li>sampling data is not as simple as it appears</li></ol><ol type="1" id="abd365d1-0ae7-404a-a79e-de1643778574" class="numbered-list" start="2"><li>sampling affects space and brightness</li></ol><ol type="1" id="14495f58-286f-48d9-9f69-8093b9f98a4f" class="numbered-list" start="3"><li>Fourier allows us to understand frequency</li></ol><ol type="1" id="6b126445-4c99-4108-a2c9-4cd337ad6a21" class="numbered-list" start="4"><li>Fourier allows for coding and more</li></ol><figure class="block-color-yellow_background callout" style="white-space:pre-wrap;display:flex" id="175aaaf4-fcd9-4cab-b26c-6eb25b67152c"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><strong>There are many </strong><strong><em>other </em></strong><strong>types of transforms, apart from Fourier… can explore (like for e.g., Wavelet transform)</strong></div></figure><p id="ba915b9f-2f9e-4f00-83e5-99aff5ab97a2" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1,0 +1,680 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Web Services</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="fd608085-0641-4fb2-9364-0baac96e5dd1" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/soft-serve_gray.svg"/></div><h1 class="page-title">Web Services</h1><p class="page-description"></p></header><div class="page-body"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="508f1f49-638c-463f-aeee-b63b1e925f66"><div style="font-size:1.5em"><span class="icon">📢</span></div><div style="width:100%"><strong>Need to be able to do:</strong><ul id="c141547f-5106-45fd-be0a-12bf73bd66a8" class="bulleted-list"><li style="list-style-type:disc">LO1 Explain what a web service is</li></ul><ul id="5fccdd79-1005-4470-9cbb-1e83a4471498" class="bulleted-list"><li style="list-style-type:disc">LO2 Describe how the SOAP protocol works</li></ul><ul id="62f2363c-1a6d-4b07-9f43-32a479c8f471" class="bulleted-list"><li style="list-style-type:disc">LO3 Discuss the advantages of RESTful web services</li></ul></div></figure><nav id="3da9382d-f5de-4984-bf65-f70dcabbd669" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8c17dd49-657e-4e95-8dd0-590d2d6635a5">What is a Web Service?</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f3c91d4c-a423-4597-bc50-60f9c2b6205b">SOAP Protocol</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0fc8396d-260c-4167-a1bb-0b5b8e482cb5">SOAP Protocol</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#588be956-779c-406f-a227-fb7ce4142e27">RESTful Web Services</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c29771d4-6386-4c74-9c05-122ecfb2d78c">Be stateless</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5438508d-f348-414a-a8e7-e53ff65cd9a8">Expose directory structure-like URIs</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#66cc689a-2375-4fa7-90c3-ebbea4f1c756">Transfer XML, JSON or both</a></div></nav><h2 id="8c17dd49-657e-4e95-8dd0-590d2d6635a5" class="">What is a Web Service?</h2><p id="c797d02b-0f4d-4775-9802-9cf388426e74" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>A web service provides an interface that clients can access </strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>over the Internet</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></p><p id="f9f0f252-dadc-43b9-be81-4795ea3844bb" class="">From web servers to web services</p><ul id="59541f5c-f945-4e1b-8ce8-f1889997281e" class="bulleted-list"><li style="list-style-type:disc">Web servers: general-purpose browsers interact with web servers over the Internet via HTTP<ul id="863de9fd-6819-4663-abe8-960badeeadef" class="bulleted-list"><li style="list-style-type:circle">The interface provided by the web server is very generic, and this restricts the scope of
+applications</li></ul></li></ul><ul id="c2117b65-bbd4-426b-8a3c-a2d263fb7a5a" class="bulleted-list"><li style="list-style-type:disc">Client-server model: client and server are application-specific and the particular application logic dictates the interface used for communication</li></ul><ul id="b4952a15-342d-4eb1-a5bd-9d1fe02e9a6e" class="bulleted-list"><li style="list-style-type:disc">Web services: application-specific client interacts with a remote service via a functionally specialised interface over the Internet</li></ul><p id="6bb1d934-973a-4fa7-acd3-1628cead5702" class="">Web servers: a general-purpose browser as client to retrieve resources via HTTP</p><p id="01649701-72ca-4fcc-9682-491c82855a45" class="">Web services: application-specific client-server paradigm over the Internet</p><div id="98feef85-a373-4248-8a29-4f9bb704f653" class="column-list"><div id="07394963-4baf-4e10-873a-7273353c1774" style="width:50%" class="column"><figure id="c7622356-1fc5-422a-be43-91538d1a518b" class="image"><a href="Web%20Services%20fd60808506414fb293640baac96e5dd1/Screenshot_2023-05-17_at_16.59.01.png"><img style="width:672px" src="Web%20Services%20fd60808506414fb293640baac96e5dd1/Screenshot_2023-05-17_at_16.59.01.png"/></a></figure></div><div id="0e02221c-c3d0-4a57-ad54-6b8cc7bd02c0" style="width:50%" class="column"><figure id="53e563f8-ce50-4edd-be4e-b2ad9c16e209" class="image"><a href="Web%20Services%20fd60808506414fb293640baac96e5dd1/Screenshot_2023-05-17_at_16.58.26.png"><img style="width:576px" src="Web%20Services%20fd60808506414fb293640baac96e5dd1/Screenshot_2023-05-17_at_16.58.26.png"/></a></figure></div></div><p id="7d552e49-47e7-4ea3-ae62-9ac476d75d19" class=""><span style="border-bottom:0.05em solid">Communication paradigms</span></p><ul id="5f50a198-117c-46d1-a409-323a4bcddf9d" class="bulleted-list"><li style="list-style-type:disc">Asynchronous communication<ul id="446a56ba-9b8a-4482-84dd-f4b46e374124" class="bulleted-list"><li style="list-style-type:circle">For time-consuming operations, replies can be received later on</li></ul><ul id="1923593c-c7e6-4a84-b3d0-ebc1bc9ec332" class="bulleted-list"><li style="list-style-type:circle">E.g. processing of a booking</li></ul></li></ul><ul id="55f13daa-86e8-42e5-9777-5c2e99dab6d3" class="bulleted-list"><li style="list-style-type:disc">Synchronous communication<ul id="c5d044a1-c526-4fb4-8cdd-1d8586cdebff" class="bulleted-list"><li style="list-style-type:circle">For interactive, fast operations, i.e. request-reply</li></ul><ul id="25e34bce-52c8-4786-b425-4c97dd62f6e4" class="bulleted-list"><li style="list-style-type:circle">E.g. booking processing status enquires - doesn’t require much computation</li></ul></li></ul><p id="78b29d11-4e45-43cf-86b0-8d9e5069b419" class="">Loose coupling<div class="indented"><ul id="42f900ff-1838-4763-8363-862a7ceba040" class="bulleted-list"><li style="list-style-type:disc">Goal: minimise dependencies between different web services<ul id="1eed5190-d8ba-497a-9cad-80ae36b0a004" class="bulleted-list"><li style="list-style-type:circle">To avoid that changing one web service requires the update of other services</li></ul></li></ul><ul id="8eff3a77-58f0-46a8-bcda-179b85cda37f" class="bulleted-list"><li style="list-style-type:disc"><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>How to achieve loose coupling:</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><ul id="da0c70ad-d6b0-4779-af75-afc1348cde57" class="bulleted-list"><li style="list-style-type:circle">Focusing on interfaces rather than implementation<ul id="8a42424d-e2b4-4f55-8ae0-d9f5bbe1ff29" class="bulleted-list"><li style="list-style-type:square">So that the implementation can be changed without affecting the interface</li></ul></li></ul><ul id="37d6f32e-ad3b-4b70-b152-736d90ff242d" class="bulleted-list"><li style="list-style-type:circle">Designing simple and generic interfaces<ul id="d0280213-18ed-4206-a5bf-0d2c76e7ad58" class="bulleted-list"><li style="list-style-type:square">Minimal, basic interfaces are less likely to require change over time</li></ul></li></ul><ul id="afb17c8a-d4cf-479a-835f-56868297db40" class="bulleted-list"><li style="list-style-type:circle">Opting for asynchronous rather than synchronous communication<ul id="16c915c4-172a-46e9-9596-715841309d2e" class="bulleted-list"><li style="list-style-type:square">Looser coupling and time</li></ul></li></ul></li></ul></div></p><h2 id="f3c91d4c-a423-4597-bc50-60f9c2b6205b" class="">SOAP Protocol</h2><p id="212a21bf-874b-4e35-94c0-f81333d1eb14" class="">Simple Object Access Protocol (2)</p><ul id="432b9a70-8fd6-403e-a225-051c19b29ff4" class="bulleted-list"><li style="list-style-type:disc">Synchronous/Asynchronous interactions over the Internet</li></ul><ul id="9673f8b4-ac2e-455d-8a66-b973b73e6379" class="bulleted-list"><li style="list-style-type:disc">Defines how to use XML to represent the content of messages</li></ul><ul id="ea403c85-9af0-4c4c-a3f2-bda471aa3b0e" class="bulleted-list"><li style="list-style-type:disc">Defines how messages are exchanged<ul id="538e9036-13a2-405d-8f8b-563837f52d8e" class="bulleted-list"><li style="list-style-type:circle">HTTP, SMTP, TCP, UDP,…</li></ul></li></ul><ul id="79d87c3d-aecf-4a16-b885-5a05b7c04b3b" class="bulleted-list"><li style="list-style-type:disc">It is a WWW recommendation!</li></ul><ul id="66cc5bc6-7bea-442a-a5c5-c899f927bb1a" class="bulleted-list"><li style="list-style-type:disc">Specifies how to combine XML and HTTP to enable client-server communication over the Internet</li></ul><h3 id="0fc8396d-260c-4167-a1bb-0b5b8e482cb5" class="">SOAP Protocol</h3><p id="8d3fd6ac-1003-414a-84f4-96bce518f13c" class=""><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong>Soap Messages:</strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></p><p id="2dd12167-c064-497f-bb47-69e86dcd20a9" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>FOR client-server communication:</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><figure id="5ecc66ed-df17-4a0c-9b61-0982571d2710" class="image"><a href="Web%20Services%20fd60808506414fb293640baac96e5dd1/Screenshot_2023-04-26_at_11.42.23.png"><img style="width:1286px" src="Web%20Services%20fd60808506414fb293640baac96e5dd1/Screenshot_2023-04-26_at_11.42.23.png"/></a></figure><p id="eac46483-25f3-44ce-89fe-db553ffc848e" class="">
+</p><p id="97979039-e50e-466e-8e02-022cf9e28653" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Transport of SOAP Messages:</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><figure id="022ab9d1-d352-488b-9315-020ed16bbb0d" class="image"><a href="Web%20Services%20fd60808506414fb293640baac96e5dd1/Screenshot_2023-04-26_at_11.43.55.png"><img style="width:1822px" src="Web%20Services%20fd60808506414fb293640baac96e5dd1/Screenshot_2023-04-26_at_11.43.55.png"/></a></figure><h2 id="588be956-779c-406f-a227-fb7ce4142e27" class="">RESTful Web Services</h2><ul id="d3f0b6e3-555b-4336-909e-fd2f9f333829" class="bulleted-list"><li style="list-style-type:disc">With SOAP, there is a significant coupling between clients and web services<ul id="8f7a3133-4ab8-42b2-86d9-4d860e45f354" class="bulleted-list"><li style="list-style-type:circle">Any change to the API requires all the clients to be updated accordingly</li></ul></li></ul><ul id="7145f897-e3c0-4993-b193-021c39f08d49" class="bulleted-list"><li style="list-style-type:disc">An alternative, simpler approach is Representational State Transfer (REST)<ul id="50c04bc3-799e-4e9e-b8f4-4fe0b92c27cf" class="bulleted-list"><li style="list-style-type:circle">Uses a simple minimum uniform set of operations<ul id="e799b73f-ef87-4ea1-953a-1458b64f9d44" class="bulleted-list"><li style="list-style-type:square">HTTP methods: GET, PUT, POST, DELETE</li></ul></li></ul><ul id="ecdcc613-7949-43c3-ba21-1e74c689e94b" class="bulleted-list"><li style="list-style-type:circle">Focuses on resources rather than the operations allowed on them<ul id="c2e04f61-3025-4705-a601-9c97c446d5d8" class="bulleted-list"><li style="list-style-type:square">Each resource can be accessed through a specific, unique URL</li></ul></li></ul><ul id="d8a636ea-0cd3-4f43-822c-9847bfb517df" class="bulleted-list"><li style="list-style-type:circle">Allows for looser coupling compared to SOAP because it removes the dependency on application-specific APIs<ul id="9f602708-1a5d-4637-956f-55ff36e7b198" class="bulleted-list"><li style="list-style-type:square">The emphasis is on the manipulation of data resources rather than on interfaces</li></ul></li></ul></li></ul><p id="39eaac19-86c2-40ee-aad0-3077c5f98e67" class="">Use HTTP methods explicitly<div class="indented"><ul id="e6055d6d-cb03-4a61-9614-119c1634027c" class="bulleted-list"><li style="list-style-type:disc">To create a resource on the server, use POST</li></ul><ul id="3a631d66-fdc4-4e3b-829b-523d61d9e4f3" class="bulleted-list"><li style="list-style-type:disc">To retrieve a resource, use GET</li></ul><ul id="0d1f7ec1-5a71-4ecc-8f7f-2e86ad676597" class="bulleted-list"><li style="list-style-type:disc">To change the state of a resource or to update it, use PUT</li></ul><ul id="ea8f67d1-26f0-4a06-9c59-068c3dde96c7" class="bulleted-list"><li style="list-style-type:disc">To remove or delete a resource, use DELETE</li></ul></div></p><p id="98337cad-93ce-4ec7-a363-e47be57209db" class="">
+</p><figure id="baf7a87d-af99-4172-993f-a9458a82f5e5" class="image"><a href="Web%20Services%20fd60808506414fb293640baac96e5dd1/Screenshot_2023-04-26_at_11.48.19.png"><img style="width:2198px" src="Web%20Services%20fd60808506414fb293640baac96e5dd1/Screenshot_2023-04-26_at_11.48.19.png"/></a></figure><h3 id="c29771d4-6386-4c74-9c05-122ecfb2d78c" class="">Be stateless</h3><p id="7f8160f4-43b6-4e47-942d-a3f7770da882" class="">- Allows for better scalability by requiring clients to send complete and independent requests</p><p id="13301729-7cb6-4ccf-8dda-1ae719b4ef62" class="">- No concept of sessions spanning more than one request</p><div id="f337b158-af24-4167-b4ff-7e7fef4269a7" class="column-list"><div id="284ef06a-4148-476f-8dc9-b594f13f2489" style="width:50%" class="column"><figure id="91065096-20a2-4ad6-af84-d9f898afa52b" class="image"><a href="Web%20Services%20fd60808506414fb293640baac96e5dd1/Screenshot_2023-04-26_at_11.49.54.png"><img style="width:1534px" src="Web%20Services%20fd60808506414fb293640baac96e5dd1/Screenshot_2023-04-26_at_11.49.54.png"/></a></figure></div><div id="5eeae339-8418-46c0-8294-5fb71adf868b" style="width:50%" class="column"><figure id="463b0fd0-8498-4ab6-822d-e3aa0d3377ae" class="image"><a href="Web%20Services%20fd60808506414fb293640baac96e5dd1/Screenshot_2023-04-26_at_11.50.03.png"><img style="width:1548px" src="Web%20Services%20fd60808506414fb293640baac96e5dd1/Screenshot_2023-04-26_at_11.50.03.png"/></a></figure></div></div><h3 id="5438508d-f348-414a-a8e7-e53ff65cd9a8" class="">Expose directory structure-like URIs</h3><p id="fbb352e6-4edf-400d-965d-70fed796e0c4" class="">Each resource is accessible via a URI</p><p id="5c46f82d-4381-4fc5-8372-a9badeda86d6" class="">The structure of a URI should be straightforward, predictable, and easily understood</p><p id="0ca7dac0-2eda-47cf-8c36-fd6fd9d8ae7e" class="">Directory structure-like URIs</p><ul id="4a3ab7df-7b1e-420d-8ee7-8c894c137159" class="bulleted-list"><li style="list-style-type:disc">Hierarchical</li></ul><ul id="08920fb8-2a19-421e-8e18-d03adcc6bdf1" class="bulleted-list"><li style="list-style-type:disc">Rooted at a single path</li></ul><ul id="08639bfe-51b3-4d7a-a2da-d7e694326655" class="bulleted-list"><li style="list-style-type:disc">Branches of the root are subpaths that expose the service&#x27;s main areas</li></ul><p id="9416ec92-d3e4-4942-9710-33bea0a392a7" class="">Examples:</p><ul id="4624e8c5-365a-451e-93bb-6ee025ec01d4" class="bulleted-list"><li style="list-style-type:disc">http://www.myservice.org/discussion/topics/{topic}</li></ul><ul id="71585794-0075-42fd-844d-2bfa766f73b4" class="bulleted-list"><li style="list-style-type:disc">http://www.myservice.org/discussion/2008/12/10/{topic}</li></ul><h3 id="66cc689a-2375-4fa7-90c3-ebbea4f1c756" class="">Transfer XML, JSON or both</h3><p id="b63ba98f-13b3-4d73-a336-dfa2107831a9" class="">Resources need to be represented in some format in order to be transferred</p><ul id="15ac14d7-62b3-401b-83a3-9759c2934ff2" class="bulleted-list"><li style="list-style-type:disc">Human readable<ul id="7c787b0b-fb4f-45b1-a619-a37a72849389" class="bulleted-list"><li style="list-style-type:circle">e.g. XML, JSON</li></ul></li></ul><ul id="9a5732c1-8b56-4eb8-a66b-6fa13ad9f1a5" class="bulleted-list"><li style="list-style-type:disc">Also relationships between resources need to be represented</li></ul><table id="859dad63-0790-4488-ae1d-5311dbd2f07f" class="simple-table"><tbody><tr id="5160c6fd-2fa4-4058-befb-81cff49f7d01"><td id="cYAc" class="" style="width:154.99999237060547px"><strong>MIME-TYPE</strong></td><td id="GNdu" class="" style="width:313.4545440673828px"><strong>Content-Type</strong></td></tr><tr id="3555c714-3b54-46bc-87a3-6be46b21ae38"><td id="cYAc" class="" style="width:154.99999237060547px">JSON</td><td id="GNdu" class="" style="width:313.4545440673828px">application/json</td></tr><tr id="54570f86-cdad-4885-807b-5d966fe349b5"><td id="cYAc" class="" style="width:154.99999237060547px">XML</td><td id="GNdu" class="" style="width:313.4545440673828px">application/xml</td></tr><tr id="c215a00d-0fb2-464f-a11e-ba8ca156a877"><td id="cYAc" class="" style="width:154.99999237060547px">XHTML</td><td id="GNdu" class="" style="width:313.4545440673828px">application/xhtml+xml</td></tr></tbody></table><p id="8225e580-b2c0-4ba4-a8a2-b29badd71743" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Listing 6. XML representation of a discussion thread</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><figure id="9cdc4a9e-f0d1-496e-bd05-d9d59088510c" class="image"><a href="Web%20Services%20fd60808506414fb293640baac96e5dd1/Screenshot_2023-04-26_at_11.55.53.png"><img style="width:1332px" src="Web%20Services%20fd60808506414fb293640baac96e5dd1/Screenshot_2023-04-26_at_11.55.53.png"/></a></figure><hr id="19c201e8-6817-4cd2-b7ab-ed1b7284f3ee"/><p id="95369e58-6c9c-4ba3-ad28-af974349d503" class=""><time>@May 24, 2023</time> Distributed Systems Book (Coulouris) - <strong><strong><strong><strong>chpt. 9 (sec: 9.1, 9.2)</strong></strong></strong></strong></p><p id="44d33259-a46a-4b27-b75d-418b943f8765" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

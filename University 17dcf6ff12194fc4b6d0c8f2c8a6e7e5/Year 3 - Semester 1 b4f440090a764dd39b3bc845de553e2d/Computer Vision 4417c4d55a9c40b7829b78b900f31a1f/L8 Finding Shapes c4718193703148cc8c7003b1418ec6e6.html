@@ -1,0 +1,696 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>L8. Finding Shapes</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="c4718193-7031-48cc-8c70-03b1418ec6e6" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/met_camille_pissarro_1896.jpg" style="object-position:center 40%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="https://www.notion.so/icons/kind_gray.svg"/></div><h1 class="page-title">L8. Finding Shapes</h1><p class="page-description"></p></header><div class="page-body"><hr id="0de6112a-d2e5-4941-80ae-15ecdde74929"/><blockquote id="293bba33-ae56-445a-87ac-6593e047719f" class=""><strong>Book pp. 187-201 and 208-215</strong></blockquote><nav id="52773ccc-9cdf-464d-b063-c5ff80487b97" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#7f96ab7a-6b9d-40c8-bb3c-c1788dd21032">D<strong>efining and detecting shapes in images</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#30d81f0c-94c2-497c-bed7-769c32abef51"><strong>Feature extraction by thresholding
+</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a61609bf-39b6-49b8-bef7-36f9985069c2"><strong>Template Matching - the basis</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#0baa0a54-f177-4a5a-9bbf-e7bf10e3834a">I<strong>n Occluded Images…</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#c38fd76e-e5cd-4034-b52b-0a3fd9077876">I<strong>n Noisy Images…</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#88b80756-91cf-452a-9abb-3a01c5372ae0"><strong>Convolution and Correlation
+</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#6bf77c0e-9ac6-4c40-bfaa-3f7bc9ba1824"><strong>Baron Fourier
+</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f0d7dc20-06bb-4cc3-9468-a77eb0b3850c">Improving Shape Detection</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5f6aa72a-98b7-48f2-bd27-a90513aeee4a"><strong>Hough Transform
+</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#dc1bc4a6-ed35-4223-b8d6-633b6f41f5cc">Pseudocode</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#2b2057ec-1542-4172-b0e4-2af365aebcd9"><strong>Applying the Hough transform for lines
+</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#dd6b4520-ade4-481a-8e75-12951bdb978c">Problems with this…</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#8ce75583-f275-49d1-9ca4-6ea7b0912211"><strong>Images and the accumulator space of the polar Hough transform</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#8733a617-91ed-4135-b620-50d3358107d8">Polar Hough transform for lines</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#37ad246f-548a-4beb-bcde-a7b625171859">Applying…</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#345cc1b9-fec3-4acd-9d42-35f15f1f5ccc">RECAP</a></div></nav><hr id="43556080-16f4-45f3-b18c-686b9b5d7287"/><h1 id="7f96ab7a-6b9d-40c8-bb3c-c1788dd21032" class="">D<strong>efining and detecting shapes in images</strong></h1><h2 id="30d81f0c-94c2-497c-bed7-769c32abef51" class=""><strong>Feature extraction by thresholding
+</strong></h2><figure id="0398efbe-ff07-402a-897d-cf7449706545" class="image"><a href="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.03.55.png"><img style="width:1864px" src="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.03.55.png"/></a></figure><p id="23a1a168-de9f-4658-9d69-508bcb33acd9" class="">Conclusion: we need shapes!</p><h2 id="a61609bf-39b6-49b8-bef7-36f9985069c2" class=""><strong>Template Matching - the basis</strong></h2><p id="020509d5-5b96-4e7a-abd1-507aecd85941" class="">The process of template matching:</p><figure id="8492776c-23fa-4d1b-a866-3b3a7804f084" class="image"><a href="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.05.14.png"><img style="width:2026px" src="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.05.14.png"/></a></figure><p id="627ea754-6155-4159-87da-acdb037f6ae3" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Must use edges!</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><figure id="65558274-b5f4-479e-8252-b6bc53d3f1dc" class="image" style="text-align:left"><a href="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.08.39.png"><img style="width:624px" src="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.08.39.png"/></a></figure><figure id="99488b97-b303-462b-b866-1d05c0b232c0" class="image"><a href="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.08.17.png"><img style="width:1672px" src="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.08.17.png"/></a></figure><p id="a1308785-56b3-49f7-b605-01a726ba2edd" class="">Intuitively <em><em><em><em><em><em>simple</em></em></em></em></em></em></p><p id="4f4f70ea-819c-4914-a649-93d525c923be" class="">It’s like using an x-ray to detect whether baggages at the airport contain knives, guns, etc…</p><h3 id="0baa0a54-f177-4a5a-9bbf-e7bf10e3834a" class="">I<strong>n Occluded Images…</strong></h3><figure id="1d804289-4d53-44dd-b509-317a974b47a3" class="image"><a href="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.06.49.png"><img style="width:1950px" src="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.06.49.png"/></a></figure><p id="d3debe58-ab0b-4a89-bcc6-d22fbe76e127" class="">Template matching is optimal in <strong>occlusion
+</strong></p><h3 id="c38fd76e-e5cd-4034-b52b-0a3fd9077876" class="">I<strong>n Noisy Images…</strong></h3><figure id="e09af79d-3c55-420d-92c8-c9509833218c" class="image"><a href="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.07.27.png"><img style="width:1470px" src="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.07.27.png"/></a></figure><p id="9403a8f3-e7ac-4d49-86ab-ce4582c648b7" class="">Template matching is optimal in <strong>noise </strong><em>(but slow)</em></p><h2 id="88b80756-91cf-452a-9abb-3a01c5372ae0" class=""><strong>Convolution and Correlation
+</strong></h2><div id="a46a1266-4296-43d6-9a34-f9f22a59b68b" class="column-list"><div id="b08f98e4-3510-490a-a43a-30dbe96b349e" style="width:43.75%" class="column"><p id="8793724f-a4bd-4635-a3c9-9725d3e54638" class=""><span style="border-bottom:0.05em solid"><strong>Convolution:</strong></span></p><p id="cafe4238-c045-402a-b5f0-06a04bdebea7" class="">Application of a template and involves flipping the template:</p><p id="a38a25e6-0c2d-47ec-881a-bed170e25c2a" class="">Utilising Fourier transform 𝐹 :</p></div><div id="2f14b22a-26df-485a-9d5d-4738a8d43fb3" style="width:56.25%" class="column"><figure id="79cf7792-a2ed-47eb-860a-90cd7043cda7" class="image"><a href="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.10.00.png"><img style="width:780px" src="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.10.00.png"/></a></figure></div></div><div id="5b33817d-0e1b-48f6-bffa-4f88c11cca87" class="column-list"><div id="2c8a2916-6da3-4e21-935d-985db7fbb409" style="width:43.75%" class="column"><p id="89abff75-861c-4ac5-b7cb-5c4b86a64653" class=""><span style="border-bottom:0.05em solid"><strong>Correlation:</strong></span></p><p id="02a51863-27af-4f14-896e-65b987bddced" class="">Matching of a template:</p><p id="def2340d-6590-4b8a-9231-bd07abc57a5b" class="">Utilizing Fourier transform after flipping the template:</p><p id="e01fec29-b727-4428-8d66-8cde1e63d6e8" class="">
+</p></div><div id="c9554d25-71b4-4ed2-8c3a-33c1eb920918" style="width:56.25%" class="column"><figure id="3d8fc952-c01a-4acb-be30-5d7a9c1b5ce3" class="image"><a href="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.10.04.png"><img style="width:958px" src="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.10.04.png"/></a></figure></div></div><h3 id="6bf77c0e-9ac6-4c40-bfaa-3f7bc9ba1824" class=""><strong>Baron Fourier
+</strong></h3><p id="c674c6cf-c26a-4e2f-86bc-77a7f679028e" class="">Template matching is <span style="border-bottom:0.05em solid">slow</span>, so use <strong>FFT
+</strong></p><figure id="fb4bfad3-28e6-4553-a14d-4a9e9338824d" class="image"><a href="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.13.44.png"><img style="width:1902px" src="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.13.44.png"/></a></figure><p id="2f76b37c-7784-456f-8127-553a8b13767a" class="">Need to find a <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>local maximum </strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>in order to confirm that there is a match!</p><p id="6ae7e4c2-0b65-4f4a-b7c3-3b71266c09fa" class="">That is how you can distinguish between this specific blob, and all the others..</p><figure id="ffca424b-1b36-479b-9150-c854a5cb0b6d" class="image" style="text-align:left"><a href="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.14.17.png"><img style="width:432px" src="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.14.17.png"/></a></figure><h1 id="f0d7dc20-06bb-4cc3-9468-a77eb0b3850c" class="">Improving Shape Detection</h1><h2 id="5f6aa72a-98b7-48f2-bd27-a90513aeee4a" class=""><strong>Hough Transform
+</strong></h2><ul id="6d6c4b80-16ae-47b9-9215-875e40c90003" class="bulleted-list"><li style="list-style-type:disc">Performance same as template matching, but faster</li></ul><ul id="c16bf807-3733-4e24-a195-fb6db48d19d7" class="bulleted-list"><li style="list-style-type:disc">A line is points (<em>x,y) </em>gradient <em>m </em>intercept <em>c; </em><em><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mi>m</mi><mo>∗</mo><mi>x</mi><mo>+</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">y=m*x+c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.46528em;vertical-align:0em;"></span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">c</span></span></span></span></span><span>﻿</span></span></em></li></ul><ul id="b62ac108-80e1-4abb-8231-f59e47900738" class="bulleted-list"><li style="list-style-type:disc">and is points (<em>m,c) </em>gradient -<em>x </em>intercept <em>y; </em><em><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mo>−</mo><mi>x</mi><mo>∗</mo><mi>m</mi><mo>+</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">c=-x*m+y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">c</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span></span><span>﻿</span></span></em></li></ul><figure id="c38a9b73-3cdc-4734-8b3a-7e04919e6760" class="image"><a href="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.17.54.png"><img style="width:624px" src="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.17.54.png"/></a></figure><p id="a78860c2-e87d-4e69-b5b5-e08ddde6e109" class=""><strong>The coordinates of the peak are the parameters of the line (principle of duality)</strong></p><p id="76234c14-ed96-4437-bfb3-21b2ac16a0ff" class="">i.e., every point on the initial (left) image, corresponds to their own line on the other (right) image</p><p id="227a8448-f0ac-48fd-bed8-e3f23af5ceed" class="">Yellow point is yellow line; blue point is blue line…</p><p id="0f0bd8de-0fbb-4bea-9539-78c121b5ca47" class="">The point in the middle of the right image that intersects everything is the line in the left image that crosses every point</p><p id="70d8275a-a05d-4b7a-91cb-f866c746a418" class="">Could use this method for other things, such as edge detection to detect the line that intersect every shape, *yada yada…*</p><h3 id="dc1bc4a6-ed35-4223-b8d6-633b6f41f5cc" class="">Pseudocode</h3><pre id="a174b3f5-814b-4986-afd4-c70ebcbee32d" class="code"><code>accum=0
+for all x,y                      #look at all points
+	if edge(y,x)&gt;threshold         #check significance
+		for m = -10 to +10           #if so, go thru m
+			c = -x*m+y                 #calculate c
+			accum(m,c) PLUS 1          #vote in accumulator
+m,c = argmax(accum)              #peak gives parameters</code></pre><h3 id="2b2057ec-1542-4172-b0e4-2af365aebcd9" class=""><strong>Applying the Hough transform for lines
+</strong></h3><figure id="a6379e4c-1c52-42c3-9ec5-5296c7a98435" class="image"><a href="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.21.55.png"><img style="width:528px" src="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.21.55.png"/></a></figure><h3 id="dd6b4520-ade4-481a-8e75-12951bdb978c" class="">Problems with this…</h3><p id="f113a79f-a0c3-4050-a131-e13ed8f2731f" class=""><mark class="highlight-yellow_background"><em>m, c </em></mark><mark class="highlight-yellow_background">tend to </mark><mark class="highlight-yellow_background"><strong>infinity</strong></mark></p><p id="5493bc27-6d2d-4162-b613-35103d68fc32" class=""><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid">How do we fix this:</span></span></span></span></span></span></span></p><p id="99addf35-3360-4f21-b128-d6b94892e3cd" class="">Change the parameterisation</p><p id="adb22cb8-7627-4f7b-a2f4-ce0f9ba13db7" class="">Use foot of normal: <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mi>x</mi><mo>∗</mo><mi>c</mi><mi>o</mi><mi>s</mi><mi>θ</mi><mo>+</mo><mi>y</mi><mo>∗</mo><mi>s</mi><mi>i</mi><mi>n</mi><mi>θ</mi></mrow><annotation encoding="application/x-tex">r=x*cos\theta+y*sin\theta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.46528em;vertical-align:0em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">cos</span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.6597200000000001em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">in</span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span></span></span></span></span><span>﻿</span></span></p><p id="38c13243-2784-418a-bb43-c69986d80040" class="">Gives polar Hough transform for lines</p><figure id="fd919a3f-5c9e-4c7f-a2c5-4928560099c3" class="image"><a href="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.24.13.png"><img style="width:240px" src="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.24.13.png"/></a></figure><h2 id="8ce75583-f275-49d1-9ca4-6ea7b0912211" class=""><strong>Images and the accumulator space of the polar Hough transform</strong></h2><figure id="c59b49d3-e307-4bf8-b275-6e99ed5a8557" class="image"><a href="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.25.33.png"><img style="width:1338px" src="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.25.33.png"/></a></figure><h3 id="8733a617-91ed-4135-b620-50d3358107d8" class="">Polar Hough transform for lines</h3><figure id="a2355d17-3761-4c03-b117-a3c5db7e4115" class="image"><a href="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.26.06.png"><img style="width:1682px" src="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.26.06.png"/></a></figure><p id="2c146b0e-f5c9-4770-adda-d641a87a52ac" class="">***might need to look this one up…***</p><h3 id="37ad246f-548a-4beb-bcde-a7b625171859" class="">Applying…</h3><figure id="c3d2c2d0-df28-457a-a150-7ebfd8875bc9" class="image"><a href="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.27.15.png"><img style="width:1000px" src="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.27.15.png"/></a></figure><p id="faa6b386-873c-4d00-9f99-af5a744f557b" class="">Very efficient in helping you detect lines!</p><p id="6cdf17f3-ee27-4531-9774-0352953f142e" class="">Used in self-driving cars</p><h1 id="345cc1b9-fec3-4acd-9d42-35f15f1f5ccc" class="">RECAP</h1><p id="4234099e-73fd-498d-bc49-65c97aa4567b" class="">1 – target shape defined by template</p><p id="dd4a6447-9f45-4cc7-8208-0675ace8479a" class="">2 – and detected by template convolution</p><p id="8e2f1c42-a89a-474e-bb72-e88c856bd0d8" class="">3 – optimal in occlusion and noise</p><p id="9af48bca-7860-433f-9c4c-cdfbfce973b8" class="">4 – Hough transform gives same result, but faster</p><hr id="eb5301ca-6bd0-4568-99cd-3591bf2342c2"/><p id="1cc541e5-3010-492a-80f8-e477e9102540" class=""><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong><span style="border-bottom:0.05em solid"><strong>A framework for computer vision:</strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></strong></span></p><figure id="2a55ca8a-9e93-4267-bb9a-da7b8d671ba5" class="image"><a href="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.28.13.png"><img style="width:528px" src="L8%20Finding%20Shapes%20c4718193703148cc8c7003b1418ec6e6/Screenshot_2023-10-20_at_16.28.13.png"/></a><figcaption>What we are building towards…</figcaption></figure><p id="d5da30ad-9b1a-4703-8345-bcab708cc4cd" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
