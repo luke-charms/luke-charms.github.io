@@ -1,0 +1,47 @@
+﻿Name,Assigned,Projects,Related to Projects (1) (Tasks),Status
+Test the social media integration,Sohrab Amin,,,Not started
+Test the new onboarding process,Andrea Lim,,,In progress
+Test the integration in production,Sohrab Amin,,,Not started
+Determine feature set support,Sohrab Amin,,,In progress
+Evaluate different third-party services,Ben Lang,,,Done
+Design and develop an interface,Sohrab Amin,,,In progress
+Implement a ticketing system,Andrea Lim,,,In progress
+Gather feedback from customers,Ben Lang,,,Done
+Determine which topics we should cover,Stephanie Hagio Chin,,,Done
+Understand the third-party API,Nate Martins,,,Not started
+Develop wireframes and prototypes,Sohrab Amin,,,Done
+Create written and multimedia content,Ben Lang,,,In progress
+Decide which features to support,Stephanie Hagio Chin,,,Done
+Test the video chat feature,Nate Martins,,,Done
+Analyze existing onboarding data,Sohrab Amin,,,Done
+Develop a plan for existing product,Andrea Lim,,,Not started
+Set up automated responses,Stephanie Hagio Chin,,,Done
+Train support staff on best practices,Sohrab Amin,,,In progress
+Research popular integrations,Sohrab Amin,,,In progress
+Develop a content plan,Andrea Lim,,,Done
+Test the knowledge base with users,Sohrab Amin,,,In progress
+Develop a plan for promotion,Andrea Lim,,,Done
+Research different third-party services,Nate Martins,,,Done
+Design and develop user interface,Nate Martins,,,Done
+Evaluate different third-party services,Ben Lang,,,Done
+Test the integration in a dev enviroment,Sohrab Amin,,,Not started
+Research popular video chat platforms,Ben Lang,,,Done
+Literature Review,Lukas,Background (Gantt%20chart%209639a798eec542e38ee610d07cb32884/Projects%2095af5676187d4230b12405581a3b00bc/Background%20bb4c7d8e5e6044f48b0724bfe476aaab.html),,In progress
+Project Research,Lukas,Background (Gantt%20chart%209639a798eec542e38ee610d07cb32884/Projects%2095af5676187d4230b12405581a3b00bc/Background%20bb4c7d8e5e6044f48b0724bfe476aaab.html),,In progress
+Requirements,Lukas,Design (Gantt%20chart%209639a798eec542e38ee610d07cb32884/Projects%2095af5676187d4230b12405581a3b00bc/Design%202fd2b0c1bf74413083535bb11fb7782d.html),,Not started
+Specification,Lukas,Design (Gantt%20chart%209639a798eec542e38ee610d07cb32884/Projects%2095af5676187d4230b12405581a3b00bc/Design%202fd2b0c1bf74413083535bb11fb7782d.html),,Not started
+Modelling,Lukas,Design (Gantt%20chart%209639a798eec542e38ee610d07cb32884/Projects%2095af5676187d4230b12405581a3b00bc/Design%202fd2b0c1bf74413083535bb11fb7782d.html),,Not started
+*actual* implementation,Lukas,Design (Gantt%20chart%209639a798eec542e38ee610d07cb32884/Projects%2095af5676187d4230b12405581a3b00bc/Design%202fd2b0c1bf74413083535bb11fb7782d.html),,Not started
+Prototypes,Lukas,Implementation (Gantt%20chart%209639a798eec542e38ee610d07cb32884/Projects%2095af5676187d4230b12405581a3b00bc/Implementation%20b7daf45ad19847f6874f999b45a1b875.html),,Not started
+Iteration 1,Lukas,Implementation (Gantt%20chart%209639a798eec542e38ee610d07cb32884/Projects%2095af5676187d4230b12405581a3b00bc/Implementation%20b7daf45ad19847f6874f999b45a1b875.html),,Not started
+Iteration 2,Lukas,Implementation (Gantt%20chart%209639a798eec542e38ee610d07cb32884/Projects%2095af5676187d4230b12405581a3b00bc/Implementation%20b7daf45ad19847f6874f999b45a1b875.html),,Not started
+Release Candidate,Lukas,Testing (Gantt%20chart%209639a798eec542e38ee610d07cb32884/Projects%2095af5676187d4230b12405581a3b00bc/Testing%20020a57a3366942e8be709dc565104af6.html),,Not started
+Introduction,Lukas,Report Writing (Gantt%20chart%209639a798eec542e38ee610d07cb32884/Projects%2095af5676187d4230b12405581a3b00bc/Report%20Writing%200eb1a3fb3a964fe08224e9e4ed11a00a.html),,Not started
+Background & Lit. Review,Lukas,Report Writing (Gantt%20chart%209639a798eec542e38ee610d07cb32884/Projects%2095af5676187d4230b12405581a3b00bc/Report%20Writing%200eb1a3fb3a964fe08224e9e4ed11a00a.html),,Not started
+Specification,Lukas,Report Writing (Gantt%20chart%209639a798eec542e38ee610d07cb32884/Projects%2095af5676187d4230b12405581a3b00bc/Report%20Writing%200eb1a3fb3a964fe08224e9e4ed11a00a.html),,Not started
+Overview of System,Lukas,Report Writing (Gantt%20chart%209639a798eec542e38ee610d07cb32884/Projects%2095af5676187d4230b12405581a3b00bc/Report%20Writing%200eb1a3fb3a964fe08224e9e4ed11a00a.html),,Not started
+Evaluation,Lukas,Report Writing (Gantt%20chart%209639a798eec542e38ee610d07cb32884/Projects%2095af5676187d4230b12405581a3b00bc/Report%20Writing%200eb1a3fb3a964fe08224e9e4ed11a00a.html),,Not started
+Conclusion,Lukas,Report Writing (Gantt%20chart%209639a798eec542e38ee610d07cb32884/Projects%2095af5676187d4230b12405581a3b00bc/Report%20Writing%200eb1a3fb3a964fe08224e9e4ed11a00a.html),,Not started
+Finalize Algorithm,Lukas,Testing (Gantt%20chart%209639a798eec542e38ee610d07cb32884/Projects%2095af5676187d4230b12405581a3b00bc/Testing%20020a57a3366942e8be709dc565104af6.html),,Not started
+Find model algorithm,Lukas,Implementation (Gantt%20chart%209639a798eec542e38ee610d07cb32884/Projects%2095af5676187d4230b12405581a3b00bc/Implementation%20b7daf45ad19847f6874f999b45a1b875.html),,Not started
+Investigate existing algorithms,Lukas,Background (Gantt%20chart%209639a798eec542e38ee610d07cb32884/Projects%2095af5676187d4230b12405581a3b00bc/Background%20bb4c7d8e5e6044f48b0724bfe476aaab.html),,Not started
