@@ -1,0 +1,679 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Syntax and Grammars</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="8cb983d8-659d-45bd-b0d3-3ace7695aaff" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/snippet_pink.svg"/></div><h1 class="page-title">Syntax and Grammars</h1><p class="page-description"></p></header><div class="page-body"><nav id="8ba69fd6-6ecc-494e-b350-0128dc81fd02" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#906aa3bb-18a4-42a5-a84e-2a1cb5bb7136">Syntax vs. Semantics</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#78b5a99d-3cd5-4bc0-a946-36118c7ed0ad">Syntax</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ed4833c5-2b56-481e-94fc-ae7bbc84c14d">Semantics</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0e75bef3-3d7e-42b6-b960-324ee9da7140">Language Syntax as Grammars</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6002959a-082f-49b0-8370-ca68c1295c2d">Non-Terminals vs. Terminals</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#340e34ee-e658-4755-864a-5c3f3a0508bf">Non-Terminals</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#9c5bc524-9908-43ef-af93-5cf0947e39f8">Terminals</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6d252615-d0a3-4899-9784-25432b1e3619">Parse Trees</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#21ad848d-9994-47ea-bb09-cf97107c5725">Syntax to Execution</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#880c4c2f-df79-4750-ba44-cb42dbdd450d">Abstract Syntax Trees</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#04003450-5ff1-4b4e-8ba5-39e850a6355b">from Parse Trees to ASTs</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#bf3f1b07-baeb-4feb-8c60-a62634329f3d">Ambiguous Grammars</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5e5bd94b-09aa-462f-92b1-5ac73a8ce4ec">Example Parse Trees:</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#bea08364-3bc9-4c30-a462-513aadb52fdd">Why did this happen?</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#04608767-7f72-4900-b8d1-4e2833c5dbdd">How can we avoid this?</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#7174a4f0-cfee-42e2-b4fd-532e2e0b25bb">Associativity</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#f7c07ec6-c06f-471d-9294-9b815b14fb25">Changing Associativity</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#4bbb546a-d387-46d8-a2cc-055471c9c6a4">Resolving the dangling “else”</a></div></nav><h1 id="906aa3bb-18a4-42a5-a84e-2a1cb5bb7136" class="">Syntax vs. Semantics</h1><h2 id="78b5a99d-3cd5-4bc0-a946-36118c7ed0ad" class="">Syntax</h2><ul id="aae45cbf-2274-417d-a40a-6ebe36033d23" class="bulleted-list"><li style="list-style-type:disc">This refers to the <strong>structure </strong>of statements in a program.</li></ul><ul id="e60a4edc-cf38-438c-ab30-a32c71267c96" class="bulleted-list"><li style="list-style-type:disc">It typically follows a grammar based upon certain lexical symbols
+(e.g. keywords in a language)</li></ul><h2 id="ed4833c5-2b56-481e-94fc-ae7bbc84c14d" class="">Semantics</h2><ul id="d4d7ff12-f89d-49b3-a9f3-07114b602a65" class="bulleted-list"><li style="list-style-type:disc">This refers to the <strong>meaning </strong>of programs and how programs execute.</li></ul><figure class="block-color-yellow_background callout" style="white-space:pre-wrap;display:flex" id="d80cf3c2-b32e-455d-83d8-e8acd05224fc"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%"><em>The role of an interpreter or compiler of a language is to transform syntax into semantics</em></div></figure><h2 id="0e75bef3-3d7e-42b6-b960-324ee9da7140" class="">Language Syntax as Grammars</h2><ul id="9d41c00e-245d-4cf5-b1a6-50fd6734c7f1" class="bulleted-list"><li style="list-style-type:disc">Most programming languages are context free languages expressible using a Context Free Grammar (CFG)</li></ul><ul id="20b6744e-1f29-46cd-88b6-c4834b61605c" class="bulleted-list"><li style="list-style-type:disc">BNF is the de facto standard for defining the grammar of a programming language</li></ul><h2 id="6002959a-082f-49b0-8370-ca68c1295c2d" class="">Non-Terminals vs. Terminals</h2><p id="fca02579-6ccb-4f01-9166-d11ec5c45d1d" class="">BNF acts as a <strong>metalanguage </strong>for defining languages</p><p id="1de391be-ee9a-499b-89e1-598a4bb4bcd7" class="">It is a convenient meta-syntax for defining the grammar of a language.</p><h3 id="340e34ee-e658-4755-864a-5c3f3a0508bf" class="">Non-Terminals</h3><p id="5cf7ccad-37bd-4578-8f15-9668d02534ad" class="">Represent different states of determining whether a string is accepted by the grammar</p><ul id="5f5aed1c-9462-46ef-b224-14c2252b564a" class="bulleted-list"><li style="list-style-type:disc">In programming language terms these refers to the different kinds of expressions one may have in the language</li></ul><ul id="d5d8bfa6-1089-4ecd-a43e-f91a4e0791ae" class="bulleted-list"><li style="list-style-type:disc">e.g. class level declarations, method declarations, statements, expressions</li></ul><ul id="a45dd9cc-221f-4702-8df4-4f4868e0a988" class="bulleted-list"><li style="list-style-type:disc">(<em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>everything that does not </em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em><strong><strong><strong><strong><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>end </em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></strong></strong></strong></strong><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>the program pretty much)</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></li></ul><h3 id="9c5bc524-9908-43ef-af93-5cf0947e39f8" class="">Terminals</h3><p id="9238cfd7-4b27-47df-8a9d-0728c50b6f30" class="">Represent the actual symbols that appear in the strings accepted by the grammar</p><ul id="7e34c7cc-2a37-4d30-b6b5-5351b729fc5e" class="bulleted-list"><li style="list-style-type:disc">These are sometimes called <strong>tokens</strong> or <strong>lexemes</strong> and refer to the reserved words, variable names and literals of our programs</li></ul><h2 id="6d252615-d0a3-4899-9784-25432b1e3619" class="">Parse Trees</h2><ul id="7a2bb653-e615-4989-b06f-2899f5a0a15f" class="bulleted-list"><li style="list-style-type:disc">The legal <strong>programs</strong> of a language are those strings for which there is a <strong>derivation</strong> in the BNF grammar for the language.</li></ul><ul id="28ed9ada-b573-46fc-aa48-587447986228" class="bulleted-list"><li style="list-style-type:disc">A <strong>derivation</strong> of a string in a BNF grammar can be represented as a <strong>tree</strong></li></ul><ul id="cad43e7c-a75b-4147-9d83-5feee1615dd5" class="bulleted-list"><li style="list-style-type:disc">At each node, the tree represents which rule of the grammar has been used to continue deriving the string<ul id="3e079932-6857-443a-b655-fab58f544a88" class="bulleted-list"><li style="list-style-type:circle">The child nodes represent the matches of the substrings according to the grammar</li></ul></li></ul><ul id="f6be441f-1de5-44ab-a74b-60d919f7b9f5" class="bulleted-list"><li style="list-style-type:disc">We call such trees <strong>parse trees</strong></li></ul><h2 id="21ad848d-9994-47ea-bb09-cf97107c5725" class="">Syntax to Execution</h2><figure class="block-color-yellow_background callout" style="white-space:pre-wrap;display:flex" id="ac9733b2-ffd5-4e15-aad0-0ac7b0cd4e26"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><em>We can understand programs as a string of text, parsed as a tree according to some grammar, usually expressed in BNF</em></div></figure><p id="b0a850de-53c1-4add-bc94-6f04a08e7faa" class="">How do we find the derivation of a string in a grammar?</p><p id="97cd2241-c345-46b7-bbb1-a2a629ee8303" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Step 1) Lexing:</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="190297a4-a86d-4b37-9488-f05ea1c6c10c" class="bulleted-list"><li style="list-style-type:disc">Involves translating the particular symbols or characters in the string that make up the terminals of the grammar in to tokens</li></ul><p id="af6cf350-c083-4fe4-bd57-8dcb769c730d" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Step 2) Parsing:</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="6f7e89f0-c8d3-4355-ad76-9dfa8a944137" class="bulleted-list"><li style="list-style-type:disc">Involves translating the sequence of tokens that make up the input string in to a tree. The parser must follow the rules of the grammar and build a tree representing the derivation.</li></ul><p id="c236204f-fed7-4fcb-8711-25531029e63a" class="">(In this latter step we often move away from parse trees and work with <strong>Abstract Syntax Trees</strong>)</p><h2 id="880c4c2f-df79-4750-ba44-cb42dbdd450d" class="">Abstract Syntax Trees</h2><p id="9c97f356-5c2a-423e-8aad-a32797956f90" class="">ASTs are used to remove unnecessary detail regarding how a term was parsed</p><h3 id="04003450-5ff1-4b4e-8ba5-39e850a6355b" class="">from Parse Trees to ASTs</h3><p id="37faee86-453d-4a11-aaa8-f203cc7464d8" class="">e.g., of a Concrete Syntax Tree (Parse Tree) for term: <code>while (x &lt; 4) do { print (x++) * 4 ; } </code></p><figure id="7bd1f145-92f6-4d00-8c20-8adbfa2ead47" class="image"><a href="Syntax%20and%20Grammars%208cb983d8659d45bdb0d33ace7695aaff/Screenshot_2023-05-08_at_16.55.19.png"><img style="width:336px" src="Syntax%20and%20Grammars%208cb983d8659d45bdb0d33ace7695aaff/Screenshot_2023-05-08_at_16.55.19.png"/></a></figure><p id="920264c5-a5e0-4281-9447-ceeefd748d5d" class="">removing the unecessary nodes leaves us with the <strong>AST:</strong></p><figure id="1938c6e8-5936-45cb-bfa2-55094e413338" class="image"><a href="Syntax%20and%20Grammars%208cb983d8659d45bdb0d33ace7695aaff/Screenshot_2023-05-08_at_16.55.42.png"><img style="width:336px" src="Syntax%20and%20Grammars%208cb983d8659d45bdb0d33ace7695aaff/Screenshot_2023-05-08_at_16.55.42.png"/></a></figure><p id="699573a7-7f33-451a-b0b4-a85d279e14c6" class="">^^^This is what <strong>Compilers/Interpreters</strong> work with</p><h1 id="bf3f1b07-baeb-4feb-8c60-a62634329f3d" class="">Ambiguous Grammars</h1><h2 id="5e5bd94b-09aa-462f-92b1-5ac73a8ce4ec" class="">Example Parse Trees:</h2><p id="78879b20-5325-464b-b10f-722e2aedce10" class="">This example parse tree can be constructed for the <em>expression:</em> <code><strong>“2 + 3 * 4”</strong></code></p><figure id="fcac495b-f998-42bb-bb3b-f760fad2dafa" class="image"><a href="Syntax%20and%20Grammars%208cb983d8659d45bdb0d33ace7695aaff/Screenshot_2023-05-08_at_16.50.30.png"><img style="width:1590px" src="Syntax%20and%20Grammars%208cb983d8659d45bdb0d33ace7695aaff/Screenshot_2023-05-08_at_16.50.30.png"/></a></figure><p id="f42db322-1ab5-499e-aaed-c772f8541588" class=""><strong><strong><strong>HOWEVER, </strong></strong></strong>this example parse tree can also be constructed:</p><figure id="150ee605-b627-476d-9fd3-2a6489d31652" class="image"><a href="Syntax%20and%20Grammars%208cb983d8659d45bdb0d33ace7695aaff/Screenshot_2023-05-08_at_16.58.45.png"><img style="width:336px" src="Syntax%20and%20Grammars%208cb983d8659d45bdb0d33ace7695aaff/Screenshot_2023-05-08_at_16.58.45.png"/></a></figure><h2 id="bea08364-3bc9-4c30-a462-513aadb52fdd" class="">Why did this happen?</h2><p id="bd2ab6d1-1823-43d1-b793-10fdc282a77b" class="">We say that a grammar G is <strong>ambiguous </strong>if there exists a string <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">s</span></span></span></span></span><span>﻿</span></span> for which there exist two or more different parse trees for <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">s</span></span></span></span></span><span>﻿</span></span> using the rules of G</p><p id="07d395fb-539b-4dd1-8901-1e050ca280fd" class=""><strong>Ambiguity in programming language grammars is generally considered a bad thing</strong></p><p id="877bedbe-e8a3-422a-a6e3-a663962c158c" class="">Two different parse trees for the same string of symbols implies two potentially different semantics for the same “program”</p><h2 id="04608767-7f72-4900-b8d1-4e2833c5dbdd" class="">How can we avoid this?</h2><p id="3ded9390-3963-4185-b3c7-50f28251917f" class="">We could just put <em>parentheses</em> everywhere (this is effective but impacts on readability, e.g., LISP)</p><p id="7c82590c-9009-4ca4-808f-75003d0c80c4" class="">We could use operator precedence:</p><ul id="33aef20a-47a5-491a-9fd4-f6fb30d1c8d0" class="bulleted-list"><li style="list-style-type:disc">We can ask that one operator “binds tighter” than another operator; we say that the
+operator would have higher precedence<ul id="17245b99-efd8-457b-8f40-407b603c3925" class="bulleted-list"><li style="list-style-type:circle">‘*’ binds more tightly than ‘+’ so * has higher precedence than +</li></ul></li></ul><ul id="ac5d6454-495f-4a31-8d5d-0ecdd7df5eb7" class="bulleted-list"><li style="list-style-type:disc">We understand “2+3*4” implicitly as “2+(3*4)”<ul id="8550ef59-deac-4684-bc98-47cd95ed7c74" class="bulleted-list"><li style="list-style-type:circle">Higher precedence operators will appear lower in the parse tree</li></ul></li></ul><p id="8c8fda92-50c3-4fc3-93fa-7e93f36acf64" class="">Therefore, rewriting the previous grammar without ambiguity:</p><figure id="54513b64-6338-4085-a8c4-2648c414ec98" class="image"><a href="Syntax%20and%20Grammars%208cb983d8659d45bdb0d33ace7695aaff/Screenshot_2023-05-08_at_17.01.59.png"><img style="width:1628px" src="Syntax%20and%20Grammars%208cb983d8659d45bdb0d33ace7695aaff/Screenshot_2023-05-08_at_17.01.59.png"/></a></figure><p id="5fcb2082-fe15-44f0-a5a3-e087ee156ba8" class=""><strong>Here the level of the non-terminals determines precedence</strong></p><p id="fe3162a5-1c2c-427d-84ce-86bf6ee1ac7c" class=""><strong>Parentheses are used to “reset” precedence</strong></p><h3 id="7174a4f0-cfee-42e2-b4fd-532e2e0b25bb" class="">Associativity</h3><p id="720fd3fa-cc85-4ecd-80fa-0509a632a070" class="">What about when parsing the string: “2 + 3 + 4” ?</p><ul id="8096e168-a857-4557-9c69-9170c94da868" class="bulleted-list"><li style="list-style-type:disc">Following the above grammar this string is implicitly derived as 2 + (3 + 4)</li></ul><ul id="c43eafc4-aa54-4b28-900e-45c4c67309cf" class="bulleted-list"><li style="list-style-type:disc">This is known as being <em>right associative</em></li></ul><h3 id="f7c07ec6-c06f-471d-9294-9b815b14fb25" class="">Changing Associativity</h3><p id="1a98959f-fc60-44ba-bc30-ac5eb59e5f1e" class="">Associativity is important because:</p><ul id="3cc908b3-eb0e-4a23-8905-fceb31b10f13" class="bulleted-list"><li style="list-style-type:disc">2 + (3 + 4) means the same as (2 + 3) + 4 BUT</li></ul><ul id="e9ead11b-2f6b-4045-ac0f-a8f8e962fc70" class="bulleted-list"><li style="list-style-type:disc">2 -(3 - 4) is not the same as (2 - 3) - 4</li></ul><p id="85c7dba3-a268-460e-ada2-ee6a50c332ef" class="">How do we guarantee <em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>left associativity?</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></p><figure id="33fabcc4-d15a-4b89-ada8-061c7cf62fdf" class="image"><a href="Syntax%20and%20Grammars%208cb983d8659d45bdb0d33ace7695aaff/Screenshot_2023-05-08_at_17.04.51.png"><img style="width:1628px" src="Syntax%20and%20Grammars%208cb983d8659d45bdb0d33ace7695aaff/Screenshot_2023-05-08_at_17.04.51.png"/></a></figure><figure class="block-color-yellow_background callout" style="white-space:pre-wrap;display:flex" id="b4677a59-f648-481c-886f-b6b607661381"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%"><strong>Be careful with this approach - left recursive grammars don’t work well with recursive descent!</strong></div></figure><h3 id="4bbb546a-d387-46d8-a2cc-055471c9c6a4" class="">Resolving the dangling “else”</h3><p id="6f2ebd86-c621-438e-a999-a867bad1bd29" class="">In many languages, when writing an if-then-else statement, you do not need a else at the end. However, how does a grammar work out where the ‘final’ else belongs to?</p><figure id="97f0b9c4-7375-488e-9cb5-af34ca40189f" class="image"><a href="Syntax%20and%20Grammars%208cb983d8659d45bdb0d33ace7695aaff/Screenshot_2023-05-08_at_17.06.46.png"><img style="width:240px" src="Syntax%20and%20Grammars%208cb983d8659d45bdb0d33ace7695aaff/Screenshot_2023-05-08_at_17.06.46.png"/></a></figure><p id="af170c1d-33de-4850-b472-6b2113fdbb19" class="">The grammar for Java contains a solution for the dangling else:</p><ul id="1d00c51b-edff-4ece-a7d8-775e76050922" class="bulleted-list"><li style="list-style-type:disc">Additional non-terminals are used to determine a precedence that a nested conditional in a “then” branch cannot use a single branch conditional</li></ul><figure id="1942a652-cc54-454d-a0e7-32ecfaeb40e3" class="image"><a href="Syntax%20and%20Grammars%208cb983d8659d45bdb0d33ace7695aaff/Screenshot_2023-05-08_at_17.07.09.png"><img style="width:1722px" src="Syntax%20and%20Grammars%208cb983d8659d45bdb0d33ace7695aaff/Screenshot_2023-05-08_at_17.07.09.png"/></a></figure><p id="a8446c61-ef86-41cd-a76e-93894cd3f97c" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

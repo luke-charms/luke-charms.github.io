@@ -1,0 +1,676 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Some points to make…</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="da556675-c7f7-423c-8f1f-b0c16803a09f" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/exclamation-mark_gray.svg"/></div><h1 class="page-title">Some points to make…</h1><p class="page-description"></p></header><div class="page-body"><p id="bea2d293-51a8-4dd1-8fd0-2e1f99c60042" class="">Memory Mapped I/O (MMIO)</p><p id="849cd3c3-0eff-4f25-b47f-57a7b78bb70f" class="">In MMIO, the microcontroller reserves a portion of its address space for interacting with peripheral devices or sensors. The sensor is assigned a specific address range within the microcontroller&#x27;s memory map. To read or write data from/to the sensor, the microcontroller accesses the corresponding memory location.</p><p id="e1d53a0e-e30d-47c9-aa19-1a6aa7c9896f" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em>How it works:</em></em></em></em></em></em></em></em></em></em></em></em></em></p><ul id="c26124e2-43a5-4192-9f4f-87dc7f92def8" class="bulleted-list"><li style="list-style-type:disc">Reading from the sensor: The microcontroller reads data from the memory location assigned to the sensor. The data retrieved represents the current state of the sensor or the information it provides.</li></ul><ul id="8e29dd44-5863-449e-91ba-ab7b5fc5799e" class="bulleted-list"><li style="list-style-type:disc">Writing to the sensor: The microcontroller writes data to the memory location assigned to the sensor. This data may include commands or settings that control the behaviour of the sensor.</li></ul><p id="3c5d97e8-5423-4e8e-ac1a-7bcd985df27a" class=""><em><em><em><em><em><em><em><em><em><em><em>Advantages:</em></em></em></em></em></em></em></em></em></em></em></p><ul id="64a2060b-1eb5-423c-aa68-9a1fdb7c33f9" class="bulleted-list"><li style="list-style-type:disc">Familiarity: MMIO is a widely used technique, and many microcontrollers and programming languages support it.</li></ul><ul id="36c95338-442e-4440-9c1a-79d060aafe44" class="bulleted-list"><li style="list-style-type:disc">Simplified access: Reading from and writing to sensors becomes similar to reading from and writing to regular memory locations, making the programming process easier.</li></ul><ul id="21efd41e-98f7-4168-a89c-ffc2ed2e53ce" class="bulleted-list"><li style="list-style-type:disc">Efficient memory utilisation: Since memory is already allocated for sensor data, it can be used efficiently without the need for additional dedicated registers or I/O ports</li></ul><p id="672dd28f-d507-4c0c-a396-cc3d9852542f" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em>Disadvantages</em></em></em></em></em></em></em></em></em></em></em></em></em></p><ul id="6af24e69-0570-4c60-beaf-22898722bd99" class="bulleted-list"><li style="list-style-type:disc">Limited address space: The microcontroller&#x27;s address space is shared between memory and peripherals, limiting the number of sensors that can be interfaced using MMIO.</li></ul><ul id="0fed6452-ec6e-4277-86fc-1e5ac315e2b3" class="bulleted-list"><li style="list-style-type:disc">Slower access: Accessing the sensor&#x27;s data through memory requires additional cycles and instructions, which can introduce latency.</li></ul><p id="bc2a1a7a-d6bd-43db-a4eb-42304fe871ea" class="">Port Mapped I/O (PMIO)</p><p id="87f78445-0797-4a34-a1ba-342cfa82a541" class="">In PMIO, dedicated I/O ports on the microcontroller are used to interface with the sensors. Each port is associated with specific sensor functionalities or registers. The microcontroller uses specific instructions to access these ports and communicate with the sensor.</p><p id="92e479ff-c691-42f0-8c79-93a6bb16b5fa" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em>How it works:</em></em></em></em></em></em></em></em></em></em></em></em></em></p><ul id="31fe35ec-1e47-4e52-8ec0-dd72f12959ef" class="bulleted-list"><li style="list-style-type:disc">Reading from the sensor: The microcontroller reads the status or data from the specific port associated with the sensor.</li></ul><ul id="aed10d14-d88a-45f8-80dd-6f5cfc466fa9" class="bulleted-list"><li style="list-style-type:disc">Writing to the sensor: The microcontroller writes data to the appropriate port to control or configure the sensor.</li></ul><p id="cb6b70c1-74d4-4c72-bf2a-d3210a285b8b" class=""><em><em><em><em><em><em><em><em><em>Advantages:</em></em></em></em></em></em></em></em></em></p><ul id="8473a332-019d-4033-be49-9acd228dcd44" class="bulleted-list"><li style="list-style-type:disc">Fast access: PMIO typically provides faster access to sensor data as it involves direct interaction with dedicated I/O ports, bypassing the memory subsystem.</li></ul><ul id="bb5ee84b-5aa6-4cdd-a5ad-3183d3dbeb0b" class="bulleted-list"><li style="list-style-type:disc">More I/O options: Since PMIO uses dedicated ports, it can accommodate a larger number of sensors compared to MMIO, which is limited by the microcontroller&#x27;s address space.</li></ul><p id="39bf01cc-222c-44ed-879b-e33c02dc8401" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em><em>Disadvantages:</em></em></em></em></em></em></em></em></em></em></em></em></em></em></p><ul id="d2cd4815-c586-4613-b896-818d0a95f305" class="bulleted-list"><li style="list-style-type:disc">Complexity: PMIO often requires more complex instructions and programming techniques compared to MMIO.</li></ul><ul id="e5a36605-2dc1-4629-8666-d00ac1cff622" class="bulleted-list"><li style="list-style-type:disc">Limited memory utilization: PMIO may require additional memory or registers to store sensor data temporarily, reducing overall memory efficiency.</li></ul><hr id="43df7f83-d6e3-4c34-ae7e-ad86c1aae4e7"/><p id="22f10325-7459-43cd-9feb-ce7a244b78a5" class="">RM scheduling:</p><p id="fa4fdfc8-1912-4a71-bd04-8c1071653d92" class="">—&gt; Task with the shortest period (highest priority) will be scheduled first, followed by the task with the next shortest period, and so on. In case of a tie in periods, the task with the smaller execution time is assigned a higher priority.</p><hr id="e3a6270b-9548-4f1f-a1f0-6affd64238c7"/><ul id="0f805e35-5243-49f0-93bd-11b9b0977089" class="bulleted-list"><li style="list-style-type:disc">Flash memory incorporates the use of floating-gate <a href="https://www.electronicsforu.com/videos-slideshows/videos/how-do-transistors-work-2">transistors</a> to store data.</li></ul><ul id="0b734863-f50f-4a2a-95ea-d88d820e9b7c" class="bulleted-list"><li style="list-style-type:disc">Flash uses NAND-type memory, while EEPROM uses NOR type</li></ul><ul id="fd4f4faa-4742-4c8f-bf95-f13807572452" class="bulleted-list"><li style="list-style-type:disc">Flash is block-wise erasable, while EEPROM is byte-wise erasable</li></ul><ul id="c058cc03-763f-48a6-a616-9318a24dfe36" class="bulleted-list"><li style="list-style-type:disc">Flash is constantly rewritten, while other EEPROMs are seldom rewritten.</li></ul><ul id="ca2cb42d-1c53-40dc-9f2d-8ea21ac6ad8d" class="bulleted-list"><li style="list-style-type:disc">Flash is used when large amounts are needed, while EEPROM is used when only small amounts are needed.</li></ul><ul id="46a718d7-8b37-4a9e-8f0c-c19f3118d206" class="bulleted-list"><li style="list-style-type:disc">Flash is less endurance than EEPROM.</li></ul><ul id="050ed0dc-9b01-4e87-8f3e-c809eaefdaee" class="bulleted-list"><li style="list-style-type:disc">Flash’s life cycle is more as compared to EEPROM.</li></ul><ul id="cd740877-84a6-427e-8c1f-8d36e6cac976" class="bulleted-list"><li style="list-style-type:disc">Flash is cheaper than EEPROM.</li></ul><ul id="3733180c-9c7f-4161-89ca-f535c699bc13" class="bulleted-list"><li style="list-style-type:disc">Flash uses a parallel interface while EEPROM uses I2C and SPI Interface.</li></ul><p id="b5a40ed7-2b52-4393-8c86-a9511273d25d" class=""><mark class="highlight-yellow_background">Metadata for the file system can not be stored at a fixed location without risk of premature wear-out</mark></p><p id="2fba5c79-811a-4e59-9a91-11836be8e0ac" class=""><mark class="highlight-yellow_background">The metadata can be moved with every write or stored in a separate persistent memory (e.g. in RAM powered by a battery or capacitor).</mark></p><p id="56cc9e59-3c3d-4e00-a0cb-31b6798372dc" class=""><mark class="highlight-yellow_background">No fixed location for meta data, requires a search at system start;</mark></p><ul id="490558a6-ae7e-47d9-a770-52ecd78c15db" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">separate memory adds hardware complexity and cost.</mark></li></ul><p id="7e6d4f17-198d-4cf6-b8dc-051b70ad51e7" class="">Maybe also a fallback to previous good write if the most recent one is found to be corrupted.</p><hr id="9c0d5157-536f-4992-bf8b-412e0e7cd912"/><p id="1d7d61dd-7117-4dbd-a9f6-b1c74a4bd132" class=""><a href="https://en.wikipedia.org/wiki/Reentrancy_(computing)"><strong>Reentrant</strong></a><a href="https://en.wikipedia.org/wiki/Reentrancy_(computing)"> </a><a href="https://en.wikipedia.org/wiki/Reentrancy_(computing)"><strong>functions</strong></a><strong>:</strong> Functions that allow multiple concurrent invocations that do not interfere with each other</p><blockquote id="83d9ee1e-51fb-48c0-8e48-4073a47c7b3f" class=""><strong>A function is reentrant if it can be safely interrupted by a call to itself.</strong></blockquote><p id="ecbdf4c7-05c0-494d-90f0-f7f566e3ef46" class="">A routine must satisfy the following conditions to be reentrant:</p><ol type="1" id="b4589622-09eb-41ca-947c-bc35eb4f1f5a" class="numbered-list" start="1"><li><em>It uses all shared variables in an atomic way, unless each is allocated to a specific instance of the function</em></li></ol><ol type="1" id="40e6d8df-62ca-463d-9285-502cc725003c" class="numbered-list" start="2"><li><em>It does not call non-reentrant functions</em></li></ol><ol type="1" id="3f915185-95db-4f08-8ad9-c192c95f782c" class="numbered-list" start="3"><li><em>It does not use the hardware in a non-atomic way</em></li></ol><hr id="da0e9076-cf05-4ed4-b2d2-7d352bf5295f"/><p id="c7646ac0-1a55-4169-8b94-5d0a65c747c7" class=""><a href="https://cpp4arduino.com/2018/11/06/what-is-heap-fragmentation.html">HEAP FRAGMENTATION!</a></p><hr id="f6f722b2-3430-40b4-917c-f7bfc7707c44"/><p id="bb4ac0aa-5c1b-4a68-8f5d-0ec4e7de3ba3" class=""><strong>Biggest differences between RAM and Flash memory:</strong></p><ol type="1" id="2b31dc3d-c5ef-4085-92a3-cbbe8d9f1176" class="numbered-list" start="1"><li><em>block-write</em> </li></ol><ol type="1" id="0e9c8266-dd87-46fb-95d8-68f0507b2cba" class="numbered-list" start="2"><li><em>wear-out</em></li></ol><ul id="041285be-6754-4d9d-a14b-0b39e0dd57dd" class="bulleted-list"><li style="list-style-type:disc">RAM allocated contiguously, but Flash allocated in non-contiguous blocks</li></ul><ul id="04597896-88cd-4feb-bcee-bcfe29f8e411" class="bulleted-list"><li style="list-style-type:disc">Flash is persistent and a lot more metadata is kept to track where files are, names, access times, etc…, whereas with RAM there&#x27;s only a list of free addresses and a 2 byte pre-pended size for each allocated blocks with the code accessing that RAM attributing meaning</li></ul><ul id="8c22ed58-897d-49db-a787-15dc3397b12c" class="bulleted-list"><li style="list-style-type:disc">Flash has endurance concerns which don&#x27;t exist with RAM. Wear leveling can be implemented in the file system to address this (especially for frequently changing and written metadata)</li></ul><hr id="7ea5f0d1-7fd5-49af-b425-680d1d887f3d"/><p id="7089f3ad-f9e3-48ad-85c3-85801ee19566" class="">Connections to peripherals are typically serial because pins are a precious resource - parallelism requires a lot of pins. Sending 16 bits in parallel would require 16 pins.</p><hr id="3832bc0d-908a-4499-9c07-6c9de4a89667"/><p id="39272921-fa25-4189-b9d7-c87db237f1a6" class="">Keeping interrupts off means that we have no worries about stack depth arising from “nested” interrupts, and there’s no overhead from re-entrant code.</p><p id="a599bea6-10e2-48bb-ba80-db58d907ec58" class="">However, this does mean a potential increase in latency and lost interrupts (if we’re not servicing them fast enough).</p><p id="ffcbad50-a1a1-4b2f-9612-1a853faeb100" class="">Then, what do we do? One trick for an ISR:</p><ol type="1" id="61f26fe0-6de8-4027-849e-803878f92670" class="numbered-list" start="1"><li>Move the data that needs processing into some buffer.</li></ol><ol type="1" id="00d96aa1-37d8-440a-baea-a1b272ec65ad" class="numbered-list" start="2"><li>Set a global flag. <code>volatile</code></li></ol><ol type="1" id="97bc68dc-a6bf-4353-aa49-fbfece7bce9a" class="numbered-list" start="3"><li>Return immediately.</li></ol><p id="05623c4d-dd82-464d-a8fa-4058344be1cd" class="">Then, the main loop can continually check the flag and process the data if it’s there.</p><p id="7be2e82c-f967-4c16-80cc-5f595550b1af" class="">Hence, the time-critical bit has been done in a time-critical manner - the rest can be done eventually.</p><hr id="ce3cd5cc-848e-4e57-8ed6-a6f33cee5a68"/><p id="e45f38f4-63a3-4b33-be2b-c9b8483c386c" class="">Static variables are allocated memory in the data segment, not the stack segment. See the <a href="https://www.geeksforgeeks.org/memory-layout-of-c-program/"><strong>memory layout of C programs</strong></a> for details.</p><hr id="d45618f3-df4e-49dc-b144-8ee5ccab29b8"/><p id="4379fc05-2977-4b34-aa95-c71545a66046" class="">Process/Task/Thread —&gt; “an abstraction of a program in execution”</p><hr id="777c5a04-d66d-4e5e-bd6a-bcb3804725b6"/><p id="3cec6a04-2399-464c-9b2a-f0cd2ec08dd1" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>benefits of harvard architecture in embedded systems:</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="237d851c-827f-47fb-8da5-3d5d15a224dc" class="bulleted-list"><li style="list-style-type:disc">Main benefit is that program and data memory can use different technologies. Flash is persistent but slow to write to and fast to wear out. For data we have SRAM which is faster for read/writes but more expensive than Flash and not persistent. Multiple buses are advantageous because they can be better optimized for the architecture, like having a 16 bit wide instruction bus. For security, it is not easy to get data to execute since program and data are separate.</li></ul><ul id="5bf29c0d-d4c1-4834-add9-84fa078c91f8" class="bulleted-list"><li style="list-style-type:disc">Harvard architecture is used for two reasons: cost and efficiency. Firstly, it is cheaper to use two different memory technologies for storing the program and data memory. RAM costs energy and since microcontrollers have low power consumption,we can only power a small amount of RAM.Therefore we have a lot more Flash than RAM. Secondly, having two memory buses with different width makes it possible to fetch an instruction and its arguments in parallel in one clock cycle<ul id="da6d99c7-71c9-4d90-9725-fb0224abb183" class="bulleted-list"><li style="list-style-type:circle">since data and program memory are separated, malicious data cannot be executed</li></ul></li></ul><blockquote id="d48f889d-9293-4d53-93b5-8aeff50085e2" class=""><em>Because AT90USB1286 uses a Harvard architecture, with separate memory and bus for instructions (16 bit) and data (8bit), it can load a 16-bit instruction and in parallel an 8-bit argument in one clock-cycle.”</em></blockquote><hr id="9b9c3b5f-2110-4dce-afd2-42ebe8096c2d"/><p id="f7edd271-89f4-4191-8fef-9d76a087b3b4" class=""><strong><strong><strong><strong><strong><strong>drawbacks of EDF:</strong></strong></strong></strong></strong></strong></p><ul id="95685fe5-ea04-4eb5-8b22-7e569477cf77" class="bulleted-list"><li style="list-style-type:disc">Complex to implement, high overhead and is not stable under overload</li></ul><ul id="18a516f7-6419-4f24-8635-33b599ecbda8" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Appropriate when one of the following is needed during runtime: change of task priority, change to task set (new task), variable execution time</mark></li></ul><hr id="6f62dc8d-a1ad-4097-bd6a-9199894a9e9e"/><p id="f3ac89d2-740f-48a9-8338-8ee40cb5fdaa" class=""><strong>Name one advantage and one disadvantage of a harmonic task set over a non- harmonic one, from the perspective of debugging such a system</strong></p><p id="fd966a27-ab23-4973-9820-6f94401f6037" class="">(pos) A harmonic task set has a regular execution pattern so are easier to analyse for debugging</p><p id="c7434081-16bd-405d-9863-378d4ca8e119" class="">(neg) If a task&#x27;s period is changed, quite likely many periods need to be adapted; everything needs to be harmonised again</p><hr id="7754f697-7f73-4146-92ff-f49b061d3ace"/><p id="fe4560ba-2b25-42e6-b8cf-949cb30acae8" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>memory layout:</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><p id="b950b625-6f1f-4e45-ac66-c9027ce528c5" class="">.data stores the initialized global variables (which have known starting values at compile time) and .bss stores uninitialized global variable where all the variables are initially set to zero at the start of the program execution.</p><p id="e5ab967a-bcdc-4cf5-82f2-46cdcf5856e8" class="">The heap is the section of the memory which parts of it can be allocated to the program and de-allocated at runtime. As new allocations are made, the heap grows towards the higher addresses in the ram.</p><p id="c50b7e11-5471-4f0d-9768-cab203588dbf" class="">The stack stores the frames containing local variables of functions and return addresses. As more functions are called within each other, data is pushed on top of the stack. The frame for the main function is at the bottom of the stack, which starts at an address very high in the memory and frames which are added on are stored on increasingly lower addresses is memory.</p><p id="8c6f9a64-bdc4-4104-8a9c-f6e60ed0a339" class="">As more allocations are made to the heap or the stack, the stack and the heap grow towards each other from opposite ends. This is an efficient way of using the memory when you have two different data structures which vary in length which does not cause any collisions, unless all the memory has been used (not taking into account the free space in the heap due to heap fragmentation), in which case the stack and the heap will collide.</p><p id="ac815a19-c8bf-4ba6-b19a-34e85e61f9ce" class="">The location of the global variables is also sensible because it is unlikely that they will be overwritten by the growing stack, which owes to their importance in the program.</p><hr id="a173dbf1-e568-4ca8-bcbc-3ac64dea6157"/><p id="e5090c82-e399-4fd6-8537-88abfbc86900" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>what is latency?!</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><p id="8f8b693a-090a-487e-abe3-17e5011c118b" class="">Latency is the time from the arrival of the interrupt until the first instruction of the ISR is executed</p><p id="bacc5208-be87-4cfb-bf6e-0517575f2f4a" class="">Jitter refers to the fact that the latency of a given event will not always be the same (could be slightly lower or higher). For instance, in the case of interrupts, jitter can happen due to the variable number of clock cycles it takes to process the current instruction.</p><hr id="15ba70f4-636f-46fd-b9ac-23ac66d09483"/><p id="f143c4e7-1b90-4432-bba7-4fa047dc6217" class=""><strong>Boards were accidentally equipped with the wrong crystals for the clock, and now run on 6 MHz instead of 8 MHz</strong></p><p id="c1273f7a-76fd-4e54-8f55-3b7541d6081f" class="">This is because the compiler believes that the device is actually faster (a clock cycle is shorter) and will return from sleeping later. It may be worth pointing out that if one is running any real time tasks under the assumption that the board is running at 8MHz those tasks will take longer than expected and may lead to the task set not being schedulable.</p><figure class="block-color-yellow_background callout" style="white-space:pre-wrap;display:flex" id="aefc885d-8646-4053-9914-72c89f47cd9d"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%"><strong><strong><strong><strong><strong><strong><strong><strong>i.e., clock speed goes down —&gt; stuff takes longer (sleep, task execution)</strong></strong></strong></strong></strong></strong></strong></strong></div></figure><hr id="2b40c0e6-4907-45c0-86e9-387a4abe7982"/><p id="0f39252e-1ccf-4dbe-b941-3001ef763d14" class=""><strong>Using avr-gcc compiler, what is found in the following memory locations:</strong></p><table id="ceb50153-8ab4-4cad-9836-9252deae9c23" class="simple-table"><tbody><tr id="ece15852-f10f-4b6b-9872-8121bd7f63e4"><td id="~Cbd" class=""></td><td id="=ioe" class=""><strong>Program Memory (flash)</strong></td><td id="CSkp" class=""><strong>Data Memory (RAM)</strong></td></tr><tr id="ebdec205-0d8c-4305-87b5-7ac3eb117069"><td id="~Cbd" class=""><strong>Low Addresses</strong></td><td id="=ioe" class="">Interrupt vector table</td><td id="CSkp" class="">General Purpose Registers (I/O)</td></tr><tr id="b9293c28-e489-4958-8edb-7320b31f6ac9"><td id="~Cbd" class=""><strong>High Addresses</strong></td><td id="=ioe" class="">Bootloader</td><td id="CSkp" class="">Stack</td></tr></tbody></table><hr id="0c55c3df-7d0c-4e98-b3e5-27d3b3671089"/><p id="c9533c3e-371d-4a19-be81-5e4ba15ecf2a" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong>what makes a good watchdog?</strong></strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="c587e6ac-2396-43f5-87a5-88dce3025ebd" class="bulleted-list"><li style="list-style-type:disc">progress and sequence of tasks is insured</li></ul><ul id="74e28a29-22a5-4bb7-aee1-7972b7ae1adf" class="bulleted-list"><li style="list-style-type:disc">protected against accidental jumps into the feeding function</li></ul><ul id="87b7b0c5-1295-4805-ba2f-11d972717bf3" class="bulleted-list"><li style="list-style-type:disc"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid">setting the timing of a watchdog:</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span> a bit of margin for scheduling jitter should be left too.</li></ul><hr id="260ef242-d64a-4c13-8d9f-fa7d158e44c7"/><p id="3508c1ac-4758-4eee-af13-c9be2be72024" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>why use microcontrollers over raspberry pis (mini PCs)</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><ul id="4159ca07-e81d-40ef-a11f-de476d687e51" class="bulleted-list"><li style="list-style-type:disc">Lower power consumption</li></ul><ul id="ccbc08d0-2e27-4ef2-92b8-45402b8f1151" class="bulleted-list"><li style="list-style-type:disc">Microcontrollers run programs without using an OS - complexity of an operating system makes it much harder to give guarantee</li></ul><ul id="2d6df652-fbb3-4015-9194-45a050b9ba8b" class="bulleted-list"><li style="list-style-type:disc">Micro PC processors have to boot from an external storage (e.g. an SD card in a Raspberry Pi), whereas microcontrollers can simply run from the internal flash memory or ROM.</li></ul><hr id="0c13957f-d779-4beb-81d5-f28dbf5d2796"/><p id="ed695846-3db8-49c5-ab43-73241bd1164c" class=""><strong>Name two factors in the build process that could alter the behaviour of the executable?</strong></p><ul id="61ab2f26-57a8-40e2-8ad8-185e20db29ab" class="bulleted-list"><li style="list-style-type:disc">The compiler code optimisation</li></ul><ul id="57e96df0-65fa-43d1-9d87-a748908e4ed4" class="bulleted-list"><li style="list-style-type:disc">The CPU frequency value passed to the compiler. This would affect the length of any delays used in the program.</li></ul><ul id="746f8da1-ed54-4721-a2bd-54dd8f85dad4" class="bulleted-list"><li style="list-style-type:disc">Configuration options, e.g. optimize for memory or speed</li></ul><hr id="a5b1084e-30c7-471e-9a07-8e9880a6bddb"/><p id="ec3ad452-18d0-401e-933b-6ee7ad0c5c2d" class=""><code><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>volatile</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></code><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong> keyword means:</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><p id="ff00ddbe-3317-418a-a4cd-6934c4be3963" class="">The volatile qualifier tells the compiler that the value of the variable may change at anytime, without any action being taken by the code. As such it tells the compiler that it should not cache the variable in a register.</p><p id="16dd8878-fe96-45cc-8797-df6b737b88be" class="">The volatile keyword should be declared on variables that are shared with Interrupt Service Routines (ISR), variables that are accessed by multiple threads, as well as memory-mapped peripheral registers.</p><hr id="11ed3875-ebdb-49e5-9e88-1afce795f5a9"/><p id="27149fb1-05c0-4e8e-a45a-a23b2edb936c" class=""><strong>Describe in detail how you can determine the address on the SD card to which you need to write the next byte:</strong></p><p id="473226b6-11fa-4304-8a3a-14d8ae0da904" class="">Assuming the name of the file is known. Take start of root directory from the Volume ID and scan from that address until a directory entry with the correct name is found. Note the length of the file: L, and the start block: S. If L is less than the block size, simply write the next byte in block S at position L. Otherwise, get the FAT from the FAT address in the Volume ID. Go to index S to get the next block in the file, and follow the chain until an EOF code is reached, marking final block of file: F. If L is not a multiple of the block size, then simply write the next byte in block F at position L % block size. Otherwise, scan the FAT from the start until a &#x27;free&#x27; code is found. Set this index to an EOF code and the index F to point to this new block. The next byte to write to would be the start of this new block.</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

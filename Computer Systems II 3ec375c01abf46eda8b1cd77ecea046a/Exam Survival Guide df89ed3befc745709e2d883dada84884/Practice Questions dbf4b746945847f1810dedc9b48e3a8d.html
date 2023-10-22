@@ -1,0 +1,709 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Practice Questions</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="dbf4b746-9458-47f1-810d-edc9b48e3a8d" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/question-mark_gray.svg"/></div><h1 class="page-title">Practice Questions</h1><p class="page-description"></p></header><div class="page-body"><p id="3ceaa928-e27a-4d43-b426-8fd1cbaf2ba6" class=""><em><strong>1.1 - </strong></em><em>What are the three main purposes of an operating system?</em><div class="indented"><p id="645b9acf-195d-438b-8789-99c6d4101396" class="">The three main purposes are:</p><ul id="f9e8688b-d3c7-4a5b-a727-c6f91cbaf4ac" class="bulleted-list"><li style="list-style-type:disc">To provide an environment for a computer user to execute programs on computer hardware in a convenient and efficient manner.</li></ul><ul id="3e57421f-9eba-4bf6-a6fe-523d0bf799f5" class="bulleted-list"><li style="list-style-type:disc">To allocate the separate resources of the computer as needed to solve the problem given. The allocation process should be as fair and efficient as possible.</li></ul><ul id="4adce4fa-2f7d-4815-bbb3-0710b1b9f56a" class="bulleted-list"><li style="list-style-type:disc">As a control program it serves two major functions: (1)supervision of the execution of user programs to prevent errors and improper use of the computer, and (2) management of the operation and control of I/O devices.</li></ul></div></p><p id="3d0db63f-7b58-4f10-b3bd-68ae76abab83" class=""><em><strong>1.2 - </strong></em><em>We have stressed the need for an operating system to make efficient use of the computing hardware. When is it appropriate for the operating system to forsake this principle and to “waste” resources? Why is such a system not really wasteful?</em><div class="indented"><p id="3d129a44-64a7-466c-9e1f-9adc240bcfbc" class="">Single-user systems should maximise use of the system for the user. A GUI might “waste” CPU cycles, but it optimises the user’s interaction with the system.</p></div></p><p id="c365e0fd-a55f-4bff-8a1a-d997a0abb727" class=""><em><strong>1.3 - </strong></em><em>What is the main difficulty that a programmer must overcome in writing an operating system for a real-time environment?</em><div class="indented"><p id="c3a3b1fd-35cf-4efc-b0d0-09f8c9c11669" class="">The main difficulty is keeping the operating system within the fixed time constraints of a real-time system. If the system does not complete a task in a certain time frame, it may cause a breakdown of the entire system it is running. Therefore when writing an operating system for a real-time system,<mark class="highlight-red_background"> the writer must be sure that his scheduling schemes don’t allow response time to exceed the time constraint.</mark></p></div></p><p id="6ca291c4-8406-4cbd-9a2a-36758b88606d" class=""><em><strong>1.6 - </strong></em><em>Which of the following instructions should be privileged?</em></p><ol type="1" id="57d60d0f-5096-4eae-b090-c90e6e20185c" class="numbered-list" start="1"><li><em>Set value of timer.</em></li></ol><ol type="1" id="6423d0c2-f75d-4e3c-a2f6-a298dd78a05f" class="numbered-list" start="2"><li><em>Read the clock.</em></li></ol><ol type="1" id="2c061435-5583-40c2-bc88-0880f172cd0f" class="numbered-list" start="3"><li><em>Clear memory.</em></li></ol><ol type="1" id="f60d4799-5a55-4092-88bf-b61a959e7ec3" class="numbered-list" start="4"><li><em>Issue a trap instruction.</em></li></ol><ol type="1" id="d53ffcda-5b5b-4543-a183-b159997a4997" class="numbered-list" start="5"><li><em>Turn off interrupts.</em></li></ol><ol type="1" id="24a151b4-0bfa-4188-b455-5f96bd75d5b5" class="numbered-list" start="6"><li><em>Modify entries in device-status table.</em></li></ol><ol type="1" id="a25a7ad2-5287-41fb-8994-67eade9e9138" class="numbered-list" start="7"><li><em>Switch from user to kernel mode.</em></li></ol><ol type="1" id="253aab9a-8d01-43ba-abbc-d184d01c14bd" class="numbered-list" start="8"><li><em>Access I/O device.</em><p id="794330f8-f7e2-41cb-8331-d061383030ae" class="">The following operations need to be privileged: <strong>Set value of timer, clear memory, turn off interrupts, modify entries in device-status table, access I/O device.</strong> The rest can be performed in user mode.</p></li></ol><p id="a5e2063b-bd22-4547-9b1e-9e68214c70da" class=""><em><strong>1.7 - </strong></em><em>Some early computers protected the operating system by placing it in a memory partition that could not be modified by either the user job or the operating system itself. Describe two difficulties that you think could arise with such a scheme.</em><div class="indented"><p id="36d23166-b2e5-4ec3-b9d6-35c5cc8babe4" class="">The data required by the operating system (passwords, access controls, accounting information, and so on) would have to be stored in or passed through unprotected memory and thus be accessible to unauthorised users.</p></div></p><p id="8b4a719b-ef72-4efa-b2bf-68b04e036332" class=""><em><strong>1.10 - </strong></em><em>Give two reasons why caches are useful. What problems do they solve? What problems do they cause? If a cache can be made as large as the device for which it is caching (for instance, a cache as large as a disk), why not make it that large and eliminate the device?</em><div class="indented"><p id="1b21ea06-e554-4771-9bbf-18b1f4900ad9" class="">Caches are useful when two or more components need to exchange data, and the components perform transfers at differing speeds. Caches solve the transfer problem by providing a buffer of intermediate speed between the components. If the fast device finds the data it needs in the cache, it need not wait for the slower device. The data in the cache must be kept consistent with the data in the components. If a component has a data value change, and the datum is also in the cache, the cache must also be updated. This is especially a problem on multiprocessor systems where more than one process may be accessing a datum. A component may be eliminated by an equal-sized cache, but only if: (a) the cache and the component have equivalent state-saving capacity (that is, if the component retains its data when electricity is removed, the cache must retain data as well), and (b) the cache is affordable, because faster storage tends to be more expensive.</p></div></p><p id="e5f9b5e3-04e4-459f-a150-8eb3e27411ec" class=""><em><strong>3.4  - </strong></em><em>The Sun UltraSPARC processor has multiple register sets. Describe what happens when a context switch occurs if the new context is already loaded into one of the register sets. What happens if the new context is in memory rather than in a register set and all the register sets are in use?</em><div class="indented"><p id="f58dc016-5bc6-4871-bc68-3845086ea3c9" class="">The CPU current-register-set pointer is changed to point to the set containing the new context, which takes very little time. If the context is in memory, one of the contexts in a register set must be chosen and be moved to memory, and the new context must be loaded from memory into the set. This process takes a little more time than on systems with one set of registers, depending on how a replacement victim is selected.</p></div></p><p id="3f567f46-eb8a-4786-81be-af04ea8fbab0" class=""><em><strong>5.2 - </strong></em><em>Explain why Windows, Linux, and Solaris implement multiple locking mechanisms. Describe the circumstances under which they use spin-locks, mutex locks, semaphores, adaptive mutex locks, and condition variables. In each case, explain why the mechanism is needed.</em><div class="indented"><p id="63c16d5b-07bd-4fba-8501-8e60f3128666" class="">These operating systems provide different locking mechanisms depending on the application developers’ needs. Spin-locks are useful for multiprocessor systems where a thread can run in a busy-loop (for a short period of time) rather than incurring the overhead of being put in a sleep queue. Mutexes are useful for locking resources. Solaris 2 uses adaptive mutexes, meaning that the mutex is implemented with a spin lock on multiprocessor machines. Semaphores and condition variables are more appropriate tools for synchronisation when a resource must be held for a long period of time, since spinning is inefficient for a long duration.</p></div></p><p id="a8bcb070-228d-48c3-996d-78d0740208d6" class=""><mark class="highlight-red_background"><em><strong><strong><strong><strong>5.3 </strong></strong></strong></strong></em></mark><mark class="highlight-red_background"><em>- What is the meaning of the term </em></mark><mark class="highlight-red_background"><em><strong>busy waiting</strong></em></mark><mark class="highlight-red_background"><em>? What other kinds of waiting are there in an operating system? Can busy waiting be avoided altogether? Explain your answer.</em></mark><div class="indented"><p id="7c829b53-d0b0-414c-91bf-aba750ce6403" class=""><mark class="highlight-red_background"><em>Busy waiting </em></mark><mark class="highlight-red_background">means that a process is waiting for a condition to be satisfied in a tight loop without relinquishing the processor. Alternatively, a process could wait by relinquishing the processor, and block on a condition and wait to be awakened at some appropriate time in the future. Busy waiting can be avoided but incurs the overhead associated with putting a process to sleep and having to wake it up when the appropriate program state is reached.</mark></p></div></p><p id="544ee6ea-e17e-4589-bdb9-a6640ce4ad89" class=""><em><strong>6.1  - </strong></em><em>A CPU-scheduling algorithm determines an order for the execution of its scheduled processes. Given n processes to be scheduled on a processor, how many different schedules are possible?</em><div class="indented"><p id="b48fb8d8-2db5-487f-a362-e98f84efb23f" class=""><em>n! </em>(<em>n </em>factorial = <em>n </em>× <em>n </em>– 1 × <em>n </em>– 2 × ... × 2 × 1)</p></div></p><p id="a66de89d-41f1-4e69-957a-bdcda2f54141" class=""><mark class="highlight-red_background"><em><strong>6.2 - </strong></em></mark><mark class="highlight-red_background"><em>Explain the difference between preemptive and nonpreemptive scheduling.</em></mark><div class="indented"><p id="00aa2575-ca0e-4d1f-accb-92a7ba941553" class=""><mark class="highlight-red_background">Preemptive scheduling allows a process to be interrupted in the midst of its execution, taking the CPU away and allocating it to another process. Nonpreemptive scheduling ensures that a process relinquishes control of the CPU only when it finishes with its current CPU burst.</mark></p></div></p><p id="249ddbb1-ea5d-47f4-8528-38a76dbb0d2f" class=""><mark class="highlight-teal_background"><em><strong>6.3 - </strong></em></mark><mark class="highlight-teal_background"><em>Suppose that the following processes arrive for execution at the times indicated. Each process will run for the amount of time listed. In answering the questions, use nonpreemptive scheduling, and base all decisions on the information you have at the time the decision must be made</em></mark></p><figure id="0169ec85-df1b-4706-8615-798ce7b68dae" class="image"><a href="Practice%20Questions%20dbf4b746945847f1810dedc9b48e3a8d/Screenshot_2023-06-03_at_17.08.33.png"><img style="width:480px" src="Practice%20Questions%20dbf4b746945847f1810dedc9b48e3a8d/Screenshot_2023-06-03_at_17.08.33.png"/></a></figure><p id="da5a470b-bdf1-4b79-9cbd-dcaa8ccee702" class=""><mark class="highlight-teal_background">a) What is the average turnaround time for these processes with the FCFS scheduling algorithm</mark></p><p id="35c34392-4773-43a2-b17b-f54b1c4176b1" class=""><mark class="highlight-teal_background">b) What is the average turnaround time for these processes with the SJF scheduling algorithm</mark></p><p id="9173c228-60fa-481a-96db-4c393a424c4a" class=""><mark class="highlight-teal_background">c) The SJF algorithm is supposed to improve performance, but notice that we chose to run process </mark><mark class="highlight-teal_background"><em>P</em></mark><mark class="highlight-teal_background">1 at time 0 because we did not know that two shorter processes would arrive soon. Compute what the average turnaround time will be if the CPU is left idle for the first 1 unit and then SJF scheduling is used. Remember that processes </mark><mark class="highlight-teal_background"><em>P</em></mark><mark class="highlight-teal_background">1 and </mark><mark class="highlight-teal_background"><em>P</em></mark><mark class="highlight-teal_background">2 are waiting during this idle time, so their waiting time may increase. This algorithm could be known as future-knowledge scheduling.</mark><div class="indented"><p id="39cb7f44-d626-4557-8b79-642583bebe6e" class=""><mark class="highlight-teal_background"><strong>Answer:</strong></mark></p><p id="8aa29944-437f-4da2-8810-330a67f85f84" class=""><mark class="highlight-teal_background">a. 10.53
+b. 9.53
+c. 6.86</mark></p><p id="45f6841c-3827-437c-be59-9570bd750f20" class="">Remember that turnaround time is finishing time minus arrival time, so you have to subtract the arrival times to compute the turnaround times. FCFS is 11 if you forget to subtract arrival time.</p></div></p><p id="991ee7bc-d846-471e-aaf7-95614361a529" class=""><em><strong>6.4 - </strong></em><em>What advantage is there in having different time-quantum sizes at different levels of a multilevel queueing system?</em><div class="indented"><p id="d32f64f8-fc81-4f25-8cf1-298fa87f7320" class=""><mark class="highlight-red_background">Processes that need more frequent servicing, for instance, interactive processes such as editors, can be in a queue with a small time quantum. Processes with no need for frequent servicing can be in a queue with a larger quantum, requiring fewer context switches to complete the processing, and thus making more efficient use of the computer.</mark></p></div></p><p id="e463a092-b271-4ad0-871b-68936ae46f00" class=""><del><em><strong>6.7 - </strong></em></del><del><em>Distinguish between PCS and SCS scheduling.</em></del><div class="indented"><p id="714fcac3-6052-41c0-abfd-b88f920769ff" class=""><del>PCS scheduling is done local to the process. It is how the thread library schedules threads onto available LWPs. SCS scheduling is the situation where the operating system schedules kernel threads. On systems using either many-to-one or many-to-many, the two scheduling models are fundamentally different. On systems using one-to-one, PCS and SCS are the same.</del></p></div></p><p id="7c623e25-b30c-4179-8307-9460e0d94db5" class=""><em><strong>6.9 - </strong></em><em>The traditional UNIX scheduler enforces an inverse relationship between priority numbers and priorities: the higher the number, the lower the priority. The scheduler recalculates process priorities once per second using the following function:</em><div class="indented"><p id="ab09dc89-49b0-497c-a43d-6dfbe876c084" class=""><strong>Priority = (recent CPU usage / 2) + base</strong></p></div></p><p id="e68bf4e4-4e21-4420-b954-c4877117ab30" class="">where base = 60 and <em>recent CPU usage </em>refers to a value indicating how often a process has used the CPU since priorities were last recalculated. Assume that recent CPU usage for process <em>P</em>1 is 40, for process <em>P</em>2 is 18, and for process <em>P</em>3 is 10. What will be the new priorities for these three processes when priorities are recalculated? Based on this information, does the traditional UNIX scheduler raise or lower the relative priority of a CPU-bound process?<div class="indented"><p id="39ed8dcd-883f-442c-a89a-8bc0cd80499b" class="">The priorities assigned to the processes are 80, 69, and 65 respectively. The scheduler lowers the relative priority of CPU-bound processes.</p></div></p><p id="fcfb6d5b-889c-4654-81ff-8aab43d8998f" class=""><em><strong>7.2 - </strong></em><em>Suppose that a system is in an unsafe state. Show that it is possible for the processes to complete their execution without entering a deadlock state</em><div class="indented"><p id="20d78332-b080-4274-b506-de78fe7d2442" class="">An unsafe state may not necessarily lead to deadlock, it just means that we cannot guarantee that deadlock will not occur. Thus, it is possible that a system in an unsafe state may still allow all processes to complete without deadlock occurring. Consider the situation where a system has 12 resources allocated among processes <em>P</em>0, <em>P</em>1, and <em>P</em>2. The resources are allocated according to the following policy:</p><p id="ea16594d-8899-4954-94a3-5258d74eef88" class="">Currently there are two resources available. This system is in an unsafe state as process <em>P</em>1 could complete, thereby freeing a total of four resources. But we cannot guarantee that processes <em>P</em>0 and <em>P</em>2 can complete. However, it is possible that a process may release resources before requesting any further. For example, process <em>P</em>2 could release a resource, thereby increasing the total number of resources to five. This allows process <em>P</em>0 to complete, which would free a total of nine resources, thereby allowing process <em>P</em>2 to complete as well.</p></div></p><figure id="04b1388b-2e82-482b-996d-b6720aac3e1d" class="image"><a href="Practice%20Questions%20dbf4b746945847f1810dedc9b48e3a8d/Screenshot_2023-06-03_at_17.12.17.png"><img style="width:528px" src="Practice%20Questions%20dbf4b746945847f1810dedc9b48e3a8d/Screenshot_2023-06-03_at_17.12.17.png"/></a></figure><p id="92547c47-8ba0-4b80-ad09-894b0241e8e1" class=""><em><strong>7.7  - </strong></em><em>Can a system detect that some of its processes are starving? If you answer “yes,” explain how it can. If you answer “no,” explain how the system can deal with the starvation problem</em><div class="indented"><p id="7e1bf0bb-8b63-4417-8104-7e56b8872cc6" class="">Starvation is a difficult topic to define as it may mean different things for different systems. For the purposes of this question, we will define starvation as the situation whereby a process must wait beyond a reasonable period of time—perhaps indefinitely—before receiving a requested resource. One way of detecting starvation would be to first identify a period of time — <em>T </em>— that is considered unreasonable. When a process requests a resource, a timer is started. If the elapsed time exceeds <em>T</em>, then the process is considered to be starved.
+One strategy for dealing with starvation would be to adopt a policy where resources are assigned only to the process that has been waiting the longest. For example, if process <em>Pa </em>has been waiting longer for resource <em>X </em>than process <em>Pb</em>, the request from process <em>Pb </em>would be deferred until process <em>Pa </em>’s request has been satisfied.
+Another strategy would be less strict than what was just mentioned. In this scenario, a resource might be granted to a process that has waited less than another process, providing that the other process is not starving. However, if another process is considered to be starving, its request would be satisfied first.</p></div></p><p id="e24509ee-ebbc-41c0-b96e-f170c284be3f" class=""><em><strong>7.8 - </strong></em><em>Consider the following resource-allocation policy. Requests for and releases of resources are allowed at any time. If a request for resources cannot be satisfied because the resources are not available, then we check any processes that are blocked waiting for resources. If a blocked process has the desired resources, then these resources are taken away from it
+and are given to the requesting process. The vector of resources for which the blocked process is waiting is increased to include the resources that were taken away.
+
+For example, consider a system with three resource types and the vector Available initialized to (4,2,2). If process P0 asks for (2,2,1), it gets them. If P1 asks for (1,0,1), it gets them. Then, if P0 asks for (0,0,1), it is blocked (resource not available). If P2 now asks for (2,0,0), it gets the
+available one (1,0,0) and one that was allocated to P0 (since P0 is blocked). P0’s Allocation vector goes down to (1,2,1), and its Need vector goes up to (1,0,1).</em></p><p id="eeb7ee53-887b-417c-96bb-e54577972652" class=""><em>1) Can deadlock occur? If you answer “yes,” give an example. If you answer “no,” specify which necessary condition cannot occur</em></p><p id="ac9dc2e3-16b3-480f-8dda-112f2a688f3a" class=""><em>2) Can indefinite blocking occur? Explain your answer.</em></p><p id="ae2f0df3-2e5b-4ddf-8b60-999ddf0dcd52" class=""><div class="indented"><p id="93bfcd36-2247-4174-89e7-4efdd71286a2" class=""><strong>1. Deadlock cannot occur because preemption exists.</strong></p><p id="0ebf0ba3-fce4-48ff-bc82-e4380da29004" class=""><strong>2. Yes. A process may never acquire all the resources it needs if they are continuously preempted by a series of requests such as those of process </strong><strong><em>C</em></strong><strong>.</strong></p></div></p><p id="b254657d-5bd8-43c4-8b93-1fa0027bcd00" class="">
+</p><p id="c04181d9-7cf4-4e22-9d42-596a9716b104" class=""><em><strong>8.1 - </strong></em><em>Name two differences between logical and physical addresses.</em></p><p id="d8ff6bcd-3600-46bc-96bc-8ce8f4c7a29f" class="">A logical address does not refer to an actual existing address; rather, it refers to an abstract address in an abstract address space. Contrast this with a physical address that refers to an actual physical address in memory. A logical address is generated by the CPU and is translated into a physical address by the memory management unit(MMU). Therefore, physical addresses are generated by the MMU.</p><p id="ddf1054a-0de4-4354-9db4-1ecce624df7a" class=""><em><strong>8.2 - </strong></em><em>Consider a system in which a program can be separated into two parts: code and data. The CPU knows whether it wants an instruction(instruction fetch) or data (data fetch or store). Therefore, two base limit register pairs are provided: one for instructions and one for data. The instruction base–limit register pair is automatically read-only, so programs can be shared among different users. Discuss the advantages and disadvantages of this scheme.</em><div class="indented"><p id="5258f82a-b196-4542-a173-5b430743d60f" class="">The major advantage of this scheme is that it is an effective mechanism
+for code and data sharing. For example, only one copy of an editor or
+a compiler needs to be kept in memory, and this code can be shared
+by all processes needing access to the editor or compiler code. Another
+advantage is protection of code against erroneous modification. The
+only disadvantage is that the code and data must be separated, which is
+usually adhered to in a compiler-generated code.</p></div></p><p id="aa3c7fe5-c0f4-4cd2-bd1f-7c6906e45cf2" class=""><em><strong>8.6 - </strong></em><em>Describe a mechanism by which one segment could belong to the address space of two different processes</em><div class="indented"><p id="2671b985-50c9-4e3f-9778-42082f35a066" class="">Since segment tables are a collection of base–limit registers, segments can be shared when entries in the segment table of two different jobs point to the same physical location. The two segment tables must have identical base pointers, and the shared segment number must be the same in the two processes.</p></div></p><p id="f1f43587-a82d-456e-bfc1-8be9a9359058" class=""><em><strong>10.4 - </strong></em><em>Why is it important to balance file system I/O among the disks and controllers on a system in a multitasking environment?</em><div class="indented"><p id="14f803a8-b45c-454a-872c-f7983f86c0b2" class="">A system can perform only at the speed of its slowest bottleneck. Disks or disk controllers are frequently the bottleneck in modern systems as their individual performance cannot keep up with that of the CPU and system bus. By balancing I/O among disks and controllers, neither an individual disk nor a controller is overwhelmed, so that bottleneck is avoided.</p></div></p><p id="87395f4a-45b1-4f6d-9302-4defcb9f82bb" class=""><em><strong>10.5  </strong></em><em>What are the tradeoffs involved in rereading code pages from the file system versus using swap space to store them?</em><div class="indented"><p id="429f5c2f-534e-4a3a-b673-949a0e636039" class="">If code pages are stored in swap space, they can be transferred more
+quickly to main memory (because swap space allocation is tuned for
+faster performance than general file system allocation). Using swap
+space can require startup time if the pages are copied there at process
+invocation rather than just being paged out to swap space on demand.
+Also, more swap space must be allocated if it is used for both code and
+data pages.</p></div></p><p id="57b20e28-93dd-4c37-aba0-aeb9ca7a6808" class=""><em><strong>13.3 - </strong></em><em>Why might a system use interrupt-driven I/O to manage a single serial port and polling I/O to manage a front-end processor, such as a terminal concentrator? </em><div class="indented"><p id="9595ce4c-89cb-4f31-9c3f-b1a60feef4c2" class="">Polling can be more efficient than interrupt-driven I/O. This is the case
+when the I/O is frequent and of short duration. Even though a single
+serial port will perform I/O relatively infrequently and should thus
+use interrupts, a collection of serial ports such as those in a terminal
+concentrator can produce a lot of short I/O operations, and interrupting
+for each one could create a heavy load on the system. A well-timed
+polling loop could alleviate that load without wasting many resources
+through looping with no I/O needed.</p></div></p><p id="d03147f5-182b-4130-aa17-d2fb323babf6" class=""><em><strong>13.4 - </strong></em><em>Polling for an I/O completion can waste a large number of CPU cycles if the processor iterates a busy-waiting loop many times before the I/O completes. But if the I/O device is ready for service, polling can be much more efficient than is catching and dispatching an interrupt. Describe a hybrid strategy that combines polling, sleeping, and interrupts for I/O device service. For each of these three strategies (pure polling, pure interrupts, hybrid), describe a computing environment in which that strategy is more efficient than is either of the others.</em><div class="indented"><p id="44141356-a3ab-462e-8182-3454ba1e0d73" class="">A hybrid approach could switch between polling and interrupts depending on the length of the I/O operation wait. For example, we could poll and loop N times, and if the device is still busy at N+1, we could set an interrupt and sleep. This approach would avoid long busy waiting cycles. This method would be best for very long or very short busy times. It would be inefficient it the I/O completes at N+T (where T is a small number of cycles) due to the overhead of polling plus setting up and catching interrupts.</p><p id="26305d7f-a650-4be2-b248-d703828265b9" class="">Pure polling is best with very short wait times. Interrupts are best with known long wait times.</p></div></p><p id="cdf566bb-f478-4f7f-99e9-f747e403d281" class=""><em><strong>13.5 - </strong></em><em>How does DMA increase system concurrency? How does it complicate hardware design</em><div class="indented"><p id="c313931d-1deb-4d53-be5d-4ab959ec583e" class="">DMA increases system concurrency by allowing the CPU to perform
+tasks while the DMA system transfers data via the system and memory
+buses. Hardware design is complicated because the DMA controller
+must be integrated into the system, and the system must allow the
+DMA controller to be a bus master. Cycle stealing may also be necessary
+to allow the CPU and DMA controller to share use of the memory bus</p><p id="2ac8a514-0e1c-44d1-94b6-a560f694fd3c" class=""><em><strong>13.6 - </strong></em><em>Why is it important to scale up system-bus and device speeds as CPU speed increases</em><div class="indented"><p id="1a6bfc3d-109a-4030-8795-67012497ff16" class="">Consider a system which performs 50% I/O and 50% computes. Doubling the CPU performance on this system would increase total system performance by only 50%. Doubling both system aspects would increase performance by 100%. Generally, it is important to remove the current system bottleneck, and to increase overall system performance, rather than blindly increasing the performance of individual system components.</p></div></p></div></p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

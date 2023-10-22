@@ -1,0 +1,683 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Exam Survival Guide</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="df89ed3b-efc7-4570-9e2d-883dada84884" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/heart-rate_gray.svg"/></div><h1 class="page-title">Exam Survival Guide</h1><p class="page-description"></p></header><div class="page-body"><nav id="3c51038d-d97e-4902-992a-aa636868f20b" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#9b671a20-5a86-41e8-8d70-ad78f5a458d3">2021/2022 Exam</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#23cee2e9-99be-40d5-956d-d8834e1be0c8">Question 1</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c89af793-b3ab-40ca-be20-4e5e691bdfba">Question 2</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#ef0bf93c-c50b-4619-baf2-e49ce3b2bc8a">Question 3</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#bad42e1d-c61d-4441-a963-1026b43b1d63">Question 4</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#3857391c-96fb-4aeb-a2bf-836ddea5c278">Question 5</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5199a9e2-cafd-48df-b96f-c7b6bd8ee0ed">Question 6</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b11fb27c-cabc-46fc-a692-897e144d5a9c">Question 7</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c5f8a316-2c9d-44c3-94d1-a245c7819118">Question 8</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#e97c4df6-bf26-477e-848d-c51e3f1f6652">Question 9</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#9d4b634e-694d-457a-90a2-da0e9486cdca">Question 10</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#da0282e8-32ad-4956-9b01-0f77f22b0a5f">Question 11</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#6a83be74-a27b-41cb-9cf5-b9c19b67a5d2">Question 12</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#ab08f9de-c45d-4d97-8a3a-19c52974205d">Question 13</a></div></nav><figure id="dbf4b746-9458-47f1-810d-edc9b48e3a8d" class="link-to-page"><a href="Exam%20Survival%20Guide%20df89ed3befc745709e2d883dada84884/Practice%20Questions%20dbf4b746945847f1810dedc9b48e3a8d.html"><img class="icon" src="https://www.notion.so/icons/question-mark_gray.svg"/>Practice Questions</a></figure><h1 id="9b671a20-5a86-41e8-8d70-ad78f5a458d3" class="">2021/2022 Exam</h1><h1 id="23cee2e9-99be-40d5-956d-d8834e1be0c8" class="">Question 1</h1><p id="219c4cf0-985c-4607-827f-7b30788a4d38" class="">CMOS is not a fast technology, but has low power and high density.</p><p id="8148564e-d064-455d-bd5a-6e3f630bd0e6" class="">CMOS has two transistors, complementary in technology</p><p id="a89ad0ac-5cc4-41da-93d5-1ea4b12db0ec" class="">Reducing clock frequency by half, increases T by double</p><div id="15b80e16-bdb7-4f1a-a2b7-8d05f7f3223b" class="column-list"><div id="f92a9ca1-1a46-4618-9ee7-f672caa297dd" style="width:43.75%" class="column"><figure id="dc55e01b-3845-4f98-8e90-d891ed10a00d" class="image"><a href="Exam%20Survival%20Guide%20df89ed3befc745709e2d883dada84884/FCEB12EB-90A3-41BE-8B08-69266D80A58B.jpeg"><img style="width:192px" src="Exam%20Survival%20Guide%20df89ed3befc745709e2d883dada84884/FCEB12EB-90A3-41BE-8B08-69266D80A58B.jpeg"/></a></figure></div><div id="019b000c-b676-49b3-a832-4d0f950f1ab3" style="width:56.25%" class="column"><figure id="4a7649db-223e-4f14-88be-21748f68231b" class="image"><a href="Exam%20Survival%20Guide%20df89ed3befc745709e2d883dada84884/A2BE1C5B-8683-4651-B4EC-A14415BCC2DD.jpeg"><img style="width:384px" src="Exam%20Survival%20Guide%20df89ed3befc745709e2d883dada84884/A2BE1C5B-8683-4651-B4EC-A14415BCC2DD.jpeg"/></a></figure></div></div><p id="d5066b86-9bee-4ea6-be8d-cfc7d373c8e9" class="">The resistor on the left hand side has current drawing through it whenever the switch is closed (i.e., uses a LOT of power)</p><p id="71abd454-aab9-451a-99c2-da9fea5ccd2b" class="">The CMOS transistor system on the right does not draw any current when closed, which is why it has such low power consumption; able to be in standby for so long</p><p id="8d6a1f79-f951-4f95-a282-f6b5b7ff00b2" class="">Mainly use “most” power when switching (states)</p><ul id="455295f4-96db-47e4-bd60-cec6281a6b22" class="bulleted-list"><li style="list-style-type:disc">Theoretically, there should be no leakage current produced however due to lots of reasons (quantum tunnelling, isolation,…) there is always a slight leakage of current </li></ul><figure id="17804c89-08b1-46f2-836f-1ad6e583525b" class="image" style="text-align:left"><a href="Exam%20Survival%20Guide%20df89ed3befc745709e2d883dada84884/DF9E449B-88B5-4992-BA22-E3335149EAD2.jpeg"><img style="width:240px" src="Exam%20Survival%20Guide%20df89ed3befc745709e2d883dada84884/DF9E449B-88B5-4992-BA22-E3335149EAD2.jpeg"/></a></figure><p id="e3cdeee8-f35d-48de-9663-308e284f6108" class="">The maximum speed you can run (or clock) a device (microcontroller) is the amount of voltage you supply to it [pretty much]</p><ul id="e1b78fa6-c88e-4460-adb8-e066153b7934" class="bulleted-list"><li style="list-style-type:disc">When run at a higher voltage, <strong>…</strong></li></ul><ul id="c6dbd310-dadb-4863-855e-56f9320527e6" class="bulleted-list"><li style="list-style-type:disc">Power consumption mostly depends on how fast you can switch your circuit (the faster you switch from one position to another, the more power it consumes)</li></ul><ul id="ace1b0db-ae21-44a8-8726-696584a82066" class="bulleted-list"><li style="list-style-type:disc">The smaller your circuits are, the more leakage you have because of tunnelling!</li></ul><p id="5bc17e83-3eec-4a18-87c5-3efc89c26eaa" class=""><strong>(a)</strong></p><p id="42e142fe-e461-4200-ad9c-b68a7dc2e8bb" class=""><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>=</mo><mo stretchy="false">(</mo><mi>P</mi><mi>d</mi><mo>+</mo><mi>P</mi><mi>l</mi><mo stretchy="false">)</mo><mo>∗</mo><mi>T</mi></mrow><annotation encoding="application/x-tex">E = (Pd + Pl) * T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal">d</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">Pl</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span></span></span><span>﻿</span></span></p><figure id="786cfa3d-fa62-4699-9954-6966f84689e2" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo><mi>E</mi><mo>=</mo><mo stretchy="false">(</mo><msub><mi>P</mi><mi>D</mi></msub><mo>+</mo><msub><mi>P</mi><mi>L</mi></msub><mo stretchy="false">)</mo><mo>∗</mo><mi>T</mi><mspace linebreak="newline"></mspace><mo>=</mo><mo stretchy="false">(</mo><mfrac><msub><mi>P</mi><mi>D</mi></msub><mn>2</mn></mfrac><mo>+</mo><msub><mi>P</mi><mi>L</mi></msub><mo stretchy="false">)</mo><mn>2</mn><mi>T</mi><mspace linebreak="newline"></mspace><mo>=</mo><mn>3</mn><mi>P</mi><mi>T</mi></mrow><annotation encoding="application/x-tex">(1)E = (P_D + P_L) * T \\
+  = (\frac {P_D} {2} + P_L) 2T \\
+= 3PT</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">D</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.04633em;vertical-align:-0.686em;"></span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">D</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord mathnormal" style="margin-right:0.13889em;">PT</span></span></span></span></span></div></figure><p id="7966e058-391f-461c-8d23-a9ea52917678" class="">Actually using more power when reducing the clock frequency to half, so this would have a much worse impact on energy consumption than leaving everything as it is</p><p id="a2df23ff-166d-44d3-bac1-e2ab28d8f4d4" class=""><strong>(b)</strong></p><figure id="11a34e03-cecb-40ea-b858-caf2caad035f" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo><mi>P</mi><mo>=</mo><mi>V</mi><mo>∗</mo><mi>I</mi><mo>=</mo><mfrac><msup><mi>V</mi><mn>2</mn></msup><mi>R</mi></mfrac><mspace linebreak="newline"></mspace><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo><mi>E</mi><mo>=</mo><mo stretchy="false">(</mo><msub><mi>P</mi><mi>D</mi></msub><mo>+</mo><msub><mi>P</mi><mi>L</mi></msub><mo stretchy="false">)</mo><mo>∗</mo><mi>T</mi><mspace linebreak="newline"></mspace><msub><mi>E</mi><mi>b</mi></msub><mo>=</mo><mo stretchy="false">(</mo><mfrac><msub><mi>P</mi><mi>D</mi></msub><mn>8</mn></mfrac><mo>+</mo><mfrac><msub><mi>P</mi><mi>L</mi></msub><mn>2</mn></mfrac><mo stretchy="false">)</mo><mo>∗</mo><mn>2</mn><mi>T</mi><mspace linebreak="newline"></mspace><mo>=</mo><mfrac><mn>5</mn><mn>8</mn></mfrac><mi>P</mi><mo>∗</mo><mn>2</mn><mi>T</mi><mspace linebreak="newline"></mspace><mo>=</mo><mfrac><mn>10</mn><mn>8</mn></mfrac><mi>P</mi><mi>T</mi><mo>=</mo><mfrac><mn>5</mn><mn>4</mn></mfrac><mi>P</mi><mi>T</mi></mrow><annotation encoding="application/x-tex">(1) P = V*I = \frac {V^2} {R} \\ (2) E = (P_D + P_L)*T \\
+E_b = (\frac {P_D} {8} + \frac {P_L} {2})*2T \\ = \frac {5} {8} P*2T \\ = \frac {10} {8} PT = \frac {5} {4} PT
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.177108em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.491108em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.00773em;">R</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">2</span><span class="mclose">)</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">D</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.04633em;vertical-align:-0.686em;"></span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">8</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">D</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:2.04633em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.00744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">8</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">5</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.00744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">8</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">10</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal" style="margin-right:0.13889em;">PT</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.00744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">4</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">5</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal" style="margin-right:0.13889em;">PT</span></span></span></span></span></div></figure><p id="e17dd906-ced4-45ac-9c18-4cca2d5c7910" class="">Resistance is kept constant, whereas voltage and current are both halved, as per the equations, so therefore the power drops to 1/8 of its original value</p><p id="1bef1922-b427-449f-8d5a-87a07d268b30" class="">This method, of reducing the supply voltage, works much better and uses much less energy consumption so therefore is a much better strategy.</p><h1 id="c89af793-b3ab-40ca-be20-4e5e691bdfba" class="">Question 2</h1><p id="18534122-4090-41bb-8b6c-74de62972422" class="">MMIO (Memory-Mapped I/O): Address space \*something\*something\*</p><p id="5210c256-788b-47c9-ad2b-7181a6e61033" class="">PMIO (Port mapped I/O): Instructions to talk to the GPIO ports (or as <strong>we</strong> call it I/O instruction set)</p><p id="a6e95d8b-e03e-4ebb-98ec-bdd4cf4e5f86" class="">Instruction set has many instructions already mapped in…</p><p id="22cc37bb-370b-4523-a96e-7057624b5e09" class="">Caching is a disadvantage for MMIO</p><p id="c5e0cf45-2997-443f-b19b-ad2678cf8eeb" class="">Want to make sure, to the best of your knowledge, that you can fetch one instruction with one memory word</p><h1 id="ef0bf93c-c50b-4619-baf2-e49ce3b2bc8a" class="">Question 3</h1><p id="2aa2c1df-a7b3-45b6-99f5-e2e66221f0c9" class=""><strong>Scheduling question! Will always be on the exam! Very important!</strong></p><p id="34cfd008-ae03-4e8d-92bf-26de30963831" class="">Revise RM scheduling and EDF scheduling please thank you! </p><p id="e72aa55a-b0bf-4825-901f-7dc1c11dc92a" class="">Both are the most optimal you will every find so that’s why they always appear</p><p id="7cf5647b-8cc8-431a-a542-f2381d5dbf97" class="">Lottery scheduling is the <em>most</em> simple type of scheduling</p><p id="d7b427a9-eb5e-44cc-b613-994167489f7e" class="">“Stable under overload” is a feature RMS has which makes it very good - it means that tasks with the lowest priority will be dropped first or miss its deadlines</p><p id="fe34ccb0-9aa5-43a2-a7ee-c8d6bcff2fec" class="">RMS is also pretty simple, which is another advantage and it pretty much can utilise 100% of the CPU</p><p id="278920dd-14e9-4004-a7f9-cce835d376e4" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Steps to guarantee:</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><ol type="1" id="82f2fc2d-3f76-4a7f-8dd1-acde66146c56" class="numbered-list" start="1"><li>Check if <span style="border-bottom:0.05em solid">utilisation</span> is below 100%</li></ol><ol type="1" id="b226d0b7-951b-4d08-b6e1-847b496a1678" class="numbered-list" start="2"><li>…</li></ol><ol type="1" id="43a38d63-3940-4d75-9832-1ab7b522a51d" class="numbered-list" start="3"><li>Plug in N (number of tasks) into formula and check if <em><em>it </em></em>is below that</li></ol><ol type="1" id="6ad1fe08-3122-4ef5-b369-d84d6cb02cd1" class="numbered-list" start="4"><li>Try and make tasks harmonic, see if that works</li></ol><ol type="1" id="ff648f75-646b-48c5-bf0a-ba880858e7d2" class="numbered-list" start="5"><li>Make schedule by hand, and show that it works</li></ol><ol type="1" id="f964e8a7-18d6-47ab-a42f-b8ead4f6a908" class="numbered-list" start="6"><li>Otherwise, use EDF scheduler</li></ol><h1 id="bad42e1d-c61d-4441-a963-1026b43b1d63" class="">Question 4</h1><p id="b51934f9-0809-44c1-903b-284fbf7f29ea" class=""><strong>(a)</strong></p><p id="59723847-70b4-4bc9-9fc7-f0bb7fc8fbd8" class="">Variable x is allocated memory from <strong><strong><strong><strong><strong><strong><strong><strong><strong>the stack</strong></strong></strong></strong></strong></strong></strong></strong></strong>, because it is a local variable</p><p id="bd1dac72-1848-4314-bf4a-4106ed381bbd" class=""><strong>(b)</strong></p><p id="e321f05a-45a4-48db-b5d9-217d3628eac2" class="">Allocated on <strong>the heap</strong> because malloc returns memory from the heap</p><p id="6993846e-439a-473e-8c80-b0219afc4c38" class=""><strong>Extra</strong></p><p id="2c57f4f8-2d53-42a3-b887-64cd3df8f969" class="">Other places variables can be assigned memory from is:<div class="indented"><ul id="7d49d67d-47e2-43a6-9572-a4f9da312633" class="bulleted-list"><li style="list-style-type:disc">Runtime initialised - global variables</li></ul></div></p><h1 id="3857391c-96fb-4aeb-a2bf-836ddea5c278" class="">Question 5</h1><p id="c561d5dd-2e95-4b18-9ac9-bca165904905" class="">Make 100% CPU load and by using prime numbers for your task sets, it makes it un-schedulable by RMS but schedulable by RMS</p><h1 id="5199a9e2-cafd-48df-b96f-c7b6bd8ee0ed" class="">Question 6</h1><p id="c6adaa86-5ac8-4f07-bd45-ab1fd34ccd22" class="">It is very difficult to accurately calculate the stack size because:</p><ul id="474b72a3-b284-4393-b226-17ff52c936a2" class="bulleted-list"><li style="list-style-type:disc">As a programmer, it is never certain how many function calls may be produced (especially recursive functions)</li></ul><ul id="68a5426f-7a83-4bda-bbbb-a080dc9e9a42" class="bulleted-list"><li style="list-style-type:disc">**Anything that depends on external input/user input cannot be controlled ** —&gt; the amount of ISRs called can affect the accuracy of calculating stack size</li></ul><ul id="17eaac34-6b7a-435b-a127-be6bde03b403" class="bulleted-list"><li style="list-style-type:disc">Can be unsure of how things are scheduled which makes it uncertain how many tasks may need access to stack at the same time, meaning if the value is not bounded stack size can vary quite a lot</li></ul><ul id="d69078f0-68fd-4f96-b083-1137766f4953" class="bulleted-list"><li style="list-style-type:disc">Library calls may also cause you not to know what it will require in regards to stack size (*printh library call for example)</li></ul><p id="0285e66f-3848-4458-855c-f0d512243ba9" class="">Two techniques which can help continuously to keep track of the maximum stack requirement:</p><ul id="fd2e9433-d35c-49a3-9584-4dde3eae3d41" class="bulleted-list"><li style="list-style-type:disc">Can write bit patterns into the space in which the stack can fill up and then “go in” and see how long the pattern is, i.e., where the bit pattern has been overrided<ul id="59ae8a87-e641-42dc-8b9d-f411ba1d5c40" class="bulleted-list"><li style="list-style-type:circle">This can then show you where the stack “is”, by looking at how far the bit patterns have been “erased”</li></ul></li></ul><ul id="7a07d9d8-b02f-4222-a8b6-7fe0721dd27d" class="bulleted-list"><li style="list-style-type:disc">Can “program” a function into your code which can contain just a local variable which is just a pointer and call this function.<ul id="7b85ab5e-485c-43e8-828e-7167caea6fa6" class="bulleted-list"><li style="list-style-type:circle">This gives you the top of the stack as it points to the “last accessed memory”</li></ul></li></ul><h1 id="b11fb27c-cabc-46fc-a692-897e144d5a9c" class="">Question 7</h1><p id="3be69ba7-4cb3-4682-b569-a8339934cd1a" class="">First piece of code can result in a buffer overflow because there is no “cap” on the buffer memory size</p><p id="c863acd2-9f8e-4dab-bd06-1fb962f70761" class="">Second piece of code can result in infinite loop?</p><ul id="aa9f8771-bebb-46e6-8ce4-5c4c71a25f47" class="bulleted-list"><li style="list-style-type:disc">i.e., if the string is not null-terminated then the function will just continue ‘forever’</li></ul><h1 id="c5f8a316-2c9d-44c3-94d1-a245c7819118" class="">Question 8</h1><ul id="07b0145f-699a-4be3-8b45-8c4e5a5264e9" class="bulleted-list"><li style="list-style-type:disc"><a href="https://en.wikipedia.org/wiki/Serial_Peripheral_Interface"><strong>SPI</strong></a><strong>: </strong><em>Serial Peripheral Interface</em></li></ul><ul id="e41b65d1-65e4-4391-bbf2-84de0296d053" class="bulleted-list"><li style="list-style-type:disc"><a href="https://en.wikipedia.org/wiki/Universal_asynchronous_receiver-transmitter"><strong>UART</strong></a><strong>: </strong><em>Universal Asynchronous Receiver-Transmitter</em></li></ul><ul id="c7a015ae-e878-4d42-959b-cc66404231e1" class="bulleted-list"><li style="list-style-type:disc"><a href="https://en.wikipedia.org/wiki/I²C"><strong>I2C</strong></a><strong>: </strong><em>Inter-Integrated Circuit</em></li></ul><p id="1466f15a-73b3-4696-b94e-16949e262859" class="">UART is much preferred over everything here because it is asynchronous, meaning transmission and receiving can happen in both directions at the same time. Also easy to implement and easy to debug. Downside is only 2 units are able to use at once and it’s slower because you typically use UART over longer distances (wires) than the other two. <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>More reliable</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><p id="4e3cdc84-6d31-4357-804f-bbd3aa5f382a" class="">SPI/I2C are master-slave type transmission, where master just goes around and sends messages to the slaves telling them to send ‘me’ the “temperature” (for e.g.,). SPI is faster than the other two so preferable when speed is needed. </p><p id="7fdd5803-28d8-4ac8-b56c-2e9522568cba" class="">I2C is preferable when lots of devices need connecting together. Downside is device needs to be able to send an address (e.g., if you have 100 different temperature sensors, they each need to have the ‘intelligence’ to send a unique address, 100 unique addresses. That’s a lot!)</p><h1 id="e97c4df6-bf26-477e-848d-c51e3f1f6652" class="">Question 9</h1><p id="50a0c700-a5a2-4068-800b-c2f2ef14ba56" class="">I/O bound applications use the CPU, do their job quickly and then end up back in the ready queue. This means they don’t need to use a lot of processor time.</p><p id="6acdc237-d6f6-4de8-81cd-837bc85aaca4" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em><em>look at the CPU-starving as well…</em></em></em></em></em></em></em></em></em></em></em></em></em></em></p><h1 id="9d4b634e-694d-457a-90a2-da0e9486cdca" class="">Question 10</h1><p id="0d12cdee-6582-4b7f-bb1f-b20a70f83763" class="">Interrupt and dispatch latency times play a critical role in meeting deadlines in a hard real time system</p><p id="65e9a632-b911-4a70-8932-b28f75f54ee0" class="">Interrupt latency is the time it takes for the system to recognise and respond to an interrupt request from a device or process. Dispatch latency is the time it takes for the system to switch from executing one task to another.</p><p id="9967fcf5-e932-47c9-b676-3be8aca8bbe4" class="">If these latencies are not bounded, it means that there is no guarantee that the system will respond to an interrupt or switch to another task within a specified time frame. This can result in missed deadlines, system failure, or even safety hazards in critical systems like medical devices, aerospace control systems, or nuclear power plants.</p><p id="9cb17ab3-d77b-42a0-8b30-b531bd3ae615" class="">For example, consider a hard real-time system that controls the speed of a train. If the system does not respond to an interrupt from the track signalling system within a specific time frame, it may not be able to apply the brakes in time to prevent a collision. Similarly, if the dispatch latency is too long, the system may not be able to switch to an emergency task, like applying the brakes, quickly enough to prevent an accident.</p><p id="5ccef4de-4ce7-4040-8248-f4e8819a7c9f" class="">In summary, bounded interrupt and dispatch latency times are essential in hard real-time systems to ensure that tasks are completed within their specified deadlines, and to prevent system failures or safety hazards.</p><h1 id="da0282e8-32ad-4956-9b01-0f77f22b0a5f" class="">Question 11</h1><p id="c63f1b4e-92a5-4d3e-8eca-6bb612fda505" class="">
+</p><h1 id="6a83be74-a27b-41cb-9cf5-b9c19b67a5d2" class="">Question 12</h1><p id="19c8e4c7-3963-4644-ace2-613f79d3a294" class="">Disabling interrupts means the system clock is not updated because the clock in most computer systems relies on interrupts to function accurately. When interrupts are disabled, the clock&#x27;s accuracy may be affected because the clock depends on regular signals from the hardware timer, which is itself driven by interrupts</p><p id="66d5118e-1e2e-4941-8aac-b439cd3c8bae" class="">When interrupts are disabled, the hardware timer stops generating interrupts, and the system clock can fall out of sync with the actual time. This can lead to time drift, where the system clock runs faster or slower than real-time</p><p id="af8f2811-7799-4d8d-b393-07880c3e6568" class="">Strategies to use to counteract this:</p><ul id="54782cad-a781-4601-897c-a38147dae94a" class="bulleted-list"><li style="list-style-type:disc">Minimise the time interrupts are disabled: If interrupts must be disabled, it is essential to keep the duration of the interruption as short as possible</li></ul><p id="539d43ec-becd-4caa-82c8-b61070778d07" class="">Ultimately, we want to disable them as briefly as possible, ISRs need to be simple and fast.</p><h1 id="ab08f9de-c45d-4d97-8a3a-19c52974205d" class="">Question 13</h1><p id="b28b5818-2b68-4c3a-ab8f-e380f8c4a6c9" class="">
+</p><p id="9708bddd-2ee7-45f4-a9a4-b9b3abe2a8a8" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

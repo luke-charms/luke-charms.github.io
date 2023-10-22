@@ -1,0 +1,677 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Labelled Transition Systems</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="e8eea9f8-3e09-40d3-97ba-22f8b60e68ef" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/arrivals_pink.svg"/></div><h1 class="page-title">Labelled Transition Systems</h1><p class="page-description"></p></header><div class="page-body"><nav id="d9c4eca6-6a0c-4af6-a5ae-5f7f7d7d025c" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#634bda89-d2b1-470e-ad8d-bdd2f53d52f7">Reasoning about Concurrent Systems</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#fd40a62e-c5e2-4dd8-b64f-cfe8e70e0c61">Non-Determinism Example</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#95c1b137-bd37-4741-af8f-034d6b946586">Reasoning about this?</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#25ff5e22-90ad-4591-8cfb-ed11346a1dd4">Labelled Transition Systems</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#4ce7e161-1f1e-48eb-a46d-5f907fa912b9">Link to Finite State Automata</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#13baa95c-4ec4-4f3c-abc8-cee82eba8417">Non-Determinism</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#481ce595-7df4-407b-be01-981cfb64c4d4">Kinds of Non-Determinism</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#58c2e21b-018d-4cce-81df-69cb70678920"><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Internal -</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong> “the machine chooses”</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#995c6a26-6d81-4baf-8c57-556a63b2d26e"><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>External -</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong> “the environment chooses”</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#4f5a8075-9d2a-4cce-8c0e-e52957f039e7">External Non-Determinism - Vending Machine</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#abe5879f-03aa-4b23-a1f9-37ae124212a2">Process Equivalence</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#37e0ed2d-27b7-4ce5-9b42-7bc74018402d">Attempt 1</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#37fb01c3-e90a-44be-af76-223aaac5bfe7">Traces</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9ffdaeef-e1ab-4d52-b45d-44e735aca4c2">Vending Machine Example AGAIN</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#744d28e5-159e-4a85-90c2-91610b29e365">Conclusion</a></div></nav><h1 id="634bda89-d2b1-470e-ad8d-bdd2f53d52f7" class="">Reasoning about Concurrent Systems</h1><ul id="5fc9f543-be8e-4fd9-9602-471986ea031b" class="bulleted-list"><li style="list-style-type:disc">There are some essential aspects of concurrency that make it different from sequential computation:<ul id="52ddfb17-da20-4bb6-ac94-ea4d254bf414" class="bulleted-list"><li style="list-style-type:circle"><strong>communication </strong>- processes communicate with other processes either through shared memory or with message passing</li></ul><ul id="5fb94378-6b56-454c-9b93-5c9b195581e7" class="bulleted-list"><li style="list-style-type:circle"><strong>synchronisation </strong>- processes must sometimes synchronise their actions to ensure atomicity</li></ul><ul id="fd2fc955-1de0-44a1-a2ca-925267cbb2f7" class="bulleted-list"><li style="list-style-type:circle"><strong>non-determinism </strong>- what <strong>can be observed </strong>about a program changes from one run to the next</li></ul></li></ul><h2 id="fd40a62e-c5e2-4dd8-b64f-cfe8e70e0c61" class="">Non-Determinism Example</h2><p id="ccd44dbc-b33c-41a7-9645-94bf3dbc6fa0" class="">What is printed when we “run” these three pieces of code concurrently?</p><figure id="35568216-7495-4e63-823a-3c38a0736042" class="image"><a href="Labelled%20Transition%20Systems%20e8eea9f83e0940d397ba22f8b60e68ef/Screenshot_2023-05-12_at_09.34.48.png"><img style="width:1786px" src="Labelled%20Transition%20Systems%20e8eea9f83e0940d397ba22f8b60e68ef/Screenshot_2023-05-12_at_09.34.48.png"/></a></figure><h3 id="95c1b137-bd37-4741-af8f-034d6b946586" class="">Reasoning about this?</h3><p id="e345e1d0-1e6b-4b7a-83b9-b675d2b51a5d" class="">We can use a mathematical structure called a Labelled Transition System (LTS) in order to capture what can be observed about programs</p><ul id="f174ff05-830e-40ef-8ee8-ce36e96a2144" class="bulleted-list"><li style="list-style-type:disc">LTS are a mathematical structure for reasoning about nondeterminism</li></ul><ul id="161c7461-ea1a-4345-b0ff-eb1784b4b5f0" class="bulleted-list"><li style="list-style-type:disc">The labels of transitions say “what can be observed”</li></ul><figure id="9cd76f62-574d-49e1-b19b-f517f1ccf80c" class="image"><a href="Labelled%20Transition%20Systems%20e8eea9f83e0940d397ba22f8b60e68ef/Screenshot_2023-05-12_at_09.36.43.png"><img style="width:1368px" src="Labelled%20Transition%20Systems%20e8eea9f83e0940d397ba22f8b60e68ef/Screenshot_2023-05-12_at_09.36.43.png"/></a></figure><h1 id="25ff5e22-90ad-4591-8cfb-ed11346a1dd4" class="">Labelled Transition Systems</h1><p id="8223f8c1-645e-45f4-b407-f17f5822215f" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Definition: </strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>A mathematical structure (X, Σ, L) where</p><ul id="86805003-706c-4f6d-a2a3-640d1739a3ca" class="bulleted-list"><li style="list-style-type:disc"><strong>X</strong> is a set of states</li></ul><ul id="d0d35d79-6874-48d0-8341-1f2a5184319c" class="bulleted-list"><li style="list-style-type:disc"><strong>Σ</strong> is an alphabet of actions</li></ul><ul id="159c33cb-5726-45b9-ab2f-fe1add51395d" class="bulleted-list"><li style="list-style-type:disc"><strong>L</strong> ⊆ X * Σ * X</li></ul><figure id="3d2393c6-c2f0-4266-a461-6e410b0aa17c" class="image"><a href="Labelled%20Transition%20Systems%20e8eea9f83e0940d397ba22f8b60e68ef/Screenshot_2023-05-12_at_09.38.16.png"><img style="width:1546px" src="Labelled%20Transition%20Systems%20e8eea9f83e0940d397ba22f8b60e68ef/Screenshot_2023-05-12_at_09.38.16.png"/></a></figure><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="8d124e3a-fce2-4154-8ee8-c3198cbfa327"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">We write <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mfrac><mi>a</mi><mo lspace="0em" rspace="0em">→</mo></mfrac><mi>y</mi></mrow><annotation encoding="application/x-tex">x \frac {a} \rightarrow y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.040392em;vertical-align:-0.345em;"></span><span class="mord mathnormal">x</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.695392em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mrel mtight">→</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span></span><span>﻿</span></span> to mean (x,a,y) ∈ L</div></figure><h2 id="4ce7e161-1f1e-48eb-a46d-5f907fa912b9" class="">Link to Finite State Automata</h2><p id="f6d0c042-0f20-4688-a2f6-8c9bfcb82974" class=""><strong>Labelled transition systems</strong> are similar to<strong> finite state automata</strong>, which also have states and transitions, but there are important differences</p><ul id="105eef06-34fb-485b-89e5-390ffd2c2538" class="bulleted-list"><li style="list-style-type:disc">The set of states in an LTS can be infinite: we cannot assume that our systems have only a finite number of possible states</li></ul><ul id="dfb18a75-ee33-448b-b767-e3244d186ea0" class="bulleted-list"><li style="list-style-type:disc">LTSs typically do not have initial and final states</li></ul><h1 id="13baa95c-4ec4-4f3c-abc8-cee82eba8417" class="">Non-Determinism</h1><h2 id="481ce595-7df4-407b-be01-981cfb64c4d4" class="">Kinds of Non-Determinism</h2><h3 id="58c2e21b-018d-4cce-81df-69cb70678920" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Internal -</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong> “the machine chooses”</h3><ul id="416ce97a-a599-4f0a-b51b-5906594edb1e" class="bulleted-list"><li style="list-style-type:disc">e.g., the simple code example we have examined</li></ul><ul id="c95e2f74-f7f3-49ee-a395-d1d03d7f7121" class="bulleted-list"><li style="list-style-type:disc">The nondeterminism is resolved by the scheduler</li></ul><h3 id="995c6a26-6d81-4baf-8c57-556a63b2d26e" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>External -</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong> “the environment chooses”</h3><ul id="f41a31b6-6af7-4a09-8487-2bb70e62991f" class="bulleted-list"><li style="list-style-type:disc">e.g., the interactive systems such as vending machines</li></ul><ul id="cf54b549-1670-4ed1-9116-9760b43113ec" class="bulleted-list"><li style="list-style-type:disc">The combination of a vending machine and user can be thought of as a concurrent system</li></ul><h2 id="4f5a8075-9d2a-4cce-8c0e-e52957f039e7" class="">External Non-Determinism - Vending Machine</h2><ul id="7ba29607-86db-4809-86ba-e0c09bcff31b" class="bulleted-list"><li style="list-style-type:disc">The user puts in money - this is the £ action</li></ul><ul id="32cc8027-6622-4805-9e4b-b4183b066525" class="bulleted-list"><li style="list-style-type:disc">The machine now offers a <strong>choice </strong>between tea (t) and coffee (c)</li></ul><figure id="c46954b0-c654-4e95-8c7e-9fd7462c9394" class="image"><a href="Labelled%20Transition%20Systems%20e8eea9f83e0940d397ba22f8b60e68ef/Screenshot_2023-05-12_at_09.44.13.png"><img style="width:1842px" src="Labelled%20Transition%20Systems%20e8eea9f83e0940d397ba22f8b60e68ef/Screenshot_2023-05-12_at_09.44.13.png"/></a></figure><h2 id="abe5879f-03aa-4b23-a1f9-37ae124212a2" class="">Process Equivalence</h2><ul id="1fa72b24-34e9-42bd-9b24-f5c25dc40384" class="bulleted-list"><li style="list-style-type:disc">Non determinism is inherent in <strong>concurrent</strong> and <strong>interactive systems</strong></li></ul><p id="a407d1b8-db4f-48e7-bd08-d43f38c7f934" class=""><em>What does it mean that a system is correct?</em></p><ul id="1f14748f-c91e-42b7-a9a5-58ab25505c2b" class="bulleted-list"><li style="list-style-type:disc">A potential answer: it should behave like (be <strong>equivalent </strong>to) some specification</li></ul><p id="c0583215-5220-4ce8-b35d-c2beaae2fa6c" class="">However, how do we define <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>equivalent </strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>then?</p><h3 id="37e0ed2d-27b7-4ce5-9b42-7bc74018402d" class="">Attempt 1</h3><p id="431ca599-6f4d-4d03-9a2a-e70edc5353ca" class="">Give the specification as a set of <strong><strong><strong><strong><strong><strong>traces</strong></strong></strong></strong></strong></strong></p><ul id="adec4e8d-1a23-446b-8810-f9e6f3c69e0e" class="bulleted-list"><li style="list-style-type:disc">A <strong><strong><strong><strong><strong>trace</strong></strong></strong></strong></strong> is a sequence of observations from some state:</li></ul><ul id="0d11e34b-6419-4a32-93bf-d87fc8d56c99" class="bulleted-list"><li style="list-style-type:disc">Example:<figure id="fe85aaa4-9da2-4870-94e4-3fcdc5363406" class="image"><a href="Labelled%20Transition%20Systems%20e8eea9f83e0940d397ba22f8b60e68ef/Screenshot_2023-05-12_at_09.59.33.png"><img style="width:1548px" src="Labelled%20Transition%20Systems%20e8eea9f83e0940d397ba22f8b60e68ef/Screenshot_2023-05-12_at_09.59.33.png"/></a></figure></li></ul><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="5d1c914c-f967-49ce-80a3-c5061a843f4e"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">To say that two states are <strong><strong><strong>trace equivalent </strong></strong></strong>when they have the same set of all traces possible traces</div></figure><h1 id="37fb01c3-e90a-44be-af76-223aaac5bfe7" class="">Traces</h1><p id="e1ed6765-2721-49c8-b149-6caeaf2e6255" class="">Some systems have an <strong><strong><strong><strong><strong><strong><strong><strong><strong>infinite </strong></strong></strong></strong></strong></strong></strong></strong></strong>set of traces</p><figure id="a98bf76b-c27a-4cc1-a937-243e70736acd" class="image"><a href="Labelled%20Transition%20Systems%20e8eea9f83e0940d397ba22f8b60e68ef/Screenshot_2023-05-12_at_10.00.47.png"><img style="width:336px" src="Labelled%20Transition%20Systems%20e8eea9f83e0940d397ba22f8b60e68ef/Screenshot_2023-05-12_at_10.00.47.png"/></a></figure><p id="72b38d92-8809-4909-bd03-e7dce9c2d499" class="">Traces from <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">x_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> are: <strong>{ε, b, ab, aab, aaab, aaaab, .... }
+</strong></p><p id="defc7b7c-a2b7-4309-a34f-bdffa324c01c" class="">(<em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>The empty set and all words matched by the regular expression a*b)</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></p><h2 id="9ffdaeef-e1ab-4d52-b45d-44e735aca4c2" class="">Vending Machine Example AGAIN</h2><p id="98638f0f-0645-4e05-8b8d-6790167551fa" class="">So therefore, are these two vending machines <strong>equivalent</strong>?</p><figure id="221fe303-b955-4063-af88-4e2e4d9be965" class="image"><a href="Labelled%20Transition%20Systems%20e8eea9f83e0940d397ba22f8b60e68ef/Screenshot_2023-05-12_at_10.02.17.png"><img style="width:1300px" src="Labelled%20Transition%20Systems%20e8eea9f83e0940d397ba22f8b60e68ef/Screenshot_2023-05-12_at_10.02.17.png"/></a></figure><p id="d44730b9-f9c4-4939-b6d9-ff87fb2c0720" class="">No, there is a clear difference in their behaviours</p><ul id="f919754b-1cf5-4664-9e8c-1409d363177a" class="bulleted-list"><li style="list-style-type:disc">On the <em>righthand</em> machine, if you out your money in, the machine chooses <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>internally</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong> whether you get tea or coffee, it’s not up to you (however, <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>externally, </strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>it looks the same to you)</li></ul><h1 id="744d28e5-159e-4a85-90c2-91610b29e365" class="">Conclusion</h1><ul id="3f3ca9c1-5929-4350-b1ea-366d232410be" class="bulleted-list"><li style="list-style-type:disc">In some cases, trace equivalence is too <strong>coarse: </strong>it equates too much<ul id="0c17f531-dafc-41c7-8bb3-6de84c85ffb2" class="bulleted-list"><li style="list-style-type:circle">We want to distinguish the two vending machine examples</li></ul></li></ul><hr id="7a5075c8-bcb5-47db-b1dc-0063065e01f0"/><figure id="e0586f88-e86e-4acd-a50a-b8712b9e3291" class="link-to-page"><a href="Concurrency%20d76553327d854270a9bbd6f104f53879/Exercise%20Sheet%20-%20Semantics%20of%20Concurrency%20e0586f88e86e4acda50ab8712b9e3291.html"><img class="icon" src="https://www.notion.so/icons/report_pink.svg"/>Exercise Sheet - Semantics of Concurrency</a></figure></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

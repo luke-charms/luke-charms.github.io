@@ -1,0 +1,683 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Simulations</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="6deb4392-b811-4a50-85b6-5459e60a0c61" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/playback-play-button_pink.svg"/></div><h1 class="page-title">Simulations</h1><p class="page-description"></p></header><div class="page-body"><nav id="23462637-57ea-410d-9bfc-3f5905c9a46c" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#39bcd07a-4908-427d-8d36-0d3b5c696f5a">Simulation introduction</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#2857894f-222c-4377-a9f5-fafdee710892">Simulations (more formally)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1769d9cf-99bc-44d9-bbd1-d918314da3dc">Example</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#fa7f9a91-d65a-4a2b-9e87-5bf56ccdfff9">Example (more formally)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#e846760b-e201-4ea1-9ea8-5902037b8e8e">Similarity</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5b7bb1fb-7771-499b-96d6-711805976ce8">Coinduction</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#052e570e-6bbb-4058-bc75-0ab5e8d3e762">Using simulations:</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#11325c40-0234-4d3d-aa94-10e96c3b7405">The Simulation Game</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#b6969f0a-7a20-4b0e-830c-a116147d1552">Strategies</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#45dbe88f-1a4a-44ff-85df-39debb95e3ec">Example (continued…)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#9d900af8-9aea-490a-ba39-776804924d35">Simulation Equivalence</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f3138039-9c4b-47ef-a734-9e7b24f7cc84">Simulation and Trace Equivalence</a></div></nav><h1 id="39bcd07a-4908-427d-8d36-0d3b5c696f5a" class="">Simulation introduction</h1><p id="ed2afebb-0aaa-4edb-b8c1-70bd0e500306" class="">Previously, we considered trace equivalence as a possible way of comparing concurrent behaviour</p><ul id="f6b347f6-08d5-42cf-a0e6-b27b2b65ed57" class="bulleted-list"><li style="list-style-type:disc">Branching points in behaviour are not captured by traces</li></ul><p id="f695bc71-e0bb-4be5-9962-a7b5d09fbad8" class="">Can we define a notion of equivalence that accounts for branching points?</p><p id="9d9e0272-3370-4b00-a3d2-94dec369a977" class="">This is the idea behind <strong>simulation :</strong></p><p id="4aec2bbf-2afd-4046-aa69-7b70228fc4f9" class="">A state <em>y</em> in a <strong>labelled transition system</strong> can simulate a state <em>x</em> if</p><ul id="b5d1b3f9-9efe-4b5c-9747-b4c374a1a761" class="bulleted-list"><li style="list-style-type:disc">Whenever x can do some action, becoming x’ in the process, y can reply with the same action, becoming y’ in the process</li></ul><ul id="c97d008b-de54-4289-a4e7-82f57898f8a4" class="bulleted-list"><li style="list-style-type:disc">Moreover, now y’ can still do everything that x’ can do ... and so on</li></ul><p id="f154dc40-da62-461b-83e4-8dcb727274a3" class="">This latter point is how we address the branching - any observations possible of x&#x27; must still be possible in the matching y&#x27; state</p><p id="71d8c5d1-8600-4399-9134-b4e850cc2af2" class="">This is closely related to the notion of <strong>refinement </strong>in formal systems such as Event B</p><h1 id="2857894f-222c-4377-a9f5-fafdee710892" class="">Simulations (more formally)</h1><ul id="e1b34776-ea75-4368-8b60-064e80108d29" class="bulleted-list"><li style="list-style-type:disc"><em><em><em><em><em><em><em><em>Remember: </em></em></em></em></em></em></em></em>A binary relation on a set X is simply a subset R ⊆ X x X</li></ul><ul id="1db16200-931a-444c-a8fd-43e6bee47c70" class="bulleted-list"><li style="list-style-type:disc">Suppose that <strong>L </strong>= (X, Σ, L) is a labelled transition system (LTS)</li></ul><ul id="e018c435-9217-4011-9910-9094ad196584" class="bulleted-list"><li style="list-style-type:disc">A binary <strong>relation </strong>R on states of <strong>L </strong>is called a <strong>simulation </strong>on <strong>L </strong>if R satisfies the following condition:</li></ul><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="e75d14a6-1e5b-4f40-a404-c76ef3c29642"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Whenever {x R y} and <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mfrac><mi>a</mi><mo lspace="0em" rspace="0em">→</mo></mfrac><mi>x</mi><mtext>’</mtext></mrow><annotation encoding="application/x-tex">x \frac a \rightarrow x’</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.040392em;vertical-align:-0.345em;"></span><span class="mord mathnormal">x</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.695392em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mrel mtight">→</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal">x</span><span class="mord">’</span></span></span></span></span><span>﻿</span></span> for some state x&#x27; then there exists a state y’ such that <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mfrac><mi>a</mi><mo lspace="0em" rspace="0em">→</mo></mfrac><mi>y</mi><mtext>’</mtext></mrow><annotation encoding="application/x-tex">y \frac a \rightarrow y’ </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.040392em;vertical-align:-0.345em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.695392em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mrel mtight">→</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mord">’</span></span></span></span></span><span>﻿</span></span> and (x’,y’) ∈ R</div></figure><ul id="37d57886-9e1e-4c17-bdce-bbfe025277c4" class="bulleted-list"><li style="list-style-type:disc">For example, the identity relation <strong>Id</strong> = { (x,x) | x in X } is always a simulation on <strong>L</strong></li></ul><ul id="bf48f1fd-0afe-490a-b6ea-87997f49a637" class="bulleted-list"><li style="list-style-type:disc">We define a simulation between two labelled transition systems simply by considering the above definition on the disjoint union of the two LTSs</li></ul><h2 id="1769d9cf-99bc-44d9-bbd1-d918314da3dc" class="">Example</h2><p id="54dfbba1-0156-4db3-9c5a-005bacb4a958" class="">Let R be the binary relation { (y0, x0), (y1, x1), (y2, x1), (y3, x2), (y4, x3) } defined on (union of) the labelled transition systems below:</p><figure id="badefcb7-1203-4c09-b0b6-2f8462f3f87b" class="image"><a href="Simulations%206deb4392b8114a5085b65459e60a0c61/Screenshot_2023-05-12_at_10.26.01.png"><img style="width:1660px" src="Simulations%206deb4392b8114a5085b65459e60a0c61/Screenshot_2023-05-12_at_10.26.01.png"/></a></figure><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="7a882aed-49ab-445d-ac48-20ccf71cc4fb"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">if<strong><strong><strong><strong><strong><strong><strong><strong><strong> (x,y) </strong></strong></strong></strong></strong></strong></strong></strong></strong>∈ R we say that <strong>y simulates x
+</strong></div></figure><h3 id="fa7f9a91-d65a-4a2b-9e87-5bf56ccdfff9" class="">Example (more formally)</h3><p id="bea21117-8f68-4ee9-b6de-c5058d353f09" class=""><em>Using the same binary relation as above, we can check more formally if this is a simulation:</em></p><ul id="5d358907-24f0-490b-abad-460f7010dda3" class="bulleted-list"><li style="list-style-type:disc">(y0,x0) ∈ R and y0 → y1 is matched by : x0 → x1 with (y1,x1) ∈ R</li></ul><ul id="8a7467c8-9ee3-4589-82e7-e3167c67118b" class="bulleted-list"><li style="list-style-type:disc">(y0,x0) ∈ R and y0 → y2 is matched by : x0 → x1 with (y2,x1) ∈ R</li></ul><ul id="a3ded59a-e500-400c-9c2e-fed37d5ea7e1" class="bulleted-list"><li style="list-style-type:disc">(y1,x1) ∈ R and y1 → y3 is matched by : x1 → x2 with (y3,x2) ∈ R</li></ul><ul id="e60aba21-b197-4197-bff2-93eff0a309d0" class="bulleted-list"><li style="list-style-type:disc">(y2,x1) ∈ R and y2 → y4 is matched by : x1 → x3 with (y4,x3) ∈ R</li></ul><ul id="86a1f45c-f1da-4aff-8d26-b988f8aab691" class="bulleted-list"><li style="list-style-type:disc">(y3,x2) ∈ R and (y4,x3) ∈ R have no outgoing transition</li></ul><h1 id="e846760b-e201-4ea1-9ea8-5902037b8e8e" class="">Similarity</h1><p id="a984930f-4113-4eac-b8f6-eb00447ae5e4" class=""><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong>Theorem: </strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em>The union of two simulation relations R1, R2 on an LTS <strong>L </strong>is a simulation relation on <strong>L</strong></p><p id="e0642103-7ceb-4a56-837f-47b1be476e68" class=""><em><em><em><em><em><em>Proof:</em></em></em></em></em></em> To show this we take any (x,y) ∈ R1 ⋃ R2, then (x,y) is either in R1 or R2</p><p id="24141e06-5f06-4ae3-a70d-64beaf82533a" class="">Suppose, wlog that it is in R1. Then suppose <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mfrac><mi>a</mi><mo lspace="0em" rspace="0em">→</mo></mfrac><mi>x</mi><mtext>’</mtext></mrow><annotation encoding="application/x-tex">x \frac a \rightarrow x’</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.040392em;vertical-align:-0.345em;"></span><span class="mord mathnormal">x</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.695392em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mrel mtight">→</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal">x</span><span class="mord">’</span></span></span></span></span><span>﻿</span></span> for some a and some x&#x27;
+We know that R1 is a simulation so there exists a <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mfrac><mi>a</mi><mo lspace="0em" rspace="0em">→</mo></mfrac><mi>y</mi><mtext>’</mtext></mrow><annotation encoding="application/x-tex">y \frac a \rightarrow y’ </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.040392em;vertical-align:-0.345em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.695392em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mrel mtight">→</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mord">’</span></span></span></span></span><span>﻿</span></span> such that (x&#x27;,y&#x27;) ∈ R1
+Hence (x&#x27;,y&#x27;) ∈ R1 ⋃ R2</p><p id="2d0214df-66b2-451b-b549-a9399a6c02fa" class="">
+</p><p id="237b8714-2f57-4bca-9c64-f602a7291bdb" class=""><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong>Theorem: F</strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em>or any given LTS L there is a largest simulation on L</p><p id="effefe30-ac50-4dc5-add9-1b9c5a8e44b8" class=""><em><em><em><em><em><em>Proof: T</em></em></em></em></em></em>he largest simulation on L is the union of all simulations on L</p><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="20882cf2-3848-44e6-91ba-a2e5af531dcf"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">We write ≤ to denote the largest simulation on an LTS - we call this relation <strong>similarity</strong></div></figure><h1 id="5b7bb1fb-7771-499b-96d6-711805976ce8" class="">Coinduction</h1><p id="7c339740-3928-4d51-9eb3-51761bdb4c2d" class="">Similarity is an instance of something called a <strong>coinductively defined relation </strong>in mathematics</p><ul id="75b296c7-c3af-42ec-aafd-f4863761afdb" class="bulleted-list"><li style="list-style-type:disc">It is the “<strong>largest </strong>relation such that…”</li></ul><p id="44e2b1be-00c5-403b-aee1-6d957ae3d148" class="">This gives us an easy proof technique for showing that something is in the similarity relation:</p><p id="af51fbb7-20bf-4078-acf9-7c609dca91ff" class="">To show that (x,y) ∈ ≤ (written x ≤ y) for some states x,y of an LTS, we simply need to show that (x,y) ∈ R for <strong>some </strong>relation R that is a simulation</p><ul id="b5dbef8c-9b08-4aaa-ba96-5f2807c934e6" class="bulleted-list"><li style="list-style-type:disc">This is because:<ul id="96f9c4cf-2f6e-468c-bd60-1b2ebeb56233" class="bulleted-list"><li style="list-style-type:circle">If (x,y) ∈ R and R is a simulation, then because ≤ is the largest simulation then R ⊆ ≤ and hence x ≤ y also</li></ul></li></ul><p id="ce65093e-255b-4a3a-8fc4-aba8659c24ae" class="">This is known as the coinduction principle and using it gives us a coinductive proof technique</p><h1 id="052e570e-6bbb-4058-bc75-0ab5e8d3e762" class="">Using simulations:</h1><p id="2a5829cf-bb65-470f-8909-a200bc1966ce" class="">So then, using all this information how do we:</p><ul id="1f053d99-9568-4a80-8a93-1ca14e1769c2" class="bulleted-list"><li style="list-style-type:disc"><strong><strong>Q. </strong></strong><em><em><em><em>Show that y simulates x?</em></em></em></em><ul id="bd3afdf5-f64b-47b1-bb54-7623031a6ce3" class="bulleted-list"><li style="list-style-type:circle"><strong><strong><strong>A. </strong></strong></strong>Construct a simulation that contains the pair (x,y)</li></ul></li></ul><p id="11181852-29b3-4fef-a09e-19fb247fcbdc" class="">
+</p><ul id="eaeca544-1d9e-4b6d-a010-982f147086c2" class="bulleted-list"><li style="list-style-type:disc"><strong><strong>Q. </strong></strong><em><em><em><em>Show that y </em></em></em></em><strong><strong><strong><strong><strong><strong><strong><strong><em><em><em><em>does not</em></em></em></em></strong></strong></strong></strong></strong></strong></strong></strong><em><em><em><em> simulate x?</em></em></em></em><ul id="05f058da-9be3-495f-ab4f-41711eb99107" class="bulleted-list"><li style="list-style-type:circle"><strong><strong><strong>A. </strong></strong></strong>Play the <span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid">simulation game</span></span></span></span></span></span></span></span></span></span> of course!</li></ul></li></ul><h2 id="11325c40-0234-4d3d-aa94-10e96c3b7405" class="">The Simulation Game</h2><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="17ccf91e-09aa-4035-aea4-4237595c5226"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><em>Imagine a game in which two players must pick matching moves in an LTS trying force each other to fail to match the next move </em>(this is our proof)</div></figure><p id="297a93ea-c2e1-4596-81d4-59fedc1aa22c" class=""><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Rules of the Game:</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><p id="4bbf0f51-dc38-42f8-b6b6-05a72249afda" class="">Game starts at position (x,y) and you are playing against the <em><em><em><em><em>demon</em></em></em></em></em></p><ol type="1" id="7aa0d1d2-77ef-480a-8886-c03065db84ea" class="numbered-list" start="1"><li>The demon picks a move starting from x, they choose  <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mfrac><mi>a</mi><mo lspace="0em" rspace="0em">→</mo></mfrac><mi>x</mi><mtext>’</mtext></mrow><annotation encoding="application/x-tex">x \frac a \rightarrow x’</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.040392em;vertical-align:-0.345em;"></span><span class="mord mathnormal">x</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.695392em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mrel mtight">→</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal">x</span><span class="mord">’</span></span></span></span></span><span>﻿</span></span></li></ol><ol type="1" id="e02eaf53-9ddc-4e73-aad5-47766a3ad48b" class="numbered-list" start="2"><li>You must start from y and choose a matching move to y’ say <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mfrac><mi>a</mi><mo lspace="0em" rspace="0em">→</mo></mfrac><mi>y</mi><mtext>’</mtext></mrow><annotation encoding="application/x-tex">y \frac a \rightarrow y’ </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.040392em;vertical-align:-0.345em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.695392em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mrel mtight">→</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mord">’</span></span></span></span></span><span>﻿</span></span> </li></ol><ol type="1" id="91f4d619-f180-4c27-907e-3c77f19eae1b" class="numbered-list" start="3"><li>Game goes back to <strong><strong><strong><strong><strong><strong>Step 1</strong></strong></strong></strong></strong></strong>, changing the position of (x’,y’)</li></ol><p id="6f5f2cd5-9569-4509-9b3d-f5f939af65fc" class="">If at any point, a player cannot make a move, that player loses</p><p id="1ac910f2-0a6f-472c-848f-2441a0958a24" class="">If the game goes on <strong><strong><strong><strong><strong><strong><strong><strong><strong>forever, </strong></strong></strong></strong></strong></strong></strong></strong></strong>you win</p><p id="e876c571-3edf-404f-bb9f-22c062e73f59" class=""><em>(The demon always plays moves reachable from x and we always play moves reachable from y)</em></p><h3 id="b6969f0a-7a20-4b0e-830c-a116147d1552" class="">Strategies</h3><p id="6bbb7862-1f41-4bca-ac3e-b51ae20ec517" class="">A strategy for the demon in this game is a mapping from every pair of states (x,y) to a move   <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mfrac><mi>a</mi><mo lspace="0em" rspace="0em">→</mo></mfrac><mi>x</mi><mtext>’</mtext></mrow><annotation encoding="application/x-tex">x \frac a \rightarrow x’</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.040392em;vertical-align:-0.345em;"></span><span class="mord mathnormal">x</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.695392em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mrel mtight">→</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal">x</span><span class="mord">’</span></span></span></span></span><span>﻿</span></span></p><p id="65947857-d1e2-4570-8b90-6cb85fece6a1" class="">Similarly, a strategy for the non-demon player in this game is a mapping from every (x&#x27;,y) and label a to a move  <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mfrac><mi>a</mi><mo lspace="0em" rspace="0em">→</mo></mfrac><mi>y</mi><mtext>’</mtext></mrow><annotation encoding="application/x-tex">y \frac a \rightarrow y’ </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.040392em;vertical-align:-0.345em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.695392em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mrel mtight">→</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mord">’</span></span></span></span></span><span>﻿</span></span> </p><p id="98417013-b443-4828-9e16-e68f7deb2502" class="">A strategy for a player is called a <strong>winning strategy </strong>if no matter which moves the other player makes, as long as they follow the winning strategy they are guaranteed to win</p><ul id="9660bae6-d1a0-4428-876e-4664db0a6300" class="bulleted-list"><li style="list-style-type:disc"><strong>Theorem </strong>: For any two states, x ≤ y <span style="border-bottom:0.05em solid">if and only if</span> the non-demon player has a winning strategy in the simulation game</li></ul><ul id="0f01f40e-ad13-45a1-895a-f4b715ae0b2e" class="bulleted-list"><li style="list-style-type:disc"><strong>Proof </strong>: In essence you use the winning strategy to continue matching moves until all nodes reachable from x,y have been visited</li></ul><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="aabdbf7d-08ff-4c31-b2a3-9e1034e172e1"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%">This gives us a proof technique to show that two states are not in the similarity relation - i.e. demon has a winning strategy from (x,y) means x ≰ y</div></figure><h2 id="45dbe88f-1a4a-44ff-85df-39debb95e3ec" class="">Example (continued…)</h2><p id="3c7f0493-b968-4e2a-93ee-94ed5b6bc49e" class="">A winning strategy for the demon, when starting in position (x0, y0) is as follows:</p><ul id="058f494f-4eef-4404-9341-f311fb5ee683" class="bulleted-list"><li style="list-style-type:disc">From (x0,y0) the demon picks the £ move to x1</li></ul><ul id="e9239ea6-06ff-4732-bc9f-118882139e02" class="bulleted-list"><li style="list-style-type:disc">From (x1,y1) the demon picks the c move to x3</li></ul><ul id="2179a019-25b6-4865-aedf-fa7a5c0b5dcc" class="bulleted-list"><li style="list-style-type:disc">From (x1,y2) the demon picks the t move to y3</li></ul><p id="6c6bc05f-bb37-409b-ae21-07be33179413" class="">No matter what the other player chooses, demon always will win</p><div id="71459064-1534-4b13-9433-ec31cfd0d01e" class="column-list"><div id="c0760cb9-3fee-4b89-a4da-86d66b6be14c" style="width:50%" class="column"><figure id="93ee9a31-50e1-47ea-a891-c262c43fd800" class="image" style="text-align:left"><a href="Simulations%206deb4392b8114a5085b65459e60a0c61/Screenshot_2023-05-12_at_11.11.42.png"><img style="width:384px" src="Simulations%206deb4392b8114a5085b65459e60a0c61/Screenshot_2023-05-12_at_11.11.42.png"/></a></figure></div><div id="2a014e4c-681c-4f4d-a890-f923f3619ed1" style="width:50%" class="column"><p id="b72b5d5f-6f3c-4734-951b-1a1c9c011bb7" class="">
+</p><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="a7067fe9-12e4-490f-b959-c6ae591af687"><div style="font-size:1.5em"><span class="icon">❓</span></div><div style="width:100%">If the demon played in the y states instead, would either player have a winning strategy?</div></figure></div></div><h1 id="9d900af8-9aea-490a-ba39-776804924d35" class="">Simulation Equivalence</h1><ul id="a1a1232b-75ce-4528-8358-ebfe1d4a1a9d" class="bulleted-list"><li style="list-style-type:disc">States x and y are said to be <strong>simulation equivalent </strong>if both x ≤ y and y≤x</li></ul><p id="ecfae4c4-5055-4888-a207-7d8791a95e19" class="">Thus to check that two states are simulation equivalent, we typically need to construct two simulations - one in each direction</p><ul id="b1c38412-f839-4fda-9ec4-a5e6144dc114" class="bulleted-list"><li style="list-style-type:disc">e.g. We know that x0 and y0 below are <strong>not </strong>simulation equivalent, i.e., we have shown:<ul id="8e34cd11-c471-4559-9516-213b51f244f7" class="bulleted-list"><li style="list-style-type:circle">y0 ≤ x0, by constructing a simulation</li></ul><ul id="e7032416-3775-471e-b385-524cc3a527ce" class="bulleted-list"><li style="list-style-type:circle">but <strong>not </strong>x0 ≤ y0, by playing the simulation game</li></ul></li></ul><h1 id="f3138039-9c4b-47ef-a734-9e7b24f7cc84" class="">Simulation and Trace Equivalence</h1><p id="b86e1e08-f40c-4ea3-956b-a1b83f6b38ed" class=""><em><strong>Theorem</strong></em><strong>: </strong>If x and y are simulation equivalent then they are also trace equivalent.</p><p id="544bda22-aba1-464f-9bd5-d7f409512114" class=""><em><em><em><em><em><em><em>Proof: Essentially, a</em></em></em></em></em></em></em>ny trace of actions {a1a2 ... aN} starting from a state x can be matched using the simulation relation to give the same trace of actions from y, and v.v</p><ul id="5a2f0b27-8be2-4ea0-b80e-83a3373b4845" class="bulleted-list"><li style="list-style-type:disc">We have seen that the converse is not true: there are trace equivalent states (x0 and y0) that are not simulation equivalent</li></ul><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="9b11e2d4-5635-4017-bc75-c554c01d59b0"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">We say that simulation equivalence is a <strong>finer </strong>equivalence (it distinguishes more) than trace equivalence. Conversely, trace equivalence is <strong>coarser </strong>than simulation equivalence.</div></figure><hr id="0346a74e-a3f7-4f1b-87ef-8c4fa2e4ccfe"/><figure id="e0586f88-e86e-4acd-a50a-b8712b9e3291" class="link-to-page"><a href="Concurrency%20d76553327d854270a9bbd6f104f53879/Exercise%20Sheet%20-%20Semantics%20of%20Concurrency%20e0586f88e86e4acda50ab8712b9e3291.html"><img class="icon" src="https://www.notion.so/icons/report_pink.svg"/>Exercise Sheet - Semantics of Concurrency</a></figure><p id="60e1e02c-6d06-4303-9f84-45bc47074878" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

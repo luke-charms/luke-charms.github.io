@@ -1,0 +1,705 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Watchdog Timers</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="dddae5a6-f6e4-4526-9a2d-9c1c31f93c37" class="page sans"><header><h1 class="page-title">Watchdog Timers</h1><p class="page-description"></p></header><div class="page-body"><h2 id="2a6d6388-737f-462d-921a-581c8c6b82da" class="">Autonomous Fault Recovery</h2><p id="774964a8-9ed3-4940-b873-97204485cafe" class="">Typical embedded systems need operate continuously, but cannot rely on human supervision:</p><ul id="65f1e310-0a5f-409e-9388-b0237742ee72" class="bulleted-list"><li style="list-style-type:disc">system not easily accessible<ul id="510f3958-51aa-4c0a-b9e3-5f9df0e4a666" class="bulleted-list"><li style="list-style-type:circle">implanted device</li></ul><ul id="b91debb6-8d89-40f5-ac86-6b0fc76dbb6d" class="bulleted-list"><li style="list-style-type:circle">spaceprobe</li></ul></li></ul><ul id="5fc924ef-8c5b-4a22-91d1-a5a21f84beef" class="bulleted-list"><li style="list-style-type:disc">human supervision is too costly</li></ul><ul id="0f3a892e-2997-4647-addc-91ecb3fadbd4" class="bulleted-list"><li style="list-style-type:disc">human supervision is too slow</li></ul><p id="7b12a6d0-7056-4eaf-9dce-cfc69343032b" class=""><code>⇒ use a watchdog to supervise the system</code></p><p id="d6e13efd-54b8-410f-808b-f0099a9b69fe" class="">
+</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="bc8db411-f7e9-4821-b630-d4510ab11471"><div style="font-size:1.5em"><span class="icon">📌</span></div><div style="width:100%"><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong><em><strong>definition:</strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em></strong></em><em><em><em><em><em><em><em><em><em><em><em><em><em><em> “</em></em></em></em></em></em></em></em></em></em></em></em></em></em>Hardware counter with its own Clock ⇒ Timer”
+→ When timer runs out system receives a hardware reset “dog bites”
+→ Software in normal operation restarts the timer before it runs out “kick the dog”</div></figure><p id="61ec3a55-8d0a-4f74-ab71-834207e4f19a" class="">
+</p><h3 id="8f2d3f04-e5d9-452a-b259-7a1bce3406ae" class="">Software Faults</h3><p id="2ea73125-7268-4ec4-9662-ae3e6348c67d" class="">—&gt; Endless loops
+—&gt; Interrupt flood
+—&gt; Deadlocks from multitasking</p><p id="7e9eaca2-0fa1-48cc-87a5-6beaed007ad6" class="">
+</p><h2 id="2078b71e-5c13-40c3-9640-902895e20ce5" class="">RP2040 Internal Watchdog</h2><figure id="6d4ff295-8515-4105-954d-1c366e51f436" class="image"><a href="../Reliability%2051e8d3cf5ef0498f8443a4f275095382/Watchdog%20Timers%201489ddce0fe94ed3b4b33ccb43b1c73d/Screenshot_2023-02-27_at_10.19.28.png"><img style="width:1454px" src="../Reliability%2051e8d3cf5ef0498f8443a4f275095382/Watchdog%20Timers%201489ddce0fe94ed3b4b33ccb43b1c73d/Screenshot_2023-02-27_at_10.19.28.png"/></a></figure><p id="e633a4e5-9777-47e7-9d0c-83a96c1008ad" class="">
+</p><h2 id="273dd09c-b8c6-4ade-bfe2-2129b990a248" class="">Code sample for Watchdog Use</h2><pre id="7236e379-439b-4b64-a97e-3cb5e202a179" class="code"><code>if (watchdog_caused_reboot()) { 
+	printf(&quot;Rebooted by Watchdog!\n&quot;); 
+	return 0;
+
+} else { printf(&quot;Clean boot\n&quot;); } 
+
+watchdog_enable(100, 1); // 100ms, debug
+
+for (uint i = 0; i &lt; 5; i++){
+	printf(&quot;Updating watchdog %d\n&quot;, i); 
+	watchdog_update();
+}
+
+printf(&quot;Waiting to be rebooted by watchdog\n&quot;)
+while(1);</code></pre><p id="70acacb9-cf40-4570-a98f-d54ff18ae221" class="">
+</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="f1324ce7-d75a-43f0-aa7f-f372aeade838"><div style="font-size:1.5em"><span class="icon">📌</span></div><div style="width:100%">- Note, that if the <strong>watchdog</strong> is <strong>enabled</strong> it will run in <strong>all</strong> <strong>sleep</strong> <strong>modes</strong> and always consume power. This may be the <strong>dominant</strong> power consumption in a <strong>deep</strong> <strong>sleep</strong> <strong>mode</strong>.
+- The watchdog’s <strong>oscillator</strong> is much <strong>slower</strong> than the typical <strong>main</strong> <strong>clock</strong> and requires therefore <em><strong>less</strong></em> <em><strong>power</strong></em>—it can be used to wake from sleep instead of a timer running off the main clock.</div></figure><p id="325301fe-6239-44c7-bbc7-d7c3ccc06f1e" class="">
+</p><h2 id="f29b0cc4-8d5e-431b-9114-d0cc7064d5ee" class="">Protection</h2><p id="a67c28e1-38fe-4182-9653-defda1790090" class=""><code>It is important that a run-away program will not accidentally disable the watchdog timer before it times out!</code><div class="indented"><p id="a32571f0-d195-46c6-a185-86774498f01e" class="">—&gt; There are typically processor specific protection methods - <em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>always document the build process!</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></p><p id="d9654197-3424-4607-bca8-a38052caa11b" class="">—&gt; If the watchdog is not always used clearly, its enabling bits at the start of program initialization</p><p id="172f3a2e-bd85-44d4-bcb9-8c37ef0a6c74" class="">—&gt; A good strategy is to count the number of consecutive watchdog resets and reconfigure or disable the watchdog, if the count appears excessive.</p></div></p><h3 id="be0fe9ae-022e-4cdb-a0bf-b53ed85c29a8" class="">Watchdog Timer Selection</h3><p id="4a60d0fa-a993-4452-bb8c-85485f7dfa70" class="">When selecting a watchdog timer for your project, consider the required timeout duration and the oscillator accuracy. If a precise timeout is important, a crystal oscillator may be required. Additionally, it is important to choose a timer with a configurable timeout period to match the needs of your system.</p><h3 id="2137889c-64b9-4996-b5b5-87a5390a7e1f" class="">Software Integration</h3><p id="d9270acf-e66a-4a41-b1f4-87c9936272d9" class="">To ensure proper integration of the watchdog timer into your system, it is important to thoroughly test its functionality and activation prior to production. Additionally, it is recommended to have a plan in place for handling unexpected reboots caused by the watchdog timer, such as logging and reporting the event.</p><figure id="e97db702-2a7f-455d-bba8-21a0c2cd0315" class="image"><a href="../Reliability%2051e8d3cf5ef0498f8443a4f275095382/Watchdog%20Timers%201489ddce0fe94ed3b4b33ccb43b1c73d/Screenshot_2023-02-27_at_10.31.30.png"><img style="width:1694px" src="../Reliability%2051e8d3cf5ef0498f8443a4f275095382/Watchdog%20Timers%201489ddce0fe94ed3b4b33ccb43b1c73d/Screenshot_2023-02-27_at_10.31.30.png"/></a></figure><p id="8383b0d9-c16a-4c31-977e-b5518b4a50ef" class="">
+</p><h2 id="5c003f93-9f5d-443c-b737-3ff495a82940" class="">Software Reset</h2><ul id="0c5c8479-5cbd-4352-a98b-ffd02afb784a" class="bulleted-list"><li style="list-style-type:disc">Clean software reset<ul id="ffe39357-1bbc-4019-99d0-4ad2cafbf39a" class="bulleted-list"><li style="list-style-type:circle">1) Firware update → Bootloader</li></ul><ul id="5d105230-93af-439f-acf8-493ae3aec4a8" class="bulleted-list"><li style="list-style-type:circle">2) Enable Watchdog</li></ul><ul id="68873929-ba67-42e2-8dd0-14dd9e960fa4" class="bulleted-list"><li style="list-style-type:circle">3) Enter endless loop</li></ul></li></ul><p id="0ca5359e-5ee6-49eb-8f20-141752409520" class="">
+</p><h3 id="7f13ffd8-8c17-4a59-80db-1100a7a9ea1a" class="">Watchdogs <em>differ</em> from device to device</h3><ul id="371811a8-7712-446a-8600-15111fc0459a" class="bulleted-list"><li style="list-style-type:disc">Some watchdogs can only be enabled, but not disabled</li></ul><ul id="7aead118-edbd-485d-9244-f091de64fb44" class="bulleted-list"><li style="list-style-type:disc">Some watchdogs allow an extra delay during the first time out period<ul id="c8d17b29-18cd-4535-9790-6aac25629bdc" class="bulleted-list"><li style="list-style-type:circle">Account for initialization period</li></ul></li></ul><ul id="c2f55f2e-7b36-427f-bee6-292dd3d95dc6" class="bulleted-list"><li style="list-style-type:disc">Some watchdogs are disabled after a time-out<ul id="0ef06554-3d13-4da3-ab77-87a5ae87b80b" class="bulleted-list"><li style="list-style-type:circle">need to be enabled during initialization</li></ul></li></ul><p id="acd12e99-bc47-4b81-bb1d-8ff2f29da1d0" class=""><code>Watchdogs have different modes - important to know which mode is active in your system ! (</code><code><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>don’t make assumptions when switching between microcontrollers)</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></code></p><p id="d33af13e-3782-4f56-acb7-501e6f24dde1" class="">
+</p><h3 id="4bcfeb57-0320-42f6-abf4-13e3decba97d" class="">Stuck tasks</h3><p id="102a529f-4589-4c15-beaf-60fdd10e7175" class="">Time-outs should protect any task that waits for external events from locking up indefinitely</p><p id="a4109b50-5772-4f8f-b1ef-eae2425dc49c" class="">Watchdog can be last defense or part of the time-out design<div class="indented"><ul id="0733653f-ff8a-4e8c-93e7-a122ab4c6a8c" class="bulleted-list"><li style="list-style-type:disc">critical system? </li></ul><ul id="49d3d612-9f67-4071-be0f-a5217e94faba" class="bulleted-list"><li style="list-style-type:disc">cost critical?</li></ul></div></p><p id="e7c1e00b-d6d2-46e6-802e-31e99a825b74" class="">
+</p><h2 id="098204fa-042f-43fb-b23b-032686ba56af" class=""><mark class="highlight-brown">Multi-tasking:</mark> <span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid">Monitor Task</span></span></span></span></span></span></span></span></span></span></span></span></h2><ul id="5a1dd69b-979e-4bf6-a306-ca85bf5a64d9" class="bulleted-list"><li style="list-style-type:disc">Monitor task can watch over other tasks<ul id="58ff8d48-1eca-4efb-970d-75a68d7284a1" class="bulleted-list"><li style="list-style-type:circle">This is the only task allowed to restart the watchdog</li></ul></li></ul><ul id="8ff8c630-f819-41f8-af17-db2bf653fe99" class="bulleted-list"><li style="list-style-type:disc">All tasks report their operation by acting on a global set of flags<ul id="9d87f61a-2933-4350-b07d-fa7a84f149f4" class="bulleted-list"><li style="list-style-type:circle">E.g., clearing the flag when task completes</li></ul></li></ul><ul id="295b9177-2f21-4275-9667-3301e21dee3c" class="bulleted-list"><li style="list-style-type:disc">Monitor task only restart the watchdog if all tasks have reported success</li></ul><ul id="d12a63d0-c137-4128-b10c-83cdc2353bca" class="bulleted-list"><li style="list-style-type:disc">Checks whether all other tasks are running, and then if not, restart the watchdog. Unlike the Toyota example, where the watchdog was reset every time</li></ul><h2 id="7c832eb9-d781-4538-8cb9-f675ff522adb" class="">: <span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid"><span style="border-bottom:0.05em solid">Time Scales</span></span></span></span></span></span></span></span></span></span></span></h2><p id="2f350fc0-6702-4512-a5b1-7f5fb285055d" class="">Often Tasks run at very different time scales.</p><p id="007642c2-21ca-40b4-8533-0d0b6c7154c7" class="">- A frequent high priority task may be critical</p><p id="119c9b05-b34b-47d9-a25e-9f2e842c4f41" class="">- A less frequent task will report at a much lower frequency</p><p id="7cf4bab3-2a8d-4efe-95fb-1f569d2fde4c" class=""><strong><em><em><em><em><em><em><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mi>o</mi><mi>w</mi><mo stretchy="false">?</mo></mrow><annotation encoding="application/x-tex">How?</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">Ho</span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mclose">?</span></span></span></span></span><span>﻿</span></span></em></em></em></em></em></em></strong><strong><em><em><em><em><em><em> </em></em></em></em></em></em></strong>Skip the slow task on every cycle and instead run that check at the end of every long cycle</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
