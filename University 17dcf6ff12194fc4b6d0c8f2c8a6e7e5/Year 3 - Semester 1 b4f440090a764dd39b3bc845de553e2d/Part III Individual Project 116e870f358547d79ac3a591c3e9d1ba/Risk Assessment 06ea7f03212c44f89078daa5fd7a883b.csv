@@ -1,5 +1,7 @@
 ﻿Problem,Loss,Probability,Risk,Plan
-,,,,
-,,,,
-,,,,
+Computer may be damaged or lost,4,1,4,"Backup code and writing online by third-party software to ensure there is always a saved copy online. "
+Difficulty with accurate measuring of collision/resistibility,3,3,9,Seek advice from project supervisor and other experts in the school. add more
+Prototypes not developed/tested in time,3,3,9,"Refine scope and time-plan to be lenient in allowing for late submission checkpoints. If need be, have a ‘simpler’, more easily-testable scope ready in case time-plan goes very wrong."
+Scope creep - uncontrolled change to the initial project scope,2,3,6,Make sure that any added functions to the project do not pose great challenges to development and keep scope changes to a minimum
+Parts do not arrive in time,3,2,6,"Investigate the robot you are planning to use, taking note of any features that can ‘replace’ more sophisticated parts that may not arrive in time"
 ,,,,
